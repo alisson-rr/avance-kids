@@ -10,6 +10,9 @@ import { Onboarding1Screen } from './src/screens/Onboarding1Screen';
 import { PerguntasScreen } from './src/screens/PerguntasScreen';
 import { Onboarding2Screen } from './src/screens/Onboarding2Screen';
 import { TriagemScreen } from './src/screens/TriagemScreen';
+import { HabilidadeScreen } from './src/screens/HabilidadeScreen';
+import { Onboarding3Screen } from './src/screens/Onboarding3Screen';
+import { HomeScreen } from './src/screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +31,9 @@ export default function App() {
           <Stack.Screen name="Perguntas" component={PerguntasScreen} />
           <Stack.Screen name="Onboarding2" component={Onboarding2Screen} />
           <Stack.Screen name="Triagem" component={TriagemScreen} />
+          <Stack.Screen name="Habilidade" component={HabilidadeScreen} />
+          <Stack.Screen name="Onboarding3" component={Onboarding3Screen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

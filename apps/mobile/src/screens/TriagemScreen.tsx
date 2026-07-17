@@ -74,11 +74,10 @@ export function TriagemScreen({ navigation }: any) {
           </TouchableOpacity>
         </View>
 
-        {/* Title + description */}
         <View style={styles.titleBlock}>
-          <Text style={styles.pageTitle}>Comunicação</Text>
+          <Text style={styles.pageTitle}>Habilidades</Text>
           <Text style={styles.pageDescription}>
-            Avalie cada habilidade da criança para criarmos um plano personalizado de atividades.
+            Responda para receber o plano personalizado para o desenvolvimento de [nome da criança].
           </Text>
         </View>
       </View>
@@ -96,6 +95,7 @@ export function TriagemScreen({ navigation }: any) {
               key={hab.id}
               style={styles.card}
               activeOpacity={0.7}
+              onPress={() => navigation.navigate('Habilidade', { habilidadeId: hab.id })}
             >
               {/* Colored circle */}
               <View style={[styles.circle, { backgroundColor: hab.circleColor }]} />
@@ -124,10 +124,9 @@ export function TriagemScreen({ navigation }: any) {
           ))}
         </View>
 
-        {/* Primary button */}
         <View style={styles.bottomActions}>
-          <Button title="Acessar" onPress={() => {}} />
-          <TouchableOpacity style={styles.ghostBtn}>
+          <Button title="Concluir" onPress={() => navigation.navigate('Onboarding3')} />
+          <TouchableOpacity style={styles.ghostBtn} onPress={() => navigation.navigate('Onboarding3')}>
             <Text style={styles.ghostBtnText}>Responder depois</Text>
           </TouchableOpacity>
         </View>
