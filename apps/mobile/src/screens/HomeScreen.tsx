@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, Animated, ScrollView } from 'react-native';
+import { BottomTabBar } from '../components/BottomTabBar';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 
@@ -194,23 +195,8 @@ export function HomeScreen({ navigation }: any) {
         </View>
       </Animated.ScrollView>
 
-      {/* Mock Bottom Tab Bar */}
-      <View style={styles.bottomTabBar}>
-        <View style={styles.bottomTabBarContent}>
-          <TouchableOpacity style={styles.tabItem}>
-            <Ionicons name="home" size={24} color={theme.colors.primary} />
-            <Text style={[styles.tabLabel, { color: theme.colors.primary }]}>Início</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('ActivityPlan')}>
-            <Ionicons name="list" size={24} color="#C9C9C9" />
-            <Text style={styles.tabLabel}>Atividades</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem}>
-            <Ionicons name="person" size={24} color="#C9C9C9" />
-            <Text style={styles.tabLabel}>Meu perfil</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      {/* Bottom Tab Bar */}
+      <BottomTabBar activeScreen="Home" />
     </View>
   );
 }

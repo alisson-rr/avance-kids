@@ -14,6 +14,8 @@ import { HabilidadeScreen } from './src/screens/HabilidadeScreen';
 import { Onboarding3Screen } from './src/screens/Onboarding3Screen';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { ActivityPlanScreen } from './src/screens/ActivityPlanScreen';
+import { ActivityScreen } from './src/screens/ActivityScreen';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -35,6 +37,7 @@ export default function App() {
           <Stack.Screen name="Onboarding3" component={Onboarding3Screen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="ActivityPlan" component={ActivityPlanScreen} />
+          <Stack.Screen name="Activity" component={ActivityScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
