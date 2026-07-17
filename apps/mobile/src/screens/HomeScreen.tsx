@@ -140,7 +140,7 @@ export function HomeScreen({ navigation }: any) {
                 </View>
               </View>
               
-              <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8}>
+              <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8} onPress={() => navigation.navigate('ActivityPlan')}>
                 <Text style={styles.primaryButtonText}>Acessar</Text>
               </TouchableOpacity>
             </View>
@@ -201,7 +201,7 @@ export function HomeScreen({ navigation }: any) {
             <Ionicons name="home" size={24} color={theme.colors.primary} />
             <Text style={[styles.tabLabel, { color: theme.colors.primary }]}>Início</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('ActivityPlan')}>
             <Ionicons name="list" size={24} color="#C9C9C9" />
             <Text style={styles.tabLabel}>Atividades</Text>
           </TouchableOpacity>

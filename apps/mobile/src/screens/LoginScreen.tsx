@@ -75,7 +75,7 @@ export function LoginScreen({ navigation }: any) {
               </View>
 
               <View style={styles.actionGroup}>
-                <Button title="Acessar" onPress={() => console.log('Login')} />
+                <Button title="Acessar" onPress={() => navigation.navigate('Home')} />
                 
                 <View style={styles.dividerContainer}>
                   <View style={styles.dividerLine} />
