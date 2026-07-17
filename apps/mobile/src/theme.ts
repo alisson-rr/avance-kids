@@ -18,5 +18,10 @@ export const theme = {
     regular: 'Inter_400Regular',
     medium: 'Inter_500Medium',
     semiBold: 'Inter_600SemiBold',
+    // Mulish — used in onboarding & triagem screens (Figma spec)
+    mulishRegular: 'Mulish_400Regular',
+    mulishSemiBold: 'Mulish_600SemiBold',
+    mulishBold: 'Mulish_700Bold',
+    mulishExtraBold: 'Mulish_800ExtraBold',
   }
 };
