@@ -1,0 +1,16 @@
+.select {
+  padding: 12px 16px;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  background-color: var(--color-surface);
+  color: var(--color-text-dark);
+  width: 100%;
+}
+
+.select:focus {
+  border-color: var(--color-primary);
+}

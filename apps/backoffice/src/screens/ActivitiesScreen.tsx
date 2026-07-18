@@ -1,211 +1,472 @@
-import { useState } from 'react';
-import { Plus, Edit2, Trash2, Search, Filter, ArrowLeft, Save } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Plus, Edit2, Archive, ArchiveRestore, ArrowLeft, Save } from 'lucide-react';
+import { Badge, DataTable, FormField, Select, Tabs, ConfirmDialog } from '../components/ui';
+import type { DataTableColumn } from '../components/ui';
+import {
+  SKILLS,
+  AGE_BRACKETS,
+  EXERCISE_LEVELS,
+  ACCESS_PLANS,
+  getSkill,
+  getAgeBracket,
+  buildProgramaLabel,
+  type Atividade,
+  type HabilidadeKey,
+  type AgeBracketCode,
+  type ExerciseLevel,
+  type AccessPlan,
+  type AtividadeStatus,
+} from '../constants/aba';
 import styles from './ActivitiesScreen.module.css';
 
-// Mock Data
-const mockData = [
-  { id: 1, code: 'F03AC004', skill: 'Nomeia objetos', program: 'Comunicação Básica', isPremium: false },
-  { id: 2, code: 'F01AM001', skill: 'Pular', program: 'Coordenação Motora', isPremium: true },
+const MOCK_ATIVIDADES: Atividade[] = [
+  {
+    id: 1,
+    codigo: 'F03AC004',
+    skillKey: 'comunicacao',
+    ageBracketCode: 'F03A',
+    nivel: 'aquisicao',
+    plano: 'free',
+    status: 'ativo',
+    objetivo: 'Nomear objetos do cotidiano de forma espontânea.',
+    procedimento: '',
+    materiais: 'Cartões de objetos do cotidiano.',
+    recursosExtras: '',
+    frequencia: '3x na semana',
+    brincadeiras: '',
+    hierarquiaDicas: '',
+    respostaEsperada: '',
+    procedimentoCorrecao: '',
+    criterioAvanco: '',
+    registroDados: '',
+    reforcos: '',
+  },
+  {
+    id: 2,
+    codigo: 'F01AM001',
+    skillKey: 'motora',
+    ageBracketCode: 'F01A',
+    nivel: 'generalizacao',
+    plano: 'premium',
+    status: 'ativo',
+    objetivo: 'Pular com os dois pés juntos.',
+    procedimento: '',
+    materiais: '',
+    recursosExtras: '',
+    frequencia: '',
+    brincadeiras: '',
+    hierarquiaDicas: '',
+    respostaEsperada: '',
+    procedimentoCorrecao: '',
+    criterioAvanco: '',
+    registroDados: '',
+    reforcos: '',
+  },
+  {
+    id: 3,
+    codigo: '',
+    skillKey: 'social',
+    ageBracketCode: 'F02A',
+    nivel: 'manutencao',
+    plano: 'free',
+    status: 'arquivado',
+    objetivo: 'Brincar em grupo respeitando a vez (descontinuada).',
+    procedimento: '',
+    materiais: '',
+    recursosExtras: '',
+    frequencia: '',
+    brincadeiras: '',
+    hierarquiaDicas: '',
+    respostaEsperada: '',
+    procedimentoCorrecao: '',
+    criterioAvanco: '',
+    registroDados: '',
+    reforcos: '',
+  },
+];
+
+function emptyAtividade(): Atividade {
+  return {
+    id: 0,
+    codigo: '',
+    skillKey: SKILLS[0].key,
+    ageBracketCode: AGE_BRACKETS[0].code,
+    nivel: 'aquisicao',
+    plano: 'free',
+    status: 'ativo',
+    objetivo: '',
+    procedimento: '',
+    materiais: '',
+    recursosExtras: '',
+    frequencia: '',
+    brincadeiras: '',
+    hierarquiaDicas: '',
+    respostaEsperada: '',
+    procedimentoCorrecao: '',
+    criterioAvanco: '',
+    registroDados: '',
+    reforcos: '',
+  };
+}
+
+const FORM_TABS = [
+  { id: 'basic', label: '1. Informações Básicas' },
+  { id: 'execution', label: '2. Execução & Materiais' },
+  { id: 'evaluation', label: '3. Critérios & Avaliação' },
 ];
 
 export function ActivitiesScreen() {
+  const [activities, setActivities] = useState<Atividade[]>(MOCK_ATIVIDADES);
   const [view, setView] = useState<'list' | 'form'>('list');
-  const [activeTab, setActiveTab] = useState<'basic' | 'execution' | 'evaluation'>('basic');
+  const [activeTab, setActiveTab] = useState<string>('basic');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showArchived, setShowArchived] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [formState, setFormState] = useState<Atividade>(emptyAtividade());
+  const [archiveTarget, setArchiveTarget] = useState<Atividade | null>(null);
+
+  const filteredRows = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+    return activities.filter((row) => {
+      if (!showArchived && row.status === 'arquivado') return false;
+      if (!term) return true;
+      const skillLabel = getSkill(row.skillKey).label.toLowerCase();
+      return row.codigo.toLowerCase().includes(term) || skillLabel.includes(term) || row.objetivo.toLowerCase().includes(term);
+    });
+  }, [activities, searchTerm, showArchived]);
+
+  function updateField<K extends keyof Atividade>(key: K, value: Atividade[K]) {
+    setFormState((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function openNew() {
+    setFormState(emptyAtividade());
+    setEditingId(null);
+    setActiveTab('basic');
+    setView('form');
+  }
+
+  function openEdit(row: Atividade) {
+    setFormState({ ...row });
+    setEditingId(row.id);
+    setActiveTab('basic');
+    setView('form');
+  }
+
+  function handleSave() {
+    if (editingId !== null) {
+      setActivities((prev) => prev.map((a) => (a.id === editingId ? { ...formState, id: editingId } : a)));
+    } else {
+      const nextId = Math.max(0, ...activities.map((a) => a.id)) + 1;
+      setActivities((prev) => [...prev, { ...formState, id: nextId }]);
+    }
+    setView('list');
+  }
+
+  function confirmArchive() {
+    if (!archiveTarget) return;
+    const nextStatus: AtividadeStatus = archiveTarget.status === 'ativo' ? 'arquivado' : 'ativo';
+    setActivities((prev) => prev.map((a) => (a.id === archiveTarget.id ? { ...a, status: nextStatus } : a)));
+    setArchiveTarget(null);
+  }
+
+  const columns: DataTableColumn<Atividade>[] = [
+    { key: 'codigo', header: 'Código', render: (row) => row.codigo || '—' },
+    {
+      key: 'skill',
+      header: 'Habilidade',
+      render: (row) => <Badge color={getSkill(row.skillKey).corHex}>{getSkill(row.skillKey).label}</Badge>,
+    },
+    { key: 'faixa', header: 'Faixa Etária', render: (row) => getAgeBracket(row.ageBracketCode).label },
+    {
+      key: 'nivel',
+      header: 'Nível',
+      render: (row) => EXERCISE_LEVELS.find((l) => l.value === row.nivel)?.label ?? row.nivel,
+    },
+    {
+      key: 'plano',
+      header: 'Plano',
+      render: (row) => (
+        <Badge variant={row.plano === 'premium' ? 'danger' : 'neutral'}>
+          {row.plano === 'premium' ? 'Premium' : 'Gratuito'}
+        </Badge>
+      ),
+    },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (row) => (
+        <Badge variant={row.status === 'ativo' ? 'success' : 'neutral'}>
+          {row.status === 'ativo' ? 'Ativo' : 'Arquivado'}
+        </Badge>
+      ),
+    },
+    {
+      key: 'actions',
+      header: 'Ações',
+      width: '100px',
+      render: (row) => (
+        <div className={styles.actions}>
+          <button className={styles.iconBtn} onClick={() => openEdit(row)} title="Editar" type="button">
+            <Edit2 size={18} />
+          </button>
+          <button
+            className={styles.iconBtnDanger}
+            onClick={() => setArchiveTarget(row)}
+            title={row.status === 'ativo' ? 'Arquivar' : 'Reativar'}
+            type="button"
+          >
+            {row.status === 'ativo' ? <Archive size={18} /> : <ArchiveRestore size={18} />}
+          </button>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className={styles.container}>
       {view === 'list' ? (
         <>
-          {/* HEADER LIST */}
           <div className={styles.header}>
             <h1 className={styles.title}>Cadastro de Atividades</h1>
-            <button className={styles.primaryButton} onClick={() => setView('form')}>
+            <button className={styles.primaryButton} onClick={openNew} type="button">
               <Plus size={20} />
               <span>Nova Atividade</span>
             </button>
           </div>
 
-          <div className={styles.tableCard}>
-            <div className={styles.toolbar}>
-              <div className={styles.searchBox}>
-                <Search size={18} color="var(--color-text-light)" />
-                <input type="text" placeholder="Buscar por código ou nome..." />
-              </div>
-              <button className={styles.filterBtn}>
-                <Filter size={18} />
-                <span>Filtros</span>
-              </button>
-            </div>
-
-            <div className={styles.tableWrapper}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Código</th>
-                    <th>Habilidade</th>
-                    <th>Programa ABA</th>
-                    <th>Plano</th>
-                    <th style={{ width: '100px' }}>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mockData.map((row) => (
-                    <tr key={row.id}>
-                      <td className={styles.primaryCell}>{row.code}</td>
-                      <td>{row.skill}</td>
-                      <td>{row.program}</td>
-                      <td>
-                        <span className={row.isPremium ? styles.badgePremium : styles.badgeFree}>
-                          {row.isPremium ? 'Premium' : 'Gratuito'}
-                        </span>
-                      </td>
-                      <td>
-                        <div className={styles.actions}>
-                          <button className={styles.iconBtn} onClick={() => setView('form')}><Edit2 size={18} /></button>
-                          <button className={styles.iconBtnDanger}><Trash2 size={18} /></button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <DataTable
+            columns={columns}
+            rows={filteredRows}
+            getRowId={(row) => row.id}
+            searchValue={searchTerm}
+            onSearchChange={setSearchTerm}
+            searchPlaceholder="Buscar por código, habilidade ou objetivo..."
+            emptyMessage="Nenhuma atividade encontrada."
+            toolbarExtra={
+              <label className={styles.showArchivedToggle}>
+                <input
+                  type="checkbox"
+                  checked={showArchived}
+                  onChange={(e) => setShowArchived(e.target.checked)}
+                />
+                <span>Mostrar arquivadas</span>
+              </label>
+            }
+          />
         </>
       ) : (
         <>
-          {/* HEADER FORM */}
           <div className={styles.header}>
             <div className={styles.backWrapper}>
-              <button className={styles.iconBtn} onClick={() => setView('list')}>
+              <button className={styles.iconBtn} onClick={() => setView('list')} type="button">
                 <ArrowLeft size={24} />
               </button>
-              <h1 className={styles.title}>Nova Atividade (Programa ABA)</h1>
+              <h1 className={styles.title}>{editingId !== null ? 'Editar Atividade' : 'Nova Atividade'} (Programa ABA)</h1>
             </div>
-            <button className={styles.primaryButton} onClick={() => setView('list')}>
+            <button className={styles.primaryButton} onClick={handleSave} type="button">
               <Save size={20} />
               <span>Salvar Atividade</span>
             </button>
           </div>
 
           <div className={styles.formCard}>
-            {/* TABS */}
-            <div className={styles.tabs}>
-              <button 
-                className={`${styles.tab} ${activeTab === 'basic' ? styles.tabActive : ''}`}
-                onClick={() => setActiveTab('basic')}
-              >
-                1. Informações Básicas
-              </button>
-              <button 
-                className={`${styles.tab} ${activeTab === 'execution' ? styles.tabActive : ''}`}
-                onClick={() => setActiveTab('execution')}
-              >
-                2. Execução & Materiais
-              </button>
-              <button 
-                className={`${styles.tab} ${activeTab === 'evaluation' ? styles.tabActive : ''}`}
-                onClick={() => setActiveTab('evaluation')}
-              >
-                3. Critérios & Avaliação
-              </button>
-            </div>
+            <Tabs tabs={FORM_TABS} activeId={activeTab} onChange={setActiveTab} />
 
-            {/* FORM FIELDS */}
             <div className={styles.formContent}>
               {activeTab === 'basic' && (
                 <div className={styles.gridContainer}>
-                  <div className={styles.inputGroup}>
-                    <label>Código da Atividade *</label>
-                    <input type="text" placeholder="Ex: F03AC004" />
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Habilidade *</label>
-                    <input type="text" placeholder="Ex: Nomeia objetos do cotidiano" />
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Programa ABA *</label>
-                    <input type="text" placeholder="Nome do programa..." />
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Função</label>
-                    <input type="text" placeholder="Ex: Comunicação" />
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Nível</label>
-                    <input type="text" placeholder="Nível de dificuldade" />
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Plano de Acesso</label>
-                    <select>
-                      <option>Gratuito (Free)</option>
-                      <option>Premium (Pago)</option>
-                    </select>
-                  </div>
-                  <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
-                    <label>Objetivo *</label>
-                    <textarea rows={3} placeholder="Descreva o objetivo da atividade..."></textarea>
-                  </div>
+                  <FormField label="Código da Atividade" hint="Referência do padrão FXAYZZZ — apenas um guia visual, não é gerado automaticamente.">
+                    <input
+                      type="text"
+                      placeholder="Ex: F03AC004"
+                      value={formState.codigo}
+                      onChange={(e) => updateField('codigo', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Habilidade" required>
+                    <Select
+                      value={formState.skillKey}
+                      onChange={(v) => updateField('skillKey', v as HabilidadeKey)}
+                      options={SKILLS.map((s) => ({ value: s.key, label: s.label }))}
+                    />
+                  </FormField>
+
+                  <FormField label="Faixa Etária" required>
+                    <Select
+                      value={formState.ageBracketCode}
+                      onChange={(v) => updateField('ageBracketCode', v as AgeBracketCode)}
+                      options={AGE_BRACKETS.map((a) => ({ value: a.code, label: `${a.code} · ${a.label}` }))}
+                    />
+                  </FormField>
+
+                  <FormField label="Programa ABA" hint="Gerado automaticamente a partir da Habilidade e Faixa Etária.">
+                    <input type="text" value={buildProgramaLabel(formState.skillKey, formState.ageBracketCode)} readOnly />
+                  </FormField>
+
+                  <FormField label="Nível" required>
+                    <Select
+                      value={formState.nivel}
+                      onChange={(v) => updateField('nivel', v as ExerciseLevel)}
+                      options={EXERCISE_LEVELS}
+                    />
+                  </FormField>
+
+                  <FormField label="Plano de Acesso">
+                    <Select
+                      value={formState.plano}
+                      onChange={(v) => updateField('plano', v as AccessPlan)}
+                      options={ACCESS_PLANS}
+                    />
+                  </FormField>
+
+                  <FormField label="Status">
+                    <Select
+                      value={formState.status}
+                      onChange={(v) => updateField('status', v as AtividadeStatus)}
+                      options={[
+                        { value: 'ativo', label: 'Ativo' },
+                        { value: 'arquivado', label: 'Arquivado' },
+                      ]}
+                    />
+                  </FormField>
+
+                  <FormField label="Objetivo" required fullWidth>
+                    <textarea
+                      rows={3}
+                      placeholder="Descreva o objetivo da atividade..."
+                      value={formState.objetivo}
+                      onChange={(e) => updateField('objetivo', e.target.value)}
+                    />
+                  </FormField>
                 </div>
               )}
 
               {activeTab === 'execution' && (
                 <div className={styles.gridContainer}>
-                  <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
-                    <label>Procedimento (Passo a Passo) *</label>
-                    <textarea rows={5} placeholder="Descreva o passo a passo da execução..."></textarea>
-                  </div>
-                  <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
-                    <label>Materiais Necessários</label>
-                    <textarea rows={2} placeholder="Ex: Blocos lógicos, cartões..."></textarea>
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Recursos Extras</label>
-                    <input type="text" placeholder="Recursos visuais ou links" />
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Frequência Recomendada</label>
-                    <input type="text" placeholder="Ex: 3x na semana" />
-                  </div>
-                  <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
-                    <label>Exemplos de Brincadeiras</label>
-                    <textarea rows={3} placeholder="Ideias de como aplicar na prática..."></textarea>
-                  </div>
+                  <FormField label="Procedimento (Passo a Passo)" required fullWidth>
+                    <textarea
+                      rows={5}
+                      placeholder="Descreva o passo a passo da execução..."
+                      value={formState.procedimento}
+                      onChange={(e) => updateField('procedimento', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Materiais Necessários" fullWidth>
+                    <textarea
+                      rows={2}
+                      placeholder="Ex: Blocos lógicos, cartões..."
+                      value={formState.materiais}
+                      onChange={(e) => updateField('materiais', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Recursos Extras">
+                    <input
+                      type="text"
+                      placeholder="Recursos visuais ou links"
+                      value={formState.recursosExtras}
+                      onChange={(e) => updateField('recursosExtras', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Frequência Recomendada">
+                    <input
+                      type="text"
+                      placeholder="Ex: 3x na semana"
+                      value={formState.frequencia}
+                      onChange={(e) => updateField('frequencia', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Exemplos de Brincadeiras" fullWidth>
+                    <textarea
+                      rows={3}
+                      placeholder="Ideias de como aplicar na prática..."
+                      value={formState.brincadeiras}
+                      onChange={(e) => updateField('brincadeiras', e.target.value)}
+                    />
+                  </FormField>
                 </div>
               )}
 
               {activeTab === 'evaluation' && (
                 <div className={styles.gridContainer}>
-                  <div className={styles.inputGroup}>
-                    <label>Hierarquia de Dicas</label>
-                    <textarea rows={3} placeholder="Dica física total -> Dica leve..."></textarea>
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Resposta Esperada</label>
-                    <textarea rows={3} placeholder="O que a criança deve fazer..."></textarea>
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Procedimento de Correção</label>
-                    <textarea rows={3} placeholder="Como corrigir se errar..."></textarea>
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Critério de Avanço</label>
-                    <textarea rows={3} placeholder="Ex: 3 acertos seguidos..."></textarea>
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Registro de Dados (Detalhado)</label>
-                    <textarea rows={3} placeholder="Como registrar os acertos..."></textarea>
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Exemplos de Reforços</label>
-                    <textarea rows={3} placeholder="O que usar como prêmio..."></textarea>
-                  </div>
+                  <FormField label="Hierarquia de Dicas">
+                    <textarea
+                      rows={3}
+                      placeholder="Dica física total -> Dica leve..."
+                      value={formState.hierarquiaDicas}
+                      onChange={(e) => updateField('hierarquiaDicas', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Resposta Esperada">
+                    <textarea
+                      rows={3}
+                      placeholder="O que a criança deve fazer..."
+                      value={formState.respostaEsperada}
+                      onChange={(e) => updateField('respostaEsperada', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Procedimento de Correção">
+                    <textarea
+                      rows={3}
+                      placeholder="Como corrigir se errar..."
+                      value={formState.procedimentoCorrecao}
+                      onChange={(e) => updateField('procedimentoCorrecao', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Critério de Avanço">
+                    <textarea
+                      rows={3}
+                      placeholder="Ex: 3 acertos seguidos..."
+                      value={formState.criterioAvanco}
+                      onChange={(e) => updateField('criterioAvanco', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Registro de Dados (Detalhado)">
+                    <textarea
+                      rows={3}
+                      placeholder="Como registrar os acertos..."
+                      value={formState.registroDados}
+                      onChange={(e) => updateField('registroDados', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Exemplos de Reforços">
+                    <textarea
+                      rows={3}
+                      placeholder="O que usar como prêmio..."
+                      value={formState.reforcos}
+                      onChange={(e) => updateField('reforcos', e.target.value)}
+                    />
+                  </FormField>
                 </div>
               )}
             </div>
           </div>
         </>
       )}
+
+      <ConfirmDialog
+        open={archiveTarget !== null}
+        title={archiveTarget?.status === 'ativo' ? 'Arquivar atividade?' : 'Reativar atividade?'}
+        message={
+          archiveTarget?.status === 'ativo'
+            ? 'A atividade deixa de aparecer para os usuários, mas continua no histórico. Você pode reativá-la depois.'
+            : 'A atividade volta a ficar disponível para os usuários.'
+        }
+        confirmLabel={archiveTarget?.status === 'ativo' ? 'Arquivar' : 'Reativar'}
+        danger={archiveTarget?.status === 'ativo'}
+        onConfirm={confirmArchive}
+        onCancel={() => setArchiveTarget(null)}
+      />
     </div>
   );
 }

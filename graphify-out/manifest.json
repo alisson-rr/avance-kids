@@ -5,8 +5,8 @@
     "semantic_hash": "b486c63b689affe59fdd7b64fbc701a8"
   },
   ".claude/settings.local.json": {
-    "mtime": 1784386515.350711,
-    "ast_hash": "c02bbc3d3c6b9c022607396a83e6064e",
+    "mtime": 1784387745.4016109,
+    "ast_hash": "388dc2d723e1fe7bfa5a375affe8ad5f",
     "semantic_hash": ""
   },
   "apps/backoffice/.oxlintrc.json": {
@@ -35,14 +35,14 @@
     "semantic_hash": "787e5a07efeb2bf6209d5937195f2f68"
   },
   "apps/backoffice/src/screens/ActivitiesScreen.tsx": {
-    "mtime": 1784384461.9831817,
-    "ast_hash": "9c367c788adc05d06a70af657384a8e7",
-    "semantic_hash": "9c367c788adc05d06a70af657384a8e7"
+    "mtime": 1784387444.226414,
+    "ast_hash": "fd74c25b3875ed1293c1ef9e2a933687",
+    "semantic_hash": ""
   },
   "apps/backoffice/src/screens/CrudScreen.tsx": {
-    "mtime": 1784383442.005239,
-    "ast_hash": "eb464e717d82f0a21ad76352e4d04a13",
-    "semantic_hash": "eb464e717d82f0a21ad76352e4d04a13"
+    "mtime": 1784387477.0813756,
+    "ast_hash": "e61469d045226d36cf7ee19e5cfa4275",
+    "semantic_hash": ""
   },
   "apps/backoffice/src/screens/DashboardScreen.tsx": {
     "mtime": 1784383443.3842244,
@@ -618,5 +618,50 @@
     "mtime": 1784291901.8178537,
     "ast_hash": "97dae5a0e62ad8551d8a31897b425e63",
     "semantic_hash": "97dae5a0e62ad8551d8a31897b425e63"
+  },
+  ".claude/launch.json": {
+    "mtime": 1784387536.8180454,
+    "ast_hash": "ab870073a1b97ceff4df71bbfaeef8c1",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/components/ui/Badge/Badge.tsx": {
+    "mtime": 1784387311.102434,
+    "ast_hash": "5aa978a240237caa1745367a147ee9c9",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/components/ui/ConfirmDialog/ConfirmDialog.tsx": {
+    "mtime": 1784387344.1042256,
+    "ast_hash": "7fa1dd44f44c530696108cb8d4f872bc",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/components/ui/DataTable/DataTable.tsx": {
+    "mtime": 1784387365.1135812,
+    "ast_hash": "c33e45b21858f849be36f63594db75d4",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/components/ui/FormField/FormField.tsx": {
+    "mtime": 1784387327.0397758,
+    "ast_hash": "0d36bc23bde9804f8686cce00d07ae96",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/components/ui/Select/Select.tsx": {
+    "mtime": 1784387318.7019498,
+    "ast_hash": "9031dea54e48438dbbe4fff7806d4a6f",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/components/ui/Tabs/Tabs.tsx": {
+    "mtime": 1784387334.746339,
+    "ast_hash": "83a7c80b46199b14ad0c3fcba37cc868",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/components/ui/index.ts": {
+    "mtime": 1784387377.0286703,
+    "ast_hash": "907818fd1d12c9c452482dade84a9aea",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/constants/aba.ts": {
+    "mtime": 1784387258.7813456,
+    "ast_hash": "0e4c58e2113b1e7e5234962fc4b4c6af",
+    "semantic_hash": ""
   }
 }

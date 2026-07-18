@@ -4,22 +4,6 @@
   "graph": {
     "hyperedges": [
       {
-        "id": "developmental_domain_avatars",
-        "label": "ABA Developmental Domain Avatars & Checklist Structure",
-        "nodes": [
-          "apps_mobile_assets_cognitiva",
-          "apps_mobile_assets_comunicacao",
-          "apps_mobile_assets_coordenacao",
-          "apps_mobile_assets_funcional",
-          "apps_mobile_assets_social",
-          "avancekids_documentacao_extracted_logica_document"
-        ],
-        "relation": "participate_in",
-        "confidence": "INFERRED",
-        "confidence_score": 0.7,
-        "source_file": "apps/mobile/assets/Cognitiva.png"
-      },
-      {
         "id": "android_adaptive_icon_layers",
         "label": "Android Adaptive Icon Layer Set",
         "nodes": [
@@ -32,47 +16,6 @@
         "confidence": "EXTRACTED",
         "confidence_score": 0.85,
         "source_file": "apps/mobile/assets/android-icon-foreground.png"
-      },
-      {
-        "id": "avance_kids_freemium_architecture_decision",
-        "label": "Freemium Feature-Gating Architecture Decision",
-        "nodes": [
-          "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto",
-          "avancekids_documentacao_mensagens_freemium_model_decision",
-          "avancekids_documentacao_mensagens_admin_portal_free_premium_toggle",
-          "avancekids_documentacao_extracted_logica_document"
-        ],
-        "relation": "participate_in",
-        "confidence": "INFERRED",
-        "confidence_score": 0.6,
-        "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt"
-      },
-      {
-        "id": "avancekids_brand_assets",
-        "label": "AvanceKids Brand & Marketing Assets",
-        "nodes": [
-          "avancekids_documentacao_imagens_e_logo_logo",
-          "avancekids_documentacao_imagens_e_logo_logo_texto",
-          "avancekids_documentacao_imagens_e_logo_social",
-          "avancekids_documentacao_imagens_e_logo_whisk_20b1a4674d9af4a8ca240956d8cd7412dr_1"
-        ],
-        "relation": "form",
-        "confidence": "INFERRED",
-        "confidence_score": 0.55,
-        "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/"
-      },
-      {
-        "id": "aba_worksheets_documentation",
-        "label": "ABA Therapy Worksheet Documents",
-        "nodes": [
-          "avancekids_documentacao_outros_documentos_3_folha_de_registro_aba",
-          "avancekids_documentacao_outros_documentos_5_folha_do_programa_de_pareamento",
-          "avancekids_documentacao_outros_documentos_folha_de_registro"
-        ],
-        "relation": "participate_in",
-        "confidence": "AMBIGUOUS",
-        "confidence_score": 0.4,
-        "source_file": "AvanceKids-DOCUMENTACAO/Outros Documentos/"
       }
     ]
   },
@@ -85,8 +28,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": ".oxlintrc.json",
-      "id": "apps_backoffice_oxlintrc",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "apps_backoffice_oxlintrc"
     },
     {
       "label": "$schema",
@@ -96,8 +39,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "$schema",
-      "id": "apps_backoffice_oxlintrc_schema",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "apps_backoffice_oxlintrc_schema"
     },
     {
       "label": "plugins",
@@ -107,8 +50,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "plugins",
-      "id": "apps_backoffice_oxlintrc_plugins",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "apps_backoffice_oxlintrc_plugins"
     },
     {
       "label": "react",
@@ -118,8 +61,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "react",
-      "id": "ref_react",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "ref_react"
     },
     {
       "label": "typescript",
@@ -129,8 +72,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "typescript",
-      "id": "ref_typescript",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "ref_typescript"
     },
     {
       "label": "oxc",
@@ -140,8 +83,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "oxc",
-      "id": "ref_oxc",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "ref_oxc"
     },
     {
       "label": "rules",
@@ -151,8 +94,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "rules",
-      "id": "apps_backoffice_oxlintrc_rules",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "apps_backoffice_oxlintrc_rules"
     },
     {
       "label": "react/rules-of-hooks",
@@ -162,8 +105,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "react/rules-of-hooks",
-      "id": "apps_backoffice_oxlintrc_rules_react_rules_of_hooks",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "apps_backoffice_oxlintrc_rules_react_rules_of_hooks"
     },
     {
       "label": "react/only-export-components",
@@ -173,8 +116,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "react/only-export-components",
-      "id": "apps_backoffice_oxlintrc_rules_react_only_export_components",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "apps_backoffice_oxlintrc_rules_react_only_export_components"
     },
     {
       "label": "warn",
@@ -184,8 +127,8 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "warn",
-      "id": "ref_warn",
-      "community_name": "plugins"
+      "community_name": "plugins",
+      "id": "ref_warn"
     },
     {
       "label": "package.json",
@@ -195,8 +138,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "package.json",
-      "id": "apps_backoffice_package",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package"
     },
     {
       "label": "name",
@@ -206,8 +149,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "name",
-      "id": "apps_backoffice_package_name",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_name"
     },
     {
       "label": "private",
@@ -217,8 +160,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "private",
-      "id": "apps_backoffice_package_private",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_private"
     },
     {
       "label": "version",
@@ -228,8 +171,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "version",
-      "id": "apps_backoffice_package_version",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_version"
     },
     {
       "label": "type",
@@ -239,8 +182,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "type",
-      "id": "apps_backoffice_package_type",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_type"
     },
     {
       "label": "scripts",
@@ -250,8 +193,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "scripts",
-      "id": "apps_backoffice_package_scripts",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_scripts"
     },
     {
       "label": "dev",
@@ -261,8 +204,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "dev",
-      "id": "apps_backoffice_package_scripts_dev",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_scripts_dev"
     },
     {
       "label": "build",
@@ -272,8 +215,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "build",
-      "id": "apps_backoffice_package_scripts_build",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_scripts_build"
     },
     {
       "label": "lint",
@@ -283,8 +226,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "lint",
-      "id": "apps_backoffice_package_scripts_lint",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_scripts_lint"
     },
     {
       "label": "preview",
@@ -294,8 +237,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "preview",
-      "id": "apps_backoffice_package_scripts_preview",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_scripts_preview"
     },
     {
       "label": "dependencies",
@@ -305,8 +248,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "dependencies",
-      "id": "apps_backoffice_package_dependencies",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_dependencies"
     },
     {
       "label": "lucide-react",
@@ -316,8 +259,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "lucide-react",
-      "id": "apps_backoffice_package_dependencies_lucide_react",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_dependencies_lucide_react"
     },
     {
       "label": "lucide-react",
@@ -327,8 +270,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "lucide-react",
-      "id": "lucide_react",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "lucide_react"
     },
     {
       "label": "react",
@@ -338,8 +281,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "react",
-      "id": "apps_backoffice_package_dependencies_react",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_dependencies_react"
     },
     {
       "label": "react",
@@ -349,8 +292,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "react",
-      "id": "apps_backoffice_package_json_react",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_json_react"
     },
     {
       "label": "react-dom",
@@ -360,8 +303,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "react-dom",
-      "id": "apps_backoffice_package_dependencies_react_dom",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_dependencies_react_dom"
     },
     {
       "label": "react-dom",
@@ -371,8 +314,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "react-dom",
-      "id": "apps_backoffice_package_json_react_dom",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_json_react_dom"
     },
     {
       "label": "react-router-dom",
@@ -382,8 +325,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "react-router-dom",
-      "id": "apps_backoffice_package_dependencies_react_router_dom",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_dependencies_react_router_dom"
     },
     {
       "label": "react-router-dom",
@@ -393,8 +336,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "react-router-dom",
-      "id": "react_router_dom",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "react_router_dom"
     },
     {
       "label": "recharts",
@@ -404,8 +347,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "recharts",
-      "id": "apps_backoffice_package_dependencies_recharts",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_dependencies_recharts"
     },
     {
       "label": "recharts",
@@ -415,8 +358,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "recharts",
-      "id": "recharts",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "recharts"
     },
     {
       "label": "zustand",
@@ -426,8 +369,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "zustand",
-      "id": "apps_backoffice_package_dependencies_zustand",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_dependencies_zustand"
     },
     {
       "label": "zustand",
@@ -437,8 +380,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "zustand",
-      "id": "apps_backoffice_package_json_zustand",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_json_zustand"
     },
     {
       "label": "devDependencies",
@@ -448,8 +391,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "devdependencies",
-      "id": "apps_backoffice_package_devdependencies",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_devdependencies"
     },
     {
       "label": "@types/node",
@@ -459,8 +402,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "@types/node",
-      "id": "apps_backoffice_package_devdependencies_types_node",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_devdependencies_types_node"
     },
     {
       "label": "@types/node",
@@ -470,8 +413,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "@types/node",
-      "id": "types_node",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "types_node"
     },
     {
       "label": "@types/react",
@@ -481,8 +424,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "@types/react",
-      "id": "apps_backoffice_package_devdependencies_types_react",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_devdependencies_types_react"
     },
     {
       "label": "@types/react",
@@ -492,8 +435,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "@types/react",
-      "id": "apps_backoffice_package_json_types_react",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_json_types_react"
     },
     {
       "label": "@types/react-dom",
@@ -503,8 +446,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "@types/react-dom",
-      "id": "apps_backoffice_package_devdependencies_types_react_dom",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_devdependencies_types_react_dom"
     },
     {
       "label": "@types/react-dom",
@@ -514,8 +457,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "@types/react-dom",
-      "id": "types_react_dom",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "types_react_dom"
     },
     {
       "label": "@vitejs/plugin-react",
@@ -525,8 +468,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "@vitejs/plugin-react",
-      "id": "apps_backoffice_package_devdependencies_vitejs_plugin_react",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_devdependencies_vitejs_plugin_react"
     },
     {
       "label": "@vitejs/plugin-react",
@@ -536,8 +479,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "@vitejs/plugin-react",
-      "id": "vitejs_plugin_react",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "vitejs_plugin_react"
     },
     {
       "label": "oxlint",
@@ -547,8 +490,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "oxlint",
-      "id": "apps_backoffice_package_devdependencies_oxlint",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_devdependencies_oxlint"
     },
     {
       "label": "oxlint",
@@ -558,8 +501,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "oxlint",
-      "id": "oxlint",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "oxlint"
     },
     {
       "label": "typescript",
@@ -569,8 +512,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "typescript",
-      "id": "apps_backoffice_package_devdependencies_typescript",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_devdependencies_typescript"
     },
     {
       "label": "typescript",
@@ -580,8 +523,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "typescript",
-      "id": "apps_backoffice_package_json_typescript",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_json_typescript"
     },
     {
       "label": "vite",
@@ -591,8 +534,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "vite",
-      "id": "apps_backoffice_package_devdependencies_vite",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "apps_backoffice_package_devdependencies_vite"
     },
     {
       "label": "vite",
@@ -602,8 +545,8 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "vite",
-      "id": "vite",
-      "community_name": "devDependencies"
+      "community_name": "devDependencies",
+      "id": "vite"
     },
     {
       "label": "App.tsx",
@@ -613,8 +556,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "app.tsx",
-      "id": "apps_backoffice_src_app",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_app"
     },
     {
       "label": "App()",
@@ -624,8 +567,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "app()",
-      "id": "apps_backoffice_src_app_app",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_app_app"
     },
     {
       "label": "AdminLayout.tsx",
@@ -635,8 +578,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "adminlayout.tsx",
-      "id": "apps_backoffice_src_components_layout_adminlayout",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_components_layout_adminlayout"
     },
     {
       "label": "navItems",
@@ -646,8 +589,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "navitems",
-      "id": "apps_backoffice_src_components_layout_adminlayout_navitems",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_components_layout_adminlayout_navitems"
     },
     {
       "label": "AdminLayout()",
@@ -657,8 +600,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "adminlayout()",
-      "id": "apps_backoffice_src_components_layout_adminlayout_adminlayout",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_components_layout_adminlayout_adminlayout"
     },
     {
       "label": "main.tsx",
@@ -668,8 +611,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "main.tsx",
-      "id": "apps_backoffice_src_main",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_main"
     },
     {
       "label": "ActivitiesScreen.tsx",
@@ -679,8 +622,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "activitiesscreen.tsx",
-      "id": "apps_backoffice_src_screens_activitiesscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_activitiesscreen"
     },
     {
       "label": "mockData",
@@ -690,8 +633,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "mockdata",
-      "id": "apps_backoffice_src_screens_activitiesscreen_mockdata",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_activitiesscreen_mockdata"
     },
     {
       "label": "ActivitiesScreen()",
@@ -701,8 +644,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "activitiesscreen()",
-      "id": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen"
     },
     {
       "label": "CrudScreen.tsx",
@@ -712,8 +655,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "crudscreen.tsx",
-      "id": "apps_backoffice_src_screens_crudscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_crudscreen"
     },
     {
       "label": "CrudScreenProps",
@@ -723,8 +666,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "crudscreenprops",
-      "id": "apps_backoffice_src_screens_crudscreen_crudscreenprops",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_crudscreen_crudscreenprops"
     },
     {
       "label": "mockData",
@@ -734,8 +677,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "mockdata",
-      "id": "apps_backoffice_src_screens_crudscreen_mockdata",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_crudscreen_mockdata"
     },
     {
       "label": "CrudScreen()",
@@ -745,8 +688,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "crudscreen()",
-      "id": "apps_backoffice_src_screens_crudscreen_crudscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_crudscreen_crudscreen"
     },
     {
       "label": "DashboardScreen.tsx",
@@ -756,8 +699,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "dashboardscreen.tsx",
-      "id": "apps_backoffice_src_screens_dashboardscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_dashboardscreen"
     },
     {
       "label": "data",
@@ -767,8 +710,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "data",
-      "id": "apps_backoffice_src_screens_dashboardscreen_data",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_dashboardscreen_data"
     },
     {
       "label": "DashboardScreen()",
@@ -778,8 +721,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "dashboardscreen()",
-      "id": "apps_backoffice_src_screens_dashboardscreen_dashboardscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_dashboardscreen_dashboardscreen"
     },
     {
       "label": "LoginScreen.tsx",
@@ -789,8 +732,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "loginscreen.tsx",
-      "id": "apps_backoffice_src_screens_loginscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_loginscreen"
     },
     {
       "label": "LoginScreen()",
@@ -800,8 +743,8 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "loginscreen()",
-      "id": "apps_backoffice_src_screens_loginscreen_loginscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_backoffice_src_screens_loginscreen_loginscreen"
     },
     {
       "label": "theme.ts",
@@ -811,8 +754,8 @@
       "_origin": "ast",
       "community": 31,
       "norm_label": "theme.ts",
-      "id": "apps_backoffice_src_theme",
-      "community_name": "theme.ts"
+      "community_name": "theme.ts",
+      "id": "apps_backoffice_src_theme"
     },
     {
       "label": "theme",
@@ -822,8 +765,8 @@
       "_origin": "ast",
       "community": 31,
       "norm_label": "theme",
-      "id": "apps_backoffice_src_theme_theme",
-      "community_name": "theme.ts"
+      "community_name": "theme.ts",
+      "id": "apps_backoffice_src_theme_theme"
     },
     {
       "label": "tsconfig.app.json",
@@ -833,8 +776,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "tsconfig.app.json",
-      "id": "apps_backoffice_tsconfig_app",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app"
     },
     {
       "label": "compilerOptions",
@@ -844,8 +787,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "compileroptions",
-      "id": "apps_backoffice_tsconfig_app_compileroptions",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions"
     },
     {
       "label": "tsBuildInfoFile",
@@ -855,8 +798,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "tsbuildinfofile",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_tsbuildinfofile",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_tsbuildinfofile"
     },
     {
       "label": "target",
@@ -866,8 +809,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "target",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_target",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_target"
     },
     {
       "label": "lib",
@@ -877,8 +820,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "lib",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_lib",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_lib"
     },
     {
       "label": "ES2023",
@@ -888,8 +831,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "es2023",
-      "id": "apps_backoffice_tsconfig_app_json_ref_es2023",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_json_ref_es2023"
     },
     {
       "label": "DOM",
@@ -899,8 +842,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "dom",
-      "id": "ref_dom",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "ref_dom"
     },
     {
       "label": "module",
@@ -910,8 +853,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "module",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_module",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_module"
     },
     {
       "label": "types",
@@ -921,8 +864,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "types",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_types",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_types"
     },
     {
       "label": "vite/client",
@@ -932,8 +875,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "vite/client",
-      "id": "ref_vite_client",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "ref_vite_client"
     },
     {
       "label": "allowArbitraryExtensions",
@@ -943,8 +886,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "allowarbitraryextensions",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_allowarbitraryextensions",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_allowarbitraryextensions"
     },
     {
       "label": "skipLibCheck",
@@ -954,8 +897,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "skiplibcheck",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_skiplibcheck",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_skiplibcheck"
     },
     {
       "label": "moduleResolution",
@@ -965,8 +908,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "moduleresolution",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_moduleresolution",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_moduleresolution"
     },
     {
       "label": "allowImportingTsExtensions",
@@ -976,8 +919,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "allowimportingtsextensions",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_allowimportingtsextensions",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_allowimportingtsextensions"
     },
     {
       "label": "verbatimModuleSyntax",
@@ -987,8 +930,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "verbatimmodulesyntax",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_verbatimmodulesyntax",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_verbatimmodulesyntax"
     },
     {
       "label": "moduleDetection",
@@ -998,8 +941,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "moduledetection",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_moduledetection",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_moduledetection"
     },
     {
       "label": "noEmit",
@@ -1009,8 +952,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "noemit",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_noemit",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_noemit"
     },
     {
       "label": "jsx",
@@ -1020,8 +963,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "jsx",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_jsx",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_jsx"
     },
     {
       "label": "noUnusedLocals",
@@ -1031,8 +974,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "nounusedlocals",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_nounusedlocals",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_nounusedlocals"
     },
     {
       "label": "noUnusedParameters",
@@ -1042,8 +985,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "nounusedparameters",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_nounusedparameters",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_nounusedparameters"
     },
     {
       "label": "erasableSyntaxOnly",
@@ -1053,8 +996,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "erasablesyntaxonly",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_erasablesyntaxonly",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_erasablesyntaxonly"
     },
     {
       "label": "noFallthroughCasesInSwitch",
@@ -1064,8 +1007,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "nofallthroughcasesinswitch",
-      "id": "apps_backoffice_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_compileroptions_nofallthroughcasesinswitch"
     },
     {
       "label": "include",
@@ -1075,8 +1018,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "include",
-      "id": "apps_backoffice_tsconfig_app_include",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_app_include"
     },
     {
       "label": "src",
@@ -1086,8 +1029,8 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "src",
-      "id": "ref_src",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "ref_src"
     },
     {
       "label": "tsconfig.json",
@@ -1097,8 +1040,8 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "tsconfig.json",
-      "id": "apps_backoffice_tsconfig",
-      "community_name": "tsconfig.json"
+      "community_name": "tsconfig.json",
+      "id": "apps_backoffice_tsconfig"
     },
     {
       "label": "files",
@@ -1108,8 +1051,8 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "files",
-      "id": "apps_backoffice_tsconfig_files",
-      "community_name": "tsconfig.json"
+      "community_name": "tsconfig.json",
+      "id": "apps_backoffice_tsconfig_files"
     },
     {
       "label": "references",
@@ -1119,8 +1062,8 @@
       "_origin": "ast",
       "community": 28,
       "norm_label": "references",
-      "id": "apps_backoffice_tsconfig_references",
-      "community_name": "tsconfig.json"
+      "community_name": "tsconfig.json",
+      "id": "apps_backoffice_tsconfig_references"
     },
     {
       "label": "tsconfig.node.json",
@@ -1130,8 +1073,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "tsconfig.node.json",
-      "id": "apps_backoffice_tsconfig_node",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node"
     },
     {
       "label": "compilerOptions",
@@ -1141,8 +1084,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "compileroptions",
-      "id": "apps_backoffice_tsconfig_node_compileroptions",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions"
     },
     {
       "label": "tsBuildInfoFile",
@@ -1152,8 +1095,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "tsbuildinfofile",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_tsbuildinfofile",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_tsbuildinfofile"
     },
     {
       "label": "target",
@@ -1163,8 +1106,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "target",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_target",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_target"
     },
     {
       "label": "lib",
@@ -1174,8 +1117,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "lib",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_lib",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_lib"
     },
     {
       "label": "ES2023",
@@ -1185,8 +1128,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "es2023",
-      "id": "apps_backoffice_tsconfig_node_json_ref_es2023",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_json_ref_es2023"
     },
     {
       "label": "types",
@@ -1196,8 +1139,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "types",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_types",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_types"
     },
     {
       "label": "node",
@@ -1207,8 +1150,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "node",
-      "id": "ref_node",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "ref_node"
     },
     {
       "label": "skipLibCheck",
@@ -1218,8 +1161,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "skiplibcheck",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_skiplibcheck",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_skiplibcheck"
     },
     {
       "label": "module",
@@ -1229,8 +1172,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "module",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_module",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_module"
     },
     {
       "label": "allowImportingTsExtensions",
@@ -1240,8 +1183,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "allowimportingtsextensions",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_allowimportingtsextensions",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_allowimportingtsextensions"
     },
     {
       "label": "verbatimModuleSyntax",
@@ -1251,8 +1194,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "verbatimmodulesyntax",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_verbatimmodulesyntax",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_verbatimmodulesyntax"
     },
     {
       "label": "moduleDetection",
@@ -1262,8 +1205,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "moduledetection",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_moduledetection",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_moduledetection"
     },
     {
       "label": "noEmit",
@@ -1273,8 +1216,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "noemit",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_noemit",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_noemit"
     },
     {
       "label": "noUnusedLocals",
@@ -1284,8 +1227,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "nounusedlocals",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_nounusedlocals",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_nounusedlocals"
     },
     {
       "label": "noUnusedParameters",
@@ -1295,8 +1238,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "nounusedparameters",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_nounusedparameters",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_nounusedparameters"
     },
     {
       "label": "erasableSyntaxOnly",
@@ -1306,8 +1249,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "erasablesyntaxonly",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_erasablesyntaxonly",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_erasablesyntaxonly"
     },
     {
       "label": "noFallthroughCasesInSwitch",
@@ -1317,8 +1260,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "nofallthroughcasesinswitch",
-      "id": "apps_backoffice_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_compileroptions_nofallthroughcasesinswitch"
     },
     {
       "label": "include",
@@ -1328,8 +1271,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "include",
-      "id": "apps_backoffice_tsconfig_node_include",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "apps_backoffice_tsconfig_node_include"
     },
     {
       "label": "vite.config.ts",
@@ -1339,8 +1282,8 @@
       "_origin": "ast",
       "community": 7,
       "norm_label": "vite.config.ts",
-      "id": "ref_vite_config_ts",
-      "community_name": "compilerOptions"
+      "community_name": "compilerOptions",
+      "id": "ref_vite_config_ts"
     },
     {
       "label": "vite.config.ts",
@@ -1350,8 +1293,8 @@
       "_origin": "ast",
       "community": 38,
       "norm_label": "vite.config.ts",
-      "id": "apps_backoffice_vite_config",
-      "community_name": "vite.config.ts"
+      "community_name": "vite.config.ts",
+      "id": "apps_backoffice_vite_config"
     },
     {
       "label": "App.tsx",
@@ -1359,10 +1302,10 @@
       "source_file": "apps/mobile/App.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "app.tsx",
-      "id": "apps_mobile_app_tsx_apps_mobile_app",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_app_tsx_apps_mobile_app"
     },
     {
       "label": "Stack",
@@ -1370,10 +1313,10 @@
       "source_file": "apps/mobile/App.tsx",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "stack",
-      "id": "apps_mobile_app_stack",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_app_stack"
     },
     {
       "label": "App()",
@@ -1381,10 +1324,10 @@
       "source_file": "apps/mobile/App.tsx",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "app()",
-      "id": "apps_mobile_app_app",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_app_app"
     },
     {
       "label": "app.json",
@@ -1394,8 +1337,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "app.json",
-      "id": "apps_mobile_app_json_apps_mobile_app",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_json_apps_mobile_app"
     },
     {
       "label": "expo",
@@ -1405,8 +1348,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "expo",
-      "id": "apps_mobile_app_expo",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo"
     },
     {
       "label": "name",
@@ -1416,8 +1359,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "name",
-      "id": "apps_mobile_app_expo_name",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_name"
     },
     {
       "label": "slug",
@@ -1427,8 +1370,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "slug",
-      "id": "apps_mobile_app_expo_slug",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_slug"
     },
     {
       "label": "version",
@@ -1438,8 +1381,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "version",
-      "id": "apps_mobile_app_expo_version",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_version"
     },
     {
       "label": "orientation",
@@ -1449,8 +1392,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "orientation",
-      "id": "apps_mobile_app_expo_orientation",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_orientation"
     },
     {
       "label": "icon",
@@ -1460,8 +1403,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "icon",
-      "id": "apps_mobile_app_expo_icon",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_icon"
     },
     {
       "label": "userInterfaceStyle",
@@ -1471,8 +1414,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "userinterfacestyle",
-      "id": "apps_mobile_app_expo_userinterfacestyle",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_userinterfacestyle"
     },
     {
       "label": "splash",
@@ -1482,8 +1425,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "splash",
-      "id": "apps_mobile_app_expo_splash",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_splash"
     },
     {
       "label": "image",
@@ -1493,8 +1436,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "image",
-      "id": "apps_mobile_app_splash_image",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_splash_image"
     },
     {
       "label": "resizeMode",
@@ -1504,8 +1447,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "resizemode",
-      "id": "apps_mobile_app_splash_resizemode",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_splash_resizemode"
     },
     {
       "label": "backgroundColor",
@@ -1515,8 +1458,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "backgroundcolor",
-      "id": "apps_mobile_app_splash_backgroundcolor",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_splash_backgroundcolor"
     },
     {
       "label": "ios",
@@ -1526,8 +1469,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "ios",
-      "id": "apps_mobile_app_expo_ios",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_ios"
     },
     {
       "label": "supportsTablet",
@@ -1537,8 +1480,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "supportstablet",
-      "id": "apps_mobile_app_ios_supportstablet",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_ios_supportstablet"
     },
     {
       "label": "android",
@@ -1548,8 +1491,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "android",
-      "id": "apps_mobile_app_expo_android",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_android"
     },
     {
       "label": "adaptiveIcon",
@@ -1559,8 +1502,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "adaptiveicon",
-      "id": "apps_mobile_app_android_adaptiveicon",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_android_adaptiveicon"
     },
     {
       "label": "backgroundColor",
@@ -1570,8 +1513,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "backgroundcolor",
-      "id": "apps_mobile_app_adaptiveicon_backgroundcolor",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_adaptiveicon_backgroundcolor"
     },
     {
       "label": "foregroundImage",
@@ -1581,8 +1524,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "foregroundimage",
-      "id": "apps_mobile_app_adaptiveicon_foregroundimage",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_adaptiveicon_foregroundimage"
     },
     {
       "label": "backgroundImage",
@@ -1592,8 +1535,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "backgroundimage",
-      "id": "apps_mobile_app_adaptiveicon_backgroundimage",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_adaptiveicon_backgroundimage"
     },
     {
       "label": "monochromeImage",
@@ -1603,8 +1546,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "monochromeimage",
-      "id": "apps_mobile_app_adaptiveicon_monochromeimage",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_adaptiveicon_monochromeimage"
     },
     {
       "label": "predictiveBackGestureEnabled",
@@ -1614,8 +1557,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "predictivebackgestureenabled",
-      "id": "apps_mobile_app_android_predictivebackgestureenabled",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_android_predictivebackgestureenabled"
     },
     {
       "label": "web",
@@ -1625,8 +1568,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "web",
-      "id": "apps_mobile_app_expo_web",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_web"
     },
     {
       "label": "favicon",
@@ -1636,8 +1579,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "favicon",
-      "id": "apps_mobile_app_web_favicon",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_web_favicon"
     },
     {
       "label": "plugins",
@@ -1647,8 +1590,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "plugins",
-      "id": "apps_mobile_app_expo_plugins",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "apps_mobile_app_expo_plugins"
     },
     {
       "label": "expo-splash-screen",
@@ -1658,8 +1601,8 @@
       "_origin": "ast",
       "community": 5,
       "norm_label": "expo-splash-screen",
-      "id": "ref_expo_splash_screen",
-      "community_name": "expo"
+      "community_name": "expo",
+      "id": "ref_expo_splash_screen"
     },
     {
       "label": "index.ts",
@@ -1667,10 +1610,10 @@
       "source_file": "apps/mobile/index.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "index.ts",
-      "id": "apps_mobile_index",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_index"
     },
     {
       "label": "metro.config.js",
@@ -1680,8 +1623,8 @@
       "_origin": "ast",
       "community": 33,
       "norm_label": "metro.config.js",
-      "id": "apps_mobile_metro_config",
-      "community_name": "metro.config.js"
+      "community_name": "metro.config.js",
+      "id": "apps_mobile_metro_config"
     },
     {
       "label": "{ getDefaultConfig }",
@@ -1691,8 +1634,8 @@
       "_origin": "ast",
       "community": 33,
       "norm_label": "{ getdefaultconfig }",
-      "id": "apps_mobile_metro_config_getdefaultconfig",
-      "community_name": "metro.config.js"
+      "community_name": "metro.config.js",
+      "id": "apps_mobile_metro_config_getdefaultconfig"
     },
     {
       "label": "package.json",
@@ -1702,8 +1645,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "package.json",
-      "id": "apps_mobile_package",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package"
     },
     {
       "label": "name",
@@ -1713,8 +1656,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "name",
-      "id": "apps_mobile_package_name",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_name"
     },
     {
       "label": "version",
@@ -1724,8 +1667,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "version",
-      "id": "apps_mobile_package_version",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_version"
     },
     {
       "label": "main",
@@ -1735,8 +1678,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "main",
-      "id": "apps_mobile_package_main",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_main"
     },
     {
       "label": "dependencies",
@@ -1746,8 +1689,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "dependencies",
-      "id": "apps_mobile_package_dependencies",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies"
     },
     {
       "label": "@expo-google-fonts/inter",
@@ -1757,8 +1700,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@expo-google-fonts/inter",
-      "id": "apps_mobile_package_dependencies_expo_google_fonts_inter",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_google_fonts_inter"
     },
     {
       "label": "@expo-google-fonts/inter",
@@ -1768,8 +1711,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@expo-google-fonts/inter",
-      "id": "expo_google_fonts_inter",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_google_fonts_inter"
     },
     {
       "label": "@expo-google-fonts/mulish",
@@ -1779,8 +1722,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@expo-google-fonts/mulish",
-      "id": "apps_mobile_package_dependencies_expo_google_fonts_mulish",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_google_fonts_mulish"
     },
     {
       "label": "@expo-google-fonts/mulish",
@@ -1790,8 +1733,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@expo-google-fonts/mulish",
-      "id": "expo_google_fonts_mulish",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_google_fonts_mulish"
     },
     {
       "label": "@expo/metro-runtime",
@@ -1801,8 +1744,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@expo/metro-runtime",
-      "id": "apps_mobile_package_dependencies_expo_metro_runtime",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_metro_runtime"
     },
     {
       "label": "@expo/metro-runtime",
@@ -1812,8 +1755,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@expo/metro-runtime",
-      "id": "expo_metro_runtime",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_metro_runtime"
     },
     {
       "label": "@expo/vector-icons",
@@ -1823,8 +1766,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@expo/vector-icons",
-      "id": "apps_mobile_package_dependencies_expo_vector_icons",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_vector_icons"
     },
     {
       "label": "@expo/vector-icons",
@@ -1834,8 +1777,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@expo/vector-icons",
-      "id": "expo_vector_icons",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_vector_icons"
     },
     {
       "label": "@react-navigation/native",
@@ -1845,8 +1788,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@react-navigation/native",
-      "id": "apps_mobile_package_dependencies_react_navigation_native",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react_navigation_native"
     },
     {
       "label": "@react-navigation/native",
@@ -1856,8 +1799,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@react-navigation/native",
-      "id": "react_navigation_native",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "react_navigation_native"
     },
     {
       "label": "@react-navigation/native-stack",
@@ -1867,8 +1810,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@react-navigation/native-stack",
-      "id": "apps_mobile_package_dependencies_react_navigation_native_stack",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react_navigation_native_stack"
     },
     {
       "label": "@react-navigation/native-stack",
@@ -1878,8 +1821,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "@react-navigation/native-stack",
-      "id": "react_navigation_native_stack",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "react_navigation_native_stack"
     },
     {
       "label": "expo",
@@ -1889,8 +1832,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo",
-      "id": "apps_mobile_package_dependencies_expo",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo"
     },
     {
       "label": "expo",
@@ -1900,8 +1843,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo",
-      "id": "expo",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo"
     },
     {
       "label": "expo-font",
@@ -1911,8 +1854,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-font",
-      "id": "apps_mobile_package_dependencies_expo_font",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_font"
     },
     {
       "label": "expo-font",
@@ -1922,8 +1865,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-font",
-      "id": "expo_font",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_font"
     },
     {
       "label": "expo-image",
@@ -1933,8 +1876,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-image",
-      "id": "apps_mobile_package_dependencies_expo_image",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_image"
     },
     {
       "label": "expo-image",
@@ -1944,8 +1887,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-image",
-      "id": "expo_image",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_image"
     },
     {
       "label": "expo-image-picker",
@@ -1955,8 +1898,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-image-picker",
-      "id": "apps_mobile_package_dependencies_expo_image_picker",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_image_picker"
     },
     {
       "label": "expo-image-picker",
@@ -1966,8 +1909,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-image-picker",
-      "id": "expo_image_picker",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_image_picker"
     },
     {
       "label": "expo-linear-gradient",
@@ -1977,8 +1920,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-linear-gradient",
-      "id": "apps_mobile_package_dependencies_expo_linear_gradient",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_linear_gradient"
     },
     {
       "label": "expo-linear-gradient",
@@ -1988,8 +1931,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-linear-gradient",
-      "id": "expo_linear_gradient",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_linear_gradient"
     },
     {
       "label": "expo-splash-screen",
@@ -1999,8 +1942,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-splash-screen",
-      "id": "apps_mobile_package_dependencies_expo_splash_screen",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_splash_screen"
     },
     {
       "label": "expo-splash-screen",
@@ -2010,8 +1953,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-splash-screen",
-      "id": "expo_splash_screen",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_splash_screen"
     },
     {
       "label": "expo-status-bar",
@@ -2021,8 +1964,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-status-bar",
-      "id": "apps_mobile_package_dependencies_expo_status_bar",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_expo_status_bar"
     },
     {
       "label": "expo-status-bar",
@@ -2032,8 +1975,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "expo-status-bar",
-      "id": "expo_status_bar",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "expo_status_bar"
     },
     {
       "label": "react",
@@ -2043,8 +1986,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react",
-      "id": "apps_mobile_package_dependencies_react",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react"
     },
     {
       "label": "react",
@@ -2054,8 +1997,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react",
-      "id": "apps_mobile_package_json_react",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_json_react"
     },
     {
       "label": "react-dom",
@@ -2065,8 +2008,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-dom",
-      "id": "apps_mobile_package_dependencies_react_dom",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react_dom"
     },
     {
       "label": "react-dom",
@@ -2076,8 +2019,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-dom",
-      "id": "apps_mobile_package_json_react_dom",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_json_react_dom"
     },
     {
       "label": "react-native",
@@ -2087,8 +2030,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native",
-      "id": "apps_mobile_package_dependencies_react_native",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react_native"
     },
     {
       "label": "react-native",
@@ -2098,8 +2041,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native",
-      "id": "react_native",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "react_native"
     },
     {
       "label": "react-native-safe-area-context",
@@ -2109,8 +2052,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native-safe-area-context",
-      "id": "apps_mobile_package_dependencies_react_native_safe_area_context",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react_native_safe_area_context"
     },
     {
       "label": "react-native-safe-area-context",
@@ -2120,8 +2063,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native-safe-area-context",
-      "id": "react_native_safe_area_context",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "react_native_safe_area_context"
     },
     {
       "label": "react-native-screens",
@@ -2131,8 +2074,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native-screens",
-      "id": "apps_mobile_package_dependencies_react_native_screens",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react_native_screens"
     },
     {
       "label": "react-native-screens",
@@ -2142,8 +2085,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native-screens",
-      "id": "react_native_screens",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "react_native_screens"
     },
     {
       "label": "react-native-svg",
@@ -2153,8 +2096,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native-svg",
-      "id": "apps_mobile_package_dependencies_react_native_svg",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react_native_svg"
     },
     {
       "label": "react-native-svg",
@@ -2164,8 +2107,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native-svg",
-      "id": "react_native_svg",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "react_native_svg"
     },
     {
       "label": "react-native-web",
@@ -2175,8 +2118,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native-web",
-      "id": "apps_mobile_package_dependencies_react_native_web",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_react_native_web"
     },
     {
       "label": "react-native-web",
@@ -2186,8 +2129,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "react-native-web",
-      "id": "react_native_web",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "react_native_web"
     },
     {
       "label": "zustand",
@@ -2197,8 +2140,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "zustand",
-      "id": "apps_mobile_package_dependencies_zustand",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_dependencies_zustand"
     },
     {
       "label": "zustand",
@@ -2208,8 +2151,8 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "zustand",
-      "id": "apps_mobile_package_json_zustand",
-      "community_name": "dependencies"
+      "community_name": "dependencies",
+      "id": "apps_mobile_package_json_zustand"
     },
     {
       "label": "devDependencies",
@@ -2219,8 +2162,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "devdependencies",
-      "id": "apps_mobile_package_devdependencies",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_devdependencies"
     },
     {
       "label": "@types/react",
@@ -2230,8 +2173,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "@types/react",
-      "id": "apps_mobile_package_devdependencies_types_react",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_devdependencies_types_react"
     },
     {
       "label": "@types/react",
@@ -2241,8 +2184,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "@types/react",
-      "id": "apps_mobile_package_json_types_react",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_json_types_react"
     },
     {
       "label": "react-native-svg-transformer",
@@ -2252,8 +2195,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "react-native-svg-transformer",
-      "id": "apps_mobile_package_devdependencies_react_native_svg_transformer",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_devdependencies_react_native_svg_transformer"
     },
     {
       "label": "react-native-svg-transformer",
@@ -2263,8 +2206,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "react-native-svg-transformer",
-      "id": "react_native_svg_transformer",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "react_native_svg_transformer"
     },
     {
       "label": "typescript",
@@ -2274,8 +2217,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "typescript",
-      "id": "apps_mobile_package_devdependencies_typescript",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_devdependencies_typescript"
     },
     {
       "label": "typescript",
@@ -2285,8 +2228,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "typescript",
-      "id": "apps_mobile_package_json_typescript",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_json_typescript"
     },
     {
       "label": "scripts",
@@ -2296,8 +2239,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "scripts",
-      "id": "apps_mobile_package_scripts",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_scripts"
     },
     {
       "label": "start",
@@ -2307,8 +2250,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "start",
-      "id": "apps_mobile_package_scripts_start",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_scripts_start"
     },
     {
       "label": "android",
@@ -2318,8 +2261,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "android",
-      "id": "apps_mobile_package_scripts_android",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_scripts_android"
     },
     {
       "label": "ios",
@@ -2329,8 +2272,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "ios",
-      "id": "apps_mobile_package_scripts_ios",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_scripts_ios"
     },
     {
       "label": "web",
@@ -2340,8 +2283,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "web",
-      "id": "apps_mobile_package_scripts_web",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_scripts_web"
     },
     {
       "label": "private",
@@ -2351,8 +2294,8 @@
       "_origin": "ast",
       "community": 11,
       "norm_label": "private",
-      "id": "apps_mobile_package_private",
-      "community_name": "package.json"
+      "community_name": "package.json",
+      "id": "apps_mobile_package_private"
     },
     {
       "label": "BottomSheetSelect.tsx",
@@ -2362,8 +2305,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "bottomsheetselect.tsx",
-      "id": "apps_mobile_src_components_bottomsheetselect",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_bottomsheetselect"
     },
     {
       "label": "BottomSheetSelectProps",
@@ -2373,8 +2316,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "bottomsheetselectprops",
-      "id": "apps_mobile_src_components_bottomsheetselect_bottomsheetselectprops",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_bottomsheetselect_bottomsheetselectprops"
     },
     {
       "label": "BottomSheetSelect()",
@@ -2384,8 +2327,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "bottomsheetselect()",
-      "id": "apps_mobile_src_components_bottomsheetselect_bottomsheetselect",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_bottomsheetselect_bottomsheetselect"
     },
     {
       "label": "styles",
@@ -2395,8 +2338,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_bottomsheetselect_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_bottomsheetselect_styles"
     },
     {
       "label": "BottomTabBar.tsx",
@@ -2406,8 +2349,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "bottomtabbar.tsx",
-      "id": "apps_mobile_src_components_bottomtabbar",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_components_bottomtabbar"
     },
     {
       "label": "ProfileIcon()",
@@ -2417,8 +2360,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "profileicon()",
-      "id": "apps_mobile_src_components_bottomtabbar_profileicon",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_components_bottomtabbar_profileicon"
     },
     {
       "label": "PlanIcon()",
@@ -2428,8 +2371,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "planicon()",
-      "id": "apps_mobile_src_components_bottomtabbar_planicon",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_components_bottomtabbar_planicon"
     },
     {
       "label": "HomeIcon()",
@@ -2439,8 +2382,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "homeicon()",
-      "id": "apps_mobile_src_components_bottomtabbar_homeicon",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_components_bottomtabbar_homeicon"
     },
     {
       "label": "BottomTabBarProps",
@@ -2450,8 +2393,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "bottomtabbarprops",
-      "id": "apps_mobile_src_components_bottomtabbar_bottomtabbarprops",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_components_bottomtabbar_bottomtabbarprops"
     },
     {
       "label": "BottomTabBar()",
@@ -2461,8 +2404,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "bottomtabbar()",
-      "id": "apps_mobile_src_components_bottomtabbar_bottomtabbar",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_components_bottomtabbar_bottomtabbar"
     },
     {
       "label": "styles",
@@ -2472,8 +2415,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_bottomtabbar_styles",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_components_bottomtabbar_styles"
     },
     {
       "label": "Button.tsx",
@@ -2483,8 +2426,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "button.tsx",
-      "id": "apps_mobile_src_components_button",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_button"
     },
     {
       "label": "ButtonProps",
@@ -2494,8 +2437,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "buttonprops",
-      "id": "apps_mobile_src_components_button_buttonprops",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_button_buttonprops"
     },
     {
       "label": "Button()",
@@ -2505,8 +2448,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "button()",
-      "id": "apps_mobile_src_components_button_button",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_button_button"
     },
     {
       "label": "styles",
@@ -2516,8 +2459,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_button_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_button_styles"
     },
     {
       "label": "Checkbox.tsx",
@@ -2527,8 +2470,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "checkbox.tsx",
-      "id": "apps_mobile_src_components_checkbox",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_checkbox"
     },
     {
       "label": "CheckboxProps",
@@ -2538,8 +2481,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "checkboxprops",
-      "id": "apps_mobile_src_components_checkbox_checkboxprops",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_checkbox_checkboxprops"
     },
     {
       "label": "Checkbox()",
@@ -2549,8 +2492,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "checkbox()",
-      "id": "apps_mobile_src_components_checkbox_checkbox",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_checkbox_checkbox"
     },
     {
       "label": "styles",
@@ -2560,8 +2503,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_checkbox_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_checkbox_styles"
     },
     {
       "label": "GhostButton.tsx",
@@ -2571,8 +2514,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "ghostbutton.tsx",
-      "id": "apps_mobile_src_components_ghostbutton",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_ghostbutton"
     },
     {
       "label": "GhostButtonProps",
@@ -2582,8 +2525,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "ghostbuttonprops",
-      "id": "apps_mobile_src_components_ghostbutton_ghostbuttonprops",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_ghostbutton_ghostbuttonprops"
     },
     {
       "label": "GhostButton()",
@@ -2593,8 +2536,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "ghostbutton()",
-      "id": "apps_mobile_src_components_ghostbutton_ghostbutton",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_ghostbutton_ghostbutton"
     },
     {
       "label": "styles",
@@ -2604,8 +2547,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_ghostbutton_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_ghostbutton_styles"
     },
     {
       "label": "GoogleButton.tsx",
@@ -2615,8 +2558,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "googlebutton.tsx",
-      "id": "apps_mobile_src_components_googlebutton",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_googlebutton"
     },
     {
       "label": "GoogleButtonProps",
@@ -2626,8 +2569,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "googlebuttonprops",
-      "id": "apps_mobile_src_components_googlebutton_googlebuttonprops",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_googlebutton_googlebuttonprops"
     },
     {
       "label": "GoogleButton()",
@@ -2637,8 +2580,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "googlebutton()",
-      "id": "apps_mobile_src_components_googlebutton_googlebutton",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_googlebutton_googlebutton"
     },
     {
       "label": "styles",
@@ -2648,8 +2591,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_googlebutton_styles",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_googlebutton_styles"
     },
     {
       "label": "Input.tsx",
@@ -2659,8 +2602,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "input.tsx",
-      "id": "apps_mobile_src_components_input",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_input"
     },
     {
       "label": "InputProps",
@@ -2670,8 +2613,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "inputprops",
-      "id": "apps_mobile_src_components_input_inputprops",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_input_inputprops"
     },
     {
       "label": "Input()",
@@ -2681,8 +2624,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "input()",
-      "id": "apps_mobile_src_components_input_input",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_input_input"
     },
     {
       "label": "styles",
@@ -2692,8 +2635,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_input_styles",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_input_styles"
     },
     {
       "label": "Logo.tsx",
@@ -2703,8 +2646,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "logo.tsx",
-      "id": "apps_mobile_src_components_logo",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_logo"
     },
     {
       "label": "Logo()",
@@ -2714,8 +2657,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "logo()",
-      "id": "apps_mobile_src_components_logo_logo",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_logo_logo"
     },
     {
       "label": "styles",
@@ -2725,8 +2668,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_logo_styles",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_components_logo_styles"
     },
     {
       "label": "PhotoPicker.tsx",
@@ -2736,8 +2679,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "photopicker.tsx",
-      "id": "apps_mobile_src_components_photopicker",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_photopicker"
     },
     {
       "label": "PhotoPickerProps",
@@ -2747,8 +2690,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "photopickerprops",
-      "id": "apps_mobile_src_components_photopicker_photopickerprops",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_photopicker_photopickerprops"
     },
     {
       "label": "PhotoPicker()",
@@ -2758,8 +2701,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "photopicker()",
-      "id": "apps_mobile_src_components_photopicker_photopicker",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_photopicker_photopicker"
     },
     {
       "label": "styles",
@@ -2769,8 +2712,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_photopicker_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_photopicker_styles"
     },
     {
       "label": "SolidInput.tsx",
@@ -2780,8 +2723,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "solidinput.tsx",
-      "id": "apps_mobile_src_components_solidinput",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_solidinput"
     },
     {
       "label": "SolidInputProps",
@@ -2791,8 +2734,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "solidinputprops",
-      "id": "apps_mobile_src_components_solidinput_solidinputprops",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_solidinput_solidinputprops"
     },
     {
       "label": "SolidInput()",
@@ -2802,8 +2745,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "solidinput()",
-      "id": "apps_mobile_src_components_solidinput_solidinput",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_solidinput_solidinput"
     },
     {
       "label": "styles",
@@ -2813,8 +2756,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_solidinput_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_components_solidinput_styles"
     },
     {
       "label": "TriagemBaseScreen.tsx",
@@ -2824,8 +2767,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "triagembasescreen.tsx",
-      "id": "apps_mobile_src_components_triagembasescreen",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_components_triagembasescreen"
     },
     {
       "label": "TriagemBaseScreenProps",
@@ -2835,8 +2778,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "triagembasescreenprops",
-      "id": "apps_mobile_src_components_triagembasescreen_triagembasescreenprops",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_components_triagembasescreen_triagembasescreenprops"
     },
     {
       "label": "TriagemBaseScreen()",
@@ -2846,8 +2789,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "triagembasescreen()",
-      "id": "apps_mobile_src_components_triagembasescreen_triagembasescreen",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_components_triagembasescreen_triagembasescreen"
     },
     {
       "label": "styles",
@@ -2857,8 +2800,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "styles",
-      "id": "apps_mobile_src_components_triagembasescreen_styles",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_components_triagembasescreen_styles"
     },
     {
       "label": "habilidades.ts",
@@ -2868,8 +2811,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "habilidades.ts",
-      "id": "apps_mobile_src_data_habilidades",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_data_habilidades"
     },
     {
       "label": "HabilidadeKey",
@@ -2879,8 +2822,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "habilidadekey",
-      "id": "apps_mobile_src_data_habilidades_habilidadekey",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_data_habilidades_habilidadekey"
     },
     {
       "label": "HabilidadeStyle",
@@ -2890,8 +2833,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "habilidadestyle",
-      "id": "apps_mobile_src_data_habilidades_habilidadestyle",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_data_habilidades_habilidadestyle"
     },
     {
       "label": "HABILIDADE_STYLES",
@@ -2901,8 +2844,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "habilidade_styles",
-      "id": "apps_mobile_src_data_habilidades_habilidade_styles",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_data_habilidades_habilidade_styles"
     },
     {
       "label": "MOCK_PERGUNTAS",
@@ -2912,8 +2855,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "mock_perguntas",
-      "id": "apps_mobile_src_data_habilidades_mock_perguntas",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_data_habilidades_mock_perguntas"
     },
     {
       "label": "ActivityHistoryScreen.tsx",
@@ -2923,8 +2866,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "activityhistoryscreen.tsx",
-      "id": "apps_mobile_src_screens_activityhistoryscreen",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_activityhistoryscreen"
     },
     {
       "label": "SKILL_COLORS",
@@ -2934,8 +2877,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "skill_colors",
-      "id": "apps_mobile_src_screens_activityhistoryscreen_skill_colors",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_activityhistoryscreen_skill_colors"
     },
     {
       "label": "MOCK_HISTORY",
@@ -2945,8 +2888,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "mock_history",
-      "id": "apps_mobile_src_screens_activityhistoryscreen_mock_history",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_activityhistoryscreen_mock_history"
     },
     {
       "label": "ActivityHistoryScreen()",
@@ -2956,8 +2899,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "activityhistoryscreen()",
-      "id": "apps_mobile_src_screens_activityhistoryscreen_activityhistoryscreen",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_activityhistoryscreen_activityhistoryscreen"
     },
     {
       "label": "styles",
@@ -2967,8 +2910,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_activityhistoryscreen_styles",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_activityhistoryscreen_styles"
     },
     {
       "label": "ActivityPlanScreen.tsx",
@@ -2978,8 +2921,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "activityplanscreen.tsx",
-      "id": "apps_mobile_src_screens_activityplanscreen",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityplanscreen"
     },
     {
       "label": "SKILL_COLORS",
@@ -2989,8 +2932,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "skill_colors",
-      "id": "apps_mobile_src_screens_activityplanscreen_skill_colors",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityplanscreen_skill_colors"
     },
     {
       "label": "MOCK_ACTIVE",
@@ -3000,8 +2943,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "mock_active",
-      "id": "apps_mobile_src_screens_activityplanscreen_mock_active",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityplanscreen_mock_active"
     },
     {
       "label": "MOCK_LOCKED",
@@ -3011,8 +2954,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "mock_locked",
-      "id": "apps_mobile_src_screens_activityplanscreen_mock_locked",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityplanscreen_mock_locked"
     },
     {
       "label": "ActivityPlanScreen()",
@@ -3022,8 +2965,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "activityplanscreen()",
-      "id": "apps_mobile_src_screens_activityplanscreen_activityplanscreen",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityplanscreen_activityplanscreen"
     },
     {
       "label": "styles",
@@ -3033,8 +2976,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_activityplanscreen_styles",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityplanscreen_styles"
     },
     {
       "label": "ActivityScreen.tsx",
@@ -3044,8 +2987,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "activityscreen.tsx",
-      "id": "apps_mobile_src_screens_activityscreen",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityscreen"
     },
     {
       "label": "MOCK_ACTIVITIES",
@@ -3055,8 +2998,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "mock_activities",
-      "id": "apps_mobile_src_screens_activityscreen_mock_activities",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityscreen_mock_activities"
     },
     {
       "label": "ActivityScreen()",
@@ -3066,8 +3009,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "activityscreen()",
-      "id": "apps_mobile_src_screens_activityscreen_activityscreen",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityscreen_activityscreen"
     },
     {
       "label": "styles",
@@ -3077,8 +3020,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_activityscreen_styles",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_activityscreen_styles"
     },
     {
       "label": "ChangePasswordScreen.tsx",
@@ -3088,8 +3031,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "changepasswordscreen.tsx",
-      "id": "apps_mobile_src_screens_changepasswordscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_changepasswordscreen"
     },
     {
       "label": "ChangePasswordScreen()",
@@ -3097,10 +3040,10 @@
       "source_file": "apps/mobile/src/screens/ChangePasswordScreen.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "changepasswordscreen()",
-      "id": "apps_mobile_src_screens_changepasswordscreen_changepasswordscreen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_changepasswordscreen_changepasswordscreen"
     },
     {
       "label": "styles",
@@ -3110,8 +3053,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_changepasswordscreen_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_changepasswordscreen_styles"
     },
     {
       "label": "ChildRegisterScreen.tsx",
@@ -3121,8 +3064,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "childregisterscreen.tsx",
-      "id": "apps_mobile_src_screens_childregisterscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_childregisterscreen"
     },
     {
       "label": "ChildRegisterScreen()",
@@ -3132,8 +3075,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "childregisterscreen()",
-      "id": "apps_mobile_src_screens_childregisterscreen_childregisterscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_childregisterscreen_childregisterscreen"
     },
     {
       "label": "styles",
@@ -3143,8 +3086,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_childregisterscreen_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_childregisterscreen_styles"
     },
     {
       "label": "ChildrenListScreen.tsx",
@@ -3154,8 +3097,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "childrenlistscreen.tsx",
-      "id": "apps_mobile_src_screens_childrenlistscreen",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_childrenlistscreen"
     },
     {
       "label": "ChildrenListScreen()",
@@ -3165,8 +3108,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "childrenlistscreen()",
-      "id": "apps_mobile_src_screens_childrenlistscreen_childrenlistscreen",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_childrenlistscreen_childrenlistscreen"
     },
     {
       "label": "styles",
@@ -3176,8 +3119,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_childrenlistscreen_styles",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_childrenlistscreen_styles"
     },
     {
       "label": "EditChildProfileScreen.tsx",
@@ -3187,8 +3130,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "editchildprofilescreen.tsx",
-      "id": "apps_mobile_src_screens_editchildprofilescreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_editchildprofilescreen"
     },
     {
       "label": "EditChildProfileScreen()",
@@ -3198,8 +3141,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "editchildprofilescreen()",
-      "id": "apps_mobile_src_screens_editchildprofilescreen_editchildprofilescreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_editchildprofilescreen_editchildprofilescreen"
     },
     {
       "label": "styles",
@@ -3209,8 +3152,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_editchildprofilescreen_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_editchildprofilescreen_styles"
     },
     {
       "label": "EditParentProfileScreen.tsx",
@@ -3220,8 +3163,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "editparentprofilescreen.tsx",
-      "id": "apps_mobile_src_screens_editparentprofilescreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_editparentprofilescreen"
     },
     {
       "label": "EditParentProfileScreen()",
@@ -3231,8 +3174,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "editparentprofilescreen()",
-      "id": "apps_mobile_src_screens_editparentprofilescreen_editparentprofilescreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_editparentprofilescreen_editparentprofilescreen"
     },
     {
       "label": "styles",
@@ -3242,8 +3185,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_editparentprofilescreen_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_editparentprofilescreen_styles"
     },
     {
       "label": "HabilidadeScreen.tsx",
@@ -3253,8 +3196,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "habilidadescreen.tsx",
-      "id": "apps_mobile_src_screens_habilidadescreen",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_screens_habilidadescreen"
     },
     {
       "label": "HabilidadeScreen()",
@@ -3264,8 +3207,8 @@
       "_origin": "ast",
       "community": 13,
       "norm_label": "habilidadescreen()",
-      "id": "apps_mobile_src_screens_habilidadescreen_habilidadescreen",
-      "community_name": "TriagemBaseScreen.tsx"
+      "community_name": "TriagemBaseScreen.tsx",
+      "id": "apps_mobile_src_screens_habilidadescreen_habilidadescreen"
     },
     {
       "label": "HomeScreen.tsx",
@@ -3275,8 +3218,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "homescreen.tsx",
-      "id": "apps_mobile_src_screens_homescreen",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_homescreen"
     },
     {
       "label": "ActivityCardProps",
@@ -3286,8 +3229,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "activitycardprops",
-      "id": "apps_mobile_src_screens_homescreen_activitycardprops",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_homescreen_activitycardprops"
     },
     {
       "label": "ActivityCard()",
@@ -3297,8 +3240,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "activitycard()",
-      "id": "apps_mobile_src_screens_homescreen_activitycard",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_homescreen_activitycard"
     },
     {
       "label": "SectionHeader()",
@@ -3308,8 +3251,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "sectionheader()",
-      "id": "apps_mobile_src_screens_homescreen_sectionheader",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_homescreen_sectionheader"
     },
     {
       "label": "HomeScreen()",
@@ -3319,8 +3262,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "homescreen()",
-      "id": "apps_mobile_src_screens_homescreen_homescreen",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_homescreen_homescreen"
     },
     {
       "label": "styles",
@@ -3330,8 +3273,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_homescreen_styles",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_homescreen_styles"
     },
     {
       "label": "LoginScreen.tsx",
@@ -3341,8 +3284,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "loginscreen.tsx",
-      "id": "apps_mobile_src_screens_loginscreen",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_screens_loginscreen"
     },
     {
       "label": "LoginScreen()",
@@ -3352,8 +3295,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "loginscreen()",
-      "id": "apps_mobile_src_screens_loginscreen_loginscreen",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_screens_loginscreen_loginscreen"
     },
     {
       "label": "styles",
@@ -3363,8 +3306,8 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_loginscreen_styles",
-      "community_name": "LoginScreen.tsx"
+      "community_name": "LoginScreen.tsx",
+      "id": "apps_mobile_src_screens_loginscreen_styles"
     },
     {
       "label": "Onboarding1Screen.tsx",
@@ -3372,10 +3315,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding1Screen.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "onboarding1screen.tsx",
-      "id": "apps_mobile_src_screens_onboarding1screen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding1screen"
     },
     {
       "label": "{ width }",
@@ -3383,10 +3326,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding1Screen.tsx",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "{ width }",
-      "id": "apps_mobile_src_screens_onboarding1screen_width",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding1screen_width"
     },
     {
       "label": "Onboarding1Screen()",
@@ -3394,10 +3337,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding1Screen.tsx",
       "source_location": "L22",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "onboarding1screen()",
-      "id": "apps_mobile_src_screens_onboarding1screen_onboarding1screen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding1screen_onboarding1screen"
     },
     {
       "label": "styles",
@@ -3405,10 +3348,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding1Screen.tsx",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_onboarding1screen_styles",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding1screen_styles"
     },
     {
       "label": "Onboarding2Screen.tsx",
@@ -3416,10 +3359,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding2Screen.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "onboarding2screen.tsx",
-      "id": "apps_mobile_src_screens_onboarding2screen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding2screen"
     },
     {
       "label": "{ width }",
@@ -3427,10 +3370,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding2Screen.tsx",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "{ width }",
-      "id": "apps_mobile_src_screens_onboarding2screen_width",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding2screen_width"
     },
     {
       "label": "Onboarding2Screen()",
@@ -3438,10 +3381,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding2Screen.tsx",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "onboarding2screen()",
-      "id": "apps_mobile_src_screens_onboarding2screen_onboarding2screen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding2screen_onboarding2screen"
     },
     {
       "label": "styles",
@@ -3449,10 +3392,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding2Screen.tsx",
       "source_location": "L81",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_onboarding2screen_styles",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding2screen_styles"
     },
     {
       "label": "Onboarding3Screen.tsx",
@@ -3460,10 +3403,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding3Screen.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "onboarding3screen.tsx",
-      "id": "apps_mobile_src_screens_onboarding3screen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding3screen"
     },
     {
       "label": "{ width }",
@@ -3471,10 +3414,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding3Screen.tsx",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "{ width }",
-      "id": "apps_mobile_src_screens_onboarding3screen_width",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding3screen_width"
     },
     {
       "label": "Onboarding3Screen()",
@@ -3482,10 +3425,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding3Screen.tsx",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "onboarding3screen()",
-      "id": "apps_mobile_src_screens_onboarding3screen_onboarding3screen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding3screen_onboarding3screen"
     },
     {
       "label": "styles",
@@ -3493,10 +3436,10 @@
       "source_file": "apps/mobile/src/screens/Onboarding3Screen.tsx",
       "source_location": "L72",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_onboarding3screen_styles",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_onboarding3screen_styles"
     },
     {
       "label": "ParentRegisterScreen.tsx",
@@ -3506,8 +3449,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "parentregisterscreen.tsx",
-      "id": "apps_mobile_src_screens_parentregisterscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_parentregisterscreen"
     },
     {
       "label": "ParentRegisterScreen()",
@@ -3517,8 +3460,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "parentregisterscreen()",
-      "id": "apps_mobile_src_screens_parentregisterscreen_parentregisterscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_parentregisterscreen_parentregisterscreen"
     },
     {
       "label": "styles",
@@ -3528,8 +3471,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_parentregisterscreen_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_parentregisterscreen_styles"
     },
     {
       "label": "PerguntasScreen.tsx",
@@ -3537,10 +3480,10 @@
       "source_file": "apps/mobile/src/screens/PerguntasScreen.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "perguntasscreen.tsx",
-      "id": "apps_mobile_src_screens_perguntasscreen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_perguntasscreen"
     },
     {
       "label": "QUESTIONS",
@@ -3548,10 +3491,10 @@
       "source_file": "apps/mobile/src/screens/PerguntasScreen.tsx",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "questions",
-      "id": "apps_mobile_src_screens_perguntasscreen_questions",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_perguntasscreen_questions"
     },
     {
       "label": "PerguntasScreen()",
@@ -3559,10 +3502,10 @@
       "source_file": "apps/mobile/src/screens/PerguntasScreen.tsx",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "perguntasscreen()",
-      "id": "apps_mobile_src_screens_perguntasscreen_perguntasscreen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_perguntasscreen_perguntasscreen"
     },
     {
       "label": "styles",
@@ -3570,10 +3513,10 @@
       "source_file": "apps/mobile/src/screens/PerguntasScreen.tsx",
       "source_location": "L237",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_perguntasscreen_styles",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_perguntasscreen_styles"
     },
     {
       "label": "PlansScreen.tsx",
@@ -3583,8 +3526,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "plansscreen.tsx",
-      "id": "apps_mobile_src_screens_plansscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_plansscreen"
     },
     {
       "label": "PlansScreen()",
@@ -3592,10 +3535,10 @@
       "source_file": "apps/mobile/src/screens/PlansScreen.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 0,
+      "community": 10,
       "norm_label": "plansscreen()",
-      "id": "apps_mobile_src_screens_plansscreen_plansscreen",
-      "community_name": "App.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_screens_plansscreen_plansscreen"
     },
     {
       "label": "styles",
@@ -3605,8 +3548,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_plansscreen_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_plansscreen_styles"
     },
     {
       "label": "SettingsScreen.tsx",
@@ -3616,8 +3559,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "settingsscreen.tsx",
-      "id": "apps_mobile_src_screens_settingsscreen",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_settingsscreen"
     },
     {
       "label": "SettingsScreen()",
@@ -3627,8 +3570,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "settingsscreen()",
-      "id": "apps_mobile_src_screens_settingsscreen_settingsscreen",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_settingsscreen_settingsscreen"
     },
     {
       "label": "styles",
@@ -3638,8 +3581,8 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_settingsscreen_styles",
-      "community_name": "BottomTabBar.tsx"
+      "community_name": "BottomTabBar.tsx",
+      "id": "apps_mobile_src_screens_settingsscreen_styles"
     },
     {
       "label": "TriagemScreen.tsx",
@@ -3649,8 +3592,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "triagemscreen.tsx",
-      "id": "apps_mobile_src_screens_triagemscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_triagemscreen"
     },
     {
       "label": "HABILIDADES",
@@ -3660,8 +3603,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "habilidades",
-      "id": "apps_mobile_src_screens_triagemscreen_habilidades",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_triagemscreen_habilidades"
     },
     {
       "label": "TriagemScreen()",
@@ -3671,8 +3614,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "triagemscreen()",
-      "id": "apps_mobile_src_screens_triagemscreen_triagemscreen",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_triagemscreen_triagemscreen"
     },
     {
       "label": "styles",
@@ -3682,8 +3625,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "styles",
-      "id": "apps_mobile_src_screens_triagemscreen_styles",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_screens_triagemscreen_styles"
     },
     {
       "label": "useProfileStore.ts",
@@ -3693,8 +3636,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "useprofilestore.ts",
-      "id": "apps_mobile_src_store_useprofilestore",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_store_useprofilestore"
     },
     {
       "label": "Child",
@@ -3704,8 +3647,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "child",
-      "id": "apps_mobile_src_store_useprofilestore_child",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_store_useprofilestore_child"
     },
     {
       "label": "ProfileStore",
@@ -3715,8 +3658,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "profilestore",
-      "id": "apps_mobile_src_store_useprofilestore_profilestore",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_store_useprofilestore_profilestore"
     },
     {
       "label": "useProfileStore",
@@ -3726,8 +3669,8 @@
       "_origin": "ast",
       "community": 10,
       "norm_label": "useprofilestore",
-      "id": "apps_mobile_src_store_useprofilestore_useprofilestore",
-      "community_name": "HomeScreen.tsx"
+      "community_name": "HomeScreen.tsx",
+      "id": "apps_mobile_src_store_useprofilestore_useprofilestore"
     },
     {
       "label": "theme.ts",
@@ -3737,8 +3680,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "theme.ts",
-      "id": "apps_mobile_src_theme",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_theme"
     },
     {
       "label": "theme",
@@ -3748,8 +3691,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "theme",
-      "id": "apps_mobile_src_theme_theme",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_theme_theme"
     },
     {
       "label": "formatters.ts",
@@ -3759,8 +3702,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "formatters.ts",
-      "id": "apps_mobile_src_utils_formatters",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_utils_formatters"
     },
     {
       "label": "maskCpf()",
@@ -3770,8 +3713,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "maskcpf()",
-      "id": "apps_mobile_src_utils_formatters_maskcpf",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_utils_formatters_maskcpf"
     },
     {
       "label": "maskDate()",
@@ -3781,8 +3724,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "maskdate()",
-      "id": "apps_mobile_src_utils_formatters_maskdate",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_utils_formatters_maskdate"
     },
     {
       "label": "maskPhone()",
@@ -3792,8 +3735,8 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "maskphone()",
-      "id": "apps_mobile_src_utils_formatters_maskphone",
-      "community_name": "App.tsx"
+      "community_name": "App.tsx",
+      "id": "apps_mobile_src_utils_formatters_maskphone"
     },
     {
       "label": "tsconfig.json",
@@ -3803,8 +3746,8 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "tsconfig.json",
-      "id": "apps_mobile_tsconfig",
-      "community_name": "tsconfig.json"
+      "community_name": "tsconfig.json",
+      "id": "apps_mobile_tsconfig"
     },
     {
       "label": "extends",
@@ -3814,8 +3757,8 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "extends",
-      "id": "apps_mobile_tsconfig_extends",
-      "community_name": "tsconfig.json"
+      "community_name": "tsconfig.json",
+      "id": "apps_mobile_tsconfig_extends"
     },
     {
       "label": "expo/tsconfig.base",
@@ -3825,8 +3768,8 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "expo/tsconfig.base",
-      "id": "ref_expo_tsconfig_base",
-      "community_name": "tsconfig.json"
+      "community_name": "tsconfig.json",
+      "id": "ref_expo_tsconfig_base"
     },
     {
       "label": "compilerOptions",
@@ -3836,8 +3779,8 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "compileroptions",
-      "id": "apps_mobile_tsconfig_compileroptions",
-      "community_name": "tsconfig.json"
+      "community_name": "tsconfig.json",
+      "id": "apps_mobile_tsconfig_compileroptions"
     },
     {
       "label": "strict",
@@ -3847,8 +3790,8 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "strict",
-      "id": "apps_mobile_tsconfig_compileroptions_strict",
-      "community_name": "tsconfig.json"
+      "community_name": "tsconfig.json",
+      "id": "apps_mobile_tsconfig_compileroptions_strict"
     },
     {
       "label": "auth.ts",
@@ -3858,8 +3801,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "auth.ts",
-      "id": "supabase_functions_shared_auth",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_auth"
     },
     {
       "label": "getSupabaseClient()",
@@ -3869,8 +3812,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "getsupabaseclient()",
-      "id": "supabase_functions_shared_auth_getsupabaseclient",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_auth_getsupabaseclient"
     },
     {
       "label": "getServiceClient()",
@@ -3880,8 +3823,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "getserviceclient()",
-      "id": "supabase_functions_shared_auth_getserviceclient",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_auth_getserviceclient"
     },
     {
       "label": "getUser()",
@@ -3891,8 +3834,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "getuser()",
-      "id": "supabase_functions_shared_auth_getuser",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_auth_getuser"
     },
     {
       "label": "cors.ts",
@@ -3902,8 +3845,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "cors.ts",
-      "id": "supabase_functions_shared_cors",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_cors"
     },
     {
       "label": "corsHeaders",
@@ -3913,8 +3856,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "corsheaders",
-      "id": "supabase_functions_shared_cors_corsheaders",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_cors_corsheaders"
     },
     {
       "label": "response.ts",
@@ -3924,8 +3867,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "response.ts",
-      "id": "supabase_functions_shared_response",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_response"
     },
     {
       "label": "jsonResponse()",
@@ -3935,8 +3878,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "jsonresponse()",
-      "id": "supabase_functions_shared_response_jsonresponse",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_response_jsonresponse"
     },
     {
       "label": "errorResponse()",
@@ -3946,8 +3889,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "errorresponse()",
-      "id": "supabase_functions_shared_response_errorresponse",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_response_errorresponse"
     },
     {
       "label": "schemas.ts",
@@ -3957,8 +3900,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "schemas.ts",
-      "id": "supabase_functions_shared_schemas",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas"
     },
     {
       "label": "ExerciseLevelEnum",
@@ -3968,8 +3911,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "exerciselevelenum",
-      "id": "supabase_functions_shared_schemas_exerciselevelenum",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_exerciselevelenum"
     },
     {
       "label": "AttemptResultEnum",
@@ -3979,8 +3922,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "attemptresultenum",
-      "id": "supabase_functions_shared_schemas_attemptresultenum",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_attemptresultenum"
     },
     {
       "label": "PlanStatusEnum",
@@ -3990,8 +3933,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "planstatusenum",
-      "id": "supabase_functions_shared_schemas_planstatusenum",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_planstatusenum"
     },
     {
       "label": "SubscriptionPlanEnum",
@@ -4001,8 +3944,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "subscriptionplanenum",
-      "id": "supabase_functions_shared_schemas_subscriptionplanenum",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_subscriptionplanenum"
     },
     {
       "label": "RegisterUserSchema",
@@ -4012,8 +3955,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "registeruserschema",
-      "id": "supabase_functions_shared_schemas_registeruserschema",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_registeruserschema"
     },
     {
       "label": "RegisterChildSchema",
@@ -4023,8 +3966,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "registerchildschema",
-      "id": "supabase_functions_shared_schemas_registerchildschema",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_registerchildschema"
     },
     {
       "label": "SubmitInitialAnswersSchema",
@@ -4034,8 +3977,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "submitinitialanswersschema",
-      "id": "supabase_functions_shared_schemas_submitinitialanswersschema",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_submitinitialanswersschema"
     },
     {
       "label": "SubmitScreeningAnswersSchema",
@@ -4045,8 +3988,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "submitscreeninganswersschema",
-      "id": "supabase_functions_shared_schemas_submitscreeninganswersschema",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_submitscreeninganswersschema"
     },
     {
       "label": "RegisterAttemptSchema",
@@ -4056,8 +3999,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "registerattemptschema",
-      "id": "supabase_functions_shared_schemas_registerattemptschema",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_registerattemptschema"
     },
     {
       "label": "StartSessionSchema",
@@ -4067,8 +4010,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "startsessionschema",
-      "id": "supabase_functions_shared_schemas_startsessionschema",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_startsessionschema"
     },
     {
       "label": "CreateCheckoutSchema",
@@ -4078,8 +4021,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "createcheckoutschema",
-      "id": "supabase_functions_shared_schemas_createcheckoutschema",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_shared_schemas_createcheckoutschema"
     },
     {
       "label": "deno.json",
@@ -4089,8 +4032,8 @@
       "_origin": "ast",
       "community": 19,
       "norm_label": "deno.json",
-      "id": "supabase_functions_create_checkout_session_deno",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_create_checkout_session_deno"
     },
     {
       "label": "imports",
@@ -4100,8 +4043,8 @@
       "_origin": "ast",
       "community": 19,
       "norm_label": "imports",
-      "id": "supabase_functions_create_checkout_session_deno_imports",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_create_checkout_session_deno_imports"
     },
     {
       "label": "@supabase/functions-js",
@@ -4111,8 +4054,8 @@
       "_origin": "ast",
       "community": 19,
       "norm_label": "@supabase/functions-js",
-      "id": "supabase_functions_create_checkout_session_deno_imports_supabase_functions_js",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_create_checkout_session_deno_imports_supabase_functions_js"
     },
     {
       "label": "@supabase/server",
@@ -4122,8 +4065,8 @@
       "_origin": "ast",
       "community": 19,
       "norm_label": "@supabase/server",
-      "id": "supabase_functions_create_checkout_session_deno_imports_supabase_server",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_create_checkout_session_deno_imports_supabase_server"
     },
     {
       "label": "index.ts",
@@ -4133,8 +4076,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "index.ts",
-      "id": "supabase_functions_create_checkout_session_index",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_create_checkout_session_index"
     },
     {
       "label": "stripe",
@@ -4144,8 +4087,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "stripe",
-      "id": "supabase_functions_create_checkout_session_index_stripe",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_create_checkout_session_index_stripe"
     },
     {
       "label": "deno.json",
@@ -4155,8 +4098,8 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": "deno.json",
-      "id": "supabase_functions_generate_activity_plan_deno",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_generate_activity_plan_deno"
     },
     {
       "label": "imports",
@@ -4166,8 +4109,8 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": "imports",
-      "id": "supabase_functions_generate_activity_plan_deno_imports",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_generate_activity_plan_deno_imports"
     },
     {
       "label": "@supabase/functions-js",
@@ -4177,8 +4120,8 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": "@supabase/functions-js",
-      "id": "supabase_functions_generate_activity_plan_deno_imports_supabase_functions_js",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_generate_activity_plan_deno_imports_supabase_functions_js"
     },
     {
       "label": "@supabase/server",
@@ -4188,8 +4131,8 @@
       "_origin": "ast",
       "community": 20,
       "norm_label": "@supabase/server",
-      "id": "supabase_functions_generate_activity_plan_deno_imports_supabase_server",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_generate_activity_plan_deno_imports_supabase_server"
     },
     {
       "label": "index.ts",
@@ -4199,8 +4142,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "index.ts",
-      "id": "supabase_functions_generate_activity_plan_index",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_generate_activity_plan_index"
     },
     {
       "label": "InputSchema",
@@ -4210,8 +4153,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "inputschema",
-      "id": "supabase_functions_generate_activity_plan_index_inputschema",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_generate_activity_plan_index_inputschema"
     },
     {
       "label": "deno.json",
@@ -4221,8 +4164,8 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": "deno.json",
-      "id": "supabase_functions_handle_stripe_webhook_deno",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_handle_stripe_webhook_deno"
     },
     {
       "label": "imports",
@@ -4232,8 +4175,8 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": "imports",
-      "id": "supabase_functions_handle_stripe_webhook_deno_imports",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_handle_stripe_webhook_deno_imports"
     },
     {
       "label": "@supabase/functions-js",
@@ -4243,8 +4186,8 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": "@supabase/functions-js",
-      "id": "supabase_functions_handle_stripe_webhook_deno_imports_supabase_functions_js",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_handle_stripe_webhook_deno_imports_supabase_functions_js"
     },
     {
       "label": "@supabase/server",
@@ -4254,8 +4197,8 @@
       "_origin": "ast",
       "community": 21,
       "norm_label": "@supabase/server",
-      "id": "supabase_functions_handle_stripe_webhook_deno_imports_supabase_server",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_handle_stripe_webhook_deno_imports_supabase_server"
     },
     {
       "label": "index.ts",
@@ -4265,8 +4208,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "index.ts",
-      "id": "supabase_functions_handle_stripe_webhook_index",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_handle_stripe_webhook_index"
     },
     {
       "label": "stripe",
@@ -4276,8 +4219,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "stripe",
-      "id": "supabase_functions_handle_stripe_webhook_index_stripe",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_handle_stripe_webhook_index_stripe"
     },
     {
       "label": "deno.json",
@@ -4287,8 +4230,8 @@
       "_origin": "ast",
       "community": 22,
       "norm_label": "deno.json",
-      "id": "supabase_functions_register_attempt_deno",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_register_attempt_deno"
     },
     {
       "label": "imports",
@@ -4298,8 +4241,8 @@
       "_origin": "ast",
       "community": 22,
       "norm_label": "imports",
-      "id": "supabase_functions_register_attempt_deno_imports",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_register_attempt_deno_imports"
     },
     {
       "label": "@supabase/functions-js",
@@ -4309,8 +4252,8 @@
       "_origin": "ast",
       "community": 22,
       "norm_label": "@supabase/functions-js",
-      "id": "supabase_functions_register_attempt_deno_imports_supabase_functions_js",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_register_attempt_deno_imports_supabase_functions_js"
     },
     {
       "label": "@supabase/server",
@@ -4320,8 +4263,8 @@
       "_origin": "ast",
       "community": 22,
       "norm_label": "@supabase/server",
-      "id": "supabase_functions_register_attempt_deno_imports_supabase_server",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_register_attempt_deno_imports_supabase_server"
     },
     {
       "label": "index.ts",
@@ -4331,8 +4274,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "index.ts",
-      "id": "supabase_functions_register_attempt_index",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_register_attempt_index"
     },
     {
       "label": "deno.json",
@@ -4342,8 +4285,8 @@
       "_origin": "ast",
       "community": 23,
       "norm_label": "deno.json",
-      "id": "supabase_functions_register_child_deno",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_register_child_deno"
     },
     {
       "label": "imports",
@@ -4353,8 +4296,8 @@
       "_origin": "ast",
       "community": 23,
       "norm_label": "imports",
-      "id": "supabase_functions_register_child_deno_imports",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_register_child_deno_imports"
     },
     {
       "label": "@supabase/functions-js",
@@ -4364,8 +4307,8 @@
       "_origin": "ast",
       "community": 23,
       "norm_label": "@supabase/functions-js",
-      "id": "supabase_functions_register_child_deno_imports_supabase_functions_js",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_register_child_deno_imports_supabase_functions_js"
     },
     {
       "label": "@supabase/server",
@@ -4375,8 +4318,8 @@
       "_origin": "ast",
       "community": 23,
       "norm_label": "@supabase/server",
-      "id": "supabase_functions_register_child_deno_imports_supabase_server",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_register_child_deno_imports_supabase_server"
     },
     {
       "label": "index.ts",
@@ -4386,8 +4329,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "index.ts",
-      "id": "supabase_functions_register_child_index",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_register_child_index"
     },
     {
       "label": "deno.json",
@@ -4397,8 +4340,8 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": "deno.json",
-      "id": "supabase_functions_start_exercise_session_deno",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_start_exercise_session_deno"
     },
     {
       "label": "imports",
@@ -4408,8 +4351,8 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": "imports",
-      "id": "supabase_functions_start_exercise_session_deno_imports",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_start_exercise_session_deno_imports"
     },
     {
       "label": "@supabase/functions-js",
@@ -4419,8 +4362,8 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": "@supabase/functions-js",
-      "id": "supabase_functions_start_exercise_session_deno_imports_supabase_functions_js",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_start_exercise_session_deno_imports_supabase_functions_js"
     },
     {
       "label": "@supabase/server",
@@ -4430,8 +4373,8 @@
       "_origin": "ast",
       "community": 24,
       "norm_label": "@supabase/server",
-      "id": "supabase_functions_start_exercise_session_deno_imports_supabase_server",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_start_exercise_session_deno_imports_supabase_server"
     },
     {
       "label": "index.ts",
@@ -4441,8 +4384,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "index.ts",
-      "id": "supabase_functions_start_exercise_session_index",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_start_exercise_session_index"
     },
     {
       "label": "deno.json",
@@ -4452,8 +4395,8 @@
       "_origin": "ast",
       "community": 25,
       "norm_label": "deno.json",
-      "id": "supabase_functions_submit_initial_answers_deno",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_submit_initial_answers_deno"
     },
     {
       "label": "imports",
@@ -4463,8 +4406,8 @@
       "_origin": "ast",
       "community": 25,
       "norm_label": "imports",
-      "id": "supabase_functions_submit_initial_answers_deno_imports",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_submit_initial_answers_deno_imports"
     },
     {
       "label": "@supabase/functions-js",
@@ -4474,8 +4417,8 @@
       "_origin": "ast",
       "community": 25,
       "norm_label": "@supabase/functions-js",
-      "id": "supabase_functions_submit_initial_answers_deno_imports_supabase_functions_js",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_submit_initial_answers_deno_imports_supabase_functions_js"
     },
     {
       "label": "@supabase/server",
@@ -4485,8 +4428,8 @@
       "_origin": "ast",
       "community": 25,
       "norm_label": "@supabase/server",
-      "id": "supabase_functions_submit_initial_answers_deno_imports_supabase_server",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_submit_initial_answers_deno_imports_supabase_server"
     },
     {
       "label": "index.ts",
@@ -4496,8 +4439,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "index.ts",
-      "id": "supabase_functions_submit_initial_answers_index",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_submit_initial_answers_index"
     },
     {
       "label": "deno.json",
@@ -4507,8 +4450,8 @@
       "_origin": "ast",
       "community": 26,
       "norm_label": "deno.json",
-      "id": "supabase_functions_submit_screening_answers_deno",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_submit_screening_answers_deno"
     },
     {
       "label": "imports",
@@ -4518,8 +4461,8 @@
       "_origin": "ast",
       "community": 26,
       "norm_label": "imports",
-      "id": "supabase_functions_submit_screening_answers_deno_imports",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_submit_screening_answers_deno_imports"
     },
     {
       "label": "@supabase/functions-js",
@@ -4529,8 +4472,8 @@
       "_origin": "ast",
       "community": 26,
       "norm_label": "@supabase/functions-js",
-      "id": "supabase_functions_submit_screening_answers_deno_imports_supabase_functions_js",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_submit_screening_answers_deno_imports_supabase_functions_js"
     },
     {
       "label": "@supabase/server",
@@ -4540,8 +4483,8 @@
       "_origin": "ast",
       "community": 26,
       "norm_label": "@supabase/server",
-      "id": "supabase_functions_submit_screening_answers_deno_imports_supabase_server",
-      "community_name": "imports"
+      "community_name": "imports",
+      "id": "supabase_functions_submit_screening_answers_deno_imports_supabase_server"
     },
     {
       "label": "index.ts",
@@ -4551,8 +4494,8 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "index.ts",
-      "id": "supabase_functions_submit_screening_answers_index",
-      "community_name": "schemas.ts"
+      "community_name": "schemas.ts",
+      "id": "supabase_functions_submit_screening_answers_index"
     },
     {
       "label": "Graphify Knowledge Graph Rules (root CLAUDE.md)",
@@ -4565,8 +4508,8 @@
       "contributor": null,
       "community": 29,
       "norm_label": "graphify knowledge graph rules (root claude.md)",
-      "id": "claude_graphify_rules",
-      "community_name": "Mobile CLAUDE.md (includes AGENTS.md)"
+      "community_name": "Mobile CLAUDE.md (includes AGENTS.md)",
+      "id": "claude_graphify_rules"
     },
     {
       "label": "Avance Kids Root README (placeholder, garbled encoding)",
@@ -4579,8 +4522,8 @@
       "contributor": null,
       "community": 39,
       "norm_label": "avance kids root readme (placeholder, garbled encoding)",
-      "id": "readme_avance_kids",
-      "community_name": "Avance Kids Root README (placeholder, garbled encoding)"
+      "community_name": "Avance Kids Root README (placeholder, garbled encoding)",
+      "id": "readme_avance_kids"
     },
     {
       "label": "Backoffice README (Vite+React+TS Template Docs)",
@@ -4593,8 +4536,8 @@
       "contributor": null,
       "community": 36,
       "norm_label": "backoffice readme (vite+react+ts template docs)",
-      "id": "apps_backoffice_readme_vite_template",
-      "community_name": "Backoffice README (Vite+React+TS Template Docs)"
+      "community_name": "Backoffice README (Vite+React+TS Template Docs)",
+      "id": "apps_backoffice_readme_vite_template"
     },
     {
       "label": "Backoffice HTML Entry Point (index.html)",
@@ -4607,8 +4550,8 @@
       "contributor": null,
       "community": 27,
       "norm_label": "backoffice html entry point (index.html)",
-      "id": "apps_backoffice_index_entry",
-      "community_name": "Backoffice Favicon (purple beveled diamond icon)"
+      "community_name": "Backoffice Favicon (purple beveled diamond icon)",
+      "id": "apps_backoffice_index_entry"
     },
     {
       "label": "Backoffice Favicon (purple beveled diamond icon)",
@@ -4621,8 +4564,8 @@
       "contributor": null,
       "community": 27,
       "norm_label": "backoffice favicon (purple beveled diamond icon)",
-      "id": "apps_backoffice_public_favicon_icon",
-      "community_name": "Backoffice Favicon (purple beveled diamond icon)"
+      "community_name": "Backoffice Favicon (purple beveled diamond icon)",
+      "id": "apps_backoffice_public_favicon_icon"
     },
     {
       "label": "Backoffice Social/UI Icon Sprite (bluesky, discord, docs, github, social, x)",
@@ -4635,8 +4578,8 @@
       "contributor": null,
       "community": 35,
       "norm_label": "backoffice social/ui icon sprite (bluesky, discord, docs, github, social, x)",
-      "id": "apps_backoffice_public_icons_sprite",
-      "community_name": "Backoffice Social/UI Icon Sprite (bluesky, discord, docs, github, social, x)"
+      "community_name": "Backoffice Social/UI Icon Sprite (bluesky, discord, docs, github, social, x)",
+      "id": "apps_backoffice_public_icons_sprite"
     },
     {
       "label": "Backoffice Full Logo (Avance Kids wordmark, blue/green mark)",
@@ -4649,8 +4592,8 @@
       "contributor": null,
       "community": 17,
       "norm_label": "backoffice full logo (avance kids wordmark, blue/green mark)",
-      "id": "apps_backoffice_public_logo_full",
-      "community_name": "Backoffice Full Logo (Avance Kids wordmark, blue/green mark)"
+      "community_name": "Backoffice Full Logo (Avance Kids wordmark, blue/green mark)",
+      "id": "apps_backoffice_public_logo_full"
     },
     {
       "label": "React Logo Asset",
@@ -4663,8 +4606,8 @@
       "contributor": null,
       "community": 37,
       "norm_label": "react logo asset",
-      "id": "apps_backoffice_src_assets_react_logo",
-      "community_name": "React Logo Asset"
+      "community_name": "React Logo Asset",
+      "id": "apps_backoffice_src_assets_react_logo"
     },
     {
       "label": "Vite Logo Asset (purple recolor, light/dark parenthesis)",
@@ -4677,8 +4620,8 @@
       "contributor": null,
       "community": 27,
       "norm_label": "vite logo asset (purple recolor, light/dark parenthesis)",
-      "id": "apps_backoffice_src_assets_vite_logo",
-      "community_name": "Backoffice Favicon (purple beveled diamond icon)"
+      "community_name": "Backoffice Favicon (purple beveled diamond icon)",
+      "id": "apps_backoffice_src_assets_vite_logo"
     },
     {
       "label": "Backoffice Hero Image (3D purple beveled tile)",
@@ -4691,8 +4634,8 @@
       "contributor": null,
       "community": 17,
       "norm_label": "backoffice hero image (3d purple beveled tile)",
-      "id": "apps_backoffice_src_assets_hero",
-      "community_name": "Backoffice Full Logo (Avance Kids wordmark, blue/green mark)"
+      "community_name": "Backoffice Full Logo (Avance Kids wordmark, blue/green mark)",
+      "id": "apps_backoffice_src_assets_hero"
     },
     {
       "label": "Mobile AGENTS.md: Expo v57 Version Warning",
@@ -4705,8 +4648,8 @@
       "contributor": null,
       "community": 29,
       "norm_label": "mobile agents.md: expo v57 version warning",
-      "id": "apps_mobile_agents_expo_note",
-      "community_name": "Mobile CLAUDE.md (includes AGENTS.md)"
+      "community_name": "Mobile CLAUDE.md (includes AGENTS.md)",
+      "id": "apps_mobile_agents_expo_note"
     },
     {
       "label": "Mobile CLAUDE.md (includes AGENTS.md)",
@@ -4719,8 +4662,8 @@
       "contributor": null,
       "community": 29,
       "norm_label": "mobile claude.md (includes agents.md)",
-      "id": "apps_mobile_claude_include",
-      "community_name": "Mobile CLAUDE.md (includes AGENTS.md)"
+      "community_name": "Mobile CLAUDE.md (includes AGENTS.md)",
+      "id": "apps_mobile_claude_include"
     },
     {
       "label": "Mobile Logo + Wordmark (identical to backoffice logo)",
@@ -4733,8 +4676,8 @@
       "contributor": null,
       "community": 17,
       "norm_label": "mobile logo + wordmark (identical to backoffice logo)",
-      "id": "apps_mobile_assets_logo_texto_full",
-      "community_name": "Backoffice Full Logo (Avance Kids wordmark, blue/green mark)"
+      "community_name": "Backoffice Full Logo (Avance Kids wordmark, blue/green mark)",
+      "id": "apps_mobile_assets_logo_texto_full"
     },
     {
       "label": "Cognitiva Domain Avatar (girl, purple shirt with gear icon)",
@@ -4745,10 +4688,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 18,
       "norm_label": "cognitiva domain avatar (girl, purple shirt with gear icon)",
-      "id": "apps_mobile_assets_cognitiva",
-      "community_name": "ABA Checklist & Programs Logic Specification"
+      "community_name": "AvanceKids Logo (Icon Mark)",
+      "id": "apps_mobile_assets_cognitiva"
     },
     {
       "label": "Comunicacao Domain Avatar (girl, yellow dress, waving)",
@@ -4761,8 +4704,8 @@
       "contributor": null,
       "community": 4,
       "norm_label": "comunicacao domain avatar (girl, yellow dress, waving)",
-      "id": "apps_mobile_assets_comunicacao",
-      "community_name": "ABA Checklist & Programs Logic Specification"
+      "community_name": "ABA Checklist & Programs Logic Specification",
+      "id": "apps_mobile_assets_comunicacao"
     },
     {
       "label": "Coordenacao/Motora Domain Avatar (boy, orange shirt, footprint icon)",
@@ -4773,10 +4716,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 30,
       "norm_label": "coordenacao/motora domain avatar (boy, orange shirt, footprint icon)",
-      "id": "apps_mobile_assets_coordenacao",
-      "community_name": "ABA Checklist & Programs Logic Specification"
+      "community_name": "Folha de Registro - ABA (Registration Sheet)",
+      "id": "apps_mobile_assets_coordenacao"
     },
     {
       "label": "Funcional Domain Avatar (girl, pink dress, holding card)",
@@ -4787,10 +4730,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 34,
       "norm_label": "funcional domain avatar (girl, pink dress, holding card)",
-      "id": "apps_mobile_assets_funcional",
-      "community_name": "ABA Checklist & Programs Logic Specification"
+      "community_name": "iPhone Mockup - Screening Questionnaire Screen (Perguntas Iniciais)",
+      "id": "apps_mobile_assets_funcional"
     },
     {
       "label": "Social Domain Avatar (boy, green shirt, holding emoji cards)",
@@ -4801,10 +4744,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 41,
       "norm_label": "social domain avatar (boy, green shirt, holding emoji cards)",
-      "id": "apps_mobile_assets_social",
-      "community_name": "ABA Checklist & Programs Logic Specification"
+      "community_name": "Social Domain Avatar (boy, green shirt, holding emoji cards)",
+      "id": "apps_mobile_assets_social"
     },
     {
       "label": "Android Adaptive Icon - Background Layer (construction guide)",
@@ -4817,8 +4760,8 @@
       "contributor": null,
       "community": 15,
       "norm_label": "android adaptive icon - background layer (construction guide)",
-      "id": "apps_mobile_assets_android_icon_background",
-      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)"
+      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)",
+      "id": "apps_mobile_assets_android_icon_background"
     },
     {
       "label": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)",
@@ -4831,8 +4774,8 @@
       "contributor": null,
       "community": 15,
       "norm_label": "android adaptive icon - foreground layer (blue 'a' chevron mark)",
-      "id": "apps_mobile_assets_android_icon_foreground",
-      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)"
+      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)",
+      "id": "apps_mobile_assets_android_icon_foreground"
     },
     {
       "label": "Android Adaptive Icon - Monochrome Layer (gray 'A' chevron mark)",
@@ -4845,8 +4788,8 @@
       "contributor": null,
       "community": 15,
       "norm_label": "android adaptive icon - monochrome layer (gray 'a' chevron mark)",
-      "id": "apps_mobile_assets_android_icon_monochrome",
-      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)"
+      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)",
+      "id": "apps_mobile_assets_android_icon_monochrome"
     },
     {
       "label": "Mobile Web Favicon (blue 'A' chevron mark)",
@@ -4859,8 +4802,8 @@
       "contributor": null,
       "community": 15,
       "norm_label": "mobile web favicon (blue 'a' chevron mark)",
-      "id": "apps_mobile_assets_favicon",
-      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)"
+      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)",
+      "id": "apps_mobile_assets_favicon"
     },
     {
       "label": "Mobile App Master Icon (blue 'A' chevron, construction guide)",
@@ -4873,8 +4816,8 @@
       "contributor": null,
       "community": 15,
       "norm_label": "mobile app master icon (blue 'a' chevron, construction guide)",
-      "id": "apps_mobile_assets_icon",
-      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)"
+      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)",
+      "id": "apps_mobile_assets_icon"
     },
     {
       "label": "Onboarding Screenshot 1 - 'Perguntas Iniciais' Initial Screening Question UI",
@@ -4885,10 +4828,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 40,
       "norm_label": "onboarding screenshot 1 - 'perguntas iniciais' initial screening question ui",
-      "id": "apps_mobile_assets_onboarding1",
-      "community_name": "ABA Checklist & Programs Logic Specification"
+      "community_name": "Onboarding Screenshot 1 - 'Perguntas Iniciais' Initial Screening Question UI",
+      "id": "apps_mobile_assets_onboarding1"
     },
     {
       "label": "Onboarding Screenshot 2 - Stacked Question UI Mockups",
@@ -4901,8 +4844,8 @@
       "contributor": null,
       "community": 4,
       "norm_label": "onboarding screenshot 2 - stacked question ui mockups",
-      "id": "apps_mobile_assets_onboarding2",
-      "community_name": "ABA Checklist & Programs Logic Specification"
+      "community_name": "ABA Checklist & Programs Logic Specification",
+      "id": "apps_mobile_assets_onboarding2"
     },
     {
       "label": "Onboarding Illustration 3 - Kids Playing Outdoors",
@@ -4915,8 +4858,8 @@
       "contributor": null,
       "community": 32,
       "norm_label": "onboarding illustration 3 - kids playing outdoors",
-      "id": "apps_mobile_assets_onboarding3",
-      "community_name": "Onboarding Illustration 3 - Kids Playing Outdoors"
+      "community_name": "Onboarding Illustration 3 - Kids Playing Outdoors",
+      "id": "apps_mobile_assets_onboarding3"
     },
     {
       "label": "Perguntas Illustration - Kids Playing Outdoors (duplicate of onboarding3)",
@@ -4929,8 +4872,8 @@
       "contributor": null,
       "community": 32,
       "norm_label": "perguntas illustration - kids playing outdoors (duplicate of onboarding3)",
-      "id": "apps_mobile_assets_perguntas",
-      "community_name": "Onboarding Illustration 3 - Kids Playing Outdoors"
+      "community_name": "Onboarding Illustration 3 - Kids Playing Outdoors",
+      "id": "apps_mobile_assets_perguntas"
     },
     {
       "label": "Mobile Splash Icon (gray 'A' chevron mark)",
@@ -4943,428 +4886,8 @@
       "contributor": null,
       "community": 15,
       "norm_label": "mobile splash icon (gray 'a' chevron mark)",
-      "id": "apps_mobile_assets_splash_icon",
-      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)"
-    },
-    {
-      "label": "WhatsApp Chat: Project Architecture & Contract Discussion",
-      "file_type": "rationale",
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "whatsapp chat: project architecture & contract discussion",
-      "id": "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Freemium Model Decision (free vs premium features, unlock modal)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "freemium model decision (free vs premium features, unlock modal)",
-      "id": "avancekids_documentacao_mensagens_freemium_model_decision",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Admin Portal Free/Premium Feature Toggle (descoped from initial proposal)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "admin portal free/premium feature toggle (descoped from initial proposal)",
-      "id": "avancekids_documentacao_mensagens_admin_portal_free_premium_toggle",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "AI Orchestration Decision: Bubble vs N8N",
-      "file_type": "rationale",
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "ai orchestration decision: bubble vs n8n",
-      "id": "avancekids_documentacao_mensagens_bubble_vs_n8n_decision",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Child/Parent Registration Fields (CPF, gender, condition/syndrome)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "child/parent registration fields (cpf, gender, condition/syndrome)",
-      "id": "avancekids_documentacao_mensagens_child_registration_fields",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "ABA Checklist & Programs Logic Specification",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "aba checklist & programs logic specification",
-      "id": "avancekids_documentacao_extracted_logica_document",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Age-Band Regression Triage Logic (pre-checklist screening)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "age-band regression triage logic (pre-checklist screening)",
-      "id": "avancekids_documentacao_extracted_logica_age_regression_triage",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "FXAYZZZ Skill Coding Scheme (band/area/item standardization)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "fxayzzz skill coding scheme (band/area/item standardization)",
-      "id": "avancekids_documentacao_extracted_logica_fxayzzz_coding_scheme",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Age Band F01A (12-24 months)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "age band f01a (12-24 months)",
-      "id": "avancekids_documentacao_extracted_logica_band_f01a",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Age Band F02A (25-36 months)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "age band f02a (25-36 months)",
-      "id": "avancekids_documentacao_extracted_logica_band_f02a",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Age Band F03A (37-48 months)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "age band f03a (37-48 months)",
-      "id": "avancekids_documentacao_extracted_logica_band_f03a",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Age Band F04A (49-60 months / 4-5 years)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "age band f04a (49-60 months / 4-5 years)",
-      "id": "avancekids_documentacao_extracted_logica_band_f04a",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Age Band F05A (6-8 years)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "age band f05a (6-8 years)",
-      "id": "avancekids_documentacao_extracted_logica_band_f05a",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Age Band F06A (9-12 years)",
-      "file_type": "concept",
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "age band f06a (9-12 years)",
-      "id": "avancekids_documentacao_extracted_logica_band_f06a",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Roadmap Horizontal (PDF, content unextracted/empty)",
-      "file_type": "document",
-      "source_file": "AvanceKids-DOCUMENTACAO/Roadmap_horizontal.pdf",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "roadmap horizontal (pdf, content unextracted/empty)",
-      "id": "avancekids_documentacao_roadmap_horizontal",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Avance Kids Styleguide (PDF, content unextracted/empty)",
-      "file_type": "document",
-      "source_file": "AvanceKids-DOCUMENTACAO/Styleguide Avance Kids.pdf",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "avance kids styleguide (pdf, content unextracted/empty)",
-      "id": "avancekids_documentacao_styleguide_avance_kids",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Reduced Logo Icon (blue rounded-square, green pixel mark)",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Logo reduzida.svg",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 17,
-      "norm_label": "reduced logo icon (blue rounded-square, green pixel mark)",
-      "id": "avancekids_documentacao_imagens_e_logo_logo_reduzida",
-      "community_name": "Backoffice Full Logo (Avance Kids wordmark, blue/green mark)"
-    },
-    {
-      "label": "Cognitiva Domain Avatar (duplicate, docs copy)",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Cognitiva.png",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "cognitiva domain avatar (duplicate, docs copy)",
-      "id": "avancekids_documentacao_imagens_e_logo_cognitiva",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Comunicacao Domain Avatar (duplicate, docs copy)",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Comunicacao.png",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "comunicacao domain avatar (duplicate, docs copy)",
-      "id": "avancekids_documentacao_imagens_e_logo_comunicacao",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Coordenacao Domain Avatar (duplicate, docs copy)",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Coordenacao.png",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "coordenacao domain avatar (duplicate, docs copy)",
-      "id": "avancekids_documentacao_imagens_e_logo_coordenacao",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "Funcional Domain Avatar (duplicate, docs copy)",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Funcional.png",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 4,
-      "norm_label": "funcional domain avatar (duplicate, docs copy)",
-      "id": "avancekids_documentacao_imagens_e_logo_funcional",
-      "community_name": "ABA Checklist & Programs Logic Specification"
-    },
-    {
-      "label": "AvanceKids Logo (Icon Mark)",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Logo.svg",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 18,
-      "norm_label": "avancekids logo (icon mark)",
-      "id": "avancekids_documentacao_imagens_e_logo_logo",
-      "community_name": "AvanceKids Logo (Icon Mark)"
-    },
-    {
-      "label": "AvanceKids Logo with Wordmark",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/logo+texto.svg",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 18,
-      "norm_label": "avancekids logo with wordmark",
-      "id": "avancekids_documentacao_imagens_e_logo_logo_texto",
-      "community_name": "AvanceKids Logo (Icon Mark)"
-    },
-    {
-      "label": "Folha de Registro - ABA (Registration Sheet)",
-      "file_type": "document",
-      "source_file": "AvanceKids-DOCUMENTACAO/Outros Documentos/3.Folha--de--Registro---ABA.pdf",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 30,
-      "norm_label": "folha de registro - aba (registration sheet)",
-      "id": "avancekids_documentacao_outros_documentos_3_folha_de_registro_aba",
-      "community_name": "Folha de Registro - ABA (Registration Sheet)"
-    },
-    {
-      "label": "Folha do Programa de Pareamento (Pairing Program Sheet)",
-      "file_type": "document",
-      "source_file": "AvanceKids-DOCUMENTACAO/Outros Documentos/5.Folha--do--Programa--de--Pareamento.pdf",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 30,
-      "norm_label": "folha do programa de pareamento (pairing program sheet)",
-      "id": "avancekids_documentacao_outros_documentos_5_folha_do_programa_de_pareamento",
-      "community_name": "Folha de Registro - ABA (Registration Sheet)"
-    },
-    {
-      "label": "Folha de Registro (Registration Sheet, generic)",
-      "file_type": "document",
-      "source_file": "AvanceKids-DOCUMENTACAO/Outros Documentos/FOLHA DE REGISTRO.pdf",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 30,
-      "norm_label": "folha de registro (registration sheet, generic)",
-      "id": "avancekids_documentacao_outros_documentos_folha_de_registro",
-      "community_name": "Folha de Registro - ABA (Registration Sheet)"
-    },
-    {
-      "label": "App Mascot Character Holding Phone (Social Promo Image)",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Social.png",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 18,
-      "norm_label": "app mascot character holding phone (social promo image)",
-      "id": "avancekids_documentacao_imagens_e_logo_social",
-      "community_name": "AvanceKids Logo (Icon Mark)"
-    },
-    {
-      "label": "Illustration of Diverse Children Playing Together",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Whisk_20b1a4674d9af4a8ca240956d8cd7412dr 1.png",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 18,
-      "norm_label": "illustration of diverse children playing together",
-      "id": "avancekids_documentacao_imagens_e_logo_whisk_20b1a4674d9af4a8ca240956d8cd7412dr_1",
-      "community_name": "AvanceKids Logo (Icon Mark)"
-    },
-    {
-      "label": "iPhone Mockup - Screening Questionnaire Screen (Perguntas Iniciais)",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/iPhone 13.png",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 34,
-      "norm_label": "iphone mockup - screening questionnaire screen (perguntas iniciais)",
-      "id": "avancekids_documentacao_imagens_e_logo_iphone_13",
-      "community_name": "iPhone Mockup - Screening Questionnaire Screen (Perguntas Iniciais)"
-    },
-    {
-      "label": "Stacked iPhone Mockups - Screening Flow Screens",
-      "file_type": "image",
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/iPhone 14.png",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 34,
-      "norm_label": "stacked iphone mockups - screening flow screens",
-      "id": "avancekids_documentacao_imagens_e_logo_iphone_14",
-      "community_name": "iPhone Mockup - Screening Questionnaire Screen (Perguntas Iniciais)"
+      "community_name": "Android Adaptive Icon - Foreground Layer (blue 'A' chevron mark)",
+      "id": "apps_mobile_assets_splash_icon"
     }
   ],
   "links": [
@@ -12924,16 +12447,6 @@
       "target": "apps_backoffice_public_logo_full"
     },
     {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.6,
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Logo reduzida.svg",
-      "source_location": null,
-      "weight": 0.6,
-      "source": "avancekids_documentacao_imagens_e_logo_logo_reduzida",
-      "target": "apps_backoffice_public_logo_full"
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -12944,46 +12457,6 @@
       "target": "apps_mobile_agents_expo_note"
     },
     {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.7,
-      "source_file": "apps/mobile/assets/Cognitiva.png",
-      "source_location": null,
-      "weight": 0.7,
-      "source": "apps_mobile_assets_cognitiva",
-      "target": "avancekids_documentacao_extracted_logica_document"
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.95,
-      "source_file": "apps/mobile/assets/Cognitiva.png",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "apps_mobile_assets_cognitiva",
-      "target": "avancekids_documentacao_imagens_e_logo_cognitiva"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.7,
-      "source_file": "apps/mobile/assets/Comunicacao.png",
-      "source_location": null,
-      "weight": 0.7,
-      "source": "apps_mobile_assets_comunicacao",
-      "target": "avancekids_documentacao_extracted_logica_document"
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.95,
-      "source_file": "apps/mobile/assets/Comunicacao.png",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "apps_mobile_assets_comunicacao",
-      "target": "avancekids_documentacao_imagens_e_logo_comunicacao"
-    },
-    {
       "relation": "shares_data_with",
       "confidence": "INFERRED",
       "confidence_score": 0.6,
@@ -12992,56 +12465,6 @@
       "weight": 0.6,
       "source": "apps_mobile_assets_onboarding2",
       "target": "apps_mobile_assets_comunicacao"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.7,
-      "source_file": "apps/mobile/assets/Coordenacao.png",
-      "source_location": null,
-      "weight": 0.7,
-      "source": "apps_mobile_assets_coordenacao",
-      "target": "avancekids_documentacao_extracted_logica_document"
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.95,
-      "source_file": "apps/mobile/assets/Coordenacao.png",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "apps_mobile_assets_coordenacao",
-      "target": "avancekids_documentacao_imagens_e_logo_coordenacao"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.7,
-      "source_file": "apps/mobile/assets/Funcional.png",
-      "source_location": null,
-      "weight": 0.7,
-      "source": "apps_mobile_assets_funcional",
-      "target": "avancekids_documentacao_extracted_logica_document"
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.95,
-      "source_file": "apps/mobile/assets/Funcional.png",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "apps_mobile_assets_funcional",
-      "target": "avancekids_documentacao_imagens_e_logo_funcional"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.7,
-      "source_file": "apps/mobile/assets/Social.png",
-      "source_location": null,
-      "weight": 0.7,
-      "source": "apps_mobile_assets_social",
-      "target": "avancekids_documentacao_extracted_logica_document"
     },
     {
       "relation": "conceptually_related_to",
@@ -13094,16 +12517,6 @@
       "target": "apps_mobile_assets_splash_icon"
     },
     {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "apps/mobile/assets/onboarding1.png",
-      "source_location": null,
-      "weight": 0.75,
-      "source": "apps_mobile_assets_onboarding1",
-      "target": "avancekids_documentacao_extracted_logica_age_regression_triage"
-    },
-    {
       "relation": "shares_data_with",
       "confidence": "EXTRACTED",
       "confidence_score": 0.95,
@@ -13112,255 +12525,9 @@
       "weight": 1.0,
       "source": "apps_mobile_assets_onboarding3",
       "target": "apps_mobile_assets_perguntas"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto",
-      "target": "avancekids_documentacao_mensagens_admin_portal_free_premium_toggle"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto",
-      "target": "avancekids_documentacao_mensagens_bubble_vs_n8n_decision"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto",
-      "target": "avancekids_documentacao_mensagens_child_registration_fields"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto",
-      "target": "avancekids_documentacao_mensagens_freemium_model_decision"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "AMBIGUOUS",
-      "confidence_score": 0.4,
-      "source_file": "AvanceKids-DOCUMENTACAO/Roadmap_horizontal.pdf",
-      "source_location": null,
-      "weight": 0.4,
-      "source": "avancekids_documentacao_roadmap_horizontal",
-      "target": "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "AMBIGUOUS",
-      "confidence_score": 0.4,
-      "source_file": "AvanceKids-DOCUMENTACAO/Styleguide Avance Kids.pdf",
-      "source_location": null,
-      "weight": 0.4,
-      "source": "avancekids_documentacao_styleguide_avance_kids",
-      "target": "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.8,
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "weight": 0.8,
-      "source": "avancekids_documentacao_mensagens_freemium_model_decision",
-      "target": "avancekids_documentacao_mensagens_admin_portal_free_premium_toggle"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "AMBIGUOUS",
-      "confidence_score": 0.5,
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt",
-      "source_location": null,
-      "weight": 0.5,
-      "source": "avancekids_documentacao_mensagens_admin_portal_free_premium_toggle",
-      "target": "avancekids_documentacao_extracted_logica_document"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "avancekids_documentacao_extracted_logica_document",
-      "target": "avancekids_documentacao_extracted_logica_age_regression_triage"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "avancekids_documentacao_extracted_logica_document",
-      "target": "avancekids_documentacao_extracted_logica_fxayzzz_coding_scheme"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.85,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 0.85,
-      "source": "avancekids_documentacao_extracted_logica_fxayzzz_coding_scheme",
-      "target": "avancekids_documentacao_extracted_logica_band_f03a"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.85,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 0.85,
-      "source": "avancekids_documentacao_extracted_logica_fxayzzz_coding_scheme",
-      "target": "avancekids_documentacao_extracted_logica_band_f06a"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 0.9,
-      "source": "avancekids_documentacao_extracted_logica_band_f02a",
-      "target": "avancekids_documentacao_extracted_logica_band_f01a"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 0.9,
-      "source": "avancekids_documentacao_extracted_logica_band_f03a",
-      "target": "avancekids_documentacao_extracted_logica_band_f02a"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 0.9,
-      "source": "avancekids_documentacao_extracted_logica_band_f04a",
-      "target": "avancekids_documentacao_extracted_logica_band_f03a"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 0.9,
-      "source": "avancekids_documentacao_extracted_logica_band_f05a",
-      "target": "avancekids_documentacao_extracted_logica_band_f04a"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.9,
-      "source_file": "AvanceKids-DOCUMENTACAO/extracted_logica.txt",
-      "source_location": null,
-      "weight": 0.9,
-      "source": "avancekids_documentacao_extracted_logica_band_f06a",
-      "target": "avancekids_documentacao_extracted_logica_band_f05a"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/logo+texto.svg",
-      "source_location": null,
-      "weight": 0.8,
-      "source": "avancekids_documentacao_imagens_e_logo_logo_texto",
-      "target": "avancekids_documentacao_imagens_e_logo_logo"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "AMBIGUOUS",
-      "confidence_score": 0.3,
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Social.png",
-      "source_location": null,
-      "weight": 0.3,
-      "source": "avancekids_documentacao_imagens_e_logo_social",
-      "target": "avancekids_documentacao_imagens_e_logo_logo"
-    },
-    {
-      "relation": "references",
-      "confidence": "AMBIGUOUS",
-      "confidence_score": 0.4,
-      "source_file": "AvanceKids-DOCUMENTACAO/Outros Documentos/3.Folha--de--Registro---ABA.pdf",
-      "source_location": null,
-      "weight": 0.4,
-      "source": "avancekids_documentacao_outros_documentos_3_folha_de_registro_aba",
-      "target": "avancekids_documentacao_outros_documentos_folha_de_registro"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "AMBIGUOUS",
-      "confidence_score": 0.4,
-      "source_file": "AvanceKids-DOCUMENTACAO/Outros Documentos/5.Folha--do--Programa--de--Pareamento.pdf",
-      "source_location": null,
-      "weight": 0.4,
-      "source": "avancekids_documentacao_outros_documentos_5_folha_do_programa_de_pareamento",
-      "target": "avancekids_documentacao_outros_documentos_3_folha_de_registro_aba"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.6,
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/Social.png",
-      "source_location": null,
-      "weight": 0.6,
-      "source": "avancekids_documentacao_imagens_e_logo_social",
-      "target": "avancekids_documentacao_imagens_e_logo_whisk_20b1a4674d9af4a8ca240956d8cd7412dr_1"
-    },
-    {
-      "relation": "semantically_similar_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.75,
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/iPhone 14.png",
-      "source_location": null,
-      "weight": 0.75,
-      "source": "avancekids_documentacao_imagens_e_logo_iphone_14",
-      "target": "avancekids_documentacao_imagens_e_logo_iphone_13"
     }
   ],
   "hyperedges": [
-    {
-      "id": "developmental_domain_avatars",
-      "label": "ABA Developmental Domain Avatars & Checklist Structure",
-      "nodes": [
-        "apps_mobile_assets_cognitiva",
-        "apps_mobile_assets_comunicacao",
-        "apps_mobile_assets_coordenacao",
-        "apps_mobile_assets_funcional",
-        "apps_mobile_assets_social",
-        "avancekids_documentacao_extracted_logica_document"
-      ],
-      "relation": "participate_in",
-      "confidence": "INFERRED",
-      "confidence_score": 0.7,
-      "source_file": "apps/mobile/assets/Cognitiva.png"
-    },
     {
       "id": "android_adaptive_icon_layers",
       "label": "Android Adaptive Icon Layer Set",
@@ -13374,48 +12541,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 0.85,
       "source_file": "apps/mobile/assets/android-icon-foreground.png"
-    },
-    {
-      "id": "avance_kids_freemium_architecture_decision",
-      "label": "Freemium Feature-Gating Architecture Decision",
-      "nodes": [
-        "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto",
-        "avancekids_documentacao_mensagens_freemium_model_decision",
-        "avancekids_documentacao_mensagens_admin_portal_free_premium_toggle",
-        "avancekids_documentacao_extracted_logica_document"
-      ],
-      "relation": "participate_in",
-      "confidence": "INFERRED",
-      "confidence_score": 0.6,
-      "source_file": "AvanceKids-DOCUMENTACAO/Mensagens relevantes sobre a arquitetura do projeto.txt"
-    },
-    {
-      "id": "avancekids_brand_assets",
-      "label": "AvanceKids Brand & Marketing Assets",
-      "nodes": [
-        "avancekids_documentacao_imagens_e_logo_logo",
-        "avancekids_documentacao_imagens_e_logo_logo_texto",
-        "avancekids_documentacao_imagens_e_logo_social",
-        "avancekids_documentacao_imagens_e_logo_whisk_20b1a4674d9af4a8ca240956d8cd7412dr_1"
-      ],
-      "relation": "form",
-      "confidence": "INFERRED",
-      "confidence_score": 0.55,
-      "source_file": "AvanceKids-DOCUMENTACAO/Imagens e logo/"
-    },
-    {
-      "id": "aba_worksheets_documentation",
-      "label": "ABA Therapy Worksheet Documents",
-      "nodes": [
-        "avancekids_documentacao_outros_documentos_3_folha_de_registro_aba",
-        "avancekids_documentacao_outros_documentos_5_folha_do_programa_de_pareamento",
-        "avancekids_documentacao_outros_documentos_folha_de_registro"
-      ],
-      "relation": "participate_in",
-      "confidence": "AMBIGUOUS",
-      "confidence_score": 0.4,
-      "source_file": "AvanceKids-DOCUMENTACAO/Outros Documentos/"
     }
   ],
-  "built_at_commit": "d14f57e3e76f6f91565cf63a1d6ec871408507bd"
+  "built_at_commit": "e4d18b6cffdeabbff44967be6da31ff134321a4d"
 }
