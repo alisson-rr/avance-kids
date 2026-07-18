@@ -1,0 +1,148 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-divider);
+  display: flex;
+  flex-direction: column;
+}
+
+.logoContainer {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.logoImage {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.nav {
+  flex: 1;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-light);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.navItem:hover {
+  background-color: var(--color-background);
+  color: var(--color-text-dark);
+}
+
+.navItemActive {
+  background-color: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+.navItemActive:hover {
+  background-color: var(--color-primary-bg);
+  color: var(--color-primary-light);
+}
+
+.navItem span {
+  margin-left: 12px;
+}
+
+.sidebarFooter {
+  padding: 16px;
+  border-top: 1px solid var(--color-divider);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-primary-bg);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-dark);
+}
+
+.userRole {
+  font-size: 12px;
+  color: var(--color-text-light);
+}
+
+.logoutButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: #FFF1F0;
+  color: var(--color-danger);
+}
+
+.logoutButton span {
+  margin-left: 12px;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pageContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  background-color: var(--color-background);
+}

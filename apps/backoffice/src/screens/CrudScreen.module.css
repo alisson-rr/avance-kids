@@ -1,0 +1,218 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+
+.addButton:hover {
+  opacity: 0.9;
+}
+
+.tableCard {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-divider);
+  overflow: hidden;
+}
+
+.toolbar {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-divider);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-background);
+  padding: 8px 16px;
+  border-radius: 20px;
+  width: 300px;
+  border: 1px solid var(--color-divider);
+}
+
+.searchBox input {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.filterBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--color-divider);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-dark);
+  font-weight: 500;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 16px 24px;
+  background-color: #FAFAFA;
+  color: var(--color-text-light);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--color-divider);
+  color: var(--color-text-dark);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-background);
+}
+
+.primaryCell {
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+.dateCell {
+  color: var(--color-text-light);
+}
+
+.badgeNeutral {
+  background-color: #F0F0F0;
+  color: #5E5E5E;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badgeSuccess {
+  background-color: #F6FFED;
+  color: var(--color-success);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badgeError {
+  background-color: #FFF1F0;
+  color: var(--color-danger);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  transition: color 0.2s;
+}
+
+.iconBtn:hover {
+  color: var(--color-primary);
+}
+
+.iconBtnDanger {
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  transition: color 0.2s;
+}
+
+.iconBtnDanger:hover {
+  color: var(--color-danger);
+}
+
+.pagination {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pageInfo {
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+.pageControls {
+  display: flex;
+  gap: 8px;
+}
+
+.pageControls button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--color-divider);
+  border-radius: 6px;
+  color: var(--color-text-dark);
+}
+
+.pageControls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageControls button.activePage {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
