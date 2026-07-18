@@ -1,56 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
   Text,
   Image,
+  ImageSourcePropType,
   TouchableOpacity,
   ScrollView,
   StatusBar,
+  StatusBarStyle,
+  ViewStyle,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '../theme';
-import { HabilidadeKey, HABILIDADE_STYLES } from '../data/habilidades';
 
-interface TriagemBaseScreenProps {
-  habilidade: HabilidadeKey;
-  habilidadeTitle: string;
+interface QuestionScreenLayoutProps {
+  headerColor: string;
+  headerTitle: string;
+  statusBarStyle?: StatusBarStyle;
+  onBack: () => void;
+  image: ImageSourcePropType;
+  imageBackground: string;
+  tag?: { label: string; background: string; color: string };
   perguntaAtual: number;
   totalPerguntas: number;
-  perguntaTexto: string;
+  progressActiveStyle: ViewStyle;
+  progressInactiveStyle: ViewStyle;
+  pergunta: string;
   opcoes: string[];
-  onNext: (respostaIndex: number) => void;
-  onBack: () => void;
+  selectedOption: number | null;
+  onSelectOption: (index: number) => void;
+  onPrev: () => void;
+  onNext: () => void;
 }
 
-export function TriagemBaseScreen({
-  habilidade,
-  habilidadeTitle,
+export function QuestionScreenLayout({
+  headerColor,
+  headerTitle,
+  statusBarStyle = 'light-content',
+  onBack,
+  image,
+  imageBackground,
+  tag,
   perguntaAtual,
   totalPerguntas,
-  perguntaTexto,
+  progressActiveStyle,
+  progressInactiveStyle,
+  pergunta,
   opcoes,
+  selectedOption,
+  onSelectOption,
+  onPrev,
   onNext,
-  onBack,
-}: TriagemBaseScreenProps) {
+}: QuestionScreenLayoutProps) {
   const insets = useSafeAreaInsets();
   const safeTop = Math.max(insets.top, 50);
-  const stylesConfig = HABILIDADE_STYLES[habilidade];
 
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
-
-  const handleNext = () => {
-    if (selectedOption !== null) {
-      onNext(selectedOption);
-      setSelectedOption(null); // Reseta
-    }
-  };
-
-  const handleOptionSelect = (index: number) => {
-    setSelectedOption(index);
-  };
-
-  // ─── Progress bar segments ──────────────────────────────────────
   const renderProgressBar = () => {
     const segments = [];
     for (let i = 0; i < totalPerguntas; i++) {
@@ -62,9 +67,7 @@ export function TriagemBaseScreen({
           key={i}
           style={[
             styles.progressSegment,
-            isActive
-              ? { backgroundColor: stylesConfig.textColor, opacity: 0.6 } // Active com a cor da habilidade
-              : styles.progressInactive,
+            isActive ? progressActiveStyle : progressInactiveStyle,
             isFirst && styles.progressFirst,
             isLast && styles.progressLast,
           ]}
@@ -76,10 +79,10 @@ export function TriagemBaseScreen({
 
   return (
     <View style={styles.screen}>
-      <StatusBar barStyle="dark-content" backgroundColor={stylesConfig.background} />
+      <StatusBar barStyle={statusBarStyle} backgroundColor={headerColor} />
 
-      {/* ── DYNAMIC HEADER BAND ── */}
-      <View style={[styles.blueHeader, { paddingTop: safeTop, backgroundColor: stylesConfig.background }]}>
+      {/* ── COLORED HEADER BAND ── */}
+      <View style={[styles.bandHeader, { paddingTop: safeTop, backgroundColor: headerColor }]}>
         <View style={styles.titleRow}>
           <TouchableOpacity
             onPress={onBack}
@@ -89,19 +92,14 @@ export function TriagemBaseScreen({
             <Text style={styles.headerChevron}>‹</Text>
           </TouchableOpacity>
 
-          <Text style={styles.headerTitle}>{habilidadeTitle}</Text>
+          <Text style={styles.headerTitle}>{headerTitle}</Text>
 
-          <TouchableOpacity
-            style={styles.headerIconBtn}
-            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-            disabled
-          >
-            <View />
-          </TouchableOpacity>
+          {/* Espaçador invisível para manter o título centralizado */}
+          <View style={styles.headerIconBtn} />
         </View>
       </View>
 
-      {/* ── CARD (overlaps the header) ── */}
+      {/* ── CARD (overlaps the header band) ── */}
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
@@ -110,21 +108,17 @@ export function TriagemBaseScreen({
       >
         <View style={styles.card}>
           {/* Image area */}
-          <View style={[styles.cardImageSection, { backgroundColor: stylesConfig.tagBackground }]}>
-            <Image
-              source={stylesConfig.image}
-              style={styles.heroImage}
-              resizeMode="contain"
-            />
+          <View style={[styles.cardImageSection, { backgroundColor: imageBackground }]}>
+            <Image source={image} style={styles.cardImage} resizeMode="contain" />
           </View>
 
           {/* White content area */}
           <View style={styles.cardContent}>
-            
-            {/* Tag Habilidade */}
-            <View style={[styles.tagBadge, { backgroundColor: stylesConfig.tagBackground }]}>
-              <Text style={[styles.tagText, { color: stylesConfig.textColor }]}>{habilidadeTitle}</Text>
-            </View>
+            {tag && (
+              <View style={[styles.tagBadge, { backgroundColor: tag.background }]}>
+                <Text style={[styles.tagText, { color: tag.color }]}>{tag.label}</Text>
+              </View>
+            )}
 
             {/* Progress */}
             <View style={styles.progressBlock}>
@@ -136,7 +130,7 @@ export function TriagemBaseScreen({
 
             {/* Question & options */}
             <View style={styles.questionBlock}>
-              <Text style={styles.questionText}>{perguntaTexto}</Text>
+              <Text style={styles.questionText}>{pergunta}</Text>
 
               <View style={styles.optionsList}>
                 {opcoes.map((opt, i) => {
@@ -147,14 +141,9 @@ export function TriagemBaseScreen({
                       <TouchableOpacity
                         style={styles.optionRow}
                         activeOpacity={0.65}
-                        onPress={() => handleOptionSelect(i)}
+                        onPress={() => onSelectOption(i)}
                       >
-                        <View
-                          style={[
-                            styles.radio,
-                            isSelected && styles.radioSelected,
-                          ]}
-                        >
+                        <View style={[styles.radio, isSelected && styles.radioSelected]}>
                           {isSelected && <View style={styles.radioDot} />}
                         </View>
                         <Text style={styles.optionText}>{opt}</Text>
@@ -169,27 +158,24 @@ export function TriagemBaseScreen({
             {/* Nav buttons */}
             <View style={styles.navRow}>
               <TouchableOpacity
-                onPress={onBack}
+                onPress={onPrev}
                 style={styles.navBtn}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
-                <Text style={styles.navChevronLeft}>‹</Text>
+                <Text style={styles.navChevron}>‹</Text>
                 <Text style={styles.navLabel}>anterior</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={handleNext}
-                style={[
-                  styles.navBtn,
-                  selectedOption === null && styles.navBtnDisabled,
-                ]}
+                onPress={onNext}
+                style={[styles.navBtn, selectedOption === null && styles.navBtnDisabled]}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                 disabled={selectedOption === null}
               >
                 <Text style={styles.navLabel}>
                   {perguntaAtual < totalPerguntas - 1 ? 'próxima' : 'finalizar'}
                 </Text>
-                <Text style={styles.navChevronRight}>›</Text>
+                <Text style={styles.navChevron}>›</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -200,15 +186,15 @@ export function TriagemBaseScreen({
 }
 
 // ─── STYLES (Figma-faithful) ──────────────────────────────────────────
-const CARD_SIDE_MARGIN = 24; 
+const CARD_SIDE_MARGIN = 24; // (393 - 345) / 2 = 24
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: '#FAFAFA',
   },
-  blueHeader: {
-    paddingBottom: 80, 
+  bandHeader: {
+    paddingBottom: 80, // extra space for the card overlap
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },
@@ -231,21 +217,18 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     marginTop: -2,
   },
-  headerInfo: {
-    fontSize: 20,
-    color: '#FFFFFF',
-  },
   headerTitle: {
+    // Figma: Inter 600, 16px, line-height 20px, letter-spacing 2%, center, #FFFFFF
     fontFamily: theme.fonts.semiBold,
     fontSize: 16,
     lineHeight: 20,
-    letterSpacing: 0.32, 
+    letterSpacing: 0.32,
     textAlign: 'center',
-    color: '#FFFFFF', // Title in white
+    color: '#FFFFFF',
   },
   scrollView: {
     flex: 1,
-    marginTop: -60, // overlap the card onto the header
+    marginTop: -60, // overlap the card onto the header band
   },
   scrollContent: {
     paddingBottom: 40,
@@ -261,7 +244,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  heroImage: {
+  cardImage: {
     width: '100%',
     height: 190,
   },
@@ -270,7 +253,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 2,
-    borderColor: '#EEF4FF', // Assuming this remains the same or changes per habilidade, using a neutral or specific one
+    borderColor: '#EEF4FF',
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
     paddingTop: 16,
@@ -306,9 +289,6 @@ const styles = StyleSheet.create({
   progressSegment: {
     flex: 1,
     height: 4,
-  },
-  progressInactive: {
-    backgroundColor: '#F0F0F0',
   },
   progressFirst: {
     borderTopLeftRadius: 4,
@@ -360,7 +340,6 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     color: '#000000',
     flex: 1,
-    marginTop: 3, // Small adjustment for better centering with custom radio if needed
   },
   optionDivider: {
     height: 1,
@@ -387,12 +366,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#02349A',
   },
-  navChevronLeft: {
-    fontSize: 22,
-    color: '#02349C',
-    lineHeight: 24,
-  },
-  navChevronRight: {
+  navChevron: {
     fontSize: 22,
     color: '#02349C',
     lineHeight: 24,

@@ -1,3 +1,5 @@
+/* Shared chrome for list+form CRUD screens (Atividades, Usuários, Brincadeiras, Artigos, Perguntas). */
+
 .container {
   display: flex;
   flex-direction: column;
@@ -10,13 +12,19 @@
   align-items: center;
 }
 
+.backWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .title {
   font-size: 24px;
   font-weight: 700;
   color: var(--color-text-dark);
 }
 
-.addButton {
+.primaryButton {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -30,8 +38,18 @@
   transition: opacity 0.2s;
 }
 
-.addButton:hover {
+.primaryButton:hover {
   opacity: 0.9;
+}
+
+.showArchivedToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-dark);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .actions {
@@ -43,7 +61,6 @@
   background: none;
   border: none;
   color: var(--color-text-light);
-  transition: color 0.2s;
 }
 
 .iconBtn:hover {
@@ -54,9 +71,32 @@
   background: none;
   border: none;
   color: var(--color-text-light);
-  transition: color 0.2s;
 }
 
 .iconBtnDanger:hover {
   color: var(--color-danger);
+}
+
+.formCard {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-divider);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.formContent {
+  padding: 32px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
 }

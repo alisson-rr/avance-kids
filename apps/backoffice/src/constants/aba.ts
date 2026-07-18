@@ -2,6 +2,8 @@
 // Espelha os 5 domínios já usados no app mobile (apps/mobile/src/data/habilidades.ts)
 // e a paleta cadastrada em skills no schema de referência.
 
+import type { RecordStatus, MediaType } from '../types/common';
+
 export type HabilidadeKey = 'comunicacao' | 'social' | 'cognitiva' | 'motora' | 'funcional';
 
 export interface Habilidade {
@@ -58,11 +60,14 @@ export const ACCESS_PLANS: { value: AccessPlan; label: string }[] = [
   { value: 'premium', label: 'Premium (Pago)' },
 ];
 
-export type AtividadeStatus = 'ativo' | 'arquivado';
+export type AtividadeStatus = RecordStatus;
 
 export interface Atividade {
   id: number;
   codigo: string;
+  titulo: string;
+  mediaType: MediaType;
+  mediaUrl: string;
   skillKey: HabilidadeKey;
   ageBracketCode: AgeBracketCode;
   nivel: ExerciseLevel;

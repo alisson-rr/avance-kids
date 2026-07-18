@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet, ScrollView, Alert, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { BottomTabBar } from '../components/BottomTabBar';
-
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 110 : 90;
-const HEADER_MAX_HEIGHT = 198;
-const CURVE_TOP = HEADER_MIN_HEIGHT - 30;
+import { CurvedHeader, HEADER_MAX_HEIGHT } from '../components/CurvedHeader';
 
 export function SettingsScreen({ navigation }: any) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -21,23 +18,9 @@ export function SettingsScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      
-      {/* 1. Curved Background Extension (Behind ScrollView) */}
-      <View style={styles.headerCurve} />
+      <CurvedHeader title="Meu perfil" onBack={() => navigation.goBack()} />
 
-      {/* 2. Top Fixed Header */}
-      <View style={styles.topFixedHeader}>
-        <View style={styles.topBar}>
-          <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="chevron-back" size={28} color={theme.colors.white} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Meu perfil</Text>
-          <View style={{ width: 44 }} />
-        </View>
-      </View>
-
-      {/* 3. Main Scroll View */}
-      <ScrollView 
+      <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
@@ -67,7 +50,7 @@ export function SettingsScreen({ navigation }: any) {
               </TouchableOpacity>
             </View>
           </View>
-          
+
           <View style={{ height: 120 }} />
         </View>
       </ScrollView>
@@ -97,53 +80,9 @@ export function SettingsScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
+  container: {
+    flex: 1,
     backgroundColor: '#FFFFFF',
-  },
-  headerCurve: {
-    backgroundColor: '#3678FD',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    position: 'absolute',
-    top: CURVE_TOP,
-    height: HEADER_MAX_HEIGHT - CURVE_TOP,
-    left: 0,
-    right: 0,
-    zIndex: 0,
-    elevation: 0,
-  },
-  topFixedHeader: {
-    backgroundColor: '#3678FD',
-    height: HEADER_MIN_HEIGHT,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    paddingTop: Platform.OS === 'ios' ? 50 : 30,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 10,
-    elevation: 10,
-    justifyContent: 'center',
-  },
-  topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 50,
-    paddingHorizontal: 12,
-  },
-  iconButton: {
-    padding: 8,
-    width: 44,
-    alignItems: 'center',
-    zIndex: 20,
-  },
-  headerTitle: {
-    fontFamily: theme.fonts.mulishBold,
-    fontSize: 20,
-    color: '#FFFFFF',
   },
   scrollView: {
     flex: 1,
@@ -155,33 +94,33 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   scrollWhiteBody: {
-    backgroundColor: '#FFFFFF', 
+    backgroundColor: '#FFFFFF',
     flex: 1,
   },
   mainCardWrapper: {
     alignItems: 'center',
     marginTop: -40,
   },
-  mainCard: { 
-    backgroundColor: '#FFFFFF', 
-    width: 345, 
-    borderRadius: 12, 
+  mainCard: {
+    backgroundColor: '#FFFFFF',
+    width: 345,
+    borderRadius: 12,
     paddingVertical: 20,
     paddingHorizontal: 20,
-    shadowColor: '#AAAAAA', 
+    shadowColor: '#AAAAAA',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25, 
-    shadowRadius: 10, 
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
     elevation: 4,
   },
-  avatarContainer: { 
-    alignItems: 'center', 
+  avatarContainer: {
+    alignItems: 'center',
     marginBottom: 20,
   },
-  avatarPlaceholder: { 
-    width: 76, 
-    height: 76, 
-    borderRadius: 38, 
+  avatarPlaceholder: {
+    width: 76,
+    height: 76,
+    borderRadius: 38,
     backgroundColor: '#EBF3FF',
     justifyContent: 'center',
     alignItems: 'center',
@@ -198,72 +137,72 @@ const styles = StyleSheet.create({
     color: '#424242',
     fontWeight: '700',
   },
-  menuContainer: { 
+  menuContainer: {
     marginTop: 10,
     width: '100%',
   },
-  menuItem: { 
-    flexDirection: 'row', 
+  menuItem: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 18, 
-    borderBottomWidth: 1, 
-    borderBottomColor: '#EBEBEB' 
+    paddingVertical: 18,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EBEBEB'
   },
-  menuText: { 
+  menuText: {
     fontFamily: theme.fonts.mulishSemiBold,
-    fontSize: 16, 
+    fontSize: 16,
     color: '#424242'
   },
-  termsButton: { 
-    marginTop: 30, 
-    alignItems: 'center', 
-    paddingBottom: 10 
+  termsButton: {
+    marginTop: 30,
+    alignItems: 'center',
+    paddingBottom: 10
   },
-  termsText: { 
+  termsText: {
     fontFamily: theme.fonts.mulishBold,
-    color: '#3678FD', 
-    fontSize: 14 
+    color: '#3678FD',
+    fontSize: 14
   },
-  modalContainer: { 
-    flex: 1, 
-    backgroundColor: 'rgba(0,0,0,0.5)', 
-    justifyContent: 'center', 
-    alignItems: 'center' 
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  modalContent: { 
-    backgroundColor: theme.colors.white, 
-    padding: 24, 
-    borderRadius: 16, 
+  modalContent: {
+    backgroundColor: theme.colors.white,
+    padding: 24,
+    borderRadius: 16,
     width: '90%',
     maxHeight: '80%'
   },
-  modalTitle: { 
+  modalTitle: {
     fontFamily: theme.fonts.mulishBold,
-    fontSize: 18, 
-    marginBottom: 15, 
+    fontSize: 18,
+    marginBottom: 15,
     color: '#424242',
     textAlign: 'center'
   },
   modalScrollView: {
     maxHeight: 400,
   },
-  modalText: { 
+  modalText: {
     fontFamily: theme.fonts.regular,
-    color: '#5E5E5E', 
+    color: '#5E5E5E',
     lineHeight: 22,
     fontSize: 14,
   },
-  modalCloseButton: { 
-    marginTop: 20, 
-    padding: 14, 
-    backgroundColor: '#3678FD', 
-    borderRadius: 50, 
-    alignItems: 'center' 
+  modalCloseButton: {
+    marginTop: 20,
+    padding: 14,
+    backgroundColor: '#3678FD',
+    borderRadius: 50,
+    alignItems: 'center'
   },
-  modalCloseText: { 
+  modalCloseText: {
     fontFamily: theme.fonts.mulishSemiBold,
-    color: theme.colors.white, 
-    fontSize: 16 
+    color: theme.colors.white,
+    fontSize: 16
   }
 });

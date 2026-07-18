@@ -3,54 +3,17 @@ import {
   StyleSheet,
   View,
   Text,
-  SafeAreaView,
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
+import { HABILIDADES, HABILIDADE_STYLES } from '../data/habilidades';
 
-// ─── DATA ─────────────────────────────────────────────────────────────
-const HABILIDADES = [
-  {
-    id: 1,
-    nome: 'Comunicação',
-    total: 5,
-    respondidas: 0,
-    circleColor: '#FFCF4D',
-  },
-  {
-    id: 2,
-    nome: 'Social',
-    total: 4,
-    respondidas: 0,
-    circleColor: '#82C302',
-  },
-  {
-    id: 3,
-    nome: 'Cognitiva',
-    total: 4,
-    respondidas: 0,
-    circleColor: '#9F67FF',
-  },
-  {
-    id: 4,
-    nome: 'Coordenação motora',
-    total: 4,
-    respondidas: 0,
-    circleColor: '#FF8E25',
-  },
-  {
-    id: 5,
-    nome: 'Funcional',
-    total: 4,
-    respondidas: 0,
-    circleColor: '#FE6D94',
-  },
-];
+// Perguntas respondidas por habilidade (mock — em produção vem do backend)
+const RESPONDIDAS: Record<number, number> = {};
 
 // ─── COMPONENT ────────────────────────────────────────────────────────
 export function TriagemScreen({ navigation }: any) {
@@ -98,18 +61,18 @@ export function TriagemScreen({ navigation }: any) {
               onPress={() => navigation.navigate('Habilidade', { habilidadeId: hab.id })}
             >
               {/* Colored circle */}
-              <View style={[styles.circle, { backgroundColor: hab.circleColor }]} />
+              <View style={[styles.circle, { backgroundColor: HABILIDADE_STYLES[hab.key].background }]} />
 
               {/* Right content */}
               <View style={styles.cardRight}>
                 {/* Title + count */}
                 <View style={styles.cardMeta}>
                   <View style={styles.cardTitleGroup}>
-                    <Text style={styles.cardTitle}>{hab.nome}</Text>
+                    <Text style={styles.cardTitle}>{hab.title}</Text>
                   </View>
                   <View style={styles.cardCountGroup}>
                     <Text style={styles.cardCount}>
-                      {hab.respondidas}/{hab.total}
+                      {RESPONDIDAS[hab.id] ?? 0}/{hab.totalPerguntas}
                     </Text>
                   </View>
                 </View>
@@ -168,11 +131,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     lineHeight: 30,
     marginTop: -2,
-  },
-  infoIcon: {
-    // Figma: border 1.5px solid #000000
-    fontSize: 20,
-    color: '#000000',
   },
   titleBlock: {
     // Figma: Frame 427319674, gap 8px, 345×71px

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
-  Platform,
   ScrollView,
   Modal,
   TouchableWithoutFeedback,
@@ -150,7 +149,7 @@ export function ActivityScreen({ navigation, route }: any) {
                   />
                 </View>
                 <Text style={styles.completionText}>
-                  Pedro <Text style={{ fontFamily: theme.fonts.bold, fontWeight: '700' }}>concluiu as tentativas</Text> deste exercício e uma nova atividade foi liberada!
+                  Pedro <Text style={{ fontFamily: theme.fonts.mulishBold, fontWeight: '700' }}>concluiu as tentativas</Text> deste exercício e uma nova atividade foi liberada!
                 </Text>
                 <TouchableOpacity style={styles.primaryButton} onPress={handleSkipOrNext}>
                   <Text style={styles.primaryButtonText}>Próxima atividade</Text>
@@ -295,7 +294,11 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   playOverlay: {
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -344,35 +347,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     fontWeight: '600',
-  },
-
-  // ── Bottom tab bar ──────────────────────────────────────────────
-  bottomTabBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 85,
-    backgroundColor: '#FFFFFF',
-    borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    paddingTop: 12,
-    zIndex: 50,
-    elevation: 10,
-  },
-  tabItem: {
-    alignItems: 'center',
-    width: 80,
-  },
-  tabLabel: {
-    fontFamily: theme.fonts.semiBold,
-    fontSize: 10,
-    color: '#727272',
-    marginTop: 7,
-    textAlign: 'center',
   },
 
   // ── Bottom Sheet ────────────────────────────────────────────────

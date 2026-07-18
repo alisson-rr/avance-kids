@@ -1,7 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Plus, Edit2, Archive, ArchiveRestore, ArrowLeft, Save } from 'lucide-react';
-import { Badge, DataTable, FormField, Select, Tabs, ConfirmDialog } from '../components/ui';
+import { Badge, DataTable, FormField, ImageUploadField, Select, Tabs, ConfirmDialog } from '../components/ui';
 import type { DataTableColumn } from '../components/ui';
+import { useArchivableList } from '../hooks/useArchivableList';
+import type { MediaType } from '../types/common';
 import {
   SKILLS,
   AGE_BRACKETS,
@@ -17,12 +19,20 @@ import {
   type AccessPlan,
   type AtividadeStatus,
 } from '../constants/aba';
-import styles from './ActivitiesScreen.module.css';
+import styles from '../styles/crudLayout.module.css';
+
+const MEDIA_TYPE_OPTIONS: { value: MediaType; label: string }[] = [
+  { value: 'imagem', label: 'Imagem' },
+  { value: 'video', label: 'Vídeo' },
+];
 
 const MOCK_ATIVIDADES: Atividade[] = [
   {
     id: 1,
     codigo: 'F03AC004',
+    titulo: 'Nomear Objetos do Cotidiano',
+    mediaType: 'imagem',
+    mediaUrl: '',
     skillKey: 'comunicacao',
     ageBracketCode: 'F03A',
     nivel: 'aquisicao',
@@ -44,6 +54,9 @@ const MOCK_ATIVIDADES: Atividade[] = [
   {
     id: 2,
     codigo: 'F01AM001',
+    titulo: 'Pular com os Dois Pés',
+    mediaType: 'video',
+    mediaUrl: '',
     skillKey: 'motora',
     ageBracketCode: 'F01A',
     nivel: 'generalizacao',
@@ -65,6 +78,9 @@ const MOCK_ATIVIDADES: Atividade[] = [
   {
     id: 3,
     codigo: '',
+    titulo: 'Brincar em Grupo Respeitando a Vez',
+    mediaType: 'imagem',
+    mediaUrl: '',
     skillKey: 'social',
     ageBracketCode: 'F02A',
     nivel: 'manutencao',
@@ -89,6 +105,9 @@ function emptyAtividade(): Atividade {
   return {
     id: 0,
     codigo: '',
+    titulo: '',
+    mediaType: 'imagem',
+    mediaUrl: '',
     skillKey: SKILLS[0].key,
     ageBracketCode: AGE_BRACKETS[0].code,
     nivel: 'aquisicao',
@@ -115,25 +134,22 @@ const FORM_TABS = [
   { id: 'evaluation', label: '3. Critérios & Avaliação' },
 ];
 
+function matchesSearch(row: Atividade, term: string): boolean {
+  const skillLabel = getSkill(row.skillKey).label.toLowerCase();
+  return (
+    row.titulo.toLowerCase().includes(term) ||
+    row.codigo.toLowerCase().includes(term) ||
+    skillLabel.includes(term) ||
+    row.objetivo.toLowerCase().includes(term)
+  );
+}
+
 export function ActivitiesScreen() {
-  const [activities, setActivities] = useState<Atividade[]>(MOCK_ATIVIDADES);
+  const list = useArchivableList<Atividade>(MOCK_ATIVIDADES, matchesSearch);
   const [view, setView] = useState<'list' | 'form'>('list');
   const [activeTab, setActiveTab] = useState<string>('basic');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showArchived, setShowArchived] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formState, setFormState] = useState<Atividade>(emptyAtividade());
-  const [archiveTarget, setArchiveTarget] = useState<Atividade | null>(null);
-
-  const filteredRows = useMemo(() => {
-    const term = searchTerm.trim().toLowerCase();
-    return activities.filter((row) => {
-      if (!showArchived && row.status === 'arquivado') return false;
-      if (!term) return true;
-      const skillLabel = getSkill(row.skillKey).label.toLowerCase();
-      return row.codigo.toLowerCase().includes(term) || skillLabel.includes(term) || row.objetivo.toLowerCase().includes(term);
-    });
-  }, [activities, searchTerm, showArchived]);
 
   function updateField<K extends keyof Atividade>(key: K, value: Atividade[K]) {
     setFormState((prev) => ({ ...prev, [key]: value }));
@@ -154,23 +170,12 @@ export function ActivitiesScreen() {
   }
 
   function handleSave() {
-    if (editingId !== null) {
-      setActivities((prev) => prev.map((a) => (a.id === editingId ? { ...formState, id: editingId } : a)));
-    } else {
-      const nextId = Math.max(0, ...activities.map((a) => a.id)) + 1;
-      setActivities((prev) => [...prev, { ...formState, id: nextId }]);
-    }
+    list.upsert(editingId !== null ? { ...formState, id: editingId } : formState);
     setView('list');
   }
 
-  function confirmArchive() {
-    if (!archiveTarget) return;
-    const nextStatus: AtividadeStatus = archiveTarget.status === 'ativo' ? 'arquivado' : 'ativo';
-    setActivities((prev) => prev.map((a) => (a.id === archiveTarget.id ? { ...a, status: nextStatus } : a)));
-    setArchiveTarget(null);
-  }
-
   const columns: DataTableColumn<Atividade>[] = [
+    { key: 'titulo', header: 'Título', render: (row) => row.titulo },
     { key: 'codigo', header: 'Código', render: (row) => row.codigo || '—' },
     {
       key: 'skill',
@@ -212,7 +217,7 @@ export function ActivitiesScreen() {
           </button>
           <button
             className={styles.iconBtnDanger}
-            onClick={() => setArchiveTarget(row)}
+            onClick={() => list.setArchiveTarget(row)}
             title={row.status === 'ativo' ? 'Arquivar' : 'Reativar'}
             type="button"
           >
@@ -237,18 +242,18 @@ export function ActivitiesScreen() {
 
           <DataTable
             columns={columns}
-            rows={filteredRows}
+            rows={list.filteredRows}
             getRowId={(row) => row.id}
-            searchValue={searchTerm}
-            onSearchChange={setSearchTerm}
+            searchValue={list.searchTerm}
+            onSearchChange={list.setSearchTerm}
             searchPlaceholder="Buscar por código, habilidade ou objetivo..."
             emptyMessage="Nenhuma atividade encontrada."
             toolbarExtra={
               <label className={styles.showArchivedToggle}>
                 <input
                   type="checkbox"
-                  checked={showArchived}
-                  onChange={(e) => setShowArchived(e.target.checked)}
+                  checked={list.showArchived}
+                  onChange={(e) => list.setShowArchived(e.target.checked)}
                 />
                 <span>Mostrar arquivadas</span>
               </label>
@@ -276,6 +281,43 @@ export function ActivitiesScreen() {
             <div className={styles.formContent}>
               {activeTab === 'basic' && (
                 <div className={styles.gridContainer}>
+                  <FormField label="Título" required fullWidth>
+                    <input
+                      type="text"
+                      placeholder="Ex: Nomear Objetos do Cotidiano"
+                      value={formState.titulo}
+                      onChange={(e) => updateField('titulo', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Tipo de Mídia">
+                    <Select
+                      value={formState.mediaType}
+                      onChange={(v) => {
+                        updateField('mediaType', v as MediaType);
+                        updateField('mediaUrl', '');
+                      }}
+                      options={MEDIA_TYPE_OPTIONS}
+                    />
+                  </FormField>
+
+                  {formState.mediaType === 'imagem' ? (
+                    <FormField label="Imagem">
+                      <ImageUploadField
+                        value={formState.mediaUrl}
+                        onChange={(dataUrl) => updateField('mediaUrl', dataUrl)}
+                      />
+                    </FormField>
+                  ) : (
+                    <FormField label="URL do Vídeo" hint="Link do YouTube/Vimeo.">
+                      <input
+                        type="text"
+                        value={formState.mediaUrl}
+                        onChange={(e) => updateField('mediaUrl', e.target.value)}
+                      />
+                    </FormField>
+                  )}
+
                   <FormField label="Código da Atividade" hint="Referência do padrão FXAYZZZ — apenas um guia visual, não é gerado automaticamente.">
                     <input
                       type="text"
@@ -455,17 +497,17 @@ export function ActivitiesScreen() {
       )}
 
       <ConfirmDialog
-        open={archiveTarget !== null}
-        title={archiveTarget?.status === 'ativo' ? 'Arquivar atividade?' : 'Reativar atividade?'}
+        open={list.archiveTarget !== null}
+        title={list.archiveTarget?.status === 'ativo' ? 'Arquivar atividade?' : 'Reativar atividade?'}
         message={
-          archiveTarget?.status === 'ativo'
+          list.archiveTarget?.status === 'ativo'
             ? 'A atividade deixa de aparecer para os usuários, mas continua no histórico. Você pode reativá-la depois.'
             : 'A atividade volta a ficar disponível para os usuários.'
         }
-        confirmLabel={archiveTarget?.status === 'ativo' ? 'Arquivar' : 'Reativar'}
-        danger={archiveTarget?.status === 'ativo'}
-        onConfirm={confirmArchive}
-        onCancel={() => setArchiveTarget(null)}
+        confirmLabel={list.archiveTarget?.status === 'ativo' ? 'Arquivar' : 'Reativar'}
+        danger={list.archiveTarget?.status === 'ativo'}
+        onConfirm={list.confirmArchive}
+        onCancel={() => list.setArchiveTarget(null)}
       />
     </div>
   );

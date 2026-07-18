@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, Animated, ScrollView } from 'react-native';
 import { BottomTabBar } from '../components/BottomTabBar';
+import { HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, CURVE_TOP, CURVE_MAX_HEIGHT } from '../components/CurvedHeader';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { useProfileStore } from '../store/useProfileStore';
@@ -43,11 +44,6 @@ const SectionHeader = ({ title, subtitle }: { title: string; subtitle?: string }
     </TouchableOpacity>
   </View>
 );
-
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 110 : 90;
-const HEADER_MAX_HEIGHT = 198;
-const CURVE_TOP = HEADER_MIN_HEIGHT - 30; // 80 on iOS
-const CURVE_MAX_HEIGHT = HEADER_MAX_HEIGHT - CURVE_TOP; // 198 - 80 = 118
 
 export function HomeScreen({ navigation }: any) {
   const { parentName, children } = useProfileStore();
@@ -507,38 +503,5 @@ const styles = StyleSheet.create({
     color: '#3678FD',
     fontWeight: '600',
     marginRight: 4,
-  },
-  bottomTabBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 100,
-    backgroundColor: '#FFFFFF',
-    borderTopWidth: 1,
-    borderTopColor: '#C9C9C9',
-    alignItems: 'center',
-    paddingTop: 18,
-    zIndex: 50, 
-    elevation: 10,
-  },
-  bottomTabBarContent: {
-    width: 361,
-    height: 66,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 45,
-  },
-  tabItem: {
-    alignItems: 'center',
-    width: 51,
-  },
-  tabLabel: {
-    fontFamily: theme.fonts.mulishSemiBold,
-    fontSize: 10,
-    color: '#727272',
-    marginTop: 7,
-    textAlign: 'center',
   },
 });

@@ -24,7 +24,7 @@ const HomeIcon = ({ color }: { color: string }) => (
 );
 
 type BottomTabBarProps = {
-  activeScreen: 'Home' | 'ActivityPlan' | 'Profile';
+  activeScreen: 'Home' | 'ActivityPlan' | 'Settings';
 };
 
 export const BottomTabBar = ({ activeScreen }: BottomTabBarProps) => {
@@ -44,8 +44,8 @@ export const BottomTabBar = ({ activeScreen }: BottomTabBarProps) => {
       </TouchableOpacity>
       
       <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Settings')}>
-        <ProfileIcon color={activeScreen === 'Profile' || activeScreen === 'Settings' ? theme.colors.primary : '#C9C9C9'} />
-        <Text style={[styles.tabLabel, (activeScreen === 'Profile' || activeScreen === 'Settings') && { color: theme.colors.primary }]}>Meu perfil</Text>
+        <ProfileIcon color={activeScreen === 'Settings' ? theme.colors.primary : '#C9C9C9'} />
+        <Text style={[styles.tabLabel, activeScreen === 'Settings' && { color: theme.colors.primary }]}>Meu perfil</Text>
       </TouchableOpacity>
     </View>
   );

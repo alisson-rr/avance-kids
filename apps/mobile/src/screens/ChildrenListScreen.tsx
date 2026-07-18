@@ -1,12 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
+import { CurvedHeader, HEADER_MAX_HEIGHT } from '../components/CurvedHeader';
 import { useProfileStore, Child } from '../store/useProfileStore';
-
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 110 : 90;
-const HEADER_MAX_HEIGHT = 198;
-const CURVE_TOP = HEADER_MIN_HEIGHT - 30;
 
 export function ChildrenListScreen({ navigation }: any) {
   const { children, setActiveChild } = useProfileStore();
@@ -16,7 +13,7 @@ export function ChildrenListScreen({ navigation }: any) {
   };
 
   const renderItem = ({ item }: { item: Child }) => (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={[styles.card, item.isActive && styles.cardActive]}
       activeOpacity={0.8}
       onPress={() => setActiveChild(item.id)}
@@ -35,8 +32,8 @@ export function ChildrenListScreen({ navigation }: any) {
               <Text style={styles.activeBadgeText}>Selecionado</Text>
             </View>
           )}
-          <TouchableOpacity 
-            style={styles.editButton} 
+          <TouchableOpacity
+            style={styles.editButton}
             onPress={() => handleEdit(item)}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
@@ -49,17 +46,7 @@ export function ChildrenListScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerCurve} />
-
-      <View style={styles.topFixedHeader}>
-        <View style={styles.topBar}>
-          <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="chevron-back" size={28} color={theme.colors.white} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Crianças</Text>
-          <View style={{ width: 44 }} />
-        </View>
-      </View>
+      <CurvedHeader title="Crianças" onBack={() => navigation.goBack()} />
 
       <FlatList
         data={children}
@@ -70,8 +57,8 @@ export function ChildrenListScreen({ navigation }: any) {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => <View style={styles.scrollSpacer} />}
         ListFooterComponent={() => (
-          <TouchableOpacity 
-            style={styles.addButton} 
+          <TouchableOpacity
+            style={styles.addButton}
             onPress={() => navigation.navigate('ChildRegister')}
           >
             <Ionicons name="add" size={24} color={theme.colors.white} />
@@ -88,50 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
-  headerCurve: {
-    backgroundColor: '#3678FD',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    position: 'absolute',
-    top: CURVE_TOP,
-    height: HEADER_MAX_HEIGHT - CURVE_TOP,
-    left: 0,
-    right: 0,
-    zIndex: 0,
-    elevation: 0,
-  },
-  topFixedHeader: {
-    backgroundColor: '#3678FD',
-    height: HEADER_MIN_HEIGHT,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    paddingTop: Platform.OS === 'ios' ? 50 : 30,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 10,
-    elevation: 10,
-    justifyContent: 'center',
-  },
-  topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 50,
-    paddingHorizontal: 12,
-  },
-  iconButton: {
-    padding: 8,
-    width: 44,
-    alignItems: 'center',
-    zIndex: 20,
-  },
-  headerTitle: {
-    fontFamily: theme.fonts.mulishBold,
-    fontSize: 20,
-    color: '#FFFFFF',
-  },
   scrollView: {
     flex: 1,
     zIndex: 5,
@@ -144,14 +87,6 @@ const styles = StyleSheet.create({
   listContainer: {
     padding: 24,
     paddingBottom: 40,
-  },
-  listDescription: {
-    fontFamily: theme.fonts.regular,
-    fontSize: 14,
-    color: '#5E5E5E',
-    marginBottom: 24,
-    textAlign: 'center',
-    paddingHorizontal: 20,
   },
   addButton: {
     flexDirection: 'row',

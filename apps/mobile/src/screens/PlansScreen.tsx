@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Platform, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
+import { ScreenHeader } from '../components/ScreenHeader';
 
 export function PlansScreen({ navigation }: any) {
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
@@ -18,13 +19,7 @@ export function PlansScreen({ navigation }: any) {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="chevron-back" size={28} color={theme.colors.textDark} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Meu Plano</Text>
-          <View style={{ width: 44 }} />
-        </View>
+        <ScreenHeader title="Meu Plano" onBack={() => navigation.goBack()} />
 
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           
@@ -102,25 +97,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: Platform.OS === 'ios' ? 10 : 20,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    backgroundColor: theme.colors.background,
-  },
-  backButton: {
-    width: 44,
-    height: 44,
-    justifyContent: 'center',
-  },
-  headerTitle: {
-    fontFamily: theme.fonts.mulishBold,
-    fontSize: 18,
-    color: theme.colors.textDark,
   },
   scrollContent: {
     padding: 24,

@@ -52,13 +52,13 @@ export function AdminLayout() {
         </nav>
 
         <div className={styles.sidebarFooter}>
-          <div className={styles.userProfile}>
+          <NavLink to="/profile" className={styles.userProfile}>
             <div className={styles.avatar}>AD</div>
             <div className={styles.userInfo}>
               <span className={styles.userName}>Administrador</span>
               <span className={styles.userRole}>admin@avancekids.com</span>
             </div>
-          </div>
+          </NavLink>
           <button className={styles.logoutButton} onClick={handleLogout}>
             <LogOut size={20} />
             <span>Sair</span>
