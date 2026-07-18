@@ -166,7 +166,7 @@ export function ActivityPlanScreen({ navigation }: any) {
       >
         {/* Ver histórico button (right aligned) */}
         <View style={styles.historyRow}>
-          <TouchableOpacity style={styles.historyBtn}>
+          <TouchableOpacity style={styles.historyBtn} onPress={() => navigation.navigate('ActivityHistory')}>
             <Text style={styles.historyText}>Ver histórico</Text>
           </TouchableOpacity>
         </View>

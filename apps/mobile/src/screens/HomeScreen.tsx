@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, Animated, ScrollView } from 'react-native';
 import { BottomTabBar } from '../components/BottomTabBar';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
+import { useProfileStore } from '../store/useProfileStore';
 
 interface ActivityCardProps {
   title: string;
@@ -49,6 +50,10 @@ const CURVE_TOP = HEADER_MIN_HEIGHT - 30; // 80 on iOS
 const CURVE_MAX_HEIGHT = HEADER_MAX_HEIGHT - CURVE_TOP; // 198 - 80 = 118
 
 export function HomeScreen({ navigation }: any) {
+  const { parentName, children } = useProfileStore();
+  const activeChild = children.find(c => c.isActive) || children[0];
+  const firstName = parentName.split(' ')[0] || 'Usuário';
+
   const scrollY = useRef(new Animated.Value(0)).current;
 
   // Fade out large title
@@ -89,15 +94,17 @@ export function HomeScreen({ navigation }: any) {
           
           <Animated.View style={[styles.compactProfile, { opacity: compactHeaderOpacity }]}>
             <View style={styles.compactAvatarPlaceholder}>
-              <Text style={styles.compactAvatarText}>PA</Text>
+              <Text style={styles.compactAvatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
             </View>
             <View>
-              <Text style={styles.compactProfileName}>Pedro Almeida</Text>
+              <Text style={styles.compactProfileName}>{activeChild?.name}</Text>
               <Text style={styles.compactProfileAge}>4 anos e 2 meses</Text>
             </View>
           </Animated.View>
           
-          <View style={{ width: 44 }} /> 
+          <TouchableOpacity style={styles.iconButton} onPress={() => navigation.navigate('ChildrenList')}>
+            <Feather name="users" size={24} color={theme.colors.white} />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -113,7 +120,7 @@ export function HomeScreen({ navigation }: any) {
       >
         <View style={styles.scrollSpacer}>
            <Animated.Text style={[styles.greeting, { opacity: largeTitleOpacity }]}>
-             Olá, Maria
+             Olá, {firstName}
            </Animated.Text>
         </View>
 
@@ -124,16 +131,16 @@ export function HomeScreen({ navigation }: any) {
               <View style={styles.mainCardHeader}>
                 <Text style={styles.mainCardTitle}>Plano de atividades atual</Text>
                 <Text style={styles.mainCardSubtitle}>
-                  Cada conquista do Pedro é um passo incrível no desenvolvimento!
+                  Cada conquista de {activeChild?.name} é um passo incrível no desenvolvimento!
                 </Text>
               </View>
               
               <View style={styles.profileSection}>
                 <View style={styles.avatarPlaceholder}>
-                  <Text style={styles.avatarText}>PA</Text>
+                  <Text style={styles.avatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
                 </View>
                 <View style={styles.profileInfo}>
-                  <Text style={styles.profileName}>Pedro Almeida</Text>
+                  <Text style={styles.profileName}>{activeChild?.name}</Text>
                   <Text style={styles.profileAge}>4 anos e 2 meses</Text>
                 </View>
                 <View style={styles.progressCircle}>

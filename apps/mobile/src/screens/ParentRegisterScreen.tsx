@@ -7,14 +7,18 @@ import { Button } from '../components/Button';
 import { GhostButton } from '../components/GhostButton';
 import { Checkbox } from '../components/Checkbox';
 import { PhotoPicker } from '../components/PhotoPicker';
+import { maskDate, maskCpf, maskPhone } from '../utils/formatters';
 
 export function ParentRegisterScreen({ navigation }: any) {
   const [photoUri, setPhotoUri] = useState<string>();
   const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
   const [nascimento, setNascimento] = useState('');
   const [genero, setGenero] = useState('');
   const [cpf, setCpf] = useState('');
   const [telefone, setTelefone] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
   const [aceitouTermos, setAceitouTermos] = useState(false);
 
   const handleSave = () => {
@@ -50,9 +54,18 @@ export function ParentRegisterScreen({ navigation }: any) {
                 onChangeText={setNome}
               />
               <SolidInput 
+                placeholder="E-mail" 
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+              <SolidInput 
                 placeholder="Data de nascimento" 
                 value={nascimento}
-                onChangeText={setNascimento}
+                onChangeText={(t) => setNascimento(maskDate(t))}
+                keyboardType="numeric"
+                maxLength={10}
               />
               <BottomSheetSelect 
                 placeholder="Gênero (opcional)" 
@@ -63,14 +76,28 @@ export function ParentRegisterScreen({ navigation }: any) {
               <SolidInput 
                 placeholder="CPF" 
                 value={cpf}
-                onChangeText={setCpf}
+                onChangeText={(t) => setCpf(maskCpf(t))}
                 keyboardType="numeric"
+                maxLength={14}
               />
               <SolidInput 
                 placeholder="Número de telefone" 
                 value={telefone}
-                onChangeText={setTelefone}
+                onChangeText={(t) => setTelefone(maskPhone(t))}
                 keyboardType="phone-pad"
+                maxLength={15}
+              />
+              <SolidInput 
+                placeholder="Senha" 
+                value={senha}
+                onChangeText={setSenha}
+                secureTextEntry
+              />
+              <SolidInput 
+                placeholder="Confirmar senha" 
+                value={confirmarSenha}
+                onChangeText={setConfirmarSenha}
+                secureTextEntry
               />
 
               <View style={styles.termsContainer}>

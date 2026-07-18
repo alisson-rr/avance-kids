@@ -9,6 +9,7 @@ import {
   Platform,
   ScrollView,
   Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -128,10 +129,15 @@ export function ActivityScreen({ navigation, route }: any) {
         animationType="slide"
         onRequestClose={() => setIsBottomSheetVisible(false)}
       >
-        <View style={styles.modalOverlay}>
-          <View style={styles.bottomSheet}>
-            {/* Drag Handle */}
-            <View style={styles.dragHandle} />
+        <TouchableOpacity 
+          style={styles.modalOverlay} 
+          activeOpacity={1} 
+          onPress={() => setIsBottomSheetVisible(false)}
+        >
+          <TouchableWithoutFeedback>
+            <View style={styles.bottomSheet}>
+              {/* Drag Handle */}
+              <View style={styles.dragHandle} />
 
             {isCompleted ? (
               // COMPLETED STATE
@@ -211,7 +217,8 @@ export function ActivityScreen({ navigation, route }: any) {
               </View>
             )}
           </View>
-        </View>
+          </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </Modal>
     </View>
   );

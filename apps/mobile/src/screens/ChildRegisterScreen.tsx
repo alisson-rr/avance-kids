@@ -6,6 +6,7 @@ import { BottomSheetSelect } from '../components/BottomSheetSelect';
 import { Button } from '../components/Button';
 import { GhostButton } from '../components/GhostButton';
 import { PhotoPicker } from '../components/PhotoPicker';
+import { maskDate, maskCpf } from '../utils/formatters';
 
 export function ChildRegisterScreen({ navigation }: any) {
   const [photoUri, setPhotoUri] = useState<string>();
@@ -45,7 +46,9 @@ export function ChildRegisterScreen({ navigation }: any) {
               <SolidInput 
                 placeholder="Data de nascimento" 
                 value={nascimento}
-                onChangeText={setNascimento}
+                onChangeText={(t) => setNascimento(maskDate(t))}
+                keyboardType="numeric"
+                maxLength={10}
               />
               <BottomSheetSelect 
                 placeholder="Gênero" 
@@ -56,8 +59,9 @@ export function ChildRegisterScreen({ navigation }: any) {
               <SolidInput 
                 placeholder="CPF" 
                 value={cpf}
-                onChangeText={setCpf}
+                onChangeText={(t) => setCpf(maskCpf(t))}
                 keyboardType="numeric"
+                maxLength={14}
               />
               <BottomSheetSelect 
                 placeholder="Outros transtornos" 

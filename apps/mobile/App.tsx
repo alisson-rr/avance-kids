@@ -15,6 +15,13 @@ import { Onboarding3Screen } from './src/screens/Onboarding3Screen';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { ActivityPlanScreen } from './src/screens/ActivityPlanScreen';
 import { ActivityScreen } from './src/screens/ActivityScreen';
+import { SettingsScreen } from './src/screens/SettingsScreen';
+import { EditParentProfileScreen } from './src/screens/EditParentProfileScreen';
+import { ChildrenListScreen } from './src/screens/ChildrenListScreen';
+import { EditChildProfileScreen } from './src/screens/EditChildProfileScreen';
+import { ChangePasswordScreen } from './src/screens/ChangePasswordScreen';
+import { ActivityHistoryScreen } from './src/screens/ActivityHistoryScreen';
+import { PlansScreen } from './src/screens/PlansScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +45,13 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="ActivityPlan" component={ActivityPlanScreen} />
           <Stack.Screen name="Activity" component={ActivityScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="EditParentProfile" component={EditParentProfileScreen} />
+          <Stack.Screen name="ChildrenList" component={ChildrenListScreen} />
+          <Stack.Screen name="EditChildProfile" component={EditChildProfileScreen} />
+          <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+          <Stack.Screen name="ActivityHistory" component={ActivityHistoryScreen} />
+          <Stack.Screen name="Plans" component={PlansScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
