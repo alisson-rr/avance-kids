@@ -1,0 +1,91 @@
+[09:43, 7/16/2026] Alisson Rosa: @5521994187070  @5521991815267 
+Pessoal, estou fazendo aqui a documentação e o roadmap da nossa trilha, porem me surgiram algumas duvidas para deixar tudo certo:
+1. Um assinante terá direito a cadastrar mais de uma criança?
+2. Como será as opções de planos? Terá apenas 1 opção? planos diferentes?
+3. Já possuem paleta de cores?
+4. Já possuem um fonte desejada?
+5. O exercícios serão apenas em texto, ou terão vídeos também?
+[09:43, 7/16/2026] Alisson Rosa: 1. Um assinante terá direito a cadastrar mais de uma criança?
+Isso, mais de uma criança
+
+2. Como será as opções de planos? Terá apenas 1 opção? planos diferentes?
+Teremos a princípio um gratuito e um premium. A ideia é que no gratuito tenhamos algumas funcionalidades liberadas e as outras fiquem “trancadas” porém visíveis aos usuários pra incentivar que contratem o premium. Quando clicar numa funcionalidade bloqueada, a gente vem com um modal e sugere que ele contrate o premium”
+
+3. Já possuem paleta de cores?
+Ainda não, mas vou montar uma hoje mesmo e te mando.
+
+4. Já possuem um fonte desejada?
+Acredito que a inter seja uma boa opção. Vou sugerir uma altura de linha também pra garantir uma boa leiturabilidade. Envio junto com a paleta.
+
+5. O exercícios serão apenas e…
+[09:43, 7/16/2026] Alisson Rosa: Oii Pessoal
+
+Como meu contrato mudou recentemente, atualizei as informações nele conforme esse roadmap acima. Então segue abaixo a minuta 👇 
+
+https://docs.google.com/document/d/15v-k9KnT6ezJeDuPkDKwRHo1ULO1eewRFBtCVh01Q1Q/edit?usp=sharing
+[09:43, 7/16/2026] Alisson Rosa: Então, hj vou te enviar o contrato com a data de início de 08/09. Primeiro pagamento nessa data.
+
+Alguns pontos que precisamos:
+- No cadastro perguntar se possui alguma outra síndrome, condição especial ou deficiência
+- ⁠Gênero da criança 
+- CPF opcional da criança (para termos no banco de dados para futuras evolutivas)
+- CPF obrigatório dos pais
+Gestão da conta.
+- Opção de refazer o checklist no perfil da criança 
+- No nosso portal admin ter como setar facilmente o que é free do que é pago
+- Contemplar o trial de 7 dias da solução premium 
+- Gerenciar conta tem que ter trocar senha
+[09:43, 7/16/2026] Alisson Rosa: Sobre os outros pontos:
+
+-Já Inclusos:
+✅- No cadastro perguntar se possui alguma outra síndrome, condição especial ou deficiência
+✅- ⁠Gênero da criança 
+✅- CPF opcional da criança (para termos no banco de dados para futuras evolutivas)
+✅- CPF obrigatório dos pais
+Gestão da conta.
+✅- Opção de refazer o checklist no perfil da criança 
+
+-Apensar de não termos discutido isso, incluo pra vocês 😁
+ℹ️- Contemplar o trial de 7 dias da solução premium 
+ℹ️- Gerenciar conta tem que ter trocar senha
+
+✖️- No nosso portal admin ter como setar facilmente o que é free do que é pago
+**Esse não consigo incluir na proposta atual, não é alto tão simples para se fazer
+[09:43, 7/16/2026] Alisson Rosa: Mas nesse ponto como a gente controlaria o que é pago do que é gratuito?
+[09:43, 7/16/2026] Alisson Rosa: Mas acho que isso será um problema para testarmos adesão por funcionalidade. Vai nos limitar bastante. Vc pode considerar isso no cadastro do exercício? Do tipo, qnd a gente cadastrar um exercício, um dos campos ser funcionalidade básica/premium?
+[09:43, 7/16/2026] Alisson Rosa: Possível é, só é um pouco complicado eu te confirmar se consigo incluir nesse essa proposta atual. 
+Porque pensa assim, vc marca uma função nova, essa função tem que aparecer no plano correto, além disso tem que validar em todos os usuário se ele tem ou não essa funcionalidade... ai outro ponto, digamos que eu acessei a funcionalidade x, pq tava liberado, depois vcs mudaram, o que acontece com o que foi feito?...
+
+Eu posso fazer o seguinte vou estruturando o projeto e tento adicionar essa funcionalidade, se eu conseguir mondar algo que fique funcional e não desvie muito do roadmap, eu configuro incluo sem custo adicional, se for diferente disso, eu passo pra vocês para vermos como seguir, pode ser assim?
+[09:43, 7/16/2026] Alisson Rosa: O TDAH ultimamente ta meio tenso (to mudando as medicações 😅)
+
+Mexendo aqui no contrato lembrei de um ponto, sobre essa questão da IA, existem 2 opções para seguir:
+*Seguir com o Bubble "orquestrando" as integrações com a IA: 
+     - Positivo: não tem alteração de custos inicialmente
+     - Negativo: Pode vir a comprometer a escala, aumenta a complexidade de manutenção.
+
+*Seguir N8N para orquestrar essas integrações: 
+     - Positivo: Ferramenta especifica para orquestrar integrações, Velocidade, escalabilidade, agilidade na manutenção já q centraliza toda a operação
+     - Negativo: Precisa ser hospedado em algum lugar adequado, consequentemente um custo mensal extra
+
+
+Existem varias opções, vou passar 2 aqui para vocês:
+- n8n.io: Plano starter (2,5k de execuções/mês) R$150,00/mês
+- Eu também tenho uma hospedagem própria: (5k de execuções/mês) R$129/mês
+Consegui
+[09:43, 7/16/2026] Alisson Rosa: Nesse cenários do chat, ficaria assim cada mensagem enviada nesse chat da ia seria uma execução.
+Então se 5mil usuário enviarem 1 mensagem pra essa ia, esgota as execuções do mês
+ou se cada usuário usasse 12 mensagens por dia todos os dias do mês, você poderia ter +-13 usuarios
+
+--
+
+Mas eu esta fazendo um calculo aqui, como seria uma execução "simples" digamos assim, eu conseguiria fazer algo melhor pra vocês: 
+R$199/mês com 50k (o que no exemplo acima de 12 mensagens por dia daria +-138 usuários usando todo dia)
+R$149/mês no plano anual
+
+Aah e consigo deixar sem cobrança durante o desenvolvimento 😉
+[09:49, 7/16/2026] Alisson Rosa: Bom dia Pessoal, 
+Estou com problema na internet, esperava que eles arrumassem, mas até agora nada 🙃
+Podemos remarcar para quarta? ou sexta?
+[09:49, 7/16/2026] Alisson Rosa: Bom dia Pessoal, queria ver com vocês se podemos remarcar fixo para quarta nosso alinhamento?
+[09:49, 7/16/2026] Alisson Rosa: Oi, Alisson, boa tarde

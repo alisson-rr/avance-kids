@@ -1,0 +1,165 @@
+LOGICA APP - CHECK LIST E PROGRAMAS ABA
+
+RESUMO DO SEU OBJETIVO:
+Você quer que o aplicativo:
+Use a idade cronológica para sugerir inicialmente a faixa etária correspondente;
+Verifique se a criança já tem as habilidades das faixas anteriores;
+Se não tiver, ofereça avaliar e trabalhar essas habilidades anteriores também;
+Se sim, avança para o checklist da faixa atual e seguintes.
+
+COMO IMPLEMENTAR ESSA LÓGICA NO APP
+🔹 1. Cadastro inicial da criança
+Nome, idade, sexo, diagnóstico (opcional), idioma.
+A partir da idade, o sistema sugere a faixa etária principal de triagem.
+🔹 2. Triagem das habilidades anteriores (pré-checklist)
+Antes de iniciar o checklist da faixa da criança, o app mostra perguntas como:
+ “Vamos verificar se a criança já domina as habilidades básicas anteriores. Por favor, responda:”
+Se uma ou mais dessas respostas for “NÃO”, o app ativa automaticamente o checklist da faixa anterior para garantir que essas bases não sejam ignoradas.
+
+LÓGICA RESUMIDA
+🎂 Usuário informa idade: 5 anos
+📋 App sugere iniciar no checklist de 49–60 meses
+🔎 App exibe 4 ou 5 perguntas-chave das faixas anteriores
+❌ Se houver lacunas → mostra checklist da(s) faixa(s) anterior(es)
+✅ Se todas básicas forem afirmadas → avança direto para faixa atual
+
+
+
+O que essa lógica garante?
+Nenhuma habilidade essencial será ignorada.
+O plano de ensino será adaptado à realidade funcional, não apenas à idade cronológica.
+Ideal para crianças com atrasos severos ou perfis atípicos de desenvolvimento.
+
+
+
+
+
+
+
+
+
+PADRONIZAÇÃO DO CODIGO DO CHECK LIST E INTEGRAÇÃO COM PROGRAMAS ABA
+PADRONIZAÇÃO: FXAYZZZ
+
+Como ficaria um exemplo com a padronização:
+F03AC004
+Faixa 03A = 36 a 47 meses
+Área C = Comunicação
+Item 004 = quarta habilidade dessa área nesta faixa
+→ “Nomeia objetos do cotidiano”
+F06AF003
+Faixa 06A = 8 a 11 anos
+Área F = Funcional
+Item 003 = terceira habilidade funcional dessa faixa
+→ “Escolhe e veste roupas adequadas”
+
+
+Agrupamento de faixas (convertido por idade cronológica)
+
+
+PARAMETROS DO CHECK LIST  E INTEGRAÇÃO COM PROGRAMAS ABA
+ESCALA FUNCIONAL PARA MARCACAÇÃO NO CHECK LIST  (para pais)
+
+
+🔁 Quando migrar de Aquisição → Generalização?
+Use uma planilha de registro com colunas por nível (A / B / C) e defina critérios claros, como:
+
+
+👶 FAIXA F01A – 12 a 24 meses
+1)Triagem Inicial – Pré-requisitos da Faixa  (Triagem prévia das habilidades anteriores)
+Triagem Inicial – Faixa F01A (12 a 24 meses)
+👉 Se marcar “NÃO” para 2 ou mais itens → iniciar com programas básicos de engajamento.
+
+2) Checklist Completo – F01A (12 a 24 meses)
+📘 Comunicação
+
+👥 Social
+
+🧠 Cognitiva
+
+🧩 Motora
+
+🏡 Funcional
+
+
+👶 FAIXA F02A – 25 a 36 meses
+🔍 Triagem Inicial – Pré-requisitos da Faixa
+👉 Se marcar “A” em 2 ou mais itens → considerar avaliar a faixa F01A (12 a 24 meses).
+
+✅ Checklist Completo – F02A (25 a 36 meses)
+📘 Comunicação
+
+👥 Social
+
+🧠 Cognitiva
+
+🧩 Motora
+
+🏡 Funcional
+
+
+
+👧 FAIXA F03A – 37 a 48 meses
+🔍 Triagem Inicial – Pré-requisitos da Faixa
+👉 Se marcar “A” em 2 ou mais itens → considerar avaliar a faixa F02A (25 a 36 meses).
+
+✅ Checklist Completo – F03A (37 a 48 meses)
+📘 Comunicação
+
+👥 Social
+
+🧠 Cognitiva
+
+🧩 Motora
+
+🏡 Funcional
+
+👧 FAIXA F04A – 49 a 60 meses (4 a 5 anos)
+🔍 Triagem Inicial – Pré-requisitos da Faixa
+👉 Se marcar “A” em 2 ou mais itens → considerar aplicar a faixa F03A (37 a 48 meses).
+
+✅ Checklist Completo – F04A (49 a 60 meses)
+📘 Comunicação
+
+👥 Social
+
+🧠 Cognitiva
+
+🧩 Motora
+
+🏡 Funcional
+
+
+🧒 FAIXA F05A – 6 a 8 anos
+🔍 Triagem Inicial – Pré-requisitos da Faixa
+👉 Se marcar “A” em 2 ou mais itens → considerar aplicar a faixa F04A (49 a 60 meses).
+✅ Checklist Completo – F05A (6 a 8 anos)
+📘 Comunicação
+
+👥 Social
+
+🧠 Cognitiva
+
+🧩 Motora
+
+🏡 Funcional
+
+
+👦👧 FAIXA F06A – 9 a 12 anos
+🔍 Triagem Inicial – Pré-requisitos da Faixa
+👉 Se marcar “A” em 2 ou mais itens → considerar aplicar a faixa F05A (6 a 8 anos).
+✅ Checklist Completo – F06A (9 a 12 anos)
+📘 Comunicação
+
+👥 Social
+
+🧠 Cognitiva
+
+🧩 Motora
+
+🏡 Funcional
+
+
+
+
+
