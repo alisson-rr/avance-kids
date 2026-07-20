@@ -903,5 +903,10 @@
     "mtime": 1784575313.3143947,
     "ast_hash": "b5498c1fef6e04699fdcdf7a348538f0",
     "semantic_hash": ""
+  },
+  "apps/backoffice/vercel.json": {
+    "mtime": 1784575669.8572447,
+    "ast_hash": "61bd31a2b0ac08f10f13c932b32d6ca1",
+    "semantic_hash": ""
   }
 }
