@@ -1,6 +1,6 @@
 import { ACCESS_PLANS } from '../constants/aba';
 import { Badge, EntityCrudScreen, FormField, ImageUploadField, RichTextEditor, Select } from '../components/ui';
-import type { DataTableColumn } from '../components/ui';
+import type { DataTableColumn, EntityFilterConfig } from '../components/ui';
 import { useEntityList } from '../hooks/useEntityList';
 import { fetchArtigos, saveArtigo, toggleArchiveArtigo } from '../services/artigos';
 import type { Artigo } from '../types/entities';
@@ -18,7 +18,7 @@ function matchesSearch(row: Artigo, term: string): boolean {
 }
 
 const columns: DataTableColumn<Artigo>[] = [
-  { key: 'titulo', header: 'Título', render: (row) => row.titulo },
+  { key: 'titulo', header: 'Título', render: (row) => row.titulo, sortValue: (row) => row.titulo },
   {
     key: 'plano',
     header: 'Plano',
@@ -27,6 +27,7 @@ const columns: DataTableColumn<Artigo>[] = [
         {row.plano === 'premium' ? 'Premium' : 'Gratuito'}
       </Badge>
     ),
+    sortValue: (row) => row.plano,
   },
   {
     key: 'status',
@@ -36,6 +37,16 @@ const columns: DataTableColumn<Artigo>[] = [
         {row.status === 'ativo' ? 'Ativo' : 'Arquivado'}
       </Badge>
     ),
+    sortValue: (row) => row.status,
+  },
+];
+
+const filters: EntityFilterConfig<Artigo>[] = [
+  {
+    key: 'plano',
+    allLabel: 'Todos os Planos',
+    options: ACCESS_PLANS,
+    getValue: (row) => row.plano,
   },
 ];
 
@@ -54,6 +65,7 @@ export function ArticlesScreen() {
       matchesSearch={matchesSearch}
       emptyItem={emptyArtigo}
       searchPlaceholder="Buscar por título ou conteúdo..."
+      filters={filters}
       onSave={async (item, isEditing) => {
         await saveArtigo(item, isEditing);
         await refresh();

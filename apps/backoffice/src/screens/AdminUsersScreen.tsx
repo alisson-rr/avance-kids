@@ -22,12 +22,13 @@ function matchesSearch(row: AdminUser, term: string): boolean {
 }
 
 const columns: DataTableColumn<AdminUser>[] = [
-  { key: 'nome', header: 'Nome', render: (row) => row.nome },
-  { key: 'email', header: 'Email', render: (row) => row.email },
+  { key: 'nome', header: 'Nome', render: (row) => row.nome, sortValue: (row) => row.nome },
+  { key: 'email', header: 'Email', render: (row) => row.email, sortValue: (row) => row.email },
   {
     key: 'role',
     header: 'Papel',
     render: (row) => <Badge variant={row.role === 'super_admin' ? 'info' : 'neutral'}>{roleLabel(row.role)}</Badge>,
+    sortValue: (row) => roleLabel(row.role),
   },
   {
     key: 'status',
@@ -37,6 +38,7 @@ const columns: DataTableColumn<AdminUser>[] = [
         {row.status === 'ativo' ? 'Ativo' : 'Arquivado'}
       </Badge>
     ),
+    sortValue: (row) => row.status,
   },
 ];
 

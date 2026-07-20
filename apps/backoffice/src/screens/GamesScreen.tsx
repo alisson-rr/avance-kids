@@ -1,6 +1,6 @@
 import { ACCESS_PLANS } from '../constants/aba';
 import { Badge, EntityCrudScreen, FormField, ImageUploadField, Select } from '../components/ui';
-import type { DataTableColumn } from '../components/ui';
+import type { DataTableColumn, EntityFilterConfig } from '../components/ui';
 import { useEntityList } from '../hooks/useEntityList';
 import { fetchBrincadeiras, saveBrincadeira, toggleArchiveBrincadeira } from '../services/brincadeiras';
 import type { Brincadeira, MediaType } from '../types/entities';
@@ -28,11 +28,12 @@ function matchesSearch(row: Brincadeira, term: string): boolean {
 }
 
 const columns: DataTableColumn<Brincadeira>[] = [
-  { key: 'titulo', header: 'Título', render: (row) => row.titulo },
+  { key: 'titulo', header: 'Título', render: (row) => row.titulo, sortValue: (row) => row.titulo },
   {
     key: 'mediaType',
     header: 'Mídia',
     render: (row) => <Badge variant="neutral">{row.mediaType === 'video' ? 'Vídeo' : 'Imagem'}</Badge>,
+    sortValue: (row) => row.mediaType,
   },
   {
     key: 'plano',
@@ -42,6 +43,7 @@ const columns: DataTableColumn<Brincadeira>[] = [
         {row.plano === 'premium' ? 'Premium' : 'Gratuito'}
       </Badge>
     ),
+    sortValue: (row) => row.plano,
   },
   {
     key: 'status',
@@ -51,6 +53,16 @@ const columns: DataTableColumn<Brincadeira>[] = [
         {row.status === 'ativo' ? 'Ativo' : 'Arquivado'}
       </Badge>
     ),
+    sortValue: (row) => row.status,
+  },
+];
+
+const filters: EntityFilterConfig<Brincadeira>[] = [
+  {
+    key: 'plano',
+    allLabel: 'Todos os Planos',
+    options: ACCESS_PLANS,
+    getValue: (row) => row.plano,
   },
 ];
 
@@ -69,6 +81,7 @@ export function GamesScreen() {
       matchesSearch={matchesSearch}
       emptyItem={emptyBrincadeira}
       searchPlaceholder="Buscar por título ou descrição..."
+      filters={filters}
       onSave={async (item, isEditing) => {
         await saveBrincadeira(item, isEditing);
         await refresh();

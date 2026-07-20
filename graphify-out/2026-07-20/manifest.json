@@ -35,8 +35,8 @@
     "semantic_hash": "787e5a07efeb2bf6209d5937195f2f68"
   },
   "apps/backoffice/src/screens/ActivitiesScreen.tsx": {
-    "mtime": 1784564909.4490776,
-    "ast_hash": "560c863e762d9272f8c20e6fb627f8ac",
+    "mtime": 1784572749.7148604,
+    "ast_hash": "7fad7f49a629436b4398d7a840bf0608",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/DashboardScreen.tsx": {
@@ -85,8 +85,8 @@
     "semantic_hash": ""
   },
   "apps/mobile/app.json": {
-    "mtime": 1784564280.3675115,
-    "ast_hash": "85e714356d75f93edb48dd3bc9f4f1fe",
+    "mtime": 1784573912.6247616,
+    "ast_hash": "1ba5953fd62a259824d57e082ea873e4",
     "semantic_hash": ""
   },
   "apps/mobile/index.ts": {
@@ -100,8 +100,8 @@
     "semantic_hash": "3ba87ec316a5ba48025c05168d3adf9f"
   },
   "apps/mobile/package.json": {
-    "mtime": 1784475205.4148388,
-    "ast_hash": "97d7c2bde4fc52f969d47cb2e32a3915",
+    "mtime": 1784573920.5562222,
+    "ast_hash": "dbd3aa16c3f31e8cff12b8001036ee3a",
     "semantic_hash": ""
   },
   "apps/mobile/src/components/BottomSheetSelect.tsx": {
@@ -580,8 +580,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/components/ui/DataTable/DataTable.tsx": {
-    "mtime": 1784387365.1135812,
-    "ast_hash": "c33e45b21858f849be36f63594db75d4",
+    "mtime": 1784573845.8629754,
+    "ast_hash": "12e6f1e944feebac2d5ee19aa11e8965",
     "semantic_hash": ""
   },
   "apps/backoffice/src/components/ui/FormField/FormField.tsx": {
@@ -625,18 +625,18 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/AdminUsersScreen.tsx": {
-    "mtime": 1784564969.7787797,
-    "ast_hash": "85dc4c23c16e10d74282aa797e027298",
+    "mtime": 1784572803.2260127,
+    "ast_hash": "0202ad8e6be388b11ab08426b28db5a7",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/ArticlesScreen.tsx": {
-    "mtime": 1784564951.6678221,
-    "ast_hash": "06ef374faa4f312788e9b1a4b06d8052",
+    "mtime": 1784572784.9434476,
+    "ast_hash": "28c283928d5229490fb4fc195d2a7e27",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/GamesScreen.tsx": {
-    "mtime": 1784564934.71848,
-    "ast_hash": "9540acd1c6bfa0936492c8ef7f96bea2",
+    "mtime": 1784572769.2330756,
+    "ast_hash": "fe17628d316af067f46bb431b247ff09",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/InitialQuestionsScreen.tsx": {
@@ -705,8 +705,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/QuestionCrudScreen.tsx": {
-    "mtime": 1784564842.7526202,
-    "ast_hash": "5b8bae406cf22f6e8994668620b08eef",
+    "mtime": 1784572793.6486144,
+    "ast_hash": "b5b01e6d7d3328c1540c22e4b686f2bf",
     "semantic_hash": ""
   },
   "supabase/functions/admin-create-user/index.ts": {
@@ -740,8 +740,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/services/admins.ts": {
-    "mtime": 1784406814.4317715,
-    "ast_hash": "b45e075e18f039b84d33e11683f76c1d",
+    "mtime": 1784573402.488013,
+    "ast_hash": "41067a210020c14024b12498d60739f6",
     "semantic_hash": ""
   },
   "apps/backoffice/src/services/artigos.ts": {
@@ -750,8 +750,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/services/atividades.ts": {
-    "mtime": 1784406782.778912,
-    "ast_hash": "6c4204323323b3ffec6c062f0c9c3a6c",
+    "mtime": 1784574047.938371,
+    "ast_hash": "9cd69b0b4bbf4c8b66a52f99603bc2da",
     "semantic_hash": ""
   },
   "apps/backoffice/src/services/brincadeiras.ts": {
@@ -810,8 +810,8 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/services/children.ts": {
-    "mtime": 1784561015.4776883,
-    "ast_hash": "ecd680d50dd8e2bbb50d790ceda74405",
+    "mtime": 1784573406.1871796,
+    "ast_hash": "aa47956f0cf6a6e63ccd1307e8d51544",
     "semantic_hash": ""
   },
   "apps/mobile/src/services/content.ts": {

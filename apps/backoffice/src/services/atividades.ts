@@ -31,10 +31,11 @@ interface ExerciseRow {
   reforcos: string | null;
 }
 
+// Literal único (sem concatenação): o `select` do supabase-js infere o tipo do
+// retorno lendo a string em tempo de compilação, e um `a + b` vira `string`,
+// o que quebra essa inferência.
 const COLUMNS =
-  'id, skill_id, age_bracket_id, codigo, titulo, media_type, media_url, nivel, ordem, plano, status, ' +
-  'objetivo, procedimento, materiais, recursos_extras, frequencia, brincadeiras, hierarquia_dicas, ' +
-  'resposta_esperada, procedimento_correcao, criterio_avanco, registro_dados, reforcos';
+  'id, skill_id, age_bracket_id, codigo, titulo, media_type, media_url, nivel, ordem, plano, status, objetivo, procedimento, materiais, recursos_extras, frequencia, brincadeiras, hierarquia_dicas, resposta_esperada, procedimento_correcao, criterio_avanco, registro_dados, reforcos';
 
 export async function fetchAtividades(): Promise<Atividade[]> {
   const [{ data, error }, ref] = await Promise.all([
@@ -52,6 +53,7 @@ export async function fetchAtividades(): Promise<Atividade[]> {
     skillKey: ref.skillKeyById(row.skill_id),
     ageBracketCode: ref.bracketCodeById(row.age_bracket_id),
     nivel: row.nivel,
+    ordem: row.ordem,
     plano: row.plano,
     status: row.status,
     objetivo: row.objetivo ?? '',
@@ -86,6 +88,7 @@ export async function saveAtividade(item: Atividade, isEditing: boolean): Promis
     media_type: item.mediaType,
     media_url: mediaUrl,
     nivel: item.nivel,
+    ordem: item.ordem,
     plano: item.plano,
     status: item.status,
     objetivo: item.objetivo.trim() || null,
