@@ -35,8 +35,8 @@
     "semantic_hash": "787e5a07efeb2bf6209d5937195f2f68"
   },
   "apps/backoffice/src/screens/ActivitiesScreen.tsx": {
-    "mtime": 1784572749.7148604,
-    "ast_hash": "7fad7f49a629436b4398d7a840bf0608",
+    "mtime": 1784574513.3354037,
+    "ast_hash": "c756b24ee7174498b2705cac17fdb2ae",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/DashboardScreen.tsx": {
@@ -605,8 +605,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/constants/aba.ts": {
-    "mtime": 1784406738.3722732,
-    "ast_hash": "2eef9ccaa1cabe358511f2316cd7538b",
+    "mtime": 1784574487.1948361,
+    "ast_hash": "e45c6ccc02befd5db1f9ca15ba26ed67",
     "semantic_hash": ""
   },
   "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx": {
@@ -750,8 +750,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/services/atividades.ts": {
-    "mtime": 1784574047.938371,
-    "ast_hash": "9cd69b0b4bbf4c8b66a52f99603bc2da",
+    "mtime": 1784574497.2577896,
+    "ast_hash": "de6cc147a6e8a1bc2a1323df56b0392b",
     "semantic_hash": ""
   },
   "apps/backoffice/src/services/brincadeiras.ts": {
@@ -892,6 +892,11 @@
   "apps/mobile/assets/splash-logo.png": {
     "mtime": 1784564256.283,
     "ast_hash": "5f57ae37d193f26c84b6e61672ccbe5f",
+    "semantic_hash": ""
+  },
+  ".vscode/settings.json": {
+    "mtime": 1784574402.9897606,
+    "ast_hash": "0bdccf3f74ca242511bb4114b3b44bfd",
     "semantic_hash": ""
   }
 }
