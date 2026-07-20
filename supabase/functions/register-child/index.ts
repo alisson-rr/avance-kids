@@ -1,9 +1,8 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { RegisterChildSchema } from "../_shared/schemas.ts";
 import { getUser } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
 
-serve(async (req: Request) => {
+Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {

@@ -1,5 +1,5 @@
 import type { HabilidadeKey, AgeBracketCode, AccessPlan } from '../constants/aba';
-import type { RecordStatus, QuestionOption, MediaType } from './common';
+import type { RecordStatus, MediaType } from './common';
 
 export type { MediaType } from './common';
 
@@ -7,16 +7,18 @@ export type { MediaType } from './common';
 export type AdminRole = 'admin' | 'super_admin';
 
 export interface AdminUser {
-  id: number;
+  id: string;
   nome: string;
   email: string;
   role: AdminRole;
   status: RecordStatus;
+  /** Somente no formulário de criação — enviada à edge function, nunca lida do banco. */
+  password?: string;
 }
 
 // === Brincadeiras (plays) ===
 export interface Brincadeira {
-  id: number;
+  id: string;
   titulo: string;
   descricao: string;
   instrucoes: string;
@@ -28,7 +30,7 @@ export interface Brincadeira {
 
 // === Artigos (articles) ===
 export interface Artigo {
-  id: number;
+  id: string;
   titulo: string;
   corpo: string;
   imagemUrl: string;
@@ -36,23 +38,20 @@ export interface Artigo {
   status: RecordStatus;
 }
 
-// === Perguntas Iniciais (initial_questions + initial_question_options) ===
-export interface PerguntaInicial {
-  id: number;
+// === Perguntas (Iniciais e de Triagem) ===
+// Mesma forma para os dois tipos: cada pergunta pertence a uma Faixa Etária
+// (a triagem inicial é o pré-requisito daquela faixa; a triagem completa
+// avalia a habilidade dentro dela) e usa sempre a mesma escala fixa de
+// resposta (0 = nunca/não observei, 1 = às vezes, 2 = sempre) — por isso não
+// há edição de opções por pergunta, e nenhuma das duas precisa de código.
+export interface Pergunta {
+  id: string;
   texto: string;
-  ordem: number;
-  status: RecordStatus;
-  opcoes: QuestionOption[];
-}
-
-// === Perguntas de Triagem (screening_questions + screening_question_options) ===
-export interface PerguntaTriagem {
-  id: number;
-  codigo: string;
   skillKey: HabilidadeKey;
   ageBracketCode: AgeBracketCode;
-  texto: string;
   ordem: number;
   status: RecordStatus;
-  opcoes: QuestionOption[];
 }
+
+export type PerguntaInicial = Pergunta;
+export type PerguntaTriagem = Pergunta;

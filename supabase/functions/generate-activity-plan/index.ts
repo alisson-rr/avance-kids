@@ -1,11 +1,10 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
-import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
+import { z } from "npm:zod@3.22.4";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
 
 const InputSchema = z.object({ child_id: z.string().uuid() });
 
-serve(async (req: Request) => {
+Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
@@ -18,11 +17,11 @@ serve(async (req: Request) => {
       .select("id")
       .eq("id", child_id)
       .eq("user_id", user.id)
-      .single();
+      .maybeSingle();
 
     if (!child) return errorResponse("Criança não encontrada", 404);
 
-    // Buscar idades por habilidade
+    // Buscar idades por habilidade (resultado da triagem)
     const { data: skillAges } = await supabase
       .from("child_skill_ages")
       .select("skill_id, idade_meses, faixa_id")
@@ -33,16 +32,32 @@ serve(async (req: Request) => {
     }
 
     const serviceClient = getServiceClient();
-    const plansToInsert: any[] = [];
 
-    // Para cada habilidade, buscar exercícios da faixa correspondente
+    // Gating free/premium: assinante free só recebe atividades do plano free
+    const { data: sub } = await serviceClient
+      .from("subscriptions")
+      .select("plano, status")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    const isPremium = sub?.plano === "premium" && ["active", "trialing"].includes(sub?.status ?? "");
+
+    const plansToInsert: Record<string, unknown>[] = [];
+
+    // Para cada habilidade, buscar as atividades ativas da faixa correspondente
     for (const sa of skillAges) {
-      const { data: exercises } = await serviceClient
+      let query = serviceClient
         .from("exercises")
         .select("id, nivel, ordem")
         .eq("skill_id", sa.skill_id)
         .eq("age_bracket_id", sa.faixa_id)
-        .eq("ativo", true)
+        .eq("status", "ativo");
+
+      if (!isPremium) {
+        query = query.eq("plano", "free");
+      }
+
+      const { data: exercises } = await query
         .order("nivel", { ascending: true })   // aquisicao → generalizacao → manutencao
         .order("ordem", { ascending: true });
 
@@ -61,16 +76,15 @@ serve(async (req: Request) => {
     }
 
     if (plansToInsert.length === 0) {
-      return errorResponse("Nenhum exercício encontrado para as faixas da criança.", 404);
+      return errorResponse("Nenhuma atividade encontrada para as faixas da criança.", 404);
     }
 
-    // Limpar planos anteriores (caso refaça triagem)
+    // Limpar planos anteriores (caso refaça a triagem)
     await serviceClient
       .from("activity_plans")
       .delete()
       .eq("child_id", child_id);
 
-    // Inserir novos planos
     const { data: plans, error: insertErr } = await serviceClient
       .from("activity_plans")
       .insert(plansToInsert)

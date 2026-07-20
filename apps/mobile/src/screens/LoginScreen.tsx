@@ -6,10 +6,49 @@ import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { GoogleButton } from '../components/GoogleButton';
 import { Logo } from '../components/Logo';
+import { signIn, resetPassword } from '../services/auth';
+import { errorMessage } from '../services/api';
+import { showDialog, showError, showSuccess } from '../ui/dialog';
+import { useProfileStore } from '../store/useProfileStore';
 
 export function LoginScreen({ navigation }: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    if (!email.trim() || !password) {
+      showDialog({ title: 'Atenção', message: 'Informe seu e-mail e senha.', variant: 'info' });
+      return;
+    }
+    setLoading(true);
+    try {
+      await signIn(email, password);
+      await useProfileStore.getState().loadAll();
+      navigation.reset({ index: 0, routes: [{ name: 'Home' }] });
+    } catch (err) {
+      showError('Erro ao entrar', errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email.trim()) {
+      showDialog({
+        title: 'Recuperar senha',
+        message: 'Digite seu e-mail no campo acima e toque novamente em "Esqueci a senha".',
+        variant: 'info',
+      });
+      return;
+    }
+    try {
+      await resetPassword(email);
+      showSuccess('E-mail enviado', `Enviamos um link de recuperação para ${email.trim()}.`);
+    } catch (err) {
+      showError('Erro', errorMessage(err));
+    }
+  };
 
   return (
     <FormScreen contentStyle={styles.body}>
@@ -35,13 +74,13 @@ export function LoginScreen({ navigation }: any) {
             />
           </View>
 
-          <TouchableOpacity style={styles.forgotPasswordContainer}>
+          <TouchableOpacity style={styles.forgotPasswordContainer} onPress={handleForgotPassword}>
             <Text style={styles.forgotPasswordText}>Esqueci a senha</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.actionGroup}>
-          <Button title="Acessar" onPress={() => navigation.navigate('Home')} />
+          <Button title="Acessar" loading={loading} onPress={handleLogin} />
 
           <View style={styles.dividerContainer}>
             <View style={styles.dividerLine} />
@@ -49,7 +88,15 @@ export function LoginScreen({ navigation }: any) {
             <View style={styles.dividerLine} />
           </View>
 
-          <GoogleButton onPress={() => console.log('Google Login')} />
+          <GoogleButton
+            onPress={() =>
+              showDialog({
+                title: 'Em breve',
+                message: 'O login com Google estará disponível em breve.',
+                variant: 'info',
+              })
+            }
+          />
 
           <View style={styles.registerContainer}>
             <Text style={styles.registerText}>

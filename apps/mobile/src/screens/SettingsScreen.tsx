@@ -1,12 +1,36 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { CurvedHeader, HEADER_MAX_HEIGHT } from '../components/CurvedHeader';
+import { TermsModal } from '../components/TermsModal';
+import { useProfileStore } from '../store/useProfileStore';
+import { signOut } from '../services/auth';
+import { showConfirm } from '../ui/dialog';
 
 export function SettingsScreen({ navigation }: any) {
   const [modalVisible, setModalVisible] = useState(false);
+  const { parentName, parentAvatarUrl } = useProfileStore();
+
+  const initials = parentName
+    .split(' ')
+    .filter(Boolean)
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase() || '?';
+
+  const handleSignOut = () => {
+    showConfirm('Sair da conta', 'Deseja realmente sair?', {
+      label: 'Sair',
+      kind: 'destructive',
+      onPress: async () => {
+        await signOut();
+        navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
+      },
+    });
+  };
 
   const menuItems = [
     { title: 'Editar Perfil', action: () => navigation.navigate('EditParentProfile') },
@@ -14,6 +38,7 @@ export function SettingsScreen({ navigation }: any) {
     { title: 'Meu plano', action: () => navigation.navigate('Plans') },
     { title: 'Histórico de atividades', action: () => navigation.navigate('ActivityHistory') },
     { title: 'Alterar senha', action: () => navigation.navigate('ChangePassword') },
+    { title: 'Sair da conta', action: handleSignOut },
   ];
 
   return (
@@ -31,9 +56,13 @@ export function SettingsScreen({ navigation }: any) {
             <View style={styles.mainCard}>
               <View style={styles.avatarContainer}>
                 <View style={styles.avatarPlaceholder}>
-                  <Text style={styles.avatarText}>PA</Text>
+                  {parentAvatarUrl ? (
+                    <Image source={{ uri: parentAvatarUrl }} style={styles.avatarImage} />
+                  ) : (
+                    <Text style={styles.avatarText}>{initials}</Text>
+                  )}
                 </View>
-                <Text style={styles.profileName}>Pedro Almeida</Text>
+                <Text style={styles.profileName}>{parentName || 'Meu perfil'}</Text>
               </View>
 
               <View style={styles.menuContainer}>
@@ -55,24 +84,7 @@ export function SettingsScreen({ navigation }: any) {
         </View>
       </ScrollView>
 
-      {/* Modal de Termos de Consentimento */}
-      <Modal visible={modalVisible} animationType="slide" transparent>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Termos de Consentimento</Text>
-            <ScrollView style={styles.modalScrollView}>
-              <Text style={styles.modalText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                {'\n\n'}
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </Text>
-            </ScrollView>
-            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.modalCloseButton}>
-              <Text style={styles.modalCloseText}>Fechar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      <TermsModal visible={modalVisible} onClose={() => setModalVisible(false)} />
 
       <BottomTabBar activeScreen="Settings" />
     </View>
@@ -125,6 +137,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
+    overflow: 'hidden',
+  },
+  avatarImage: {
+    width: '100%',
+    height: '100%',
   },
   avatarText: {
     fontFamily: theme.fonts.mulishBold,
@@ -164,45 +181,4 @@ const styles = StyleSheet.create({
     color: '#3678FD',
     fontSize: 14
   },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  modalContent: {
-    backgroundColor: theme.colors.white,
-    padding: 24,
-    borderRadius: 16,
-    width: '90%',
-    maxHeight: '80%'
-  },
-  modalTitle: {
-    fontFamily: theme.fonts.mulishBold,
-    fontSize: 18,
-    marginBottom: 15,
-    color: '#424242',
-    textAlign: 'center'
-  },
-  modalScrollView: {
-    maxHeight: 400,
-  },
-  modalText: {
-    fontFamily: theme.fonts.regular,
-    color: '#5E5E5E',
-    lineHeight: 22,
-    fontSize: 14,
-  },
-  modalCloseButton: {
-    marginTop: 20,
-    padding: 14,
-    backgroundColor: '#3678FD',
-    borderRadius: 50,
-    alignItems: 'center'
-  },
-  modalCloseText: {
-    fontFamily: theme.fonts.mulishSemiBold,
-    color: theme.colors.white,
-    fontSize: 16
-  }
 });

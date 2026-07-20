@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Plus, Edit2, Archive, ArchiveRestore, ArrowLeft, Save } from 'lucide-react';
 import { Badge, DataTable, FormField, ImageUploadField, Select, Tabs, ConfirmDialog } from '../components/ui';
 import type { DataTableColumn } from '../components/ui';
-import { useArchivableList } from '../hooks/useArchivableList';
+import { useArchivableList, STATUS_FILTER_OPTIONS } from '../hooks/useArchivableList';
+import { useEntityList } from '../hooks/useEntityList';
+import { fetchAtividades, saveAtividade, toggleArchiveAtividade } from '../services/atividades';
 import type { MediaType } from '../types/common';
 import {
   SKILLS,
@@ -26,84 +28,9 @@ const MEDIA_TYPE_OPTIONS: { value: MediaType; label: string }[] = [
   { value: 'video', label: 'Vídeo' },
 ];
 
-const MOCK_ATIVIDADES: Atividade[] = [
-  {
-    id: 1,
-    codigo: 'F03AC004',
-    titulo: 'Nomear Objetos do Cotidiano',
-    mediaType: 'imagem',
-    mediaUrl: '',
-    skillKey: 'comunicacao',
-    ageBracketCode: 'F03A',
-    nivel: 'aquisicao',
-    plano: 'free',
-    status: 'ativo',
-    objetivo: 'Nomear objetos do cotidiano de forma espontânea.',
-    procedimento: '',
-    materiais: 'Cartões de objetos do cotidiano.',
-    recursosExtras: '',
-    frequencia: '3x na semana',
-    brincadeiras: '',
-    hierarquiaDicas: '',
-    respostaEsperada: '',
-    procedimentoCorrecao: '',
-    criterioAvanco: '',
-    registroDados: '',
-    reforcos: '',
-  },
-  {
-    id: 2,
-    codigo: 'F01AM001',
-    titulo: 'Pular com os Dois Pés',
-    mediaType: 'video',
-    mediaUrl: '',
-    skillKey: 'motora',
-    ageBracketCode: 'F01A',
-    nivel: 'generalizacao',
-    plano: 'premium',
-    status: 'ativo',
-    objetivo: 'Pular com os dois pés juntos.',
-    procedimento: '',
-    materiais: '',
-    recursosExtras: '',
-    frequencia: '',
-    brincadeiras: '',
-    hierarquiaDicas: '',
-    respostaEsperada: '',
-    procedimentoCorrecao: '',
-    criterioAvanco: '',
-    registroDados: '',
-    reforcos: '',
-  },
-  {
-    id: 3,
-    codigo: '',
-    titulo: 'Brincar em Grupo Respeitando a Vez',
-    mediaType: 'imagem',
-    mediaUrl: '',
-    skillKey: 'social',
-    ageBracketCode: 'F02A',
-    nivel: 'manutencao',
-    plano: 'free',
-    status: 'arquivado',
-    objetivo: 'Brincar em grupo respeitando a vez (descontinuada).',
-    procedimento: '',
-    materiais: '',
-    recursosExtras: '',
-    frequencia: '',
-    brincadeiras: '',
-    hierarquiaDicas: '',
-    respostaEsperada: '',
-    procedimentoCorrecao: '',
-    criterioAvanco: '',
-    registroDados: '',
-    reforcos: '',
-  },
-];
-
 function emptyAtividade(): Atividade {
   return {
-    id: 0,
+    id: '',
     codigo: '',
     titulo: '',
     mediaType: 'imagem',
@@ -145,11 +72,15 @@ function matchesSearch(row: Atividade, term: string): boolean {
 }
 
 export function ActivitiesScreen() {
-  const list = useArchivableList<Atividade>(MOCK_ATIVIDADES, matchesSearch);
+  const { rows, loading, error, refresh } = useEntityList(fetchAtividades);
+  const list = useArchivableList<Atividade>(rows, matchesSearch);
   const [view, setView] = useState<'list' | 'form'>('list');
   const [activeTab, setActiveTab] = useState<string>('basic');
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formState, setFormState] = useState<Atividade>(emptyAtividade());
+  const [saving, setSaving] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [listError, setListError] = useState<string | null>(null);
 
   function updateField<K extends keyof Atividade>(key: K, value: Atividade[K]) {
     setFormState((prev) => ({ ...prev, [key]: value }));
@@ -159,6 +90,7 @@ export function ActivitiesScreen() {
     setFormState(emptyAtividade());
     setEditingId(null);
     setActiveTab('basic');
+    setFormError(null);
     setView('form');
   }
 
@@ -166,12 +98,37 @@ export function ActivitiesScreen() {
     setFormState({ ...row });
     setEditingId(row.id);
     setActiveTab('basic');
+    setFormError(null);
     setView('form');
   }
 
-  function handleSave() {
-    list.upsert(editingId !== null ? { ...formState, id: editingId } : formState);
-    setView('list');
+  async function handleSave() {
+    if (saving) return;
+    setSaving(true);
+    setFormError(null);
+    try {
+      await saveAtividade(formState, editingId !== null);
+      await refresh();
+      setView('list');
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : 'Falha ao salvar a atividade.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleConfirmArchive() {
+    const target = list.archiveTarget;
+    if (!target) return;
+    setListError(null);
+    try {
+      await toggleArchiveAtividade(target);
+      await refresh();
+    } catch (err) {
+      setListError(err instanceof Error ? err.message : 'Falha ao atualizar a atividade.');
+    } finally {
+      list.setArchiveTarget(null);
+    }
   }
 
   const columns: DataTableColumn<Atividade>[] = [
@@ -240,6 +197,8 @@ export function ActivitiesScreen() {
             </button>
           </div>
 
+          {(error || listError) && <p className={styles.errorBanner}>{error || listError}</p>}
+
           <DataTable
             columns={columns}
             rows={list.filteredRows}
@@ -247,16 +206,17 @@ export function ActivitiesScreen() {
             searchValue={list.searchTerm}
             onSearchChange={list.setSearchTerm}
             searchPlaceholder="Buscar por código, habilidade ou objetivo..."
-            emptyMessage="Nenhuma atividade encontrada."
+            emptyMessage={loading ? 'Carregando...' : 'Nenhuma atividade encontrada.'}
             toolbarExtra={
-              <label className={styles.showArchivedToggle}>
-                <input
-                  type="checkbox"
-                  checked={list.showArchived}
-                  onChange={(e) => list.setShowArchived(e.target.checked)}
-                />
-                <span>Mostrar arquivadas</span>
-              </label>
+              <div className={styles.filterRow}>
+                <div className={styles.filterItem}>
+                  <Select
+                    value={list.statusFilter}
+                    onChange={(v) => list.setStatusFilter(v as typeof list.statusFilter)}
+                    options={STATUS_FILTER_OPTIONS}
+                  />
+                </div>
+              </div>
             }
           />
         </>
@@ -269,11 +229,13 @@ export function ActivitiesScreen() {
               </button>
               <h1 className={styles.title}>{editingId !== null ? 'Editar Atividade' : 'Nova Atividade'} (Programa ABA)</h1>
             </div>
-            <button className={styles.primaryButton} onClick={handleSave} type="button">
+            <button className={styles.primaryButton} onClick={handleSave} type="button" disabled={saving}>
               <Save size={20} />
-              <span>Salvar Atividade</span>
+              <span>{saving ? 'Salvando...' : 'Salvar Atividade'}</span>
             </button>
           </div>
+
+          {formError && <p className={styles.errorBanner}>{formError}</p>}
 
           <div className={styles.formCard}>
             <Tabs tabs={FORM_TABS} activeId={activeTab} onChange={setActiveTab} />
@@ -506,7 +468,7 @@ export function ActivitiesScreen() {
         }
         confirmLabel={list.archiveTarget?.status === 'ativo' ? 'Arquivar' : 'Reativar'}
         danger={list.archiveTarget?.status === 'ativo'}
-        onConfirm={list.confirmArchive}
+        onConfirm={handleConfirmArchive}
         onCancel={() => list.setArchiveTarget(null)}
       />
     </div>

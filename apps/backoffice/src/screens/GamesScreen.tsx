@@ -1,6 +1,8 @@
 import { ACCESS_PLANS } from '../constants/aba';
 import { Badge, EntityCrudScreen, FormField, ImageUploadField, Select } from '../components/ui';
 import type { DataTableColumn } from '../components/ui';
+import { useEntityList } from '../hooks/useEntityList';
+import { fetchBrincadeiras, saveBrincadeira, toggleArchiveBrincadeira } from '../services/brincadeiras';
 import type { Brincadeira, MediaType } from '../types/entities';
 
 const MEDIA_TYPE_OPTIONS: { value: MediaType; label: string }[] = [
@@ -8,32 +10,9 @@ const MEDIA_TYPE_OPTIONS: { value: MediaType; label: string }[] = [
   { value: 'video', label: 'Vídeo' },
 ];
 
-const MOCK_BRINCADEIRAS: Brincadeira[] = [
-  {
-    id: 1,
-    titulo: 'Caça ao Tesouro dos Sons',
-    descricao: 'Brincadeira para estimular a atenção auditiva.',
-    instrucoes: 'Esconda objetos que fazem som e peça para a criança encontrá-los guiada pelo som.',
-    mediaType: 'imagem',
-    mediaUrl: '',
-    plano: 'free',
-    status: 'ativo',
-  },
-  {
-    id: 2,
-    titulo: 'Corrida dos Bichos',
-    descricao: 'Brincadeira de coordenação motora imitando animais.',
-    instrucoes: 'Peça para a criança imitar o jeito de andar de diferentes animais.',
-    mediaType: 'video',
-    mediaUrl: '',
-    plano: 'premium',
-    status: 'ativo',
-  },
-];
-
 function emptyBrincadeira(): Brincadeira {
   return {
-    id: 0,
+    id: '',
     titulo: '',
     descricao: '',
     instrucoes: '',
@@ -76,16 +55,28 @@ const columns: DataTableColumn<Brincadeira>[] = [
 ];
 
 export function GamesScreen() {
+  const { rows, loading, error, refresh } = useEntityList(fetchBrincadeiras);
+
   return (
     <EntityCrudScreen<Brincadeira>
       title="Brincadeiras"
       newLabel="Nova Brincadeira"
       formTitle={(isEditing) => (isEditing ? 'Editar Brincadeira' : 'Nova Brincadeira')}
       columns={columns}
-      initialRows={MOCK_BRINCADEIRAS}
+      rows={rows}
+      loading={loading}
+      errorMessage={error}
       matchesSearch={matchesSearch}
       emptyItem={emptyBrincadeira}
       searchPlaceholder="Buscar por título ou descrição..."
+      onSave={async (item, isEditing) => {
+        await saveBrincadeira(item, isEditing);
+        await refresh();
+      }}
+      onToggleArchive={async (row) => {
+        await toggleArchiveBrincadeira(row);
+        await refresh();
+      }}
       renderForm={(item, update) => (
         <>
           <FormField label="Título" required fullWidth>

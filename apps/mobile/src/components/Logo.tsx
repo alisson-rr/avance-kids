@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-// @ts-ignore (ignoring typescript error for svg import)
 import LogoSvg from '../../assets/logo+texto.svg';
 
 export function Logo() {

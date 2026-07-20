@@ -7,8 +7,13 @@ import { BottomSheetSelect } from '../components/BottomSheetSelect';
 import { Button } from '../components/Button';
 import { GhostButton } from '../components/GhostButton';
 import { PhotoPicker } from '../components/PhotoPicker';
-import { maskDate, maskCpf } from '../utils/formatters';
+import { maskDate, maskCpf, toIsoDate } from '../utils/formatters';
 import { GENDER_OPTIONS, DISORDER_OPTIONS } from '../constants/options';
+import { registerChild, updateChild } from '../services/children';
+import { uploadAvatar } from '../services/storage';
+import { errorMessage } from '../services/api';
+import { showDialog, showError } from '../ui/dialog';
+import { useProfileStore } from '../store/useProfileStore';
 
 export function ChildRegisterScreen({ navigation }: any) {
   const [photoUri, setPhotoUri] = useState<string>();
@@ -17,10 +22,47 @@ export function ChildRegisterScreen({ navigation }: any) {
   const [genero, setGenero] = useState('');
   const [cpf, setCpf] = useState('');
   const [transtornos, setTranstornos] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSave = () => {
-    // Navigate to onboarding flow after child registration
-    navigation.navigate('Onboarding1');
+  const handleSave = async () => {
+    if (!nome.trim()) {
+      showDialog({ title: 'Atenção', message: 'Informe o nome da criança.', variant: 'info' });
+      return;
+    }
+    if (!toIsoDate(nascimento)) {
+      showDialog({ title: 'Atenção', message: 'Data de nascimento inválida. Use dd/mm/aaaa.', variant: 'info' });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const child = await registerChild({
+        nome,
+        nascimento,
+        genero,
+        cpf,
+        condicoes: transtornos,
+      });
+
+      if (photoUri) {
+        try {
+          const avatarUrl = await uploadAvatar(photoUri, `child-${child.id}`);
+          await updateChild(child.id, { avatar_url: avatarUrl });
+        } catch (uploadErr) {
+          console.warn('[avatar] upload falhou:', uploadErr);
+        }
+      }
+
+      const store = useProfileStore.getState();
+      await store.refreshChildren();
+      store.setActiveChild(child.id);
+
+      navigation.navigate('Onboarding1');
+    } catch (err) {
+      showError('Erro ao cadastrar', errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -68,7 +110,7 @@ export function ChildRegisterScreen({ navigation }: any) {
       </View>
 
       <View style={styles.actionGroup}>
-        <Button title="Salvar" onPress={handleSave} />
+        <Button title="Salvar" loading={loading} onPress={handleSave} />
         <GhostButton title="Cancelar" onPress={() => navigation.goBack()} />
       </View>
     </FormScreen>

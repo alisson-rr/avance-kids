@@ -1,9 +1,8 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { RegisterAttemptSchema } from "../_shared/schemas.ts";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
 
-serve(async (req: Request) => {
+Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
@@ -17,9 +16,10 @@ serve(async (req: Request) => {
       .eq("id", body.session_id)
       .eq("is_completed", false)
       .gt("expires_at", new Date().toISOString())
-      .single();
+      .maybeSingle();
 
     if (!session) return errorResponse("Sessão inválida ou expirada", 400);
+    if (session.plan_id !== body.plan_id) return errorResponse("Plano não corresponde à sessão", 400);
     if (session.total_repetitions >= 10) return errorResponse("Máximo de 10 repetições atingido", 400);
 
     // Inserir tentativa

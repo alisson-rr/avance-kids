@@ -1,15 +1,22 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Activity, 
-  Gamepad2, 
-  FileText, 
-  MessageSquare, 
-  CheckSquare, 
+import {
+  LayoutDashboard,
+  Activity,
+  Gamepad2,
+  FileText,
+  MessageSquare,
+  CheckSquare,
   LogOut,
   Users
 } from 'lucide-react';
+import { useAuth } from '../../auth/AuthContext';
 import styles from './AdminLayout.module.css';
+
+function initialsOf(nome: string): string {
+  const parts = nome.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'AD';
+  return ((parts[0][0] ?? '') + (parts[1]?.[0] ?? '')).toUpperCase();
+}
 
 const navItems = [
   { path: '/', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
@@ -23,8 +30,10 @@ const navItems = [
 
 export function AdminLayout() {
   const navigate = useNavigate();
+  const { admin, signOut } = useAuth();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await signOut();
     navigate('/login');
   };
 
@@ -53,10 +62,10 @@ export function AdminLayout() {
 
         <div className={styles.sidebarFooter}>
           <NavLink to="/profile" className={styles.userProfile}>
-            <div className={styles.avatar}>AD</div>
+            <div className={styles.avatar}>{initialsOf(admin?.nome ?? '')}</div>
             <div className={styles.userInfo}>
-              <span className={styles.userName}>Administrador</span>
-              <span className={styles.userRole}>admin@avancekids.com</span>
+              <span className={styles.userName}>{admin?.nome ?? 'Administrador'}</span>
+              <span className={styles.userRole}>{admin?.email ?? ''}</span>
             </div>
           </NavLink>
           <button className={styles.logoutButton} onClick={handleLogout}>

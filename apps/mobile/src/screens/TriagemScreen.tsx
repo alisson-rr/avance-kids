@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,27 +6,113 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
-import { HABILIDADES, HABILIDADE_STYLES } from '../data/habilidades';
+import { HABILIDADE_STYLES, type HabilidadeKey } from '../data/habilidades';
+import { fetchAgeBrackets, fetchSkills, resolveBracketForMonths } from '../services/catalog';
+import { fetchQuestions, fetchScreeningAnsweredCounts } from '../services/questions';
+import { generateActivityPlan } from '../services/activities';
+import { errorMessage } from '../services/api';
+import { showDialog, showError } from '../ui/dialog';
+import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
+import type { SkillRow } from '../types/db';
 
-// Perguntas respondidas por habilidade (mock — em produção vem do backend)
-const RESPONDIDAS: Record<number, number> = {};
+const FALLBACK_STYLE = HABILIDADE_STYLES.comunicacao;
 
 // ─── COMPONENT ────────────────────────────────────────────────────────
 export function TriagemScreen({ navigation }: any) {
   const insets = useSafeAreaInsets();
   const safeTop = Math.max(insets.top, 50);
+  const activeChild = useProfileStore(selectActiveChild);
+
+  const [skills, setSkills] = useState<SkillRow[]>([]);
+  const [bracketId, setBracketId] = useState<string | null>(null);
+  const [totals, setTotals] = useState<Record<string, number>>({});
+  const [answered, setAnswered] = useState<Record<string, number>>({});
+  const [loading, setLoading] = useState(true);
+  const [generating, setGenerating] = useState(false);
+
+  const load = useCallback(async () => {
+    if (!activeChild) return;
+    setLoading(true);
+    try {
+      const [brackets, skillRows] = await Promise.all([fetchAgeBrackets(), fetchSkills()]);
+      const months =
+        activeChild.idadeGeralMeses ?? activeChild.idadeBiologicaMeses ?? 12;
+      const bracket = resolveBracketForMonths(months, brackets);
+      if (!bracket) throw new Error('Faixas etárias não configuradas.');
+
+      const [questions, counts] = await Promise.all([
+        fetchQuestions('triagem', bracket.id),
+        fetchScreeningAnsweredCounts(activeChild.id),
+      ]);
+
+      const totalsBySkill: Record<string, number> = {};
+      for (const q of questions) {
+        totalsBySkill[q.skill_id] = (totalsBySkill[q.skill_id] ?? 0) + 1;
+      }
+
+      setSkills(skillRows);
+      setBracketId(bracket.id);
+      setTotals(totalsBySkill);
+      setAnswered(counts);
+    } catch (err) {
+      showError('Erro ao carregar', errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
+  }, [activeChild?.id]);
+
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
+
+  const handleConcluir = async () => {
+    if (!activeChild) return;
+
+    // Só conclui com TODAS as habilidades respondidas por completo
+    const pendentes = skills.filter(
+      (s) => (totals[s.id] ?? 0) > 0 && (answered[s.id] ?? 0) < (totals[s.id] ?? 0),
+    );
+    if (pendentes.length > 0) {
+      showDialog({
+        title: 'Triagem incompleta',
+        message: `Para gerar o plano personalizado, responda todas as habilidades. Ainda ${
+          pendentes.length === 1 ? 'falta' : 'faltam'
+        }: ${pendentes.map((p) => p.nome).join(', ')}.`,
+        variant: 'info',
+        buttons: [{ label: 'Continuar respondendo', kind: 'primary' }],
+      });
+      return;
+    }
+
+    setGenerating(true);
+    try {
+      await generateActivityPlan(activeChild.id);
+      await useProfileStore.getState().refreshChildren();
+      navigation.navigate('Onboarding3');
+    } catch (err) {
+      showError('Não foi possível gerar o plano', errorMessage(err));
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const styleFor = (skill: SkillRow) =>
+    HABILIDADE_STYLES[skill.key as HabilidadeKey] ?? FALLBACK_STYLE;
 
   return (
     <View style={[styles.safeArea, { paddingTop: safeTop, paddingBottom: insets.bottom }]}>
       <StatusBar barStyle="dark-content" backgroundColor="#FAFAFA" />
 
-      {/* ── HEADER SECTION (193px tall in Figma) ── */}
+      {/* ── HEADER SECTION ── */}
       <View style={styles.headerSection}>
-        {/* Title row: só ‹ agora (ⓘ removido) */}
         <View style={styles.titleRow}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -40,7 +126,8 @@ export function TriagemScreen({ navigation }: any) {
         <View style={styles.titleBlock}>
           <Text style={styles.pageTitle}>Habilidades</Text>
           <Text style={styles.pageDescription}>
-            Responda para receber o plano personalizado para o desenvolvimento de [nome da criança].
+            Responda para receber o plano personalizado para o desenvolvimento de{' '}
+            {activeChild?.name ?? 'sua criança'}.
           </Text>
         </View>
       </View>
@@ -51,44 +138,55 @@ export function TriagemScreen({ navigation }: any) {
         showsVerticalScrollIndicator={false}
         bounces={false}
       >
-        {/* Skills cards */}
-        <View style={styles.cardsList}>
-          {HABILIDADES.map((hab) => (
-            <TouchableOpacity
-              key={hab.id}
-              style={styles.card}
-              activeOpacity={0.7}
-              onPress={() => navigation.navigate('Habilidade', { habilidadeId: hab.id })}
-            >
-              {/* Colored circle */}
-              <View style={[styles.circle, { backgroundColor: HABILIDADE_STYLES[hab.key].background }]} />
+        {loading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={theme.colors.primary} />
+          </View>
+        ) : (
+          <View style={styles.cardsList}>
+            {skills.map((skill) => (
+              <TouchableOpacity
+                key={skill.id}
+                style={styles.card}
+                activeOpacity={0.7}
+                onPress={() =>
+                  navigation.navigate('Habilidade', {
+                    skillId: skill.id,
+                    skillKey: skill.key,
+                    skillNome: skill.nome,
+                    bracketId,
+                  })
+                }
+              >
+                {/* Colored circle */}
+                <View style={[styles.circle, { backgroundColor: styleFor(skill).background }]} />
 
-              {/* Right content */}
-              <View style={styles.cardRight}>
-                {/* Title + count */}
-                <View style={styles.cardMeta}>
-                  <View style={styles.cardTitleGroup}>
-                    <Text style={styles.cardTitle}>{hab.title}</Text>
+                {/* Right content */}
+                <View style={styles.cardRight}>
+                  <View style={styles.cardMeta}>
+                    <View style={styles.cardTitleGroup}>
+                      <Text style={styles.cardTitle}>{skill.nome}</Text>
+                    </View>
+                    <View style={styles.cardCountGroup}>
+                      <Text style={styles.cardCount}>
+                        {Math.min(answered[skill.id] ?? 0, totals[skill.id] ?? 0)}/
+                        {totals[skill.id] ?? 0}
+                      </Text>
+                    </View>
                   </View>
-                  <View style={styles.cardCountGroup}>
-                    <Text style={styles.cardCount}>
-                      {RESPONDIDAS[hab.id] ?? 0}/{hab.totalPerguntas}
-                    </Text>
+
+                  <View style={styles.responderRow}>
+                    <Text style={styles.responderText}>Responder</Text>
+                    <Text style={styles.responderArrow}>›</Text>
                   </View>
                 </View>
-
-                {/* Responder link */}
-                <View style={styles.responderRow}>
-                  <Text style={styles.responderText}>Responder</Text>
-                  <Text style={styles.responderArrow}>›</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
 
         <View style={styles.bottomActions}>
-          <Button title="Concluir" onPress={() => navigation.navigate('Onboarding3')} />
+          <Button title="Concluir" loading={generating} onPress={handleConcluir} />
           <TouchableOpacity style={styles.ghostBtn} onPress={() => navigation.navigate('Onboarding3')}>
             <Text style={styles.ghostBtnText}>Responder depois</Text>
           </TouchableOpacity>
@@ -100,20 +198,15 @@ export function TriagemScreen({ navigation }: any) {
 
 // ─── STYLES ───────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  // ── Screen ──────────────────────────────────────────────────────────
   safeArea: {
     flex: 1,
     backgroundColor: '#FAFAFA',
   },
-
-  // ── Header section ──────────────────────────────────────────────
-  // Figma: Frame 427319673, 393×193px
   headerSection: {
     paddingHorizontal: 24,
     gap: 24,
   },
   titleRow: {
-    // Figma: row, space-between, gap 279px, height 24px
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -126,18 +219,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   chevron: {
-    // Figma: border 1.5px solid #000000
     fontSize: 28,
     color: '#000000',
     lineHeight: 30,
     marginTop: -2,
   },
   titleBlock: {
-    // Figma: Frame 427319674, gap 8px, 345×71px
     gap: 8,
   },
   pageTitle: {
-    // Figma: Inter 700, 24px, line-height 29px, #000000
     fontFamily: theme.fonts.semiBold,
     fontSize: 24,
     lineHeight: 29,
@@ -145,28 +235,23 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   pageDescription: {
-    // Figma: Inter 400, 14px, line-height 17px, #000000
     fontFamily: theme.fonts.regular,
     fontSize: 14,
     lineHeight: 17,
     color: '#000000',
   },
-
-  // ── ScrollView ──────────────────────────────────────────────────
   scrollContent: {
     paddingBottom: 40,
   },
-
-  // ── Cards list ──────────────────────────────────────────────────
-  // Figma: Frame 427319657, padding 0 24px, gap 16px
+  loadingContainer: {
+    paddingTop: 64,
+    alignItems: 'center',
+  },
   cardsList: {
     paddingHorizontal: 24,
     paddingTop: 24,
     gap: 16,
   },
-
-  // ── Card ────────────────────────────────────────────────────────
-  // Figma: row, padding 24px, gap 16px, 345×124px, bg #FFF, shadow, radius 12
   card: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -175,32 +260,22 @@ const styles = StyleSheet.create({
     height: 124,
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    // Figma: box-shadow 0px 2px 12px rgba(170,170,170,0.25)
     shadowColor: '#AAAAAA',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 12,
     elevation: 4,
   },
-
-  // ── Circle ──────────────────────────────────────────────────────
-  // Figma: 76×76px, border-radius 100px
   circle: {
     width: 76,
     height: 76,
     borderRadius: 100,
   },
-
-  // ── Card right content ──────────────────────────────────────────
-  // Figma: Frame 427319642, column, gap 12px, 205×~75px, flex-grow 1
   cardRight: {
     flex: 1,
     justifyContent: 'center',
     gap: 12,
   },
-
-  // ── Card meta (title + count) ───────────────────────────────────
-  // Figma: Frame 427319640, gap 8px
   cardMeta: {
     gap: 8,
   },
@@ -208,7 +283,6 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   cardTitle: {
-    // Figma: Inter 700, 16px, line-height 19px, #424242
     fontFamily: theme.fonts.semiBold,
     fontSize: 16,
     lineHeight: 19,
@@ -219,22 +293,17 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   cardCount: {
-    // Figma: Inter 400, 12px, line-height 15px, #424242
     fontFamily: theme.fonts.regular,
     fontSize: 12,
     lineHeight: 15,
     color: '#424242',
   },
-
-  // ── Responder link ──────────────────────────────────────────────
-  // Figma: Frame 427319614, row, gap 10px, 205×~25px
   responderRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
   },
   responderText: {
-    // Figma: Inter 600, 14px, line-height 17px, #3678FD, flex-grow 1
     fontFamily: theme.fonts.semiBold,
     fontSize: 14,
     lineHeight: 17,
@@ -242,13 +311,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   responderArrow: {
-    // Figma: arrow icon, #3678FD
     fontSize: 18,
     color: '#3678FD',
     lineHeight: 20,
   },
-
-  // ── Bottom actions ──────────────────────────────────────────────
   bottomActions: {
     paddingHorizontal: 24,
     paddingTop: 24,
@@ -260,7 +326,6 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   ghostBtnText: {
-    // Figma: Inter 500, 16px, line-height 19px, #727272
     fontFamily: theme.fonts.medium,
     fontSize: 16,
     lineHeight: 19,

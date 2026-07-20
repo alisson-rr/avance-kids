@@ -8,8 +8,14 @@ import { Button } from '../components/Button';
 import { GhostButton } from '../components/GhostButton';
 import { Checkbox } from '../components/Checkbox';
 import { PhotoPicker } from '../components/PhotoPicker';
-import { maskDate, maskCpf, maskPhone } from '../utils/formatters';
+import { TermsModal } from '../components/TermsModal';
+import { maskDate, maskCpf, maskPhone, toIsoDate, digitsOnly } from '../utils/formatters';
 import { GENDER_OPTIONS } from '../constants/options';
+import { signUpParent, updateProfile } from '../services/auth';
+import { uploadAvatar } from '../services/storage';
+import { errorMessage } from '../services/api';
+import { showDialog, showError, showSuccess } from '../ui/dialog';
+import { useProfileStore } from '../store/useProfileStore';
 
 export function ParentRegisterScreen({ navigation }: any) {
   const [photoUri, setPhotoUri] = useState<string>();
@@ -22,15 +28,64 @@ export function ParentRegisterScreen({ navigation }: any) {
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [aceitouTermos, setAceitouTermos] = useState(false);
+  const [termsVisible, setTermsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSave = () => {
-    // Basic check
-    if (!aceitouTermos) {
-      alert('Você precisa aceitar os termos de consentimento.');
+  const validate = (): string | null => {
+    if (nome.trim().length < 2) return 'Informe seu nome completo.';
+    if (!/^\S+@\S+\.\S+$/.test(email.trim())) return 'Informe um e-mail válido.';
+    if (!toIsoDate(nascimento)) return 'Data de nascimento inválida. Use dd/mm/aaaa.';
+    if (digitsOnly(cpf).length !== 11) return 'CPF inválido.';
+    if (senha.length < 6) return 'A senha deve ter pelo menos 6 caracteres.';
+    if (senha !== confirmarSenha) return 'A senha e a confirmação não conferem.';
+    if (!aceitouTermos) return 'Você precisa aceitar os termos de consentimento.';
+    return null;
+  };
+
+  const handleSave = async () => {
+    const validationError = validate();
+    if (validationError) {
+      showDialog({ title: 'Atenção', message: validationError, variant: 'info' });
       return;
     }
-    // Navigate to Child Register
-    navigation.navigate('ChildRegister');
+
+    setLoading(true);
+    try {
+      const { needsEmailConfirmation } = await signUpParent({
+        nome,
+        email,
+        senha,
+        nascimento,
+        genero,
+        cpf,
+        telefone,
+      });
+
+      if (needsEmailConfirmation) {
+        showSuccess(
+          'Confirme seu e-mail',
+          `Enviamos um link de confirmação para ${email.trim()}. Depois de confirmar, faça login.`,
+          [{ label: 'OK', onPress: () => navigation.reset({ index: 0, routes: [{ name: 'Login' }] }) }],
+        );
+        return;
+      }
+
+      if (photoUri) {
+        try {
+          const avatarUrl = await uploadAvatar(photoUri, 'parent');
+          await updateProfile({ avatar_url: avatarUrl });
+        } catch (uploadErr) {
+          console.warn('[avatar] upload falhou:', uploadErr);
+        }
+      }
+
+      await useProfileStore.getState().loadAll();
+      navigation.navigate('ChildRegister');
+    } catch (err) {
+      showError('Erro no cadastro', errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -101,7 +156,10 @@ export function ParentRegisterScreen({ navigation }: any) {
             onValueChange={setAceitouTermos}
             label={
               <Text style={styles.termsLabelText}>
-                Concordo com os <Text style={styles.termsLink}>Termos de Consentimento.</Text>
+                Concordo com os{' '}
+                <Text style={styles.termsLink} onPress={() => setTermsVisible(true)}>
+                  Termos de Consentimento.
+                </Text>
               </Text>
             }
           />
@@ -109,9 +167,11 @@ export function ParentRegisterScreen({ navigation }: any) {
       </View>
 
       <View style={styles.actionGroup}>
-        <Button title="Salvar" onPress={handleSave} />
+        <Button title="Salvar" loading={loading} onPress={handleSave} />
         <GhostButton title="Cancelar" onPress={() => navigation.goBack()} />
       </View>
+
+      <TermsModal visible={termsVisible} onClose={() => setTermsVisible(false)} />
     </FormScreen>
   );
 }

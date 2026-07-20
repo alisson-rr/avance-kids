@@ -1,5 +1,4 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@13.11.0?target=deno";
+import Stripe from "npm:stripe@13.11.0";
 import { getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse } from "../_shared/response.ts";
 
@@ -10,7 +9,7 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
 
 const endpointSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET")!;
 
-serve(async (req: Request) => {
+Deno.serve(async (req: Request) => {
   const signature = req.headers.get("stripe-signature");
   if (!signature) return errorResponse("Missing stripe-signature", 400);
 

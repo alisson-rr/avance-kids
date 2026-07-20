@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,72 +6,61 @@ import {
   TouchableOpacity,
   StatusBar,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { ScreenHeader } from '../components/ScreenHeader';
 import { SkillActivityCard } from '../components/SkillActivityCard';
+import { Button } from '../components/Button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '../theme';
+import { fetchActivityPlans, findOpenSession } from '../services/activities';
+import { errorMessage } from '../services/api';
+import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
+import type { PlanWithDetails } from '../types/db';
 
-// ─── MOCK DATA ────────────────────────────────────────────────────────
-// Active activities (with progress bar + arrow)
-const MOCK_ACTIVE = [
-  {
-    id: 1,
-    skill: 'Comunicação',
-    title: 'Imitando sons de animais',
-    description: 'Encoraje a criança a imitar os sons do cachorro e gato para estimular a comunicação verbal.',
-    progress: 50,
-  },
-  {
-    id: 2,
-    skill: 'Coordenação motora',
-    title: 'Empilhando blocos coloridos',
-    description: 'Incentive a criança a empilhar 3 blocos coloridos para desenvolver a coordenação motora fina.',
-    progress: 50,
-  },
-  {
-    id: 3,
-    skill: 'Funcional',
-    title: 'Brincando de esconder',
-    description: 'Use um pano para esconder o rosto e brincar de "Achou!" para estimular a interação social.',
-    progress: 50,
-  },
-  {
-    id: 4,
-    skill: 'Cognitiva',
-    title: 'Identificando cores',
-    description: 'Mostre objetos coloridos e peça para a criança identificar as cores de forma lúdica.',
-    progress: 50,
-  },
-];
-
-// Locked activities (lock icon, all #AAAAAA)
-const MOCK_LOCKED = [
-  {
-    id: 5,
-    skill: 'Comunicação',
-    title: 'Apontar para objetos',
-    description: 'Ensine a criança a apontar para o que deseja para desenvolver a comunicação gestual.',
-  },
-  {
-    id: 6,
-    skill: 'Comunicação',
-    title: 'Cantar músicas simples',
-    description: 'Cante músicas infantis simples com a criança para estimular a linguagem receptiva e expressiva.',
-  },
-  {
-    id: 7,
-    skill: 'Comunicação',
-    title: 'Nomear partes do corpo',
-    description: 'Aponte para partes do corpo e peça para a criança repetir os nomes para ampliar o vocabulário.',
-  },
-];
+function planDescription(plan: PlanWithDetails): string {
+  return plan.exercises.objetivo ?? plan.exercises.procedimento ?? '';
+}
 
 // ─── COMPONENT ────────────────────────────────────────────────────────
 export function ActivityPlanScreen({ navigation }: any) {
   const insets = useSafeAreaInsets();
   const safeTop = Math.max(insets.top, 50);
+  const activeChild = useProfileStore(selectActiveChild);
+
+  const [plans, setPlans] = useState<PlanWithDetails[] | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  const load = useCallback(async () => {
+    if (!activeChild) {
+      setPlans([]);
+      return;
+    }
+    setLoadError(null);
+    try {
+      setPlans(await fetchActivityPlans(activeChild.id));
+    } catch (err) {
+      setLoadError(errorMessage(err));
+      setPlans([]);
+    }
+  }, [activeChild?.id]);
+
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
+
+  const activePlans = (plans ?? []).filter((p) => p.status === 'ativo');
+  const lockedPlans = (plans ?? []).filter((p) => p.status === 'bloqueado');
+
+  // % = acertos "sem ajuda" da sessão atual rumo à meta de 8/10 (80% conclui)
+  const progressFor = (plan: PlanWithDetails): number => {
+    const session = findOpenSession(plan);
+    return session ? session.successful_count * 10 : 0;
+  };
 
   return (
     <View style={[styles.screen, { paddingTop: safeTop }]}>
@@ -96,44 +85,74 @@ export function ActivityPlanScreen({ navigation }: any) {
           </TouchableOpacity>
         </View>
 
-        {/* ── "Atividades atuais" section ── */}
-        <View style={styles.sectionContainer}>
-          <View style={styles.sectionHeaderGroup}>
-            <Text style={styles.sectionTitle}>Atividades atuais</Text>
-            <Text style={styles.sectionSubtitle}>Conclua para desbloquear as próximas</Text>
+        {plans === null ? (
+          <View style={styles.stateContainer}>
+            <ActivityIndicator size="large" color={theme.colors.primary} />
           </View>
-          <View style={styles.cardsList}>
-            {MOCK_ACTIVE.map((item) => (
-              <SkillActivityCard
-                key={item.id}
-                skill={item.skill}
-                title={item.title}
-                description={item.description}
-                progress={item.progress}
-                onPress={() => navigation.navigate('Activity', { activityId: item.id, skill: item.skill })}
-              />
-            ))}
+        ) : loadError ? (
+          <View style={styles.stateContainer}>
+            <Text style={styles.stateText}>{loadError}</Text>
+            <Button title="Tentar novamente" onPress={load} />
           </View>
-        </View>
+        ) : plans.length === 0 ? (
+          <View style={styles.stateContainer}>
+            <Text style={styles.stateText}>
+              {activeChild
+                ? `${activeChild.name} ainda não tem um plano de atividades. Complete a triagem para gerar o plano personalizado.`
+                : 'Cadastre uma criança para gerar o plano de atividades.'}
+            </Text>
+            <Button
+              title={activeChild ? 'Fazer triagem' : 'Cadastrar criança'}
+              onPress={() => navigation.navigate(activeChild ? 'Triagem' : 'ChildRegister')}
+            />
+          </View>
+        ) : (
+          <>
+            {/* ── "Atividades atuais" section ── */}
+            <View style={styles.sectionContainer}>
+              <View style={styles.sectionHeaderGroup}>
+                <Text style={styles.sectionTitle}>Atividades atuais</Text>
+                <Text style={styles.sectionSubtitle}>Conclua para desbloquear as próximas</Text>
+              </View>
+              <View style={styles.cardsList}>
+                {activePlans.map((plan) => (
+                  <SkillActivityCard
+                    key={plan.id}
+                    skill={plan.skills.nome}
+                    title={plan.exercises.titulo}
+                    description={planDescription(plan)}
+                    progress={progressFor(plan)}
+                    onPress={() => navigation.navigate('Activity', { planId: plan.id })}
+                  />
+                ))}
+                {activePlans.length === 0 && (
+                  <Text style={styles.stateText}>Nenhuma atividade ativa no momento.</Text>
+                )}
+              </View>
+            </View>
 
-        {/* ── "Próximos exercícios" section ── */}
-        <View style={styles.sectionContainer}>
-          <View style={styles.sectionHeaderGroup}>
-            <Text style={styles.sectionTitle}>Próximos exercícios</Text>
-            <Text style={styles.sectionSubtitle}>Conclua os exercícios acima para desbloquear as próximas atividades</Text>
-          </View>
-          <View style={styles.cardsList}>
-            {MOCK_LOCKED.map((item) => (
-              <SkillActivityCard
-                key={item.id}
-                skill={item.skill}
-                title={item.title}
-                description={item.description}
-                locked
-              />
-            ))}
-          </View>
-        </View>
+            {/* ── "Próximos exercícios" section ── */}
+            {lockedPlans.length > 0 && (
+              <View style={styles.sectionContainer}>
+                <View style={styles.sectionHeaderGroup}>
+                  <Text style={styles.sectionTitle}>Próximos exercícios</Text>
+                  <Text style={styles.sectionSubtitle}>Conclua os exercícios acima para desbloquear as próximas atividades</Text>
+                </View>
+                <View style={styles.cardsList}>
+                  {lockedPlans.map((plan) => (
+                    <SkillActivityCard
+                      key={plan.id}
+                      skill={plan.skills.nome}
+                      title={plan.exercises.titulo}
+                      description={planDescription(plan)}
+                      locked
+                    />
+                  ))}
+                </View>
+              </View>
+            )}
+          </>
+        )}
       </ScrollView>
 
       {/* ── BOTTOM TAB BAR ── */}
@@ -165,12 +184,23 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   historyText: {
-    // Figma: Inter 600, 14px, line-height 17px, text-align right, #0E5DFD
     fontFamily: theme.fonts.semiBold,
     fontSize: 14,
     lineHeight: 17,
     textAlign: 'right',
     color: '#0E5DFD',
+  },
+  stateContainer: {
+    paddingTop: 32,
+    alignItems: 'center',
+    gap: 24,
+  },
+  stateText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 15,
+    lineHeight: 22,
+    color: '#5E5E5E',
+    textAlign: 'center',
   },
   sectionContainer: {
     gap: 24,

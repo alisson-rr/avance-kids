@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FormScreen } from '../components/FormScreen';
 import { SolidInput } from '../components/SolidInput';
 import { Button } from '../components/Button';
+import { changePassword } from '../services/auth';
+import { errorMessage } from '../services/api';
+import { showDialog, showError, showSuccess } from '../ui/dialog';
 
 export function ChangePasswordScreen({ navigation }: any) {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -10,25 +13,33 @@ export function ChangePasswordScreen({ navigation }: any) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      Alert.alert('Erro', 'Preencha todos os campos.');
+      showDialog({ title: 'Atenção', message: 'Preencha todos os campos.', variant: 'info' });
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      showDialog({ title: 'Atenção', message: 'A nova senha deve ter pelo menos 6 caracteres.', variant: 'info' });
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      Alert.alert('Erro', 'A nova senha e a confirmação não conferem.');
+      showDialog({ title: 'Atenção', message: 'A nova senha e a confirmação não conferem.', variant: 'info' });
       return;
     }
 
     setLoading(true);
-    // Simulating API call
-    setTimeout(() => {
-      setLoading(false);
-      Alert.alert('Sucesso', 'Senha alterada com sucesso!', [
-        { text: 'OK', onPress: () => navigation.goBack() }
+    try {
+      await changePassword(currentPassword, newPassword);
+      showSuccess('Tudo certo!', 'Senha alterada com sucesso.', [
+        { label: 'OK', onPress: () => navigation.goBack() },
       ]);
-    }, 500);
+    } catch (err) {
+      showError('Erro', errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,7 +66,7 @@ export function ChangePasswordScreen({ navigation }: any) {
       </View>
 
       <View style={styles.actionGroup}>
-        <Button title={loading ? 'Salvando...' : 'Salvar Alterações'} onPress={handleSave} />
+        <Button title="Salvar Alterações" loading={loading} onPress={handleSave} />
       </View>
     </FormScreen>
   );

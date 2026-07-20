@@ -4,22 +4,14 @@ export type RecordStatus = 'ativo' | 'arquivado';
 export type MediaType = 'imagem' | 'video';
 
 export interface WithId {
-  id: number;
+  /** UUID no banco; string vazia identifica um registro ainda não salvo. */
+  id: string;
   status: RecordStatus;
 }
 
-/** Mirrors initial_question_options / screening_question_options. */
-export interface QuestionOption {
-  id: number;
-  texto: string;
-  valorNumerico: number;
-}
-
-export function createDefaultOptions(): QuestionOption[] {
-  return [
-    { id: 1, texto: '', valorNumerico: 0 },
-    { id: 2, texto: '', valorNumerico: 1 },
-    { id: 3, texto: '', valorNumerico: 2 },
-    { id: 4, texto: 'Não observei essa situação ainda', valorNumerico: 0 },
-  ];
-}
+/** The fixed response scale used by every Pergunta — never customized per-question. */
+export const ANSWER_SCALE = [
+  { valorNumerico: 0, label: 'Nunca / Não observei' },
+  { valorNumerico: 1, label: 'Às vezes' },
+  { valorNumerico: 2, label: 'Sempre' },
+];

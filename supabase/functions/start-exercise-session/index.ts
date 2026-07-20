@@ -1,9 +1,8 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { StartSessionSchema } from "../_shared/schemas.ts";
 import { getUser } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
 
-serve(async (req: Request) => {
+Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
@@ -20,16 +19,18 @@ serve(async (req: Request) => {
     if (!plan) return errorResponse("Plano não encontrado", 404);
     if (plan.status !== "ativo") return errorResponse("Este exercício não está ativo", 400);
 
-    // Verificar se já existe sessão ativa (não expirada)
+    // Verificar se já existe sessão ativa (não expirada e com repetições
+    // restantes — sessão cheia sem atingir o critério recomeça do zero)
     const { data: existingSession } = await supabase
       .from("exercise_sessions")
       .select("*")
       .eq("plan_id", plan_id)
       .eq("is_completed", false)
+      .lt("total_repetitions", 10)
       .gt("expires_at", new Date().toISOString())
       .order("started_at", { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (existingSession) {
       // Retornar sessão existente

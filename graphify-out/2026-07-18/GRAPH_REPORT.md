@@ -1,16 +1,16 @@
 # Graph Report - avance-kids-code  (2026-07-18)
 
 ## Corpus Check
-- 109 files · ~83,699 words
+- 110 files · ~83,843 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 565 nodes · 1007 edges · 54 communities (35 shown, 19 thin omitted)
+- 569 nodes · 1008 edges · 47 communities (33 shown, 14 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.6)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `23f1a131`
+- Built from commit: `c0f97d46`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -57,41 +57,34 @@
 - Onboarding Screenshot 1 - 'Perguntas Iniciais' Initial Screening Question UI
 - Social Domain Avatar (boy, green shirt, holding emoji cards)
 - ActivityHistoryScreen.tsx
-- ActivityPlanScreen.tsx
-- HomeScreen.tsx
 - Onboarding2Screen.tsx
 - PerguntasScreen.tsx
 - options.ts
-- scripts
-- react
-- react-router-dom
-- recharts
-- @tiptap/pm
-- @tiptap/react
+- DashboardScreen.tsx
 
 ## God Nodes (most connected - your core abstractions)
-1. `react` - 47 edges
+1. `react` - 48 edges
 2. `theme` - 27 edges
 3. `compilerOptions` - 18 edges
 4. `compilerOptions` - 15 edges
 5. `useProfileStore` - 13 edges
 6. `expo` - 12 edges
-7. `DataTableColumn` - 10 edges
-8. `Badge()` - 9 edges
-9. `FormField()` - 9 edges
-10. `ActivitiesScreen()` - 9 edges
+7. `DataTableColumn` - 9 edges
+8. `ActivitiesScreen()` - 9 edges
+9. `Button()` - 9 edges
+10. `maskCpf()` - 9 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Graphify Knowledge Graph Rules (root CLAUDE.md)` --conceptually_related_to--> `Mobile CLAUDE.md (includes AGENTS.md)`  [INFERRED]
   CLAUDE.md → apps/mobile/CLAUDE.md
-- `matchesSearch()` --calls--> `getSkill()`  [EXTRACTED]
-  apps/backoffice/src/screens/TriageQuestionsScreen.tsx → apps/backoffice/src/constants/aba.ts
 - `Backoffice HTML Entry Point (index.html)` --references--> `Backoffice Favicon (purple beveled diamond icon)`  [EXTRACTED]
   apps/backoffice/index.html → apps/backoffice/public/favicon.svg
 - `EntityCrudScreenProps` --references--> `DataTableColumn`  [EXTRACTED]
   apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx → apps/backoffice/src/components/ui/DataTable/DataTable.tsx
-- `OptionListEditorProps` --references--> `QuestionOption`  [EXTRACTED]
-  apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx → apps/backoffice/src/types/common.ts
+- `matchesSearch()` --calls--> `getSkill()`  [EXTRACTED]
+  apps/backoffice/src/screens/QuestionCrudScreen.tsx → apps/backoffice/src/constants/aba.ts
+- `ActivitiesScreen()` --calls--> `useArchivableList()`  [EXTRACTED]
+  apps/backoffice/src/screens/ActivitiesScreen.tsx → apps/backoffice/src/hooks/useArchivableList.ts
 
 ## Import Cycles
 - None detected.
@@ -99,19 +92,19 @@
 ## Hyperedges (group relationships)
 - **Android Adaptive Icon Layer Set** — apps_mobile_assets_android_icon_background, apps_mobile_assets_android_icon_foreground, apps_mobile_assets_android_icon_monochrome, apps_mobile_assets_icon [EXTRACTED 0.85]
 
-## Communities (54 total, 19 thin omitted)
+## Communities (47 total, 14 thin omitted)
 
 ### Community 0 - "App.tsx"
-Cohesion: 0.07
-Nodes (59): BottomSheetSelect(), BottomSheetSelectProps, styles, Button(), ButtonProps, styles, Checkbox(), CheckboxProps (+51 more)
+Cohesion: 0.06
+Nodes (69): App(), Stack, BottomSheetSelect(), BottomSheetSelectProps, styles, Button(), ButtonProps, styles (+61 more)
 
 ### Community 1 - "dependencies"
 Cohesion: 0.05
 Nodes (43): dependencies, expo, expo-font, @expo-google-fonts/inter, @expo-google-fonts/mulish, expo-image, expo-image-picker, expo-linear-gradient (+35 more)
 
 ### Community 2 - "devDependencies"
-Cohesion: 0.13
-Nodes (15): devDependencies, oxlint, @types/node, @types/react, @types/react-dom, typescript, vite, @vitejs/plugin-react (+7 more)
+Cohesion: 0.08
+Nodes (24): devDependencies, oxlint, @types/node, @types/react, @types/react-dom, typescript, vite, @vitejs/plugin-react (+16 more)
 
 ### Community 3 - "schemas.ts"
 Cohesion: 0.16
@@ -130,28 +123,28 @@ Cohesion: 0.10
 Nodes (19): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, noEmit, noFallthroughCasesInSwitch (+11 more)
 
 ### Community 8 - "BottomTabBar.tsx"
-Cohesion: 0.07
-Nodes (32): App(), Stack, BottomTabBar(), BottomTabBarProps, styles, CurvedHeader(), CurvedHeaderProps, styles (+24 more)
+Cohesion: 0.10
+Nodes (14): BottomTabBar(), BottomTabBarProps, styles, CurvedHeader(), CurvedHeaderProps, styles, ActivityScreen(), MOCK_ACTIVITIES (+6 more)
 
 ### Community 9 - "App.tsx"
 Cohesion: 0.18
-Nodes (9): App(), AdminLayout(), navItems, AdminProfileScreen(), CURRENT_ADMIN, DashboardScreen(), data, LoginScreen() (+1 more)
+Nodes (7): Select(), SelectOption, SelectProps, columns, GamesScreen(), MEDIA_TYPE_OPTIONS, MOCK_BRINCADEIRAS
 
 ### Community 10 - "HomeScreen.tsx"
-Cohesion: 0.20
-Nodes (16): OptionListEditor(), OptionListEditorProps, VALOR_LABELS, AccessPlan, AgeBracketCode, HabilidadeKey, columns, matchesSearch() (+8 more)
+Cohesion: 0.15
+Nodes (19): AccessPlan, AgeBracketCode, HabilidadeKey, InitialQuestionsScreen(), MOCK_PERGUNTAS_INICIAIS, columns, filters, QuestionCrudScreen() (+11 more)
 
 ### Community 11 - "package.json"
 Cohesion: 0.12
 Nodes (16): devDependencies, react-native-svg-transformer, @types/react, typescript, @types/react, typescript, main, name (+8 more)
 
 ### Community 12 - "LoginScreen.tsx"
-Cohesion: 0.22
-Nodes (18): AGE_BRACKETS, AgeBracket, Atividade, AtividadeStatus, buildProgramaLabel(), EXERCISE_LEVELS, ExerciseLevel, getAgeBracket() (+10 more)
+Cohesion: 0.20
+Nodes (19): AGE_BRACKETS, AgeBracket, Atividade, AtividadeStatus, buildProgramaLabel(), EXERCISE_LEVELS, ExerciseLevel, getAgeBracket() (+11 more)
 
 ### Community 13 - "TriagemBaseScreen.tsx"
-Cohesion: 0.13
-Nodes (16): QuestionScreenLayout(), QuestionScreenLayoutProps, styles, Habilidade, HABILIDADE_STYLES, HabilidadeKey, HABILIDADES, HabilidadeStyle (+8 more)
+Cohesion: 0.09
+Nodes (24): QuestionScreenLayout(), QuestionScreenLayoutProps, styles, SkillActivityCard(), SkillActivityCardProps, styles, getSkillColor(), Habilidade (+16 more)
 
 ### Community 14 - "plugins"
 Cohesion: 0.22
@@ -211,51 +204,43 @@ Nodes (3): Mobile AGENTS.md: Expo v57 Version Warning, Mobile CLAUDE.md (include
 
 ### Community 42 - "ActivityHistoryScreen.tsx"
 Cohesion: 0.10
-Nodes (13): FormField(), FormFieldProps, Select(), SelectOption, SelectProps, ACCESS_PLANS, ArticlesScreen(), columns (+5 more)
-
-### Community 43 - "ActivityPlanScreen.tsx"
-Cohesion: 0.19
-Nodes (10): Badge(), BadgeProps, BadgeVariant, ConfirmDialog(), ConfirmDialogProps, ImageUploadField(), ImageUploadFieldProps, TabItem (+2 more)
-
-### Community 44 - "HomeScreen.tsx"
-Cohesion: 0.18
-Nodes (13): DataTable(), DataTableColumn, DataTableProps, EntityCrudScreen(), EntityCrudScreenProps, useArchivableList(), columns, emptyPerguntaInicial() (+5 more)
+Nodes (20): Badge(), BadgeProps, BadgeVariant, EntityFilterConfig, FormField(), FormFieldProps, ImageUploadField(), ImageUploadFieldProps (+12 more)
 
 ### Community 45 - "Onboarding2Screen.tsx"
 Cohesion: 0.25
 Nodes (6): AdminUsersScreen(), columns, MOCK_ADMIN_USERS, ROLE_OPTIONS, roleLabel(), AdminRole
 
 ### Community 46 - "PerguntasScreen.tsx"
-Cohesion: 0.13
-Nodes (15): dependencies, lucide-react, react-dom, @tiptap/extension-image, @tiptap/extension-link, @tiptap/extension-text-align, @tiptap/starter-kit, zustand (+7 more)
+Cohesion: 0.08
+Nodes (25): dependencies, lucide-react, react, react-dom, react-router-dom, recharts, @tiptap/extension-image, @tiptap/extension-link (+17 more)
 
 ### Community 47 - "options.ts"
-Cohesion: 0.40
-Nodes (4): name, private, type, version
+Cohesion: 0.21
+Nodes (11): ConfirmDialog(), ConfirmDialogProps, DataTable(), DataTableColumn, DataTableProps, EntityCrudScreen(), EntityCrudScreenProps, STATUS_FILTER_OPTIONS (+3 more)
 
-### Community 48 - "scripts"
-Cohesion: 0.40
-Nodes (5): scripts, build, dev, lint, preview
+### Community 57 - "DashboardScreen.tsx"
+Cohesion: 0.23
+Nodes (7): App(), AdminLayout(), navItems, ArticlesScreen(), DashboardScreen(), data, LoginScreen()
 
 ## Knowledge Gaps
-- **254 isolated node(s):** `$schema`, `typescript`, `oxc`, `react/rules-of-hooks`, `warn` (+249 more)
+- **257 isolated node(s):** `$schema`, `typescript`, `oxc`, `react/rules-of-hooks`, `warn` (+252 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **14 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `App.tsx` to `BottomTabBar.tsx`, `App.tsx`, `ActivityHistoryScreen.tsx`, `ActivityPlanScreen.tsx`, `HomeScreen.tsx`, `LoginScreen.tsx`, `plugins`, `TriagemBaseScreen.tsx`?**
-  _High betweenness centrality (0.172) - this node is a cross-community bridge._
-- **Why does `expo-splash-screen` connect `expo` to `BottomTabBar.tsx`?**
+- **Why does `react` connect `App.tsx` to `BottomTabBar.tsx`, `ActivityHistoryScreen.tsx`, `LoginScreen.tsx`, `TriagemBaseScreen.tsx`, `plugins`, `options.ts`, `DashboardScreen.tsx`?**
+  _High betweenness centrality (0.174) - this node is a cross-community bridge._
+- **Why does `expo-splash-screen` connect `expo` to `App.tsx`?**
   _High betweenness centrality (0.042) - this node is a cross-community bridge._
 - **What connects `$schema`, `typescript`, `oxc` to the rest of the system?**
-  _254 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _257 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `App.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.06641198942109904 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05792620078334364 - nodes in this community are weakly interconnected._
 - **Should `dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected._
 - **Should `devDependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
 - **Should `expo` be split into smaller, more focused modules?**
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._

@@ -35,8 +35,8 @@
     "semantic_hash": "787e5a07efeb2bf6209d5937195f2f68"
   },
   "apps/backoffice/src/screens/ActivitiesScreen.tsx": {
-    "mtime": 1784388949.0272064,
-    "ast_hash": "6a9bd5e31b086c8e07bbb9299af064eb",
+    "mtime": 1784389619.501074,
+    "ast_hash": "bead63dc6afa6cd0fdec991ee7b46661",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/DashboardScreen.tsx": {
@@ -645,8 +645,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/components/ui/index.ts": {
-    "mtime": 1784388825.7489092,
-    "ast_hash": "adf9aee8b1fb3174b70da792bcca544b",
+    "mtime": 1784389544.7780375,
+    "ast_hash": "bfd56965f0e3e6a242cdd548034e604f",
     "semantic_hash": ""
   },
   "apps/backoffice/src/constants/aba.ts": {
@@ -655,18 +655,13 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx": {
-    "mtime": 1784388021.7273173,
-    "ast_hash": "af61a9723cd71503d3baf448615fb0ef",
-    "semantic_hash": ""
-  },
-  "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx": {
-    "mtime": 1784388352.0549173,
-    "ast_hash": "7adb502a1c610a6abe6465df2f9386d7",
+    "mtime": 1784389484.636633,
+    "ast_hash": "b84982e9197362b662a14a3c809780bf",
     "semantic_hash": ""
   },
   "apps/backoffice/src/hooks/useArchivableList.ts": {
-    "mtime": 1784387963.4126823,
-    "ast_hash": "dfc5274e12a9ffbfffd99cfa2c850141",
+    "mtime": 1784389447.3238645,
+    "ast_hash": "772b4ddeca62c35060a88307df1fc182",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/AdminProfileScreen.tsx": {
@@ -680,8 +675,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/ArticlesScreen.tsx": {
-    "mtime": 1784388202.8549585,
-    "ast_hash": "e4150272a21fef1eb6957b7e5022fdcd",
+    "mtime": 1784389081.407894,
+    "ast_hash": "91b5c2101d9102f980c4df18c860be90",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/GamesScreen.tsx": {
@@ -690,23 +685,23 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/InitialQuestionsScreen.tsx": {
-    "mtime": 1784388361.1102362,
-    "ast_hash": "9506748b9ca92146eda3c9d2dfc709ef",
+    "mtime": 1784389582.457091,
+    "ast_hash": "d7576cc6f1d77768485d09ccd19e5095",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/TriageQuestionsScreen.tsx": {
-    "mtime": 1784388366.9645908,
-    "ast_hash": "8a4527b794d69a06c0bae10297e1c59b",
+    "mtime": 1784389588.3444674,
+    "ast_hash": "5b8e5d20bd5ad68aa8febba1b1c7a386",
     "semantic_hash": ""
   },
   "apps/backoffice/src/types/common.ts": {
-    "mtime": 1784388870.5675592,
-    "ast_hash": "ca654ee9c47a31468667f2204a80d4b9",
+    "mtime": 1784389532.43905,
+    "ast_hash": "6c21b20a795000ea4a9c0998f202bfa6",
     "semantic_hash": ""
   },
   "apps/backoffice/src/types/entities.ts": {
-    "mtime": 1784388881.278648,
-    "ast_hash": "6222ed93ccd715e5f066ebee61a23951",
+    "mtime": 1784389517.2711742,
+    "ast_hash": "5ee1bb9193551c2565f8b85f8ddf9424",
     "semantic_hash": ""
   },
   "apps/mobile/src/components/OnboardingLayout.tsx": {
@@ -747,6 +742,16 @@
   "apps/mobile/src/components/SkillActivityCard.tsx": {
     "mtime": 1784388725.0352638,
     "ast_hash": "94586ca0d67aa9aa15f799ac25bac836",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/components/ui/RichTextEditor/RichTextEditor.tsx": {
+    "mtime": 1784389022.7329535,
+    "ast_hash": "96f5620ebafcfbd0cf6481a199af61fa",
+    "semantic_hash": ""
+  },
+  "apps/backoffice/src/screens/QuestionCrudScreen.tsx": {
+    "mtime": 1784389569.9689598,
+    "ast_hash": "b7095330df15c227d41243b853139bfb",
     "semantic_hash": ""
   }
 }

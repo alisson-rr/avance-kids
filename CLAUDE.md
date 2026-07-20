@@ -1,3 +1,9 @@
+## Migrations (Supabase)
+
+- Toda migration nova é incremental e numerada em sequência: `<timestamp>_migration-NN_descricao.sql` (ex.: `20260719120000_migration-02_add_campo_x.sql`). O baseline `20260718000000_baseline.sql` conta como migration-01.
+- O prefixo timestamp `YYYYMMDDHHMMSS` é obrigatório (ordem de aplicação do Supabase CLI); o `migration-NN` dá a leitura sequencial.
+- Nunca editar uma migration já aplicada — sempre criar a próxima `migration-NN`.
+
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.

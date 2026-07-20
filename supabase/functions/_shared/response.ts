@@ -1,5 +1,7 @@
 import { corsHeaders } from "./cors.ts";
 
+export { corsHeaders };
+
 export function jsonResponse(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
     status,

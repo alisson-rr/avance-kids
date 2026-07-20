@@ -1,12 +1,47 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Linking } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
 import { ScreenHeader } from '../components/ScreenHeader';
+import { createCheckoutSession, fetchSubscription } from '../services/subscription';
+import { errorMessage } from '../services/api';
+import { showDialog, showError } from '../ui/dialog';
 
 export function PlansScreen({ navigation }: any) {
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
+  const [loading, setLoading] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
+
+  useEffect(() => {
+    fetchSubscription()
+      .then((sub) => {
+        setIsPremium(sub?.plano === 'premium' && ['active', 'trialing'].includes(sub.status));
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleSubscribe = async () => {
+    if (isPremium) {
+      showDialog({
+        title: 'Assinatura ativa',
+        message: 'Você já é assinante premium. Obrigado!',
+        variant: 'success',
+      });
+      return;
+    }
+    setLoading(true);
+    try {
+      const url = await createCheckoutSession(selectedPlan);
+      const supported = await Linking.canOpenURL(url);
+      if (!supported) throw new Error('Não foi possível abrir a página de pagamento.');
+      await Linking.openURL(url);
+    } catch (err) {
+      showError('Erro na assinatura', errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const benefits = [
     'Acesso a todas as atividades',
@@ -75,9 +110,10 @@ export function PlansScreen({ navigation }: any) {
           </View>
 
           <View style={styles.actionContainer}>
-            <Button 
-              title="Assinar agora" 
-              onPress={() => console.log(`Assinando plano ${selectedPlan}`)} 
+            <Button
+              title={isPremium ? 'Assinatura ativa' : 'Assinar agora'}
+              loading={loading}
+              onPress={handleSubscribe}
             />
             <Text style={styles.termsText}>
               Cancelamento grátis a qualquer momento. Ao assinar, você concorda com nossos Termos de Uso e Política de Privacidade.

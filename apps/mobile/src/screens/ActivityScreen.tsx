@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,50 +9,129 @@ import {
   ScrollView,
   Modal,
   TouchableWithoutFeedback,
+  ActivityIndicator,
+  Linking,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
+import {
+  fetchPlan,
+  startExerciseSession,
+  registerAttempt,
+} from '../services/activities';
+import { errorMessage } from '../services/api';
+import { showDialog, showError } from '../ui/dialog';
+import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
+import type { AttemptResult, ExerciseSessionRow, PlanWithDetails } from '../types/db';
 
-// ─── MOCK DATA ────────────────────────────────────────────────────────
-
-
-const MOCK_ACTIVITIES: Record<number, {
-  skill: string;
-  title: string;
-  description: string;
-}> = {
-  1: { skill: 'Comunicação', title: 'Olhar quando chama pelo nome', description: 'Esta atividade tem como objetivo ajudar a criança a reconhecer e responder ao próprio nome. Mantenha contato visual e chame a criança com um tom de voz alegre.' },
-  2: { skill: 'Coordenação motora', title: 'Empilhando blocos coloridos', description: 'Incentive a criança a empilhar blocos para desenvolver a coordenação motora fina e noção de equilíbrio.' },
-  3: { skill: 'Funcional', title: 'Brincando de esconder', description: 'Use um pano para esconder o rosto e brincar de "Achou!" para estimular a interação social e a permanência do objeto.' },
-  4: { skill: 'Cognitiva', title: 'Identificando cores', description: 'Mostre objetos coloridos e peça para a criança identificar as cores de forma lúdica e divertida.' },
-};
+const RESULT_OPTIONS: { id: number; label: string; resultado: AttemptResult }[] = [
+  { id: 1, label: 'Fez sem ajuda', resultado: 'sem_ajuda' },
+  { id: 2, label: 'Fez com ajuda parcial', resultado: 'ajuda_parcial' },
+  { id: 3, label: 'Fez com ajuda total', resultado: 'ajuda_total' },
+];
 
 // ─── COMPONENT ────────────────────────────────────────────────────────
 export function ActivityScreen({ navigation, route }: any) {
   const insets = useSafeAreaInsets();
   const safeTop = Math.max(insets.top, 50);
+  const activeChild = useProfileStore(selectActiveChild);
 
-  const activityId = route?.params?.activityId || 1;
-  const activity = MOCK_ACTIVITIES[activityId] || MOCK_ACTIVITIES[1];
+  const planId: string | undefined = route?.params?.planId;
+
+  const [plan, setPlan] = useState<PlanWithDetails | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [session, setSession] = useState<ExerciseSessionRow | null>(null);
+  const [starting, setStarting] = useState(false);
+  const [registering, setRegistering] = useState(false);
 
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
   const [currentRepetition, setCurrentRepetition] = useState(1);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const handleStart = () => {
-    setIsBottomSheetVisible(true);
+  const load = useCallback(async () => {
+    if (!planId) {
+      setLoadError('Atividade não encontrada.');
+      return;
+    }
+    setLoadError(null);
+    try {
+      const data = await fetchPlan(planId);
+      if (!data) {
+        setLoadError('Atividade não encontrada.');
+        return;
+      }
+      setPlan(data);
+    } catch (err) {
+      setLoadError(errorMessage(err));
+    }
+  }, [planId]);
+
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
+
+  const handleStart = async () => {
+    if (!plan) return;
+    setStarting(true);
+    try {
+      const { session: openSession } = await startExerciseSession(plan.id);
+      setSession(openSession);
+      setCurrentRepetition(Math.min(openSession.total_repetitions + 1, 10));
+      setSelectedOption(null);
+      setIsCompleted(false);
+      setIsBottomSheetVisible(true);
+    } catch (err) {
+      showError('Não foi possível iniciar', errorMessage(err));
+    } finally {
+      setStarting(false);
+    }
   };
 
-  const handleRegister = () => {
-    if (selectedOption === null) return;
-    if (currentRepetition < 10) {
-      setCurrentRepetition((prev) => prev + 1);
+  const handleRegister = async () => {
+    if (selectedOption === null || !session || !plan || registering) return;
+    const option = RESULT_OPTIONS.find((o) => o.id === selectedOption);
+    if (!option) return;
+
+    setRegistering(true);
+    try {
+      const result = await registerAttempt({
+        session_id: session.id,
+        plan_id: plan.id,
+        repeticao_numero: currentRepetition,
+        resultado: option.resultado,
+      });
+
       setSelectedOption(null);
-    } else {
-      setIsCompleted(true);
+
+      if (result.exercise_completed) {
+        setIsCompleted(true);
+      } else if (result.remaining <= 0) {
+        // 10 repetições sem atingir 8 acertos sem ajuda: recomeça do zero
+        setIsBottomSheetVisible(false);
+        setSession(null);
+        const acertos = result.successful_count;
+        showDialog({
+          title: 'Quase lá!',
+          message: `Foram ${acertos} de 10 repetições sem ajuda — o exercício avança com 8 ou mais. Tudo bem, a prática leva à conquista: vamos recomeçar do zero!`,
+          variant: 'info',
+          buttons: [
+            { label: 'Recomeçar agora', kind: 'primary', onPress: () => handleStart() },
+            { label: 'Voltar ao plano', kind: 'ghost', onPress: () => navigation.navigate('ActivityPlan') },
+          ],
+        });
+      } else {
+        setCurrentRepetition(result.total_repetitions + 1);
+      }
+    } catch (err) {
+      showError('Erro ao registrar', errorMessage(err));
+    } finally {
+      setRegistering(false);
     }
   };
 
@@ -60,6 +139,58 @@ export function ActivityScreen({ navigation, route }: any) {
     setIsBottomSheetVisible(false);
     navigation.navigate('ActivityPlan');
   };
+
+  const handleInfo = () => {
+    if (!plan) return;
+    const e = plan.exercises;
+    const sections = [
+      ['Materiais', e.materiais],
+      ['Frequência', e.frequencia],
+      ['Hierarquia de dicas', e.hierarquia_dicas],
+      ['Resposta esperada', e.resposta_esperada],
+      ['Critério de avanço', e.criterio_avanco],
+      ['Reforços', e.reforcos],
+    ].filter(([, value]) => value);
+    showDialog({
+      title: e.titulo,
+      message:
+        sections.length > 0
+          ? sections.map(([label, value]) => `${label}:\n${value}`).join('\n\n')
+          : 'Sem informações adicionais.',
+      variant: 'info',
+      buttons: [{ label: 'Entendi', kind: 'primary' }],
+    });
+  };
+
+  const handlePlayVideo = () => {
+    const url = plan?.exercises.media_url;
+    if (url) {
+      Linking.openURL(url).catch(() => showError('Erro', 'Não foi possível abrir o vídeo.'));
+    }
+  };
+
+  if (loadError) {
+    return (
+      <View style={[styles.screen, styles.stateContainer, { paddingTop: safeTop }]}>
+        <Text style={styles.stateText}>{loadError}</Text>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.stateLink}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (!plan) {
+    return (
+      <View style={[styles.screen, styles.stateContainer, { paddingTop: safeTop }]}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+      </View>
+    );
+  }
+
+  const exercise = plan.exercises;
+  const isVideo = exercise.media_type === 'video' && !!exercise.media_url;
+  const description = [exercise.objetivo, exercise.procedimento].filter(Boolean).join('\n\n');
 
   return (
     <View style={[styles.screen, { paddingTop: safeTop }]}>
@@ -78,7 +209,7 @@ export function ActivityScreen({ navigation, route }: any) {
         {/* Spacer */}
         <View style={{ flex: 1 }} />
 
-        <TouchableOpacity style={styles.headerIconBtn}>
+        <TouchableOpacity style={styles.headerIconBtn} onPress={handleInfo}>
           <View style={styles.infoCircle}>
             <Text style={styles.infoText}>i</Text>
           </View>
@@ -87,34 +218,54 @@ export function ActivityScreen({ navigation, route }: any) {
 
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 120 }}>
         {/* ── SKILL NAME (big bold) ── */}
-        <Text style={styles.skillName}>{activity.skill}</Text>
+        <Text style={styles.skillName}>{plan.skills.nome}</Text>
 
         {/* ── ACTIVITY NAME (smaller, gray) ── */}
-        <Text style={styles.activityName}>{activity.title}</Text>
+        <Text style={styles.activityName}>{exercise.titulo}</Text>
 
         {/* ── IMAGE / VIDEO AREA ── */}
         <View style={styles.mediaContainer}>
-          <Image
-            source={require('../../assets/onboarding3.png')}
-            style={styles.mediaImage}
-            resizeMode="cover"
-          />
-          {/* Play button overlay */}
-          <View style={styles.playOverlay}>
-            <View style={styles.playButton}>
-              <Ionicons name="play" size={32} color="#FFFFFF" style={{ marginLeft: 3 }} />
-            </View>
-          </View>
+          {exercise.media_url && !isVideo ? (
+            <Image
+              source={{ uri: exercise.media_url }}
+              style={styles.mediaImage}
+              resizeMode="cover"
+            />
+          ) : (
+            <Image
+              source={require('../../assets/onboarding3.png')}
+              style={styles.mediaImage}
+              resizeMode="cover"
+            />
+          )}
+          {isVideo && (
+            <TouchableOpacity style={styles.playOverlay} onPress={handlePlayVideo} activeOpacity={0.8}>
+              <View style={styles.playButton}>
+                <Ionicons name="play" size={32} color="#FFFFFF" style={{ marginLeft: 3 }} />
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* ── DESCRIPTION TEXT ── */}
-        <Text style={styles.descriptionText}>{activity.description}</Text>
+        <Text style={styles.descriptionText}>
+          {description || 'Siga as orientações do programa para aplicar esta atividade.'}
+        </Text>
       </ScrollView>
 
       {/* ── FIXED COMEÇAR BUTTON ── */}
       <View style={[styles.fixedFooter, { paddingBottom: Math.max(insets.bottom, 16) }]}>
-        <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8} onPress={handleStart}>
-          <Text style={styles.primaryButtonText}>Começar</Text>
+        <TouchableOpacity
+          style={[styles.primaryButton, starting && { opacity: 0.6 }]}
+          activeOpacity={0.8}
+          onPress={handleStart}
+          disabled={starting}
+        >
+          {starting ? (
+            <ActivityIndicator color="#FFFFFF" />
+          ) : (
+            <Text style={styles.primaryButtonText}>Começar</Text>
+          )}
         </TouchableOpacity>
       </View>
 
@@ -128,9 +279,9 @@ export function ActivityScreen({ navigation, route }: any) {
         animationType="slide"
         onRequestClose={() => setIsBottomSheetVisible(false)}
       >
-        <TouchableOpacity 
-          style={styles.modalOverlay} 
-          activeOpacity={1} 
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
           onPress={() => setIsBottomSheetVisible(false)}
         >
           <TouchableWithoutFeedback>
@@ -149,7 +300,8 @@ export function ActivityScreen({ navigation, route }: any) {
                   />
                 </View>
                 <Text style={styles.completionText}>
-                  Pedro <Text style={{ fontFamily: theme.fonts.mulishBold, fontWeight: '700' }}>concluiu as tentativas</Text> deste exercício e uma nova atividade foi liberada!
+                  {activeChild?.name ?? 'Sua criança'}{' '}
+                  <Text style={{ fontFamily: theme.fonts.mulishBold, fontWeight: '700' }}>concluiu as tentativas</Text> deste exercício e uma nova atividade foi liberada!
                 </Text>
                 <TouchableOpacity style={styles.primaryButton} onPress={handleSkipOrNext}>
                   <Text style={styles.primaryButtonText}>Próxima atividade</Text>
@@ -181,11 +333,7 @@ export function ActivityScreen({ navigation, route }: any) {
                 <Text style={styles.questionText}>Como a criança se saiu nessa repetição?</Text>
 
                 {/* Radio Options */}
-                {[
-                  { id: 1, label: 'Fez sem ajuda' },
-                  { id: 2, label: 'Fez com ajuda parcial' },
-                  { id: 3, label: 'Fez com ajuda total' }
-                ].map((option) => (
+                {RESULT_OPTIONS.map((option) => (
                   <TouchableOpacity
                     key={option.id}
                     style={styles.radioRow}
@@ -202,11 +350,15 @@ export function ActivityScreen({ navigation, route }: any) {
                 {/* Action Buttons */}
                 <View style={styles.sheetButtonsContainer}>
                   <TouchableOpacity
-                    style={[styles.primaryButton, selectedOption === null && { opacity: 0.5 }]}
+                    style={[styles.primaryButton, (selectedOption === null || registering) && { opacity: 0.5 }]}
                     onPress={handleRegister}
-                    disabled={selectedOption === null}
+                    disabled={selectedOption === null || registering}
                   >
-                    <Text style={styles.primaryButtonText}>Registrar atividade</Text>
+                    {registering ? (
+                      <ActivityIndicator color="#FFFFFF" />
+                    ) : (
+                      <Text style={styles.primaryButtonText}>Registrar atividade</Text>
+                    )}
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.secondaryButton} onPress={handleSkipOrNext}>
@@ -228,6 +380,24 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: '#FAFAFA',
+  },
+
+  stateContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 32,
+    gap: 16,
+  },
+  stateText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 16,
+    color: '#424242',
+    textAlign: 'center',
+  },
+  stateLink: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: 16,
+    color: '#0E5DFD',
   },
 
   // ── Header ──────────────────────────────────────────────────────

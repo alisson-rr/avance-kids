@@ -63,7 +63,7 @@ export const ACCESS_PLANS: { value: AccessPlan; label: string }[] = [
 export type AtividadeStatus = RecordStatus;
 
 export interface Atividade {
-  id: number;
+  id: string;
   codigo: string;
   titulo: string;
   mediaType: MediaType;

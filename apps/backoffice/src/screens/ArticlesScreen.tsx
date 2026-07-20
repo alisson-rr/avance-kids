@@ -1,33 +1,16 @@
 import { ACCESS_PLANS } from '../constants/aba';
 import { Badge, EntityCrudScreen, FormField, ImageUploadField, RichTextEditor, Select } from '../components/ui';
 import type { DataTableColumn } from '../components/ui';
+import { useEntityList } from '../hooks/useEntityList';
+import { fetchArtigos, saveArtigo, toggleArchiveArtigo } from '../services/artigos';
 import type { Artigo } from '../types/entities';
 
 function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, ' ');
 }
 
-const MOCK_ARTIGOS: Artigo[] = [
-  {
-    id: 1,
-    titulo: 'A Importância do Sono para o Desenvolvimento Infantil',
-    corpo: '<p>Dicas práticas para uma <strong>rotina de sono</strong> saudável...</p>',
-    imagemUrl: '',
-    plano: 'free',
-    status: 'ativo',
-  },
-  {
-    id: 2,
-    titulo: 'Como Estruturar Rotinas Visuais em Casa',
-    corpo: '<p>Um guia para pais sobre rotinas visuais...</p>',
-    imagemUrl: '',
-    plano: 'premium',
-    status: 'ativo',
-  },
-];
-
 function emptyArtigo(): Artigo {
-  return { id: 0, titulo: '', corpo: '', imagemUrl: '', plano: 'free', status: 'ativo' };
+  return { id: '', titulo: '', corpo: '', imagemUrl: '', plano: 'free', status: 'ativo' };
 }
 
 function matchesSearch(row: Artigo, term: string): boolean {
@@ -57,16 +40,28 @@ const columns: DataTableColumn<Artigo>[] = [
 ];
 
 export function ArticlesScreen() {
+  const { rows, loading, error, refresh } = useEntityList(fetchArtigos);
+
   return (
     <EntityCrudScreen<Artigo>
       title="Artigos"
       newLabel="Novo Artigo"
       formTitle={(isEditing) => (isEditing ? 'Editar Artigo' : 'Novo Artigo')}
       columns={columns}
-      initialRows={MOCK_ARTIGOS}
+      rows={rows}
+      loading={loading}
+      errorMessage={error}
       matchesSearch={matchesSearch}
       emptyItem={emptyArtigo}
       searchPlaceholder="Buscar por título ou conteúdo..."
+      onSave={async (item, isEditing) => {
+        await saveArtigo(item, isEditing);
+        await refresh();
+      }}
+      onToggleArchive={async (row) => {
+        await toggleArchiveArtigo(row);
+        await refresh();
+      }}
       renderForm={(item, update) => (
         <>
           <FormField label="Título" required fullWidth>

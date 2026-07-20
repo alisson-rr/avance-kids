@@ -137,8 +137,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_package",
-      "community": 47,
-      "community_name": "options.ts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "package.json"
     },
     {
@@ -148,8 +148,8 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "apps_backoffice_package_name",
-      "community": 47,
-      "community_name": "options.ts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "name"
     },
     {
@@ -159,8 +159,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_backoffice_package_private",
-      "community": 47,
-      "community_name": "options.ts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "private"
     },
     {
@@ -170,8 +170,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_backoffice_package_version",
-      "community": 47,
-      "community_name": "options.ts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "version"
     },
     {
@@ -181,8 +181,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_package_type",
-      "community": 47,
-      "community_name": "options.ts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "type"
     },
     {
@@ -192,8 +192,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_backoffice_package_scripts",
-      "community": 48,
-      "community_name": "scripts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "scripts"
     },
     {
@@ -203,8 +203,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_package_scripts_dev",
-      "community": 48,
-      "community_name": "scripts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "dev"
     },
     {
@@ -214,8 +214,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_package_scripts_build",
-      "community": 48,
-      "community_name": "scripts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "build"
     },
     {
@@ -225,8 +225,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_backoffice_package_scripts_lint",
-      "community": 48,
-      "community_name": "scripts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "lint"
     },
     {
@@ -236,8 +236,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_backoffice_package_scripts_preview",
-      "community": 48,
-      "community_name": "scripts",
+      "community": 2,
+      "community_name": "devDependencies",
       "norm_label": "preview"
     },
     {
@@ -324,8 +324,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_backoffice_package_dependencies_tiptap_pm",
-      "community": 52,
-      "community_name": "@tiptap/pm",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "@tiptap/pm"
     },
     {
@@ -335,8 +335,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "tiptap_pm",
-      "community": 52,
-      "community_name": "@tiptap/pm",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "@tiptap/pm"
     },
     {
@@ -346,8 +346,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_backoffice_package_dependencies_tiptap_react",
-      "community": 53,
-      "community_name": "@tiptap/react",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "@tiptap/react"
     },
     {
@@ -357,8 +357,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "tiptap_react",
-      "community": 53,
-      "community_name": "@tiptap/react",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "@tiptap/react"
     },
     {
@@ -412,8 +412,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_backoffice_package_dependencies_react",
-      "community": 49,
-      "community_name": "react",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "react"
     },
     {
@@ -423,8 +423,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_backoffice_package_json_react",
-      "community": 49,
-      "community_name": "react",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "react"
     },
     {
@@ -456,8 +456,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_backoffice_package_dependencies_react_router_dom",
-      "community": 50,
-      "community_name": "react-router-dom",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "react-router-dom"
     },
     {
@@ -467,8 +467,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "react_router_dom",
-      "community": 50,
-      "community_name": "react-router-dom",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "react-router-dom"
     },
     {
@@ -478,8 +478,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_backoffice_package_dependencies_recharts",
-      "community": 51,
-      "community_name": "recharts",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "recharts"
     },
     {
@@ -489,8 +489,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "recharts",
-      "community": 51,
-      "community_name": "recharts",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "recharts"
     },
     {
@@ -687,8 +687,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_app",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "app.tsx"
     },
     {
@@ -698,8 +698,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_backoffice_src_app_app",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "app()"
     },
     {
@@ -709,8 +709,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_layout_adminlayout",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "adminlayout.tsx"
     },
     {
@@ -720,8 +720,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_layout_adminlayout_navitems",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "navitems"
     },
     {
@@ -731,8 +731,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_layout_adminlayout_adminlayout",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "adminlayout()"
     },
     {
@@ -742,8 +742,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_badge_badge",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "badge.tsx"
     },
     {
@@ -753,8 +753,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_badge_badge_badgevariant",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "badgevariant"
     },
     {
@@ -764,8 +764,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_badge_badge_badgeprops",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "badgeprops"
     },
     {
@@ -775,8 +775,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_badge_badge_badge",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "badge()"
     },
     {
@@ -786,8 +786,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_confirmdialog_confirmdialog",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "confirmdialog.tsx"
     },
     {
@@ -797,8 +797,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_confirmdialog_confirmdialog_confirmdialogprops",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "confirmdialogprops"
     },
     {
@@ -808,8 +808,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_confirmdialog_confirmdialog_confirmdialog",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "confirmdialog()"
     },
     {
@@ -819,8 +819,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_datatable_datatable",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "datatable.tsx"
     },
     {
@@ -830,8 +830,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_datatable_datatable_datatablecolumn",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "datatablecolumn"
     },
     {
@@ -841,8 +841,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_datatable_datatable_datatableprops",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "datatableprops"
     },
     {
@@ -852,8 +852,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_datatable_datatable_datatable",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "datatable()"
     },
     {
@@ -863,30 +863,41 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "entitycrudscreen.tsx"
+    },
+    {
+      "label": "EntityFilterConfig",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entityfilterconfig",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
+      "norm_label": "entityfilterconfig"
     },
     {
       "label": "EntityCrudScreenProps",
       "file_type": "code",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L10",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entitycrudscreenprops",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "entitycrudscreenprops"
     },
     {
       "label": "EntityCrudScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L22",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entitycrudscreen",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "entitycrudscreen()"
     },
     {
@@ -929,8 +940,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_imageuploadfield_imageuploadfield",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "imageuploadfield.tsx"
     },
     {
@@ -940,8 +951,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_imageuploadfield_imageuploadfield_imageuploadfieldprops",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "imageuploadfieldprops"
     },
     {
@@ -951,53 +962,42 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_imageuploadfield_imageuploadfield_imageuploadfield",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "imageuploadfield()"
     },
     {
-      "label": "OptionListEditor.tsx",
+      "label": "RichTextEditor.tsx",
       "file_type": "code",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
+      "source_file": "apps/backoffice/src/components/ui/RichTextEditor/RichTextEditor.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "optionlisteditor.tsx"
+      "id": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
+      "norm_label": "richtexteditor.tsx"
     },
     {
-      "label": "OptionListEditorProps",
+      "label": "RichTextEditorProps",
       "file_type": "code",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L5",
+      "source_file": "apps/backoffice/src/components/ui/RichTextEditor/RichTextEditor.tsx",
+      "source_location": "L20",
       "_origin": "ast",
-      "id": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_optionlisteditorprops",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "optionlisteditorprops"
+      "id": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor_richtexteditorprops",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
+      "norm_label": "richtexteditorprops"
     },
     {
-      "label": "VALOR_LABELS",
+      "label": "RichTextEditor()",
       "file_type": "code",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L10",
+      "source_file": "apps/backoffice/src/components/ui/RichTextEditor/RichTextEditor.tsx",
+      "source_location": "L25",
       "_origin": "ast",
-      "id": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_valor_labels",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "valor_labels"
-    },
-    {
-      "label": "OptionListEditor()",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L16",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_optionlisteditor",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "optionlisteditor()"
+      "id": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor_richtexteditor",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
+      "norm_label": "richtexteditor()"
     },
     {
       "label": "Select.tsx",
@@ -1006,8 +1006,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_select_select",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "select.tsx"
     },
     {
@@ -1017,8 +1017,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_select_select_selectoption",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "selectoption"
     },
     {
@@ -1028,8 +1028,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_select_select_selectprops",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "selectprops"
     },
     {
@@ -1039,8 +1039,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_select_select_select",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "select()"
     },
     {
@@ -1050,8 +1050,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_tabs_tabs",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "tabs.tsx"
     },
     {
@@ -1061,8 +1061,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_tabs_tabs_tabitem",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "tabitem"
     },
     {
@@ -1072,8 +1072,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_tabs_tabs_tabsprops",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "tabsprops"
     },
     {
@@ -1083,8 +1083,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_tabs_tabs_tabs",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "tabs()"
     },
     {
@@ -1094,8 +1094,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_index",
-      "community": 43,
-      "community_name": "ActivityPlanScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "index.ts"
     },
     {
@@ -1281,19 +1281,41 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_hooks_usearchivablelist",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "usearchivablelist.ts"
+    },
+    {
+      "label": "StatusFilter",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/hooks/useArchivableList.ts",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_hooks_usearchivablelist_statusfilter",
+      "community": 47,
+      "community_name": "options.ts",
+      "norm_label": "statusfilter"
+    },
+    {
+      "label": "STATUS_FILTER_OPTIONS",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/hooks/useArchivableList.ts",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_hooks_usearchivablelist_status_filter_options",
+      "community": 47,
+      "community_name": "options.ts",
+      "norm_label": "status_filter_options"
     },
     {
       "label": "useArchivableList()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/hooks/useArchivableList.ts",
-      "source_location": "L8",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "apps_backoffice_src_hooks_usearchivablelist_usearchivablelist",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "usearchivablelist()"
     },
     {
@@ -1303,8 +1325,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_main",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "main.tsx"
     },
     {
@@ -1391,8 +1413,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminprofilescreen",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "adminprofilescreen.tsx"
     },
     {
@@ -1402,8 +1424,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminprofilescreen_current_admin",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "current_admin"
     },
     {
@@ -1413,8 +1435,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminprofilescreen_adminprofilescreen",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "adminprofilescreen()"
     },
     {
@@ -1517,10 +1539,21 @@
       "norm_label": "articlesscreen.tsx"
     },
     {
-      "label": "MOCK_ARTIGOS",
+      "label": "stripHtml()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
       "source_location": "L6",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_articlesscreen_striphtml",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
+      "norm_label": "striphtml()"
+    },
+    {
+      "label": "MOCK_ARTIGOS",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_mock_artigos",
       "community": 42,
@@ -1531,7 +1564,7 @@
       "label": "emptyArtigo()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L25",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_emptyartigo",
       "community": 42,
@@ -1542,7 +1575,7 @@
       "label": "matchesSearch()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L29",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_matchessearch",
       "community": 42,
@@ -1553,7 +1586,7 @@
       "label": "columns",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L33",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_columns",
       "community": 42,
@@ -1564,11 +1597,11 @@
       "label": "ArticlesScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L55",
+      "source_location": "L59",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_articlesscreen",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "articlesscreen()"
     },
     {
@@ -1578,8 +1611,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_dashboardscreen",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "dashboardscreen.tsx"
     },
     {
@@ -1589,8 +1622,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_dashboardscreen_data",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "data"
     },
     {
@@ -1600,8 +1633,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_dashboardscreen_dashboardscreen",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "dashboardscreen()"
     },
     {
@@ -1611,8 +1644,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "gamesscreen.tsx"
     },
     {
@@ -1622,8 +1655,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_media_type_options",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "media_type_options"
     },
     {
@@ -1633,8 +1666,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_mock_brincadeiras",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "mock_brincadeiras"
     },
     {
@@ -1644,8 +1677,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_emptybrincadeira",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "emptybrincadeira()"
     },
     {
@@ -1655,8 +1688,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_matchessearch",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "matchessearch()"
     },
     {
@@ -1666,8 +1699,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_columns",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "columns"
     },
     {
@@ -1677,8 +1710,8 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_gamesscreen",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "gamesscreen()"
     },
     {
@@ -1688,7 +1721,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_initialquestionsscreen",
-      "community": 44,
+      "community": 10,
       "community_name": "HomeScreen.tsx",
       "norm_label": "initialquestionsscreen.tsx"
     },
@@ -1696,54 +1729,21 @@
       "label": "MOCK_PERGUNTAS_INICIAIS",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_initialquestionsscreen_mock_perguntas_iniciais",
-      "community": 44,
+      "community": 10,
       "community_name": "HomeScreen.tsx",
       "norm_label": "mock_perguntas_iniciais"
-    },
-    {
-      "label": "emptyPerguntaInicial()",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L33",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_initialquestionsscreen_emptyperguntainicial",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "emptyperguntainicial()"
-    },
-    {
-      "label": "matchesSearch()",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L37",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_initialquestionsscreen_matchessearch",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "matchessearch()"
-    },
-    {
-      "label": "columns",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L41",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_initialquestionsscreen_columns",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "columns"
     },
     {
       "label": "InitialQuestionsScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L56",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_initialquestionsscreen_initialquestionsscreen",
-      "community": 44,
+      "community": 10,
       "community_name": "HomeScreen.tsx",
       "norm_label": "initialquestionsscreen()"
     },
@@ -1754,8 +1754,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_loginscreen",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "loginscreen.tsx"
     },
     {
@@ -1765,9 +1765,86 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_loginscreen_loginscreen",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "loginscreen()"
+    },
+    {
+      "label": "QuestionCrudScreen.tsx",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_questioncrudscreen",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
+      "norm_label": "questioncrudscreen.tsx"
+    },
+    {
+      "label": "QuestionCrudScreenProps",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreenprops",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
+      "norm_label": "questioncrudscreenprops"
+    },
+    {
+      "label": "emptyPergunta()",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_questioncrudscreen_emptypergunta",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
+      "norm_label": "emptypergunta()"
+    },
+    {
+      "label": "matchesSearch()",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_questioncrudscreen_matchessearch",
+      "community": 12,
+      "community_name": "LoginScreen.tsx",
+      "norm_label": "matchessearch()"
+    },
+    {
+      "label": "filters",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_questioncrudscreen_filters",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
+      "norm_label": "filters"
+    },
+    {
+      "label": "columns",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_questioncrudscreen_columns",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
+      "norm_label": "columns"
+    },
+    {
+      "label": "QuestionCrudScreen()",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L68",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreen",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
+      "norm_label": "questioncrudscreen()"
     },
     {
       "label": "TriageQuestionsScreen.tsx",
@@ -1784,7 +1861,7 @@
       "label": "MOCK_PERGUNTAS_TRIAGEM",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_triagequestionsscreen_mock_perguntas_triagem",
       "community": 10,
@@ -1792,47 +1869,14 @@
       "norm_label": "mock_perguntas_triagem"
     },
     {
-      "label": "emptyPerguntaTriagem()",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L40",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_triagequestionsscreen_emptyperguntatriagem",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "emptyperguntatriagem()"
-    },
-    {
-      "label": "matchesSearch()",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L53",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_triagequestionsscreen_matchessearch",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "matchessearch()"
-    },
-    {
-      "label": "columns",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L58",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_triagequestionsscreen_columns",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "columns"
-    },
-    {
       "label": "TriageQuestionsScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L78",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_triagequestionsscreen_triagequestionsscreen",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
       "norm_label": "triagequestionsscreen()"
     },
     {
@@ -1864,8 +1908,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_common",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "common.ts"
     },
     {
@@ -1897,31 +1941,20 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_common_withid",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "withid"
     },
     {
-      "label": "QuestionOption",
+      "label": "ANSWER_SCALE",
       "file_type": "code",
       "source_file": "apps/backoffice/src/types/common.ts",
       "source_location": "L12",
       "_origin": "ast",
-      "id": "apps_backoffice_src_types_common_questionoption",
+      "id": "apps_backoffice_src_types_common_answer_scale",
       "community": 10,
       "community_name": "HomeScreen.tsx",
-      "norm_label": "questionoption"
-    },
-    {
-      "label": "createDefaultOptions()",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/types/common.ts",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_types_common_createdefaultoptions",
-      "community": 44,
-      "community_name": "HomeScreen.tsx",
-      "norm_label": "createdefaultoptions()"
+      "norm_label": "answer_scale"
     },
     {
       "label": "entities.ts",
@@ -1979,10 +2012,21 @@
       "norm_label": "artigo"
     },
     {
+      "label": "Pergunta",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/types/entities.ts",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_types_entities_pergunta",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
+      "norm_label": "pergunta"
+    },
+    {
       "label": "PerguntaInicial",
       "file_type": "code",
       "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L40",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_perguntainicial",
       "community": 10,
@@ -1993,7 +2037,7 @@
       "label": "PerguntaTriagem",
       "file_type": "code",
       "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L49",
+      "source_location": "L55",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_perguntatriagem",
       "community": 10,
@@ -2535,8 +2579,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_app_tsx_apps_mobile_app",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "app.tsx"
     },
     {
@@ -2546,8 +2590,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "apps_mobile_app_stack",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "stack"
     },
     {
@@ -2557,8 +2601,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_mobile_app_app",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "app()"
     },
     {
@@ -2843,8 +2887,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_index",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "index.ts"
     },
     {
@@ -3998,8 +4042,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_onboardinglayout",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboardinglayout.tsx"
     },
     {
@@ -4009,8 +4053,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_mobile_src_components_onboardinglayout_onboardinglayoutprops",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboardinglayoutprops"
     },
     {
@@ -4020,8 +4064,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "apps_mobile_src_components_onboardinglayout_onboardinglayout",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboardinglayout()"
     },
     {
@@ -4031,8 +4075,8 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "apps_mobile_src_components_onboardinglayout_styles",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4174,8 +4218,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_skillactivitycard",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "skillactivitycard.tsx"
     },
     {
@@ -4185,8 +4229,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_mobile_src_components_skillactivitycard_skillactivitycardprops",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "skillactivitycardprops"
     },
     {
@@ -4196,8 +4240,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_mobile_src_components_skillactivitycard_skillactivitycard",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "skillactivitycard()"
     },
     {
@@ -4207,8 +4251,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "apps_mobile_src_components_skillactivitycard_styles",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "styles"
     },
     {
@@ -4372,8 +4416,8 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "apps_mobile_src_data_habilidades_getskillcolor",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "getskillcolor()"
     },
     {
@@ -4416,8 +4460,8 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityhistoryscreen_activityhistoryscreen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "activityhistoryscreen()"
     },
     {
@@ -4438,8 +4482,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "activityplanscreen.tsx"
     },
     {
@@ -4449,8 +4493,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen_mock_active",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "mock_active"
     },
     {
@@ -4460,8 +4504,8 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen_mock_locked",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "mock_locked"
     },
     {
@@ -4471,8 +4515,8 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen_activityplanscreen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "activityplanscreen()"
     },
     {
@@ -4482,8 +4526,8 @@
       "source_location": "L146",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen_styles",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "styles"
     },
     {
@@ -4548,8 +4592,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_changepasswordscreen_changepasswordscreen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "changepasswordscreen()"
     },
     {
@@ -4603,8 +4647,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_childrenlistscreen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "childrenlistscreen.tsx"
     },
     {
@@ -4614,8 +4658,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_childrenlistscreen_childrenlistscreen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "childrenlistscreen()"
     },
     {
@@ -4625,8 +4669,8 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_childrenlistscreen_styles",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4801,8 +4845,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_loginscreen_loginscreen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "loginscreen()"
     },
     {
@@ -4823,8 +4867,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding1screen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboarding1screen.tsx"
     },
     {
@@ -4834,8 +4878,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding1screen_onboarding1screen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboarding1screen()"
     },
     {
@@ -4845,8 +4889,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding2screen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboarding2screen.tsx"
     },
     {
@@ -4856,8 +4900,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding2screen_onboarding2screen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboarding2screen()"
     },
     {
@@ -4867,8 +4911,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding3screen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboarding3screen.tsx"
     },
     {
@@ -4878,8 +4922,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding3screen_onboarding3screen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "onboarding3screen()"
     },
     {
@@ -4966,8 +5010,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_plansscreen_plansscreen",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "plansscreen()"
     },
     {
@@ -5065,8 +5109,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "useprofilestore.ts"
     },
     {
@@ -5076,8 +5120,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_child",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "child"
     },
     {
@@ -5087,8 +5131,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_profilestore",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "profilestore"
     },
     {
@@ -5098,8 +5142,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_useprofilestore",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "useprofilestore"
     },
     {
@@ -6447,6 +6491,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_imageuploadfield_imageuploadfield",
+      "target": "ref_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/components/ui/RichTextEditor/RichTextEditor.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor",
       "target": "ref_react",
       "confidence_score": 1.0
     },
@@ -7964,23 +8020,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L1",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_components_ui_badge_badge_badge",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_components_ui_badge_badge_badge",
       "confidence_score": 1.0
     },
@@ -8140,7 +8184,7 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L14",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entitycrudscreenprops",
@@ -8211,23 +8255,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L2",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_components_ui_datatable_datatable_datatablecolumn",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_components_ui_datatable_datatable_datatablecolumn",
       "confidence_score": 1.0
     },
@@ -8271,7 +8303,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L22",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
@@ -8282,11 +8314,22 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L10",
+      "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
       "target": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entitycrudscreenprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
+      "target": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entityfilterconfig",
       "confidence_score": 1.0
     },
     {
@@ -8295,6 +8338,30 @@
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
       "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
+      "target": "apps_backoffice_src_components_ui_select_select",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
+      "target": "apps_backoffice_src_components_ui_select_select_select",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
@@ -8306,7 +8373,19 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
+      "target": "apps_backoffice_src_hooks_usearchivablelist_status_filter_options",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
@@ -8318,7 +8397,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
@@ -8330,7 +8409,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen",
@@ -8350,12 +8429,36 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/components/ui/index.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_components_ui_index",
+      "target": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entityfilterconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entityfilterconfig",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/backoffice/src/components/ui/EntityCrudScreen/EntityCrudScreen.tsx",
-      "source_location": "L33",
+      "source_location": "L43",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entitycrudscreen",
@@ -8413,23 +8516,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L1",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entitycrudscreen",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entitycrudscreen",
       "confidence_score": 1.0
     },
@@ -8543,23 +8634,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L1",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_components_ui_formfield_formfield_formfield",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_components_ui_formfield_formfield_formfield",
       "confidence_score": 1.0
     },
@@ -8625,6 +8704,18 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_components_ui_imageuploadfield_imageuploadfield_imageuploadfield",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
       "source_location": "L2",
       "weight": 1.0,
@@ -8638,80 +8729,33 @@
       "context": "export",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/index.ts",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_index",
-      "target": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor",
+      "target": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L16",
+      "source_file": "apps/backoffice/src/components/ui/RichTextEditor/RichTextEditor.tsx",
+      "source_location": "L25",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor",
-      "target": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_optionlisteditor",
+      "source": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor",
+      "target": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor_richtexteditor",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L5",
+      "source_file": "apps/backoffice/src/components/ui/RichTextEditor/RichTextEditor.tsx",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor",
-      "target": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_optionlisteditorprops",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor",
-      "target": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_valor_labels",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor",
-      "target": "apps_backoffice_src_types_common",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor",
-      "target": "apps_backoffice_src_types_common_questionoption",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "field",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/components/ui/OptionListEditor/OptionListEditor.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_optionlisteditorprops",
-      "target": "apps_backoffice_src_types_common_questionoption",
+      "source": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor",
+      "target": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor_richtexteditorprops",
       "confidence_score": 1.0
     },
     {
@@ -8719,35 +8763,23 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/components/ui/index.ts",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_components_ui_index",
-      "target": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_optionlisteditor",
+      "target": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor_richtexteditor",
       "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_optionlisteditor",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
       "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_components_ui_optionlisteditor_optionlisteditor_optionlisteditor",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_components_ui_richtexteditor_richtexteditor_richtexteditor",
       "confidence_score": 1.0
     },
     {
@@ -8859,23 +8891,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L1",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_components_ui_select_select_select",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_components_ui_select_select_select",
       "confidence_score": 1.0
     },
@@ -9024,23 +9044,11 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L2",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_components_ui_index",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_components_ui_index",
       "confidence_score": 1.0
     },
@@ -9285,11 +9293,11 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_constants_aba",
       "confidence_score": 1.0
     },
@@ -9321,11 +9329,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_constants_aba_habilidadekey",
       "confidence_score": 1.0
     },
@@ -9346,10 +9354,10 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L52",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_types_entities_perguntatriagem",
+      "source": "apps_backoffice_src_types_entities_pergunta",
       "target": "apps_backoffice_src_constants_aba_habilidadekey",
       "confidence_score": 1.0
     },
@@ -9381,11 +9389,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_constants_aba_skills",
       "confidence_score": 1.0
     },
@@ -9441,11 +9449,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_constants_aba_getskill",
       "confidence_score": 1.0
     },
@@ -9453,11 +9461,11 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L54",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen_matchessearch",
+      "source": "apps_backoffice_src_screens_questioncrudscreen_matchessearch",
       "target": "apps_backoffice_src_constants_aba_getskill",
       "confidence_score": 1.0
     },
@@ -9477,11 +9485,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_constants_aba_agebracketcode",
       "confidence_score": 1.0
     },
@@ -9502,10 +9510,10 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L53",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_types_entities_perguntatriagem",
+      "source": "apps_backoffice_src_types_entities_pergunta",
       "target": "apps_backoffice_src_constants_aba_agebracketcode",
       "confidence_score": 1.0
     },
@@ -9537,11 +9545,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_constants_aba_age_brackets",
       "confidence_score": 1.0
     },
@@ -9585,11 +9593,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_constants_aba_getagebracket",
       "confidence_score": 1.0
     },
@@ -9767,7 +9775,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L347",
+      "source_location": "L348",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
@@ -9777,7 +9785,29 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/hooks/useArchivableList.ts",
-      "source_location": "L8",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_hooks_usearchivablelist",
+      "target": "apps_backoffice_src_hooks_usearchivablelist_status_filter_options",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/hooks/useArchivableList.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_hooks_usearchivablelist",
+      "target": "apps_backoffice_src_hooks_usearchivablelist_statusfilter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/hooks/useArchivableList.ts",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_hooks_usearchivablelist",
@@ -9830,6 +9860,18 @@
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
       "target": "apps_backoffice_src_hooks_usearchivablelist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_activitiesscreen",
+      "target": "apps_backoffice_src_hooks_usearchivablelist_status_filter_options",
       "confidence_score": 1.0
     },
     {
@@ -10121,7 +10163,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L55",
+      "source_location": "L59",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -10132,7 +10174,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L33",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -10143,7 +10185,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L25",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -10154,7 +10196,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L29",
+      "source_location": "L33",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -10165,11 +10207,22 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
       "target": "apps_backoffice_src_screens_articlesscreen_mock_artigos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_screens_articlesscreen_striphtml",
       "confidence_score": 1.0
     },
     {
@@ -10194,6 +10247,18 @@
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
       "target": "apps_backoffice_src_types_entities_artigo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L34",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen_matchessearch",
+      "target": "apps_backoffice_src_screens_articlesscreen_striphtml",
       "confidence_score": 1.0
     },
     {
@@ -10324,29 +10389,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L41",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_screens_initialquestionsscreen_columns",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L33",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_screens_initialquestionsscreen_emptyperguntainicial",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L56",
+      "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_initialquestionsscreen",
@@ -10357,18 +10400,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L37",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_screens_initialquestionsscreen_matchessearch",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_initialquestionsscreen",
@@ -10380,11 +10412,11 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L3",
+      "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_types_common",
+      "target": "apps_backoffice_src_screens_questioncrudscreen",
       "confidence_score": 1.0
     },
     {
@@ -10392,11 +10424,11 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L3",
+      "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_types_common_createdefaultoptions",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreen",
       "confidence_score": 1.0
     },
     {
@@ -10404,7 +10436,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L4",
+      "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_initialquestionsscreen",
@@ -10416,23 +10448,11 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L4",
+      "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_types_entities_perguntainicial",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L34",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen_emptyperguntainicial",
-      "target": "apps_backoffice_src_types_common_createdefaultoptions",
+      "target": "apps_backoffice_src_types_entities_pergunta",
       "confidence_score": 1.0
     },
     {
@@ -10449,41 +10469,158 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_columns",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_emptypergunta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_filters",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_matchessearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreenprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_types_common",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_types_common_answer_scale",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_types_entities",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_types_entities_pergunta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L58",
+      "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_screens_triagequestionsscreen_columns",
+      "target": "apps_backoffice_src_screens_questioncrudscreen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreenprops",
+      "target": "apps_backoffice_src_types_entities_pergunta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_triagequestionsscreen",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreen",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L40",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_screens_triagequestionsscreen_emptyperguntatriagem",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L53",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_screens_triagequestionsscreen_matchessearch",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_triagequestionsscreen",
@@ -10494,7 +10631,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L78",
+      "source_location": "L25",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_triagequestionsscreen",
@@ -10506,31 +10643,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_types_common",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_types_common_createdefaultoptions",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L5",
+      "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_triagequestionsscreen",
@@ -10542,23 +10655,11 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L5",
+      "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_types_entities_perguntatriagem",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L49",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen_emptyperguntatriagem",
-      "target": "apps_backoffice_src_types_common_createdefaultoptions",
+      "target": "apps_backoffice_src_types_entities_pergunta",
       "confidence_score": 1.0
     },
     {
@@ -10576,11 +10677,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/types/common.ts",
-      "source_location": "L18",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_types_common",
-      "target": "apps_backoffice_src_types_common_createdefaultoptions",
+      "target": "apps_backoffice_src_types_common_answer_scale",
       "confidence_score": 1.0
     },
     {
@@ -10592,17 +10693,6 @@
       "_origin": "ast",
       "source": "apps_backoffice_src_types_common",
       "target": "apps_backoffice_src_types_common_mediatype",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/types/common.ts",
-      "source_location": "L12",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_types_common",
-      "target": "apps_backoffice_src_types_common_questionoption",
       "confidence_score": 1.0
     },
     {
@@ -10692,22 +10782,10 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L44",
+      "source_location": "L51",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_types_entities_perguntainicial",
-      "target": "apps_backoffice_src_types_common_recordstatus",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "field",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L56",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_types_entities_perguntatriagem",
+      "source": "apps_backoffice_src_types_entities_pergunta",
       "target": "apps_backoffice_src_types_common_recordstatus",
       "confidence_score": 1.0
     },
@@ -10733,42 +10811,6 @@
       "_origin": "ast",
       "source": "apps_backoffice_src_types_entities_brincadeira",
       "target": "apps_backoffice_src_types_common_mediatype",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_types_entities",
-      "target": "apps_backoffice_src_types_common_questionoption",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "field",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L45",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_types_entities_perguntainicial",
-      "target": "apps_backoffice_src_types_common_questionoption",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "field",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L57",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_types_entities_perguntatriagem",
-      "target": "apps_backoffice_src_types_common_questionoption",
       "confidence_score": 1.0
     },
     {
@@ -10819,7 +10861,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L40",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_types_entities",
+      "target": "apps_backoffice_src_types_entities_pergunta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/types/entities.ts",
+      "source_location": "L54",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_types_entities",
@@ -10830,7 +10883,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/types/entities.ts",
-      "source_location": "L49",
+      "source_location": "L55",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_types_entities",
@@ -18014,5 +18067,5 @@
       "source_file": "apps/mobile/assets/android-icon-foreground.png"
     }
   ],
-  "built_at_commit": "23f1a13161c17d798a84fd8d2ac82e01d38e90ee"
+  "built_at_commit": "c0f97d46fd7088c5fbba29dcdb2a48b4c5718216"
 }

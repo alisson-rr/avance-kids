@@ -1,72 +1,95 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { QuestionScreenLayout } from '../components/QuestionScreenLayout';
+import { Button } from '../components/Button';
+import { theme } from '../theme';
+import { fetchAgeBrackets, resolveBracketForMonths } from '../services/catalog';
+import {
+  QUESTION_OPTIONS,
+  fetchQuestions,
+  submitInitialAnswers,
+  type AnswerInput,
+} from '../services/questions';
+import { errorMessage } from '../services/api';
+import { showError } from '../ui/dialog';
+import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
+import type { QuestionRow } from '../types/db';
 
-// ─── MOCK DATA ────────────────────────────────────────────────────────
-const QUESTIONS = [
-  {
-    id: 1,
-    question: 'Seu filho(a) olha quando você o chama pelo nome?',
-    options: [
-      'Quase nunca faz, mesmo com ajuda',
-      'Faz às vezes ou com ajuda',
-      'Faz quase sempre, com autonomia',
-      'Não observei essa situação ainda',
-    ],
-  },
-  {
-    id: 2,
-    question: 'Seu filho(a) aponta para objetos que deseja?',
-    options: [
-      'Ainda não faz esse gesto',
-      'Faz com ajuda ou raramente',
-      'Faz com frequência e autonomia',
-      'Não observei essa situação ainda',
-    ],
-  },
-  {
-    id: 3,
-    question: 'Seu filho(a) consegue brincar junto com outras crianças?',
-    options: [
-      'Prefere brincar sozinho(a)',
-      'Às vezes interage, com incentivo',
-      'Brinca bem com outras crianças',
-      'Não observei essa situação ainda',
-    ],
-  },
-  {
-    id: 4,
-    question: 'Seu filho(a) imita gestos ou expressões de outras pessoas?',
-    options: [
-      'Raramente ou nunca imita',
-      'Imita com ajuda ou às vezes',
-      'Imita com facilidade e espontaneidade',
-      'Não observei essa situação ainda',
-    ],
-  },
-];
+const OPTION_LABELS = QUESTION_OPTIONS.map((o) => o.label);
 
-// ─── COMPONENT ────────────────────────────────────────────────────────
 export function PerguntasScreen({ navigation }: any) {
+  const activeChild = useProfileStore(selectActiveChild);
+
+  const [questions, setQuestions] = useState<QuestionRow[] | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [submitting, setSubmitting] = useState(false);
 
-  const q = QUESTIONS[currentQuestion];
-  const total = QUESTIONS.length;
+  const load = useCallback(async () => {
+    if (!activeChild) {
+      setLoadError('Nenhuma criança selecionada.');
+      return;
+    }
+    setLoadError(null);
+    setQuestions(null);
+    try {
+      const brackets = await fetchAgeBrackets();
+      const bracket = resolveBracketForMonths(activeChild.idadeBiologicaMeses ?? 12, brackets);
+      if (!bracket) throw new Error('Faixas etárias não configuradas.');
+      const rows = await fetchQuestions('inicial', bracket.id);
+      if (rows.length === 0) {
+        setLoadError('Ainda não há perguntas cadastradas para a faixa etária da criança.');
+        return;
+      }
+      setQuestions(rows);
+    } catch (err) {
+      setLoadError(errorMessage(err));
+    }
+  }, [activeChild?.id]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const finish = async (finalAnswers: Record<number, number>) => {
+    if (!activeChild || !questions) return;
+    setSubmitting(true);
+    try {
+      const payload: AnswerInput[] = questions.map((q, index) => {
+        const option = QUESTION_OPTIONS[finalAnswers[index]];
+        return {
+          question_id: q.id,
+          valor_numerico: option.valorNumerico,
+          nao_observado: option.naoObservado,
+        };
+      });
+      await submitInitialAnswers(activeChild.id, payload);
+      await useProfileStore.getState().refreshChildren();
+      navigation.navigate('Onboarding2');
+    } catch (err) {
+      showError('Erro ao enviar respostas', errorMessage(err));
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const handleNext = () => {
-    if (selectedOption === null) return;
-    setAnswers({ ...answers, [currentQuestion]: selectedOption });
+    if (selectedOption === null || submitting || !questions) return;
+    const nextAnswers = { ...answers, [currentQuestion]: selectedOption };
+    setAnswers(nextAnswers);
 
-    if (currentQuestion < total - 1) {
+    if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      setSelectedOption(null);
+      setSelectedOption(nextAnswers[currentQuestion + 1] ?? null);
     } else {
-      navigation.navigate('Onboarding2');
+      finish(nextAnswers);
     }
   };
 
   const handlePrev = () => {
+    if (submitting) return;
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
       setSelectedOption(answers[currentQuestion - 1] ?? null);
@@ -74,6 +97,28 @@ export function PerguntasScreen({ navigation }: any) {
       navigation.goBack();
     }
   };
+
+  if (loadError) {
+    return (
+      <View style={styles.stateContainer}>
+        <Text style={styles.stateText}>{loadError}</Text>
+        <Button title="Tentar novamente" onPress={load} />
+        <Text style={styles.skipText} onPress={() => navigation.navigate('Onboarding2')}>
+          Pular por enquanto
+        </Text>
+      </View>
+    );
+  }
+
+  if (!questions) {
+    return (
+      <View style={styles.stateContainer}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+      </View>
+    );
+  }
+
+  const q = questions[currentQuestion];
 
   return (
     <QuestionScreenLayout
@@ -83,15 +128,38 @@ export function PerguntasScreen({ navigation }: any) {
       image={require('../../assets/perguntas.png')}
       imageBackground="#EEF4FF"
       perguntaAtual={currentQuestion}
-      totalPerguntas={total}
+      totalPerguntas={questions.length}
       progressActiveStyle={{ backgroundColor: 'rgba(54, 120, 253, 0.6)' }}
       progressInactiveStyle={{ backgroundColor: 'rgba(54, 120, 253, 0.2)' }}
-      pergunta={q.question}
-      opcoes={q.options}
+      pergunta={q.texto}
+      opcoes={OPTION_LABELS}
       selectedOption={selectedOption}
       onSelectOption={setSelectedOption}
       onPrev={handlePrev}
       onNext={handleNext}
+      busy={submitting}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  stateContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 32,
+    gap: 24,
+    backgroundColor: '#FAFAFA',
+  },
+  stateText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 16,
+    color: '#424242',
+    textAlign: 'center',
+  },
+  skipText: {
+    fontFamily: theme.fonts.medium,
+    fontSize: 16,
+    color: '#727272',
+  },
+});

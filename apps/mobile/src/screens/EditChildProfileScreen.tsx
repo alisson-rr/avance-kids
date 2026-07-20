@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FormScreen } from '../components/FormScreen';
 import { SolidInput } from '../components/SolidInput';
 import { BottomSheetSelect } from '../components/BottomSheetSelect';
 import { Button } from '../components/Button';
 import { PhotoPicker } from '../components/PhotoPicker';
 import { useProfileStore } from '../store/useProfileStore';
-import { maskDate, maskCpf } from '../utils/formatters';
+import { maskDate, maskCpf, toIsoDate, fromIsoDate, digitsOnly } from '../utils/formatters';
 import { GENDER_OPTIONS, DISORDER_OPTIONS } from '../constants/options';
+import { updateChild as updateChildRemote } from '../services/children';
+import { uploadAvatar } from '../services/storage';
+import { errorMessage } from '../services/api';
+import { showDialog, showError, showSuccess } from '../ui/dialog';
 
 export function EditChildProfileScreen({ navigation, route }: any) {
   const { childId } = route.params || {};
@@ -26,44 +30,62 @@ export function EditChildProfileScreen({ navigation, route }: any) {
   useEffect(() => {
     if (child) {
       setNome(child.name);
-      setNascimento(child.birthDate);
+      setNascimento(fromIsoDate(child.birthDate));
       setGenero(child.gender || '');
-      setCpf(child.cpf || '');
+      setCpf(child.cpf ? maskCpf(child.cpf) : '');
       setTranstornos(child.disorders || []);
+      setPhotoUri(child.avatarUrl || undefined);
     } else {
-      Alert.alert('Erro', 'Criança não encontrada.', [
-        { text: 'Voltar', onPress: () => navigation.goBack() }
+      showError('Erro', 'Criança não encontrada.', [
+        { label: 'Voltar', onPress: () => navigation.goBack() },
       ]);
     }
   }, [child]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!nome.trim() || !nascimento.trim()) {
-      Alert.alert('Erro', 'Preencha o nome e data de nascimento.');
+      showDialog({ title: 'Atenção', message: 'Preencha o nome e data de nascimento.', variant: 'info' });
       return;
     }
 
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(nascimento)) {
-      Alert.alert('Erro', 'Formato de data inválido. Use YYYY-MM-DD.');
+    const dataIso = toIsoDate(nascimento);
+    if (!dataIso) {
+      showDialog({ title: 'Atenção', message: 'Data de nascimento inválida. Use dd/mm/aaaa.', variant: 'info' });
       return;
     }
 
     setLoading(true);
-    // Simulating API call
-    setTimeout(() => {
-      updateChild(childId, {
-        name: nome,
-        birthDate: nascimento,
-        gender: genero,
-        cpf,
-        disorders: transtornos
+    try {
+      let avatarUrl = child?.avatarUrl ?? '';
+      if (photoUri && photoUri !== child?.avatarUrl) {
+        avatarUrl = await uploadAvatar(photoUri, `child-${childId}`);
+      }
+
+      const cpfDigits = digitsOnly(cpf);
+      await updateChildRemote(childId, {
+        nome: nome.trim(),
+        data_nascimento: dataIso,
+        genero: genero || null,
+        cpf: cpfDigits || null,
+        condicoes: transtornos.filter((t) => t !== 'Nenhum'),
+        avatar_url: avatarUrl || null,
       });
-      setLoading(false);
-      Alert.alert('Sucesso', 'Perfil da criança atualizado!', [
-        { text: 'OK', onPress: () => navigation.goBack() }
+      updateChild(childId, {
+        name: nome.trim(),
+        birthDate: dataIso,
+        gender: genero,
+        cpf: cpfDigits,
+        disorders: transtornos,
+        avatarUrl,
+      });
+      showSuccess('Tudo certo!', 'Perfil da criança atualizado.', [
+        { label: 'OK', onPress: () => navigation.goBack() },
       ]);
-    }, 500);
+    } catch (err) {
+      showError('Erro ao salvar', errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!child) return null;
@@ -108,7 +130,7 @@ export function EditChildProfileScreen({ navigation, route }: any) {
       </View>
 
       <View style={styles.actionGroup}>
-        <Button title={loading ? 'Salvando...' : 'Salvar'} onPress={handleSave} />
+        <Button title="Salvar" loading={loading} onPress={handleSave} />
       </View>
     </FormScreen>
   );

@@ -1,49 +1,33 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   StyleSheet,
   View,
   Text,
   StatusBar,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
 import { theme } from '../theme';
 import { BottomSheetSelect } from '../components/BottomSheetSelect';
 import { ScreenHeader } from '../components/ScreenHeader';
 import { SkillActivityCard } from '../components/SkillActivityCard';
-import { useProfileStore } from '../store/useProfileStore';
-
-const MOCK_HISTORY = [
-  {
-    id: 1,
-    skill: 'Comunicação',
-    title: 'Imitando sons de animais',
-    description: 'Encoraje a criança a imitar os sons do cachorro e gato para estimular a comunicação verbal.',
-    successRate: 80,
-  },
-  {
-    id: 2,
-    skill: 'Coordenação motora',
-    title: 'Empilhando blocos coloridos',
-    description: 'Incentive a criança a empilhar 3 blocos coloridos para desenvolver a coordenação motora fina.',
-    successRate: 100,
-  },
-  {
-    id: 3,
-    skill: 'Cognitiva',
-    title: 'Identificando cores',
-    description: 'Mostre objetos coloridos e peça para a criança identificar as cores de forma lúdica.',
-    successRate: 60,
-  },
-];
+import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
+import { fetchActivityPlans, successRate } from '../services/activities';
+import { errorMessage } from '../services/api';
+import type { PlanWithDetails } from '../types/db';
 
 export function ActivityHistoryScreen({ navigation }: any) {
   const insets = useSafeAreaInsets();
   const safeTop = Math.max(insets.top, 50);
 
   const { children } = useProfileStore();
-  const activeChild = children.find(c => c.isActive) || children[0];
+  const activeChild = useProfileStore(selectActiveChild);
   const [selectedChildId, setSelectedChildId] = useState(activeChild?.id || '');
+
+  const [history, setHistory] = useState<PlanWithDetails[] | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const childOptions = children.map(c => c.name);
   const selectedChildName = children.find(c => c.id === selectedChildId)?.name || childOptions[0];
@@ -54,6 +38,29 @@ export function ActivityHistoryScreen({ navigation }: any) {
       setSelectedChildId(child.id);
     }
   };
+
+  const load = useCallback(async () => {
+    const childId = selectedChildId || activeChild?.id;
+    if (!childId) {
+      setHistory([]);
+      return;
+    }
+    setHistory(null);
+    setLoadError(null);
+    try {
+      const plans = await fetchActivityPlans(childId);
+      setHistory(plans.filter((p) => p.status === 'concluido'));
+    } catch (err) {
+      setLoadError(errorMessage(err));
+      setHistory([]);
+    }
+  }, [selectedChildId, activeChild?.id]);
+
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
 
   return (
     <View style={[styles.screen, { paddingTop: safeTop }]}>
@@ -85,20 +92,30 @@ export function ActivityHistoryScreen({ navigation }: any) {
             <Text style={styles.sectionTitle}>Atividades Concluídas</Text>
             <Text style={styles.sectionSubtitle}>Reveja o desempenho e repita se desejar</Text>
           </View>
-          <View style={styles.cardsList}>
-            {MOCK_HISTORY.map((item) => (
-              <SkillActivityCard
-                key={item.id}
-                skill={item.skill}
-                title={item.title}
-                description={item.description}
-                progress={item.successRate}
-                progressSuffix="% de acerto"
-                compactProgress
-                onPress={() => navigation.navigate('Activity', { activityId: item.id, skill: item.skill })}
-              />
-            ))}
-          </View>
+          {history === null ? (
+            <View style={styles.stateContainer}>
+              <ActivityIndicator size="large" color={theme.colors.primary} />
+            </View>
+          ) : loadError ? (
+            <Text style={styles.stateText}>{loadError}</Text>
+          ) : history.length === 0 ? (
+            <Text style={styles.stateText}>Nenhuma atividade concluída ainda.</Text>
+          ) : (
+            <View style={styles.cardsList}>
+              {history.map((plan) => (
+                <SkillActivityCard
+                  key={plan.id}
+                  skill={plan.skills.nome}
+                  title={plan.exercises.titulo}
+                  description={plan.exercises.objetivo ?? ''}
+                  progress={successRate(plan)}
+                  progressSuffix="% de acerto"
+                  compactProgress
+                  onPress={() => navigation.navigate('Activity', { planId: plan.id })}
+                />
+              ))}
+            </View>
+          )}
         </View>
       </ScrollView>
     </View>
@@ -128,6 +145,16 @@ const styles = StyleSheet.create({
     color: theme.colors.textDark,
     marginBottom: 8,
     marginLeft: 4,
+  },
+  stateContainer: {
+    paddingTop: 24,
+    alignItems: 'center',
+  },
+  stateText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 15,
+    lineHeight: 22,
+    color: '#5E5E5E',
   },
   sectionContainer: {
     gap: 24,

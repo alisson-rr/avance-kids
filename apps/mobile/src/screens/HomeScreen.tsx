@@ -1,19 +1,25 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, Animated, ScrollView } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, CURVE_TOP, CURVE_MAX_HEIGHT } from '../components/CurvedHeader';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
-import { useProfileStore } from '../store/useProfileStore';
+import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
+import { fetchPlays, fetchArticles } from '../services/content';
+import { fetchActivityPlans } from '../services/activities';
+import { formatAgeFromIso } from '../utils/formatters';
+import type { ArticleRow, PlayRow } from '../types/db';
 
 interface ActivityCardProps {
   title: string;
   description?: string;
   imageSource?: any;
+  onPress?: () => void;
 }
 
-const ActivityCard = ({ title, description, imageSource }: ActivityCardProps) => (
-  <TouchableOpacity style={styles.activityCard} activeOpacity={0.8}>
+const ActivityCard = ({ title, description, imageSource, onPress }: ActivityCardProps) => (
+  <TouchableOpacity style={styles.activityCard} activeOpacity={0.8} onPress={onPress}>
     <View style={[styles.activityCardImageContainer, !imageSource && styles.activityCardPlaceholder]}>
       {imageSource && (
         <Image source={imageSource} style={styles.activityCardImage} resizeMode="cover" />
@@ -46,9 +52,51 @@ const SectionHeader = ({ title, subtitle }: { title: string; subtitle?: string }
 );
 
 export function HomeScreen({ navigation }: any) {
-  const { parentName, children } = useProfileStore();
-  const activeChild = children.find(c => c.isActive) || children[0];
+  const { parentName } = useProfileStore();
+  const activeChild = useProfileStore(selectActiveChild);
   const firstName = parentName.split(' ')[0] || 'Usuário';
+  const childAge = formatAgeFromIso(activeChild?.birthDate);
+
+  const [plays, setPlays] = useState<PlayRow[]>([]);
+  const [articles, setArticles] = useState<ArticleRow[]>([]);
+  const [planProgress, setPlanProgress] = useState(0);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchPlays(6).then(setPlays).catch(() => {});
+      fetchArticles(6).then(setArticles).catch(() => {});
+      if (activeChild) {
+        fetchActivityPlans(activeChild.id)
+          .then((plans) => {
+            const done = plans.filter((p) => p.status === 'concluido').length;
+            setPlanProgress(plans.length > 0 ? Math.round((done / plans.length) * 100) : 0);
+          })
+          .catch(() => {});
+      } else {
+        setPlanProgress(0);
+      }
+    }, [activeChild?.id]),
+  );
+
+  const openPlay = (play: PlayRow) => {
+    navigation.navigate('ContentDetail', {
+      title: play.titulo,
+      subtitle: 'Brincadeira educativa',
+      body: [play.descricao, play.instrucoes].filter(Boolean).join('\n\n') || 'Sem instruções.',
+      mediaUrl: play.media_url,
+      mediaType: play.media_type,
+    });
+  };
+
+  const openArticle = (article: ArticleRow) => {
+    navigation.navigate('ContentDetail', {
+      title: article.titulo,
+      subtitle: 'Conteúdo para pais',
+      body: article.corpo,
+      mediaUrl: article.imagem_url,
+      mediaType: 'imagem',
+    });
+  };
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
@@ -90,11 +138,15 @@ export function HomeScreen({ navigation }: any) {
           
           <Animated.View style={[styles.compactProfile, { opacity: compactHeaderOpacity }]}>
             <View style={styles.compactAvatarPlaceholder}>
-              <Text style={styles.compactAvatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
+              {activeChild?.avatarUrl ? (
+                <Image source={{ uri: activeChild.avatarUrl }} style={styles.compactAvatarImage} />
+              ) : (
+                <Text style={styles.compactAvatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
+              )}
             </View>
             <View>
               <Text style={styles.compactProfileName}>{activeChild?.name}</Text>
-              <Text style={styles.compactProfileAge}>4 anos e 2 meses</Text>
+              <Text style={styles.compactProfileAge}>{childAge}</Text>
             </View>
           </Animated.View>
           
@@ -133,14 +185,18 @@ export function HomeScreen({ navigation }: any) {
               
               <View style={styles.profileSection}>
                 <View style={styles.avatarPlaceholder}>
-                  <Text style={styles.avatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
+                  {activeChild?.avatarUrl ? (
+                    <Image source={{ uri: activeChild.avatarUrl }} style={styles.avatarImage} />
+                  ) : (
+                    <Text style={styles.avatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
+                  )}
                 </View>
                 <View style={styles.profileInfo}>
                   <Text style={styles.profileName}>{activeChild?.name}</Text>
-                  <Text style={styles.profileAge}>4 anos e 2 meses</Text>
+                  <Text style={styles.profileAge}>{childAge}</Text>
                 </View>
                 <View style={styles.progressCircle}>
-                  <Text style={styles.progressText}>0%</Text>
+                  <Text style={styles.progressText}>{planProgress}%</Text>
                 </View>
               </View>
               
@@ -150,35 +206,43 @@ export function HomeScreen({ navigation }: any) {
             </View>
           </View>
 
-          <View style={styles.section}>
-            <SectionHeader title="Brincadeiras educativas" subtitle="Brincadeiras educativas" />
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
-              <ActivityCard 
-                title="Brincar de imitar sons" 
-                description="Que tal tentar o jogo “Quem Imita Primeiro”?" 
-                imageSource={require('../../assets/onboarding3.png')}
-              />
-              <ActivityCard 
-                title="Explorando texturas" 
-                description="Que tal tentar o jogo “Quem Imita Primeiro”?" 
-                imageSource={require('../../assets/onboarding3.png')}
-              />
-            </ScrollView>
-          </View>
+          {plays.length > 0 && (
+            <View style={styles.section}>
+              <SectionHeader title="Brincadeiras educativas" subtitle="Ideias para estimular brincando" />
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+                {plays.map((play) => (
+                  <ActivityCard
+                    key={play.id}
+                    title={play.titulo}
+                    description={play.descricao ?? undefined}
+                    imageSource={
+                      play.media_type === 'imagem' && play.media_url
+                        ? { uri: play.media_url }
+                        : undefined
+                    }
+                    onPress={() => openPlay(play)}
+                  />
+                ))}
+              </ScrollView>
+            </View>
+          )}
 
-          <View style={styles.section}>
-            <SectionHeader title="Conteúdo para pais" subtitle="Brincadeiras educativas" />
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
-              <ActivityCard 
-                title="Brincar de imitar sons" 
-                description="Que tal tentar o jogo “Quem Imita Primeiro”?" 
-              />
-              <ActivityCard 
-                title="Brincar de imitar sons" 
-                description="Que tal tentar o jogo “Quem Imita Primeiro”?" 
-              />
-            </ScrollView>
-          </View>
+          {articles.length > 0 && (
+            <View style={styles.section}>
+              <SectionHeader title="Conteúdo para pais" subtitle="Artigos e dicas para o dia a dia" />
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+                {articles.map((article) => (
+                  <ActivityCard
+                    key={article.id}
+                    title={article.titulo}
+                    description={article.corpo.slice(0, 90)}
+                    imageSource={article.imagem_url ? { uri: article.imagem_url } : undefined}
+                    onPress={() => openArticle(article)}
+                  />
+                ))}
+              </ScrollView>
+            </View>
+          )}
 
           <View style={styles.section}>
             <SectionHeader title="Conheça nossa loja" subtitle="Conheça os produtos terapêuticos infantis" />
@@ -263,6 +327,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
+    overflow: 'hidden',
+  },
+  compactAvatarImage: {
+    width: '100%',
+    height: '100%',
   },
   compactAvatarText: {
     fontFamily: theme.fonts.mulishBold,
@@ -350,6 +419,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
+    overflow: 'hidden',
+  },
+  avatarImage: {
+    width: '100%',
+    height: '100%',
   },
   avatarText: {
     fontFamily: theme.fonts.mulishBold,

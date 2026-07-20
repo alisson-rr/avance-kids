@@ -1,5 +1,4 @@
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@13.11.0?target=deno";
+import Stripe from "npm:stripe@13.11.0";
 import { CreateCheckoutSchema } from "../_shared/schemas.ts";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
@@ -9,7 +8,7 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
   httpClient: Stripe.createFetchHttpClient(),
 });
 
-serve(async (req: Request) => {
+Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {

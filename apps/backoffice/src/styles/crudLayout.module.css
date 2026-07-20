@@ -42,14 +42,14 @@
   opacity: 0.9;
 }
 
-.showArchivedToggle {
+.filterRow {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: var(--color-text-dark);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
+  gap: 12px;
+}
+
+.filterItem {
+  min-width: 170px;
 }
 
 .actions {
@@ -99,4 +99,13 @@
 
 .fullWidth {
   grid-column: 1 / -1;
+}
+
+.errorBanner {
+  background-color: color-mix(in srgb, var(--color-danger) 8%, white);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 14px;
 }

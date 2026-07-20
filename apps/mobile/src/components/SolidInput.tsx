@@ -18,18 +18,20 @@ export function SolidInput(props: SolidInputProps) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 14,
     paddingHorizontal: 20,
     height: 52,
     borderRadius: 100,
     width: '100%',
     backgroundColor: '#F2F2F2', // Solid gray from Figma
+    justifyContent: 'center',
   },
   input: {
-    flex: 1,
     fontFamily: theme.fonts.regular,
     fontSize: 16,
     color: theme.colors.textDark,
-    lineHeight: 24,
+    // Sem lineHeight e sem padding vertical próprio: no Android, a combinação
+    // com altura fixa do container recorta o texto digitado (fica invisível).
+    paddingVertical: 0,
+    textAlignVertical: 'center',
   }
 });

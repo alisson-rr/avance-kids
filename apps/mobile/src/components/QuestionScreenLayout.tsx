@@ -10,6 +10,7 @@ import {
   StatusBar,
   StatusBarStyle,
   ViewStyle,
+  ActivityIndicator,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '../theme';
@@ -32,6 +33,8 @@ interface QuestionScreenLayoutProps {
   onSelectOption: (index: number) => void;
   onPrev: () => void;
   onNext: () => void;
+  /** Envio em andamento: desabilita navegação e mostra spinner no botão final. */
+  busy?: boolean;
 }
 
 export function QuestionScreenLayout({
@@ -52,6 +55,7 @@ export function QuestionScreenLayout({
   onSelectOption,
   onPrev,
   onNext,
+  busy = false,
 }: QuestionScreenLayoutProps) {
   const insets = useSafeAreaInsets();
   const safeTop = Math.max(insets.top, 50);
@@ -159,8 +163,9 @@ export function QuestionScreenLayout({
             <View style={styles.navRow}>
               <TouchableOpacity
                 onPress={onPrev}
-                style={styles.navBtn}
+                style={[styles.navBtn, busy && styles.navBtnDisabled]}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                disabled={busy}
               >
                 <Text style={styles.navChevron}>‹</Text>
                 <Text style={styles.navLabel}>anterior</Text>
@@ -168,14 +173,23 @@ export function QuestionScreenLayout({
 
               <TouchableOpacity
                 onPress={onNext}
-                style={[styles.navBtn, selectedOption === null && styles.navBtnDisabled]}
+                style={[styles.navBtn, (selectedOption === null || busy) && styles.navBtnDisabled]}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                disabled={selectedOption === null}
+                disabled={selectedOption === null || busy}
               >
-                <Text style={styles.navLabel}>
-                  {perguntaAtual < totalPerguntas - 1 ? 'próxima' : 'finalizar'}
-                </Text>
-                <Text style={styles.navChevron}>›</Text>
+                {busy ? (
+                  <>
+                    <ActivityIndicator size="small" color="#02349A" />
+                    <Text style={styles.navLabel}>enviando…</Text>
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.navLabel}>
+                      {perguntaAtual < totalPerguntas - 1 ? 'próxima' : 'finalizar'}
+                    </Text>
+                    <Text style={styles.navChevron}>›</Text>
+                  </>
+                )}
               </TouchableOpacity>
             </View>
           </View>

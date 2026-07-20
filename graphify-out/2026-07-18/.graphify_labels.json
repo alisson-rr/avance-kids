@@ -42,15 +42,8 @@
   "40": "Onboarding Screenshot 1 - 'Perguntas Iniciais' Initial Screening Question UI",
   "41": "Social Domain Avatar (boy, green shirt, holding emoji cards)",
   "42": "ActivityHistoryScreen.tsx",
-  "43": "ActivityPlanScreen.tsx",
-  "44": "HomeScreen.tsx",
   "45": "Onboarding2Screen.tsx",
   "46": "PerguntasScreen.tsx",
   "47": "options.ts",
-  "48": "scripts",
-  "49": "react",
-  "50": "react-router-dom",
-  "51": "recharts",
-  "52": "@tiptap/pm",
-  "53": "@tiptap/react"
+  "57": "DashboardScreen.tsx"
 }

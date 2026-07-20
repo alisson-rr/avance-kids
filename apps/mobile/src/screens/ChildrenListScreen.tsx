@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { CurvedHeader, HEADER_MAX_HEIGHT } from '../components/CurvedHeader';
 import { useProfileStore, Child } from '../store/useProfileStore';
+import { fromIsoDate } from '../utils/formatters';
 
 export function ChildrenListScreen({ navigation }: any) {
   const { children, setActiveChild } = useProfileStore();
@@ -20,11 +21,15 @@ export function ChildrenListScreen({ navigation }: any) {
     >
       <View style={styles.cardContent}>
         <View style={styles.avatarPlaceholder}>
-          <Text style={styles.avatarText}>{item.name.charAt(0).toUpperCase()}</Text>
+          {item.avatarUrl ? (
+            <Image source={{ uri: item.avatarUrl }} style={styles.avatarImage} />
+          ) : (
+            <Text style={styles.avatarText}>{item.name.charAt(0).toUpperCase()}</Text>
+          )}
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.nameText}>{item.name}</Text>
-          <Text style={styles.dateText}>{item.birthDate}</Text>
+          <Text style={styles.dateText}>{fromIsoDate(item.birthDate)}</Text>
         </View>
         <View style={styles.actionsContainer}>
           {item.isActive && (
@@ -132,6 +137,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
+    overflow: 'hidden',
+  },
+  avatarImage: {
+    width: '100%',
+    height: '100%',
   },
   avatarText: {
     fontFamily: theme.fonts.mulishBold,

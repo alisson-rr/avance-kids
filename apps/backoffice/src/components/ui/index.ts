@@ -8,6 +8,6 @@ export { DataTable } from './DataTable/DataTable';
 export type { DataTableColumn } from './DataTable/DataTable';
 export { ConfirmDialog } from './ConfirmDialog/ConfirmDialog';
 export { EntityCrudScreen } from './EntityCrudScreen/EntityCrudScreen';
-export { OptionListEditor } from './OptionListEditor/OptionListEditor';
+export type { EntityFilterConfig } from './EntityCrudScreen/EntityCrudScreen';
 export { ImageUploadField } from './ImageUploadField/ImageUploadField';
 export { RichTextEditor } from './RichTextEditor/RichTextEditor';

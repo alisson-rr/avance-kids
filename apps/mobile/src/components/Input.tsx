@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.regular,
     fontSize: 16,
     color: theme.colors.textDark,
-    lineHeight: 24,
+    // Sem lineHeight e sem padding vertical próprio: no Android, a combinação
+    // com altura fixa do container recorta o texto digitado (fica invisível).
+    paddingVertical: 0,
+    textAlignVertical: 'center',
   }
 });
