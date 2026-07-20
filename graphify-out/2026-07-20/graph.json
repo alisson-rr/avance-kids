@@ -60,8 +60,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "ref_react",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "react"
     },
     {
@@ -412,8 +412,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_backoffice_package_dependencies_lucide_react",
-      "community": 44,
-      "community_name": "lucide-react",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "lucide-react"
     },
     {
@@ -423,8 +423,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "lucide_react",
-      "community": 44,
-      "community_name": "lucide-react",
+      "community": 46,
+      "community_name": "PerguntasScreen.tsx",
       "norm_label": "lucide-react"
     },
     {
@@ -434,8 +434,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_backoffice_package_dependencies_react",
-      "community": 46,
-      "community_name": "PerguntasScreen.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "react"
     },
     {
@@ -445,8 +445,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_backoffice_package_json_react",
-      "community": 46,
-      "community_name": "PerguntasScreen.tsx",
+      "community": 13,
+      "community_name": "TriagemBaseScreen.tsx",
       "norm_label": "react"
     },
     {
@@ -742,8 +742,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_auth_authcontext",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "authcontext.tsx"
     },
     {
@@ -753,8 +753,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_src_auth_authcontext_currentadmin",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "currentadmin"
     },
     {
@@ -764,8 +764,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_backoffice_src_auth_authcontext_authcontextvalue",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "authcontextvalue"
     },
     {
@@ -775,8 +775,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_backoffice_src_auth_authcontext_authcontext",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "authcontext"
     },
     {
@@ -786,8 +786,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_backoffice_src_auth_authcontext_loadadmin",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "loadadmin()"
     },
     {
@@ -797,8 +797,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "apps_backoffice_src_auth_authcontext_authprovider",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "authprovider()"
     },
     {
@@ -995,8 +995,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_entitycrudscreen_entitycrudscreen_entityfilterconfig",
-      "community": 47,
-      "community_name": "options.ts",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "entityfilterconfig"
     },
     {
@@ -1061,8 +1061,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_imageuploadfield_imageuploadfield",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "imageuploadfield.tsx"
     },
     {
@@ -1072,8 +1072,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_imageuploadfield_imageuploadfield_imageuploadfieldprops",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "imageuploadfieldprops"
     },
     {
@@ -1083,8 +1083,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_imageuploadfield_imageuploadfield_imageuploadfield",
-      "community": 9,
-      "community_name": "App.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "imageuploadfield()"
     },
     {
@@ -1127,8 +1127,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_select_select",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "select.tsx"
     },
     {
@@ -1138,8 +1138,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_select_select_selectoption",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "selectoption"
     },
     {
@@ -1149,8 +1149,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_select_select_selectprops",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "selectprops"
     },
     {
@@ -1160,8 +1160,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_backoffice_src_components_ui_select_select_select",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
+      "community": 57,
+      "community_name": "DashboardScreen.tsx",
       "norm_label": "select()"
     },
     {
@@ -1237,8 +1237,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_src_constants_aba_habilidadekey",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
       "norm_label": "habilidadekey"
     },
     {
@@ -1281,8 +1281,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "apps_backoffice_src_constants_aba_agebracketcode",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
       "norm_label": "agebracketcode"
     },
     {
@@ -1347,8 +1347,8 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "apps_backoffice_src_constants_aba_accessplan",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "accessplan"
     },
     {
@@ -1358,8 +1358,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "apps_backoffice_src_constants_aba_access_plans",
-      "community": 12,
-      "community_name": "LoginScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "access_plans"
     },
     {
@@ -1446,8 +1446,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_hooks_useentitylist",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "useentitylist.ts"
     },
     {
@@ -1457,8 +1457,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_src_hooks_useentitylist_useentitylist",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "useentitylist()"
     },
     {
@@ -1531,7 +1531,7 @@
       "label": "MEDIA_TYPE_OPTIONS",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L24",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_activitiesscreen_media_type_options",
       "community": 12,
@@ -1539,21 +1539,10 @@
       "norm_label": "media_type_options"
     },
     {
-      "label": "MOCK_ATIVIDADES",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L29",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_activitiesscreen_mock_atividades",
-      "community": 12,
-      "community_name": "LoginScreen.tsx",
-      "norm_label": "mock_atividades"
-    },
-    {
       "label": "emptyAtividade()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L104",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_activitiesscreen_emptyatividade",
       "community": 12,
@@ -1564,7 +1553,7 @@
       "label": "FORM_TABS",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L131",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_activitiesscreen_form_tabs",
       "community": 12,
@@ -1575,7 +1564,7 @@
       "label": "matchesSearch()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L137",
+      "source_location": "L64",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_activitiesscreen_matchessearch",
       "community": 12,
@@ -1586,7 +1575,7 @@
       "label": "ActivitiesScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L147",
+      "source_location": "L74",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
       "community": 12,
@@ -1641,7 +1630,7 @@
       "label": "ROLE_OPTIONS",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L5",
+      "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminusersscreen_role_options",
       "community": 42,
@@ -1652,7 +1641,7 @@
       "label": "roleLabel()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L10",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminusersscreen_rolelabel",
       "community": 42,
@@ -1660,21 +1649,10 @@
       "norm_label": "rolelabel()"
     },
     {
-      "label": "MOCK_ADMIN_USERS",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L14",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_adminusersscreen_mock_admin_users",
-      "community": 42,
-      "community_name": "ActivityHistoryScreen.tsx",
-      "norm_label": "mock_admin_users"
-    },
-    {
       "label": "emptyAdminUser()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L19",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminusersscreen_emptyadminuser",
       "community": 42,
@@ -1685,7 +1663,7 @@
       "label": "matchesSearch()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L23",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminusersscreen_matchessearch",
       "community": 42,
@@ -1696,7 +1674,7 @@
       "label": "columns",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L27",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminusersscreen_columns",
       "community": 42,
@@ -1707,7 +1685,7 @@
       "label": "AdminUsersScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L46",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_adminusersscreen_adminusersscreen",
       "community": 42,
@@ -1729,7 +1707,7 @@
       "label": "stripHtml()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_striphtml",
       "community": 53,
@@ -1737,21 +1715,10 @@
       "norm_label": "striphtml()"
     },
     {
-      "label": "MOCK_ARTIGOS",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_articlesscreen_mock_artigos",
-      "community": 53,
-      "community_name": "ArticlesScreen.tsx",
-      "norm_label": "mock_artigos"
-    },
-    {
       "label": "emptyArtigo()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L29",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_emptyartigo",
       "community": 53,
@@ -1762,7 +1729,7 @@
       "label": "matchesSearch()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L33",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_matchessearch",
       "community": 53,
@@ -1773,7 +1740,7 @@
       "label": "columns",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L37",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_columns",
       "community": 53,
@@ -1784,7 +1751,7 @@
       "label": "ArticlesScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L59",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_articlesscreen_articlesscreen",
       "community": 53,
@@ -1798,30 +1765,30 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_dashboardscreen",
-      "community": 19,
-      "community_name": "imports",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
       "norm_label": "dashboardscreen.tsx"
     },
     {
-      "label": "data",
+      "label": "formatCount()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
-      "source_location": "L5",
+      "source_location": "L8",
       "_origin": "ast",
-      "id": "apps_backoffice_src_screens_dashboardscreen_data",
-      "community": 19,
-      "community_name": "imports",
-      "norm_label": "data"
+      "id": "apps_backoffice_src_screens_dashboardscreen_formatcount",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
+      "norm_label": "formatcount()"
     },
     {
       "label": "DashboardScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
-      "source_location": "L15",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_dashboardscreen_dashboardscreen",
-      "community": 19,
-      "community_name": "imports",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
       "norm_label": "dashboardscreen()"
     },
     {
@@ -1839,7 +1806,7 @@
       "label": "MEDIA_TYPE_OPTIONS",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_media_type_options",
       "community": 9,
@@ -1847,21 +1814,10 @@
       "norm_label": "media_type_options"
     },
     {
-      "label": "MOCK_BRINCADEIRAS",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L11",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_gamesscreen_mock_brincadeiras",
-      "community": 9,
-      "community_name": "App.tsx",
-      "norm_label": "mock_brincadeiras"
-    },
-    {
       "label": "emptyBrincadeira()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L34",
+      "source_location": "L13",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_emptybrincadeira",
       "community": 9,
@@ -1872,7 +1828,7 @@
       "label": "matchesSearch()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L47",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_matchessearch",
       "community": 9,
@@ -1883,7 +1839,7 @@
       "label": "columns",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L51",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_columns",
       "community": 9,
@@ -1894,7 +1850,7 @@
       "label": "GamesScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L78",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_gamesscreen_gamesscreen",
       "community": 9,
@@ -1908,30 +1864,19 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_initialquestionsscreen",
-      "community": 54,
-      "community_name": "QuestionCrudScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "initialquestionsscreen.tsx"
-    },
-    {
-      "label": "MOCK_PERGUNTAS_INICIAIS",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L7",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_initialquestionsscreen_mock_perguntas_iniciais",
-      "community": 54,
-      "community_name": "QuestionCrudScreen.tsx",
-      "norm_label": "mock_perguntas_iniciais"
     },
     {
       "label": "InitialQuestionsScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L26",
+      "source_location": "L6",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_initialquestionsscreen_initialquestionsscreen",
-      "community": 54,
-      "community_name": "QuestionCrudScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "initialquestionsscreen()"
     },
     {
@@ -1971,7 +1916,7 @@
       "label": "QuestionCrudScreenProps",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L9",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreenprops",
       "community": 54,
@@ -1979,10 +1924,21 @@
       "norm_label": "questioncrudscreenprops"
     },
     {
+      "label": "FETCHERS",
+      "file_type": "code",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "apps_backoffice_src_screens_questioncrudscreen_fetchers",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
+      "norm_label": "fetchers"
+    },
+    {
       "label": "emptyPergunta()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L17",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_questioncrudscreen_emptypergunta",
       "community": 54,
@@ -1993,18 +1949,18 @@
       "label": "matchesSearch()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L28",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_questioncrudscreen_matchessearch",
-      "community": 54,
-      "community_name": "QuestionCrudScreen.tsx",
+      "community": 12,
+      "community_name": "LoginScreen.tsx",
       "norm_label": "matchessearch()"
     },
     {
       "label": "filters",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L33",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_questioncrudscreen_filters",
       "community": 54,
@@ -2015,7 +1971,7 @@
       "label": "columns",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L48",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_questioncrudscreen_columns",
       "community": 54,
@@ -2026,11 +1982,11 @@
       "label": "QuestionCrudScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L68",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreen",
-      "community": 54,
-      "community_name": "QuestionCrudScreen.tsx",
+      "community": 10,
+      "community_name": "HomeScreen.tsx",
       "norm_label": "questioncrudscreen()"
     },
     {
@@ -2040,30 +1996,19 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_triagequestionsscreen",
-      "community": 54,
-      "community_name": "QuestionCrudScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "triagequestionsscreen.tsx"
-    },
-    {
-      "label": "MOCK_PERGUNTAS_TRIAGEM",
-      "file_type": "code",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "apps_backoffice_src_screens_triagequestionsscreen_mock_perguntas_triagem",
-      "community": 54,
-      "community_name": "QuestionCrudScreen.tsx",
-      "norm_label": "mock_perguntas_triagem"
     },
     {
       "label": "TriageQuestionsScreen()",
       "file_type": "code",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L25",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_src_screens_triagequestionsscreen_triagequestionsscreen",
-      "community": 54,
-      "community_name": "QuestionCrudScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "triagequestionsscreen()"
     },
     {
@@ -2073,8 +2018,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_admins",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "admins.ts"
     },
     {
@@ -2084,8 +2029,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_admins_adminrow",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "adminrow"
     },
     {
@@ -2095,8 +2040,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_admins_fetchadmins",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "fetchadmins()"
     },
     {
@@ -2106,8 +2051,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_admins_saveadmin",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "saveadmin()"
     },
     {
@@ -2117,8 +2062,8 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_admins_togglearchiveadmin",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "togglearchiveadmin()"
     },
     {
@@ -2128,8 +2073,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_artigos",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 53,
+      "community_name": "ArticlesScreen.tsx",
       "norm_label": "artigos.ts"
     },
     {
@@ -2139,8 +2084,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_artigos_articlerow",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "articlerow"
     },
     {
@@ -2150,8 +2095,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_artigos_fetchartigos",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 53,
+      "community_name": "ArticlesScreen.tsx",
       "norm_label": "fetchartigos()"
     },
     {
@@ -2161,8 +2106,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_artigos_saveartigo",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 53,
+      "community_name": "ArticlesScreen.tsx",
       "norm_label": "saveartigo()"
     },
     {
@@ -2172,8 +2117,8 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_artigos_togglearchiveartigo",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 53,
+      "community_name": "ArticlesScreen.tsx",
       "norm_label": "togglearchiveartigo()"
     },
     {
@@ -2194,8 +2139,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_atividades_exerciserow",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "exerciserow"
     },
     {
@@ -2205,8 +2150,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_atividades_fetchatividades",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 12,
+      "community_name": "LoginScreen.tsx",
       "norm_label": "fetchatividades()"
     },
     {
@@ -2238,8 +2183,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_brincadeiras",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "brincadeiras.ts"
     },
     {
@@ -2249,8 +2194,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_brincadeiras_playrow",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "playrow"
     },
     {
@@ -2260,8 +2205,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_brincadeiras_fetchbrincadeiras",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "fetchbrincadeiras()"
     },
     {
@@ -2282,8 +2227,8 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_brincadeiras_togglearchivebrincadeira",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "togglearchivebrincadeira()"
     },
     {
@@ -2326,8 +2271,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_dashboard",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
       "norm_label": "dashboard.ts"
     },
     {
@@ -2337,8 +2282,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_dashboard_dashboardstats",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
       "norm_label": "dashboardstats"
     },
     {
@@ -2348,8 +2293,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_dashboard_month_labels",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
       "norm_label": "month_labels"
     },
     {
@@ -2359,8 +2304,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_dashboard_countrows",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
       "norm_label": "countrows()"
     },
     {
@@ -2370,8 +2315,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_dashboard_fetchsignupsbymonth",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
       "norm_label": "fetchsignupsbymonth()"
     },
     {
@@ -2381,8 +2326,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_dashboard_fetchdashboardstats",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 8,
+      "community_name": "BottomTabBar.tsx",
       "norm_label": "fetchdashboardstats()"
     },
     {
@@ -2403,8 +2348,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_perguntas_questionkind",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
       "norm_label": "questionkind"
     },
     {
@@ -2458,8 +2403,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_refdata",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
       "norm_label": "refdata.ts"
     },
     {
@@ -2469,8 +2414,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_refdata_skillref",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
       "norm_label": "skillref"
     },
     {
@@ -2480,8 +2425,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_refdata_bracketref",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
       "norm_label": "bracketref"
     },
     {
@@ -2491,8 +2436,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_backoffice_src_services_refdata_refdata",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
       "norm_label": "refdata"
     },
     {
@@ -2579,8 +2524,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_common",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "common.ts"
     },
     {
@@ -2590,8 +2535,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_common_recordstatus",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "recordstatus"
     },
     {
@@ -2601,8 +2546,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_common_mediatype",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "mediatype"
     },
     {
@@ -2612,8 +2557,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_common_withid",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 47,
+      "community_name": "options.ts",
       "norm_label": "withid"
     },
     {
@@ -2634,8 +2579,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "entities.ts"
     },
     {
@@ -2645,8 +2590,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_adminrole",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 19,
+      "community_name": "imports",
       "norm_label": "adminrole"
     },
     {
@@ -2656,8 +2601,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_adminuser",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 42,
+      "community_name": "ActivityHistoryScreen.tsx",
       "norm_label": "adminuser"
     },
     {
@@ -2667,8 +2612,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_brincadeira",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "brincadeira"
     },
     {
@@ -2678,8 +2623,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_artigo",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "artigo"
     },
     {
@@ -2689,8 +2634,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_pergunta",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 54,
+      "community_name": "QuestionCrudScreen.tsx",
       "norm_label": "pergunta"
     },
     {
@@ -2700,8 +2645,8 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_perguntainicial",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "perguntainicial"
     },
     {
@@ -2711,8 +2656,8 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "apps_backoffice_src_types_entities_perguntatriagem",
-      "community": 10,
-      "community_name": "HomeScreen.tsx",
+      "community": 9,
+      "community_name": "App.tsx",
       "norm_label": "perguntatriagem"
     },
     {
@@ -3250,8 +3195,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_app_tsx_apps_mobile_app",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "app.tsx"
     },
     {
@@ -3261,8 +3206,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "apps_mobile_app_stack",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "stack"
     },
     {
@@ -3272,8 +3217,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "apps_mobile_app_app",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "app()"
     },
     {
@@ -3536,8 +3481,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_index",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "index.ts"
     },
     {
@@ -4273,8 +4218,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_animatedsplash",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "animatedsplash.tsx"
     },
     {
@@ -4284,8 +4229,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_mobile_src_components_animatedsplash_animatedsplash",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "animatedsplash()"
     },
     {
@@ -4295,8 +4240,8 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "apps_mobile_src_components_animatedsplash_styles",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "styles"
     },
     {
@@ -4306,8 +4251,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomsheetselect",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "bottomsheetselect.tsx"
     },
     {
@@ -4317,8 +4262,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomsheetselect_bottomsheetselectprops",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "bottomsheetselectprops"
     },
     {
@@ -4339,8 +4284,8 @@
       "source_location": "L104",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomsheetselect_styles",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4350,8 +4295,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomtabbar",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "bottomtabbar.tsx"
     },
     {
@@ -4361,8 +4306,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomtabbar_profileicon",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "profileicon()"
     },
     {
@@ -4372,8 +4317,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomtabbar_planicon",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "planicon()"
     },
     {
@@ -4383,8 +4328,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomtabbar_homeicon",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "homeicon()"
     },
     {
@@ -4394,8 +4339,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomtabbar_bottomtabbarprops",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "bottomtabbarprops"
     },
     {
@@ -4405,8 +4350,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomtabbar_bottomtabbar",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "bottomtabbar()"
     },
     {
@@ -4416,8 +4361,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "apps_mobile_src_components_bottomtabbar_styles",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "styles"
     },
     {
@@ -4427,8 +4372,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_button",
-      "community": 26,
-      "community_name": "Button.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "button.tsx"
     },
     {
@@ -4438,8 +4383,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_mobile_src_components_button_buttonprops",
-      "community": 26,
-      "community_name": "Button.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "buttonprops"
     },
     {
@@ -4460,8 +4405,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "apps_mobile_src_components_button_styles",
-      "community": 26,
-      "community_name": "Button.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4471,8 +4416,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_checkbox",
-      "community": 23,
-      "community_name": "Checkbox.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "checkbox.tsx"
     },
     {
@@ -4482,8 +4427,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_mobile_src_components_checkbox_checkboxprops",
-      "community": 23,
-      "community_name": "Checkbox.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "checkboxprops"
     },
     {
@@ -4493,8 +4438,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_mobile_src_components_checkbox_checkbox",
-      "community": 23,
-      "community_name": "Checkbox.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "checkbox()"
     },
     {
@@ -4504,8 +4449,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "apps_mobile_src_components_checkbox_styles",
-      "community": 23,
-      "community_name": "Checkbox.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4559,8 +4504,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_formscreen",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "formscreen.tsx"
     },
     {
@@ -4570,8 +4515,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_mobile_src_components_formscreen_formscreenprops",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "formscreenprops"
     },
     {
@@ -4592,8 +4537,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "apps_mobile_src_components_formscreen_styles",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4603,8 +4548,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_ghostbutton",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "ghostbutton.tsx"
     },
     {
@@ -4614,8 +4559,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_mobile_src_components_ghostbutton_ghostbuttonprops",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "ghostbuttonprops"
     },
     {
@@ -4636,8 +4581,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_mobile_src_components_ghostbutton_styles",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4647,8 +4592,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_googlebutton",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "googlebutton.tsx"
     },
     {
@@ -4658,8 +4603,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_mobile_src_components_googlebutton_googlebuttonprops",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "googlebuttonprops"
     },
     {
@@ -4669,8 +4614,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_mobile_src_components_googlebutton_googlebutton",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "googlebutton()"
     },
     {
@@ -4680,8 +4625,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "apps_mobile_src_components_googlebutton_styles",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4691,8 +4636,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_input",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "input.tsx"
     },
     {
@@ -4702,8 +4647,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_mobile_src_components_input_inputprops",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "inputprops"
     },
     {
@@ -4713,8 +4658,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_mobile_src_components_input_input",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "input()"
     },
     {
@@ -4724,8 +4669,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_mobile_src_components_input_styles",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4768,8 +4713,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_onboardinglayout",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboardinglayout.tsx"
     },
     {
@@ -4779,8 +4724,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_mobile_src_components_onboardinglayout_onboardinglayoutprops",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboardinglayoutprops"
     },
     {
@@ -4790,8 +4735,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "apps_mobile_src_components_onboardinglayout_onboardinglayout",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboardinglayout()"
     },
     {
@@ -4801,8 +4746,8 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "apps_mobile_src_components_onboardinglayout_styles",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "styles"
     },
     {
@@ -4856,8 +4801,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_questionscreenlayout",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "questionscreenlayout.tsx"
     },
     {
@@ -4867,8 +4812,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_mobile_src_components_questionscreenlayout_questionscreenlayoutprops",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "questionscreenlayoutprops"
     },
     {
@@ -4878,8 +4823,8 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "apps_mobile_src_components_questionscreenlayout_questionscreenlayout",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "questionscreenlayout()"
     },
     {
@@ -4889,8 +4834,8 @@
       "source_location": "L205",
       "_origin": "ast",
       "id": "apps_mobile_src_components_questionscreenlayout_styles",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "styles"
     },
     {
@@ -4900,8 +4845,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_screenheader",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "screenheader.tsx"
     },
     {
@@ -4911,8 +4856,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_mobile_src_components_screenheader_screenheaderprops",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "screenheaderprops"
     },
     {
@@ -4922,8 +4867,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_mobile_src_components_screenheader_screenheader",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "screenheader()"
     },
     {
@@ -4933,8 +4878,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "apps_mobile_src_components_screenheader_styles",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -4944,8 +4889,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_components_skillactivitycard",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 80,
+      "community_name": "habilidades.ts",
       "norm_label": "skillactivitycard.tsx"
     },
     {
@@ -4955,8 +4900,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_mobile_src_components_skillactivitycard_skillactivitycardprops",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 80,
+      "community_name": "habilidades.ts",
       "norm_label": "skillactivitycardprops"
     },
     {
@@ -4966,8 +4911,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_mobile_src_components_skillactivitycard_skillactivitycard",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 80,
+      "community_name": "habilidades.ts",
       "norm_label": "skillactivitycard()"
     },
     {
@@ -4977,8 +4922,8 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "apps_mobile_src_components_skillactivitycard_styles",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 80,
+      "community_name": "habilidades.ts",
       "norm_label": "styles"
     },
     {
@@ -5186,8 +5131,8 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "apps_mobile_src_data_habilidades_getskillcolor",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 80,
+      "community_name": "habilidades.ts",
       "norm_label": "getskillcolor()"
     },
     {
@@ -5208,8 +5153,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_lib_supabase",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "supabase.ts"
     },
     {
@@ -5219,8 +5164,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_mobile_src_lib_supabase_supabase",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "supabase"
     },
     {
@@ -5230,8 +5175,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityhistoryscreen",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "activityhistoryscreen.tsx"
     },
     {
@@ -5241,8 +5186,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityhistoryscreen_activityhistoryscreen",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "activityhistoryscreen()"
     },
     {
@@ -5252,8 +5197,8 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityhistoryscreen_styles",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -5263,8 +5208,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "activityplanscreen.tsx"
     },
     {
@@ -5274,8 +5219,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen_plandescription",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "plandescription()"
     },
     {
@@ -5285,8 +5230,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen_activityplanscreen",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "activityplanscreen()"
     },
     {
@@ -5296,8 +5241,8 @@
       "source_location": "L165",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_activityplanscreen_styles",
-      "community": 13,
-      "community_name": "TriagemBaseScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "styles"
     },
     {
@@ -5417,8 +5362,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_childrenlistscreen",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "childrenlistscreen.tsx"
     },
     {
@@ -5428,8 +5373,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_childrenlistscreen_childrenlistscreen",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "childrenlistscreen()"
     },
     {
@@ -5439,8 +5384,8 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_childrenlistscreen_styles",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "styles"
     },
     {
@@ -5450,8 +5395,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_contentdetailscreen",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "contentdetailscreen.tsx"
     },
     {
@@ -5461,8 +5406,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_contentdetailscreen_contentdetailparams",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "contentdetailparams"
     },
     {
@@ -5472,8 +5417,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_contentdetailscreen_contentdetailscreen",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "contentdetailscreen()"
     },
     {
@@ -5483,8 +5428,8 @@
       "source_location": "L95",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_contentdetailscreen_styles",
-      "community": 24,
-      "community_name": "GoogleButton.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "styles"
     },
     {
@@ -5560,8 +5505,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_habilidadescreen",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "habilidadescreen.tsx"
     },
     {
@@ -5571,8 +5516,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_habilidadescreen_option_labels",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "option_labels"
     },
     {
@@ -5582,8 +5527,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_habilidadescreen_habilidadescreen",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "habilidadescreen()"
     },
     {
@@ -5593,8 +5538,8 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_habilidadescreen_statestyles",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "statestyles"
     },
     {
@@ -5604,8 +5549,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_homescreen",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "homescreen.tsx"
     },
     {
@@ -5615,8 +5560,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_homescreen_activitycardprops",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "activitycardprops"
     },
     {
@@ -5626,8 +5571,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_homescreen_activitycard",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "activitycard()"
     },
     {
@@ -5637,8 +5582,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_homescreen_sectionheader",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "sectionheader()"
     },
     {
@@ -5648,8 +5593,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_homescreen_homescreen",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "homescreen()"
     },
     {
@@ -5659,8 +5604,8 @@
       "source_location": "L271",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_homescreen_styles",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "styles"
     },
     {
@@ -5703,8 +5648,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding1screen",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboarding1screen.tsx"
     },
     {
@@ -5714,8 +5659,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding1screen_onboarding1screen",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboarding1screen()"
     },
     {
@@ -5725,8 +5670,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding2screen",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboarding2screen.tsx"
     },
     {
@@ -5736,8 +5681,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding2screen_onboarding2screen",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboarding2screen()"
     },
     {
@@ -5747,8 +5692,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding3screen",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboarding3screen.tsx"
     },
     {
@@ -5758,8 +5703,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_onboarding3screen_onboarding3screen",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "onboarding3screen()"
     },
     {
@@ -5802,8 +5747,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_perguntasscreen",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "perguntasscreen.tsx"
     },
     {
@@ -5813,8 +5758,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_perguntasscreen_option_labels",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "option_labels"
     },
     {
@@ -5824,8 +5769,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_perguntasscreen_perguntasscreen",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "perguntasscreen()"
     },
     {
@@ -5835,8 +5780,8 @@
       "source_location": "L145",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_perguntasscreen_styles",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "styles"
     },
     {
@@ -5846,8 +5791,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_plansscreen",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "plansscreen.tsx"
     },
     {
@@ -5868,8 +5813,8 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_plansscreen_styles",
-      "community": 25,
-      "community_name": "PlansScreen.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -5912,8 +5857,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_triagemscreen",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "triagemscreen.tsx"
     },
     {
@@ -5923,8 +5868,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_triagemscreen_triagemscreen",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "triagemscreen()"
     },
     {
@@ -5934,8 +5879,8 @@
       "source_location": "L200",
       "_origin": "ast",
       "id": "apps_mobile_src_screens_triagemscreen_styles",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "styles"
     },
     {
@@ -5956,8 +5901,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_mobile_src_services_activities_generateactivityplan",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "generateactivityplan()"
     },
     {
@@ -5967,8 +5912,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_mobile_src_services_activities_fetchactivityplans",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "fetchactivityplans()"
     },
     {
@@ -6044,7 +5989,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_services_api",
-      "community": 43,
+      "community": 0,
       "community_name": "App.tsx",
       "norm_label": "api.ts"
     },
@@ -6055,8 +6000,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_mobile_src_services_api_invokefunction",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "invokefunction()"
     },
     {
@@ -6154,7 +6099,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "apps_mobile_src_services_auth_fetchprofile",
-      "community": 43,
+      "community": 0,
       "community_name": "App.tsx",
       "norm_label": "fetchprofile()"
     },
@@ -6187,8 +6132,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_services_catalog",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "catalog.ts"
     },
     {
@@ -6198,8 +6143,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_mobile_src_services_catalog_fetchskills",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "fetchskills()"
     },
     {
@@ -6209,8 +6154,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_mobile_src_services_catalog_fetchagebrackets",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "fetchagebrackets()"
     },
     {
@@ -6220,8 +6165,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_mobile_src_services_catalog_resolvebracketformonths",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "resolvebracketformonths()"
     },
     {
@@ -6231,8 +6176,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_services_children",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "children.ts"
     },
     {
@@ -6242,8 +6187,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_mobile_src_services_children_registerchildinput",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "registerchildinput"
     },
     {
@@ -6264,8 +6209,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_mobile_src_services_children_listchildren",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "listchildren()"
     },
     {
@@ -6275,8 +6220,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "apps_mobile_src_services_children_fetchchild",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "fetchchild()"
     },
     {
@@ -6297,8 +6242,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_services_content",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "content.ts"
     },
     {
@@ -6308,8 +6253,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_mobile_src_services_content_fetchplays",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "fetchplays()"
     },
     {
@@ -6319,8 +6264,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_mobile_src_services_content_fetcharticles",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "fetcharticles()"
     },
     {
@@ -6330,8 +6275,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "questions.ts"
     },
     {
@@ -6341,8 +6286,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions_question_options",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "question_options"
     },
     {
@@ -6352,8 +6297,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions_answerinput",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "answerinput"
     },
     {
@@ -6363,8 +6308,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions_fetchquestions",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "fetchquestions()"
     },
     {
@@ -6374,8 +6319,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions_submitinitialresult",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "submitinitialresult"
     },
     {
@@ -6385,8 +6330,8 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions_submitinitialanswers",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "submitinitialanswers()"
     },
     {
@@ -6396,8 +6341,8 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions_submitscreeningresult",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "submitscreeningresult"
     },
     {
@@ -6407,8 +6352,8 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions_submitscreeninganswers",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "submitscreeninganswers()"
     },
     {
@@ -6418,8 +6363,8 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "apps_mobile_src_services_questions_fetchscreeningansweredcounts",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "fetchscreeningansweredcounts()"
     },
     {
@@ -6451,8 +6396,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_services_subscription",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "subscription.ts"
     },
     {
@@ -6462,7 +6407,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_mobile_src_services_subscription_fetchsubscription",
-      "community": 43,
+      "community": 0,
       "community_name": "App.tsx",
       "norm_label": "fetchsubscription()"
     },
@@ -6473,8 +6418,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_mobile_src_services_subscription_checkoutplan",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "checkoutplan"
     },
     {
@@ -6484,8 +6429,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_mobile_src_services_subscription_price_ids",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "price_ids"
     },
     {
@@ -6495,7 +6440,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_mobile_src_services_subscription_createcheckoutsession",
-      "community": 43,
+      "community": 0,
       "community_name": "App.tsx",
       "norm_label": "createcheckoutsession()"
     },
@@ -6506,8 +6451,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "useprofilestore.ts"
     },
     {
@@ -6517,8 +6462,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_child",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "child"
     },
     {
@@ -6528,8 +6473,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_mapchild",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "mapchild()"
     },
     {
@@ -6539,8 +6484,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_profilestore",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "profilestore"
     },
     {
@@ -6550,8 +6495,8 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_empty_state",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "empty_state"
     },
     {
@@ -6561,8 +6506,8 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_useprofilestore",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "useprofilestore"
     },
     {
@@ -6572,8 +6517,8 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "apps_mobile_src_store_useprofilestore_selectactivechild",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "selectactivechild()"
     },
     {
@@ -6583,8 +6528,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_theme",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "theme.ts"
     },
     {
@@ -6594,8 +6539,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_theme_theme",
-      "community": 8,
-      "community_name": "BottomTabBar.tsx",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "theme"
     },
     {
@@ -6638,8 +6583,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_mobile_src_types_db_questionkind",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "questionkind"
     },
     {
@@ -6693,8 +6638,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_mobile_src_types_db_profilerow",
-      "community": 20,
-      "community_name": "imports",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "profilerow"
     },
     {
@@ -6704,8 +6649,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_mobile_src_types_db_childrow",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "childrow"
     },
     {
@@ -6715,8 +6660,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "apps_mobile_src_types_db_skillrow",
-      "community": 80,
-      "community_name": "habilidades.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "skillrow"
     },
     {
@@ -6737,8 +6682,8 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "apps_mobile_src_types_db_questionrow",
-      "community": 50,
-      "community_name": "QuestionScreenLayout.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "questionrow"
     },
     {
@@ -6792,8 +6737,8 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "apps_mobile_src_types_db_playrow",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "playrow"
     },
     {
@@ -6803,8 +6748,8 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "apps_mobile_src_types_db_articlerow",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "articlerow"
     },
     {
@@ -6814,8 +6759,8 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "apps_mobile_src_types_db_subscriptionrow",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "subscriptionrow"
     },
     {
@@ -6825,8 +6770,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_types_svg_d",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "svg.d.ts"
     },
     {
@@ -6836,8 +6781,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_types_svg_d_svg",
-      "community": 22,
-      "community_name": "useArchivableList.ts",
+      "community": 0,
+      "community_name": "App.tsx",
       "norm_label": "*.svg"
     },
     {
@@ -6869,8 +6814,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_mobile_src_ui_dialog_dialogbutton",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "dialogbutton"
     },
     {
@@ -6902,8 +6847,8 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "apps_mobile_src_ui_dialog_usedialogstore",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "usedialogstore"
     },
     {
@@ -6968,8 +6913,8 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "apps_mobile_src_ui_dialog_dialoghost",
-      "community": 0,
-      "community_name": "App.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "dialoghost()"
     },
     {
@@ -7056,8 +7001,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "apps_mobile_src_utils_formatters_fromisodate",
-      "community": 43,
-      "community_name": "App.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "fromisodate()"
     },
     {
@@ -7067,8 +7012,8 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "apps_mobile_src_utils_formatters_formatagefromiso",
-      "community": 51,
-      "community_name": "HomeScreen.tsx",
+      "community": 20,
+      "community_name": "imports",
       "norm_label": "formatagefromiso()"
     },
     {
@@ -7078,8 +7023,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_mobile_src_utils_webalertshim",
-      "community": 21,
-      "community_name": "AuthContext.tsx",
+      "community": 49,
+      "community_name": "react",
       "norm_label": "webalertshim.ts"
     },
     {
@@ -8325,6 +8270,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminprofilescreen",
+      "target": "ref_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_dashboardscreen",
       "target": "ref_react",
       "confidence_score": 1.0
     },
@@ -11395,7 +11352,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11503,7 +11460,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11599,7 +11556,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11635,7 +11592,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11648,7 +11605,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L183",
+      "source_location": "L140",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
@@ -11659,7 +11616,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L138",
+      "source_location": "L65",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_matchessearch",
@@ -11683,7 +11640,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L29",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen_matchessearch",
@@ -11695,7 +11652,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11791,7 +11748,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11827,7 +11784,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11840,7 +11797,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L185",
+      "source_location": "L142",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
@@ -11863,7 +11820,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11899,7 +11856,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -11912,7 +11869,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L189",
+      "source_location": "L146",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
@@ -11923,7 +11880,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12043,7 +12000,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12079,7 +12036,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12103,7 +12060,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12127,7 +12084,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12140,7 +12097,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L348",
+      "source_location": "L309",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
@@ -12257,7 +12214,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L148",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
@@ -12273,6 +12230,186 @@
       "source": "apps_backoffice_src_hooks_useentitylist",
       "target": "apps_backoffice_src_hooks_useentitylist_useentitylist",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_activitiesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_gamesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_activitiesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
+      "source_location": "L75",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen_adminusersscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L43",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen_articlesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_gamesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_gamesscreen_gamesscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreen",
+      "target": "apps_backoffice_src_hooks_useentitylist_useentitylist"
     },
     {
       "relation": "contains",
@@ -12527,7 +12664,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L147",
+      "source_location": "L74",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12538,7 +12675,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L104",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12549,7 +12686,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L131",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12560,7 +12697,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L137",
+      "source_location": "L64",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12571,7 +12708,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12579,14 +12716,51 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "contains",
+      "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L29",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
-      "target": "apps_backoffice_src_screens_activitiesscreen_mock_atividades",
+      "target": "apps_backoffice_src_services_atividades",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_activitiesscreen",
+      "target": "apps_backoffice_src_services_atividades_fetchatividades",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_activitiesscreen",
+      "target": "apps_backoffice_src_services_atividades_saveatividade",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_activitiesscreen",
+      "target": "apps_backoffice_src_services_atividades_togglearchiveatividade",
       "confidence_score": 1.0
     },
     {
@@ -12594,7 +12768,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12606,7 +12780,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen",
@@ -12618,7 +12792,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L152",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
@@ -12630,12 +12804,24 @@
       "context": "argument",
       "confidence": "INFERRED",
       "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
-      "source_location": "L148",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
       "target": "apps_backoffice_src_screens_activitiesscreen_matchessearch",
       "confidence_score": 0.5
+    },
+    {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/backoffice/src/screens/ActivitiesScreen.tsx",
+      "source_location": "L75",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
+      "target": "apps_backoffice_src_services_atividades_fetchatividades"
     },
     {
       "relation": "contains",
@@ -12663,7 +12849,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L46",
+      "source_location": "L43",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12674,7 +12860,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L27",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12685,7 +12871,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L19",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12696,7 +12882,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L23",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12707,18 +12893,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L14",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_adminusersscreen",
-      "target": "apps_backoffice_src_screens_adminusersscreen_mock_admin_users",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12729,7 +12904,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L10",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12741,7 +12916,55 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen",
+      "target": "apps_backoffice_src_services_admins",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen",
+      "target": "apps_backoffice_src_services_admins_fetchadmins",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen",
+      "target": "apps_backoffice_src_services_admins_saveadmin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen",
+      "target": "apps_backoffice_src_services_admins_togglearchiveadmin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12753,7 +12976,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L3",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12765,7 +12988,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L3",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen",
@@ -12778,17 +13001,53 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_adminusersscreen_rolelabel",
       "target": "apps_backoffice_src_screens_adminusersscreen_role_options"
     },
     {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen_adminusersscreen",
+      "target": "apps_backoffice_src_services_admins_fetchadmins"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen_adminusersscreen",
+      "target": "apps_backoffice_src_services_admins_saveadmin"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/AdminUsersScreen.tsx",
+      "source_location": "L63",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_adminusersscreen_adminusersscreen",
+      "target": "apps_backoffice_src_services_admins_togglearchiveadmin"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L59",
+      "source_location": "L42",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -12799,7 +13058,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L37",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -12810,7 +13069,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L29",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -12821,7 +13080,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L33",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -12832,18 +13091,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_articlesscreen",
-      "target": "apps_backoffice_src_screens_articlesscreen_mock_artigos",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -12855,7 +13103,55 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L4",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_services_artigos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_services_artigos_fetchartigos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_services_artigos_saveartigo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen",
+      "target": "apps_backoffice_src_services_artigos_togglearchiveartigo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -12867,7 +13163,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L4",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen",
@@ -12879,7 +13175,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
-      "source_location": "L34",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_articlesscreen_matchessearch",
@@ -12887,10 +13183,46 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L43",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen_articlesscreen",
+      "target": "apps_backoffice_src_services_artigos_fetchartigos"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen_articlesscreen",
+      "target": "apps_backoffice_src_services_artigos_saveartigo"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/ArticlesScreen.tsx",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_articlesscreen_articlesscreen",
+      "target": "apps_backoffice_src_services_artigos_togglearchiveartigo"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
-      "source_location": "L15",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_dashboardscreen",
@@ -12901,18 +13233,78 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
-      "source_location": "L5",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_dashboardscreen",
-      "target": "apps_backoffice_src_screens_dashboardscreen_data",
+      "target": "apps_backoffice_src_screens_dashboardscreen_formatcount",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_dashboardscreen",
+      "target": "apps_backoffice_src_services_dashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_dashboardscreen",
+      "target": "apps_backoffice_src_services_dashboard_dashboardstats",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_dashboardscreen",
+      "target": "apps_backoffice_src_services_dashboard_fetchdashboardstats",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_dashboardscreen_dashboardscreen",
+      "target": "apps_backoffice_src_screens_dashboardscreen_formatcount",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/DashboardScreen.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_dashboardscreen_dashboardscreen",
+      "target": "apps_backoffice_src_services_dashboard_fetchdashboardstats"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L51",
+      "source_location": "L30",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
@@ -12923,7 +13315,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L34",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
@@ -12934,7 +13326,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L78",
+      "source_location": "L57",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
@@ -12945,7 +13337,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L47",
+      "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
@@ -12956,7 +13348,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
@@ -12964,14 +13356,15 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "contains",
+      "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L11",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
-      "target": "apps_backoffice_src_screens_gamesscreen_mock_brincadeiras",
+      "target": "apps_backoffice_src_services_brincadeiras",
       "confidence_score": 1.0
     },
     {
@@ -12979,7 +13372,43 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L4",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_gamesscreen",
+      "target": "apps_backoffice_src_services_brincadeiras_fetchbrincadeiras",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_gamesscreen",
+      "target": "apps_backoffice_src_services_brincadeiras_savebrincadeira",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_gamesscreen",
+      "target": "apps_backoffice_src_services_brincadeiras_togglearchivebrincadeira",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
@@ -12991,7 +13420,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L4",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
@@ -13003,7 +13432,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
-      "source_location": "L4",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_gamesscreen",
@@ -13011,25 +13440,50 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L26",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_screens_initialquestionsscreen_initialquestionsscreen",
-      "confidence_score": 1.0
+      "source": "apps_backoffice_src_screens_gamesscreen_gamesscreen",
+      "target": "apps_backoffice_src_services_brincadeiras_fetchbrincadeiras"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L73",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_gamesscreen_gamesscreen",
+      "target": "apps_backoffice_src_services_brincadeiras_savebrincadeira"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/GamesScreen.tsx",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_gamesscreen_gamesscreen",
+      "target": "apps_backoffice_src_services_brincadeiras_togglearchivebrincadeira"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_screens_initialquestionsscreen_mock_perguntas_iniciais",
+      "target": "apps_backoffice_src_screens_initialquestionsscreen_initialquestionsscreen",
       "confidence_score": 1.0
     },
     {
@@ -13057,30 +13511,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_types_entities",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/InitialQuestionsScreen.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_initialquestionsscreen",
-      "target": "apps_backoffice_src_types_entities_pergunta",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/LoginScreen.tsx",
@@ -13095,7 +13525,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L48",
+      "source_location": "L56",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen",
@@ -13106,7 +13536,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L17",
+      "source_location": "L25",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen",
@@ -13117,7 +13547,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L33",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_screens_questioncrudscreen_fetchers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen",
@@ -13128,7 +13569,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L28",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen",
@@ -13139,7 +13580,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L68",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen",
@@ -13150,11 +13591,71 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen",
       "target": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreenprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_services_perguntas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_services_perguntas_fetchperguntas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_services_perguntas_questionkind",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_services_perguntas_savepergunta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen",
+      "target": "apps_backoffice_src_services_perguntas_togglearchivepergunta",
       "confidence_score": 1.0
     },
     {
@@ -13186,7 +13687,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen",
@@ -13198,7 +13699,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen",
@@ -13222,12 +13723,36 @@
       "context": "field",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
-      "source_location": "L13",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreenprops",
-      "target": "apps_backoffice_src_types_entities_pergunta",
+      "target": "apps_backoffice_src_services_perguntas_questionkind",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L93",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreen",
+      "target": "apps_backoffice_src_services_perguntas_savepergunta"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
+      "source_location": "L97",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "apps_backoffice_src_screens_questioncrudscreen_questioncrudscreen",
+      "target": "apps_backoffice_src_services_perguntas_togglearchivepergunta"
     },
     {
       "relation": "imports",
@@ -13245,46 +13770,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_screens_triagequestionsscreen_mock_perguntas_triagem",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L25",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "apps_backoffice_src_screens_triagequestionsscreen",
       "target": "apps_backoffice_src_screens_triagequestionsscreen_triagequestionsscreen",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_types_entities",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "apps/backoffice/src/screens/TriageQuestionsScreen.tsx",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "apps_backoffice_src_screens_triagequestionsscreen",
-      "target": "apps_backoffice_src_types_entities_pergunta",
       "confidence_score": 1.0
     },
     {

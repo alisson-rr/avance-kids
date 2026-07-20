@@ -35,14 +35,14 @@
     "semantic_hash": "787e5a07efeb2bf6209d5937195f2f68"
   },
   "apps/backoffice/src/screens/ActivitiesScreen.tsx": {
-    "mtime": 1784389619.501074,
-    "ast_hash": "bead63dc6afa6cd0fdec991ee7b46661",
+    "mtime": 1784564909.4490776,
+    "ast_hash": "560c863e762d9272f8c20e6fb627f8ac",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/DashboardScreen.tsx": {
-    "mtime": 1784383443.3842244,
-    "ast_hash": "871f2ce2d64b00901d43a81580a7a441",
-    "semantic_hash": "871f2ce2d64b00901d43a81580a7a441"
+    "mtime": 1784564998.9213648,
+    "ast_hash": "3e15936e61a89af941c425b425216636",
+    "semantic_hash": ""
   },
   "apps/backoffice/src/screens/LoginScreen.tsx": {
     "mtime": 1784406670.7010534,
@@ -625,28 +625,28 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/AdminUsersScreen.tsx": {
-    "mtime": 1784388134.5206368,
-    "ast_hash": "67077bd87a6006dd352032149a03c155",
+    "mtime": 1784564969.7787797,
+    "ast_hash": "85dc4c23c16e10d74282aa797e027298",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/ArticlesScreen.tsx": {
-    "mtime": 1784389081.407894,
-    "ast_hash": "91b5c2101d9102f980c4df18c860be90",
+    "mtime": 1784564951.6678221,
+    "ast_hash": "06ef374faa4f312788e9b1a4b06d8052",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/GamesScreen.tsx": {
-    "mtime": 1784388855.9464192,
-    "ast_hash": "5a88e78502457610ca18807517c33bc2",
+    "mtime": 1784564934.71848,
+    "ast_hash": "9540acd1c6bfa0936492c8ef7f96bea2",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/InitialQuestionsScreen.tsx": {
-    "mtime": 1784389582.457091,
-    "ast_hash": "d7576cc6f1d77768485d09ccd19e5095",
+    "mtime": 1784564849.5119257,
+    "ast_hash": "37317ea2d6df4c5798e3c04a8c6fe644",
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/TriageQuestionsScreen.tsx": {
-    "mtime": 1784389588.3444674,
-    "ast_hash": "5b8e5d20bd5ad68aa8febba1b1c7a386",
+    "mtime": 1784564852.8247793,
+    "ast_hash": "29a4da78fe01b42af6a7f707e891cba4",
     "semantic_hash": ""
   },
   "apps/backoffice/src/types/common.ts": {
@@ -705,8 +705,8 @@
     "semantic_hash": ""
   },
   "apps/backoffice/src/screens/QuestionCrudScreen.tsx": {
-    "mtime": 1784389569.9689598,
-    "ast_hash": "b7095330df15c227d41243b853139bfb",
+    "mtime": 1784564842.7526202,
+    "ast_hash": "5b8bae406cf22f6e8994668620b08eef",
     "semantic_hash": ""
   },
   "supabase/functions/admin-create-user/index.ts": {
