@@ -455,14 +455,14 @@
     "semantic_hash": "4b12fe639950d2be343d9bf7797a1cd1"
   },
   "apps/backoffice/public/favicon.svg": {
-    "mtime": 1784383197.8319035,
-    "ast_hash": "7e840862161341271697daa99a40d76b",
-    "semantic_hash": "7e840862161341271697daa99a40d76b"
+    "mtime": 1784209989.2044914,
+    "ast_hash": "2c30c8c255a6d4af7ef282720ddeed86",
+    "semantic_hash": ""
   },
   "apps/backoffice/public/icons.svg": {
-    "mtime": 1784383197.8514411,
-    "ast_hash": "3b4fcfcf393eca4d264dca4a4663bc37",
-    "semantic_hash": "3b4fcfcf393eca4d264dca4a4663bc37"
+    "mtime": 1784209989.2044914,
+    "ast_hash": "2c30c8c255a6d4af7ef282720ddeed86",
+    "semantic_hash": ""
   },
   "apps/backoffice/public/logo.svg": {
     "mtime": 1784216446.1867995,
