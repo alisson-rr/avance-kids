@@ -58,10 +58,16 @@ const columns: DataTableColumn<Pergunta>[] = [
     key: 'skill',
     header: 'Habilidade',
     render: (row) => <Badge color={getSkill(row.skillKey).corHex}>{getSkill(row.skillKey).label}</Badge>,
+    sortValue: (row) => getSkill(row.skillKey).label,
   },
-  { key: 'faixa', header: 'Faixa Etária', render: (row) => getAgeBracket(row.ageBracketCode).label },
-  { key: 'texto', header: 'Pergunta', render: (row) => row.texto },
-  { key: 'ordem', header: 'Ordem', width: '80px', render: (row) => row.ordem },
+  {
+    key: 'faixa',
+    header: 'Faixa Etária',
+    render: (row) => getAgeBracket(row.ageBracketCode).label,
+    sortValue: (row) => row.ageBracketCode,
+  },
+  { key: 'texto', header: 'Pergunta', render: (row) => row.texto, sortValue: (row) => row.texto },
+  { key: 'ordem', header: 'Ordem', width: '80px', render: (row) => row.ordem, sortValue: (row) => row.ordem },
   {
     key: 'status',
     header: 'Status',
@@ -70,6 +76,7 @@ const columns: DataTableColumn<Pergunta>[] = [
         {row.status === 'ativo' ? 'Ativo' : 'Arquivado'}
       </Badge>
     ),
+    sortValue: (row) => row.status,
   },
 ];
 

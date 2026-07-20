@@ -71,6 +71,8 @@ export interface Atividade {
   skillKey: HabilidadeKey;
   ageBracketCode: AgeBracketCode;
   nivel: ExerciseLevel;
+  /** Sequência de liberação dentro da mesma habilidade/faixa/nível. */
+  ordem: number;
   plano: AccessPlan;
   status: AtividadeStatus;
   objetivo: string;

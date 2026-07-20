@@ -31,7 +31,7 @@ export async function listChildren(): Promise<ChildRow[]> {
   const { data, error } = await supabase
     .from('children')
     .select('*')
-    .order('created_at', { ascending: true });
+    .order('created_at', { ascending: false });
   if (error) throw new Error(error.message);
   return data ?? [];
 }

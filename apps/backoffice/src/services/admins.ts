@@ -15,7 +15,7 @@ export async function fetchAdmins(): Promise<AdminUser[]> {
   const { data, error } = await supabase
     .from('admin_users')
     .select('id, nome, email, role, status')
-    .order('created_at', { ascending: true });
+    .order('created_at', { ascending: false });
   if (error) throw new Error(error.message);
   return (data ?? []) as AdminRow[];
 }

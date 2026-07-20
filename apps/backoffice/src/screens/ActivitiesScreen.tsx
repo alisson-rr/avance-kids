@@ -38,6 +38,7 @@ function emptyAtividade(): Atividade {
     skillKey: SKILLS[0].key,
     ageBracketCode: AGE_BRACKETS[0].code,
     nivel: 'aquisicao',
+    ordem: 1,
     plano: 'free',
     status: 'ativo',
     objetivo: '',
@@ -81,6 +82,16 @@ export function ActivitiesScreen() {
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [listError, setListError] = useState<string | null>(null);
+  const [nivelFilter, setNivelFilter] = useState('');
+  const [faixaFilter, setFaixaFilter] = useState('');
+  const [planoFilter, setPlanoFilter] = useState('');
+
+  const filteredRows = list.filteredRows.filter(
+    (row) =>
+      (!nivelFilter || row.nivel === nivelFilter) &&
+      (!faixaFilter || row.ageBracketCode === faixaFilter) &&
+      (!planoFilter || row.plano === planoFilter)
+  );
 
   function updateField<K extends keyof Atividade>(key: K, value: Atividade[K]) {
     setFormState((prev) => ({ ...prev, [key]: value }));
@@ -132,18 +143,25 @@ export function ActivitiesScreen() {
   }
 
   const columns: DataTableColumn<Atividade>[] = [
-    { key: 'titulo', header: 'Título', render: (row) => row.titulo },
-    { key: 'codigo', header: 'Código', render: (row) => row.codigo || '—' },
+    { key: 'titulo', header: 'Título', render: (row) => row.titulo, sortValue: (row) => row.titulo },
+    { key: 'codigo', header: 'Código', render: (row) => row.codigo || '—', sortValue: (row) => row.codigo },
     {
       key: 'skill',
       header: 'Habilidade',
       render: (row) => <Badge color={getSkill(row.skillKey).corHex}>{getSkill(row.skillKey).label}</Badge>,
+      sortValue: (row) => getSkill(row.skillKey).label,
     },
-    { key: 'faixa', header: 'Faixa Etária', render: (row) => getAgeBracket(row.ageBracketCode).label },
+    {
+      key: 'faixa',
+      header: 'Faixa Etária',
+      render: (row) => getAgeBracket(row.ageBracketCode).label,
+      sortValue: (row) => row.ageBracketCode,
+    },
     {
       key: 'nivel',
       header: 'Nível',
       render: (row) => EXERCISE_LEVELS.find((l) => l.value === row.nivel)?.label ?? row.nivel,
+      sortValue: (row) => EXERCISE_LEVELS.findIndex((l) => l.value === row.nivel),
     },
     {
       key: 'plano',
@@ -153,7 +171,9 @@ export function ActivitiesScreen() {
           {row.plano === 'premium' ? 'Premium' : 'Gratuito'}
         </Badge>
       ),
+      sortValue: (row) => row.plano,
     },
+    { key: 'ordem', header: 'Ordem', width: '80px', render: (row) => row.ordem, sortValue: (row) => row.ordem },
     {
       key: 'status',
       header: 'Status',
@@ -162,6 +182,7 @@ export function ActivitiesScreen() {
           {row.status === 'ativo' ? 'Ativo' : 'Arquivado'}
         </Badge>
       ),
+      sortValue: (row) => row.status,
     },
     {
       key: 'actions',
@@ -201,7 +222,7 @@ export function ActivitiesScreen() {
 
           <DataTable
             columns={columns}
-            rows={list.filteredRows}
+            rows={filteredRows}
             getRowId={(row) => row.id}
             searchValue={list.searchTerm}
             onSearchChange={list.setSearchTerm}
@@ -209,6 +230,30 @@ export function ActivitiesScreen() {
             emptyMessage={loading ? 'Carregando...' : 'Nenhuma atividade encontrada.'}
             toolbarExtra={
               <div className={styles.filterRow}>
+                <div className={styles.filterItem}>
+                  <Select
+                    value={nivelFilter}
+                    onChange={setNivelFilter}
+                    options={[{ value: '', label: 'Todos os Níveis' }, ...EXERCISE_LEVELS]}
+                  />
+                </div>
+                <div className={styles.filterItem}>
+                  <Select
+                    value={faixaFilter}
+                    onChange={setFaixaFilter}
+                    options={[
+                      { value: '', label: 'Todas as Faixas' },
+                      ...AGE_BRACKETS.map((a) => ({ value: a.code, label: `${a.code} · ${a.label}` })),
+                    ]}
+                  />
+                </div>
+                <div className={styles.filterItem}>
+                  <Select
+                    value={planoFilter}
+                    onChange={setPlanoFilter}
+                    options={[{ value: '', label: 'Todos os Planos' }, ...ACCESS_PLANS]}
+                  />
+                </div>
                 <div className={styles.filterItem}>
                   <Select
                     value={list.statusFilter}
@@ -322,6 +367,18 @@ export function ActivitiesScreen() {
                       value={formState.plano}
                       onChange={(v) => updateField('plano', v as AccessPlan)}
                       options={ACCESS_PLANS}
+                    />
+                  </FormField>
+
+                  <FormField
+                    label="Ordem de Exibição"
+                    hint="Define a sequência em que a atividade é liberada para a criança dentro da mesma habilidade, faixa e nível."
+                  >
+                    <input
+                      type="number"
+                      min={1}
+                      value={formState.ordem}
+                      onChange={(e) => updateField('ordem', Number(e.target.value))}
                     />
                   </FormField>
 
