@@ -424,11 +424,6 @@
     "ast_hash": "2c30c8c255a6d4af7ef282720ddeed86",
     "semantic_hash": "2c30c8c255a6d4af7ef282720ddeed86"
   },
-  "AvanceKids-DOCUMENTACAO/Imagens e logo/Logo.svg": {
-    "mtime": 1784209989.3204834,
-    "ast_hash": "02cd92bea8b603d731eec5bcfccf8c61",
-    "semantic_hash": "02cd92bea8b603d731eec5bcfccf8c61"
-  },
   "AvanceKids-DOCUMENTACAO/Imagens e logo/Social.png": {
     "mtime": 1784215330.9147394,
     "ast_hash": "bf04700dcaa317749ff2eb93c8715aa9",
@@ -907,6 +902,11 @@
   "apps/backoffice/vercel.json": {
     "mtime": 1784575669.8572447,
     "ast_hash": "61bd31a2b0ac08f10f13c932b32d6ca1",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/Imagens e logo/Logo-nome.svg": {
+    "mtime": 1784209989.3204834,
+    "ast_hash": "02cd92bea8b603d731eec5bcfccf8c61",
     "semantic_hash": ""
   }
 }
