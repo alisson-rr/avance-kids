@@ -15,13 +15,17 @@ Escopo: `apps/mobile/src/**` + `apps/mobile/App.tsx`. Nada em `supabase/**`, mig
 | Achados P0/P1 submetidos a verificação adversarial | 52 |
 | Refutados na verificação (falso-positivo) | 3 |
 | Rebaixados de P1 para P2 na verificação | 30 |
-| **Defeitos distintos após deduplicação** | **68** |
+| **Defeitos distintos após deduplicação** | **73** |
 | P0 | 0 |
-| P1 | 16 |
-| P2 | 41 |
-| P3 | 11 |
-| **Corrigidos** | **57** |
+| P1 | 15 (14 corrigidos · 1 pendente) |
+| P2 | 44 (41 corrigidos · 3 pendentes) |
+| P3 | 14 (7 corrigidos · 7 pendentes) |
+| **Corrigidos** | **62** |
 | **Restantes (decisão de produto/design)** | **11** |
+
+Os 221 achados brutos vêm de 11 agentes que auditaram os mesmos arquivos por ângulos diferentes; a
+mesma causa raiz aparecia até 4 vezes (o `SafeAreaView` do `FormScreen`, por exemplo). Os 73 acima
+são as causas distintas depois de agrupar.
 
 Nenhum P0 sobreviveu à verificação: não há tela impossível de usar. Os P1 são quebras visuais reais em
 telas Android de 360dp, sobreposição de controles e um indicador que nunca renderizava.
