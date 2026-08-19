@@ -18,11 +18,26 @@ Definida em [apps/mobile/app.json](../apps/mobile/app.json):
 
 ## Assinatura
 
-Keystore em `apps/mobile/credentials/avancekids-release.keystore` (git-ignorado):
+Keystore em `apps/mobile/credentials/avancekids-release.keystore`:
 
 - alias: `avancekids`
-- senha do store e da chave: `[SENHA REMOVIDA DO HISTORICO]`
+- senha do store e da chave: **fora do repositório** (gerenciador de senhas da equipe)
 - validade: 10.000 dias
+
+> ⚠️ **O keystore de release e a senha dele estavam versionados neste
+> repositório** (commit `77a3f5b`; a senha em texto puro estava nesta seção).
+> `.gitignore` já listava `credentials/` e `*.keystore`, mas a regra não afeta
+> arquivo que já entrou no índice. Esta branch remove o arquivo do índice e
+> apaga a senha daqui — o histórico do git **continua contendo os dois**.
+>
+> Remediação pendente (decisão do responsável pelo repositório, não aplicada
+> aqui por ser irreversível):
+> 1. **Gerar um keystore novo.** O app ainda não foi publicado, então trocar a
+>    chave agora custa zero. Depois da primeira publicação na Play Store a
+>    troca só é possível com Play App Signing.
+> 2. Purgar o arquivo e a senha do histórico (`git filter-repo`) ou tratar o
+>    repositório inteiro como comprometido para esse segredo.
+> 3. Guardar o novo keystore e a senha fora do git.
 
 > **Guarde um backup deste arquivo fora do repositório.** Perder o keystore
 > significa não conseguir mais publicar atualizações do app na Play Store sob o
