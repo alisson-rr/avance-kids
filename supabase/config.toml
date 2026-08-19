@@ -507,3 +507,16 @@ entrypoint = "./functions/create-checkout-session/index.ts"
 # Specifies static files to be bundled with the function. Supports glob patterns.
 # For example, if you want to serve static HTML pages in your function:
 # static_files = [ "./functions/create-checkout-session/*.html" ]
+
+# Funcoes novas (migration-06/07): verify_jwt = true porque as duas exigem
+# usuario logado sempre. O gateway ja recusa chamada sem JWT valido, e o codigo
+# ainda revalida com getUser() — o token anon tambem passa pelo gateway.
+[functions.accept-terms]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/accept-terms/index.ts"
+
+[functions.delete-account]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/delete-account/index.ts"
