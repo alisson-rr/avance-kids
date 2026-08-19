@@ -7,10 +7,19 @@
 # prelúdio que recria o mínimo que o Supabase fornece (auth.users, auth.uid(),
 # storage.*, roles). É o suficiente para validar DDL, RLS, funções e os seeds.
 #
-# Uso:  bash scripts/validate_migrations.sh
+# Uso:  bash scripts/validate_migrations.sh            # banco do zero
+#       bash scripts/validate_migrations.sh upgrade    # banco já em uso
+#
+# No modo `upgrade` as migrations até a 08 são aplicadas, o banco recebe uma
+# carga que simula produção (scripts/seed_banco_existente.sql) e só então
+# entram a 09 e a 10 — é o cenário em que a 09 troca FKs de tabelas com dados.
+#
 # Requer: docker.
 
 set -euo pipefail
+
+MODO="${1:-zero}"
+CORTE="20260819130000_migration-09_integridade_multi_tenant.sql"
 
 CONTAINER="avance-kids-migration-check-$$"
 IMAGE="postgres:17-alpine"
@@ -79,12 +88,49 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public
 GRANT USAGE ON SCHEMA public, auth, storage TO anon, authenticated, service_role;
 SQL
 
-echo "==> aplicando migrations"
+echo "==> aplicando migrations (modo: $MODO)"
 for arquivo in "$RAIZ"/supabase/migrations/*.sql; do
-  printf '    %s ... ' "$(basename "$arquivo")"
+  base="$(basename "$arquivo")"
+  if [ "$MODO" = "upgrade" ] && [ "$base" = "$CORTE" ]; then
+    echo "    -- carga de banco em uso, antes da 09 --"
+    psql_exec < "$RAIZ/scripts/seed_banco_existente.sql"
+  fi
+  printf '    %s ... ' "$base"
   psql_exec < "$arquivo"
   echo "ok"
 done
+
+if [ "$MODO" = "upgrade" ]; then
+  echo "==> conferindo que os dados anteriores sobreviveram"
+  psql_exec <<'SQL'
+DO $$
+DECLARE v_int INTEGER;
+BEGIN
+  SELECT count(*) INTO v_int FROM exercise_attempts
+   WHERE session_id = '9e9e9e9e-0000-0000-0000-00000000b001';
+  IF v_int <> 10 THEN RAISE EXCEPTION 'tentativas anteriores sumiram (achei %)', v_int; END IF;
+
+  SELECT count(*) INTO v_int FROM exercise_sessions
+   WHERE plan_id = '9e9e9e9e-0000-0000-0000-00000000a001';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'sessão anterior sumiu'; END IF;
+
+  SELECT count(*) INTO v_int FROM activity_plans
+   WHERE child_id = '9e9e9e9e-0000-0000-0000-00000000c001';
+  IF v_int <> 2 THEN RAISE EXCEPTION 'planos anteriores sumiram (achei %)', v_int; END IF;
+
+  -- As FKs novas passam a valer para os dados que já estavam lá.
+  BEGIN
+    INSERT INTO exercise_attempts (session_id, plan_id, child_id, repeticao_numero, resultado)
+    VALUES ('9e9e9e9e-0000-0000-0000-00000000b001', '9e9e9e9e-0000-0000-0000-00000000a002',
+            '9e9e9e9e-0000-0000-0000-00000000c001', 1, 'sem_ajuda');
+    RAISE EXCEPTION 'FK composta não pegou em linha pré-existente';
+  EXCEPTION WHEN foreign_key_violation THEN NULL;
+  END;
+
+  RAISE NOTICE 'upgrade: dados anteriores intactos e constraints ativas';
+END $$;
+SQL
+fi
 
 echo "==> conferências"
 psql_exec <<'SQL'
