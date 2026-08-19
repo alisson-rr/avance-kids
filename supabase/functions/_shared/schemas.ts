@@ -59,13 +59,14 @@ export const StartSessionSchema = z.object({
 });
 
 // === Stripe ===
-// O cliente escolhe o plano, nunca o price_id nem as URLs de retorno: senão
-// qualquer token válido conseguiria assinar por um preço de teste ou mandar o
-// checkout redirecionar para fora do app.
-export const CheckoutPlanEnum = z.enum(["monthly", "annual"]);
-
+// O cliente nunca manda price_id nem URL de retorno: senão qualquer token
+// válido conseguiria assinar por um preço de teste ou mandar o checkout
+// redirecionar para fora do app. E como só existe assinatura mensal, `plan`
+// virou opcional — o servidor resolve o preço sozinho. Continua sendo aceito
+// para não quebrar a versão do app que ainda envia o campo; monthlyPriceId()
+// recusa qualquer valor diferente de "monthly".
 export const CreateCheckoutSchema = z.object({
-  plan: CheckoutPlanEnum,
+  plan: z.string().max(20).optional(),
 });
 
 // === Admin ===

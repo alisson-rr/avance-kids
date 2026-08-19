@@ -1,6 +1,6 @@
 import Stripe from "npm:stripe@13.11.0";
 import { CreateCheckoutSchema } from "../_shared/schemas.ts";
-import { priceIdFor, handleBillingError, SUCCESS_URL, CANCEL_URL } from "../_shared/billing.ts";
+import { monthlyPriceId, trialPeriodDays, handleBillingError, SUCCESS_URL, CANCEL_URL } from "../_shared/billing.ts";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
 
@@ -53,20 +53,21 @@ Deno.serve(async (req: Request) => {
     }
 
     // O Stripe não deduplica trial: sem esta checagem daria para assinar,
-    // cancelar dentro dos 7 dias e reabrir o teste indefinidamente. O
+    // cancelar dentro do período de teste e reabrir o teste indefinidamente. O
     // stripe_subscription_id fica gravado mesmo após o cancelamento e é o
     // registro de que esta conta já usou o período de teste.
     const jaUsouTeste = Boolean(sub?.stripe_subscription_id);
+    const trialDays = trialPeriodDays();
 
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       mode: "subscription",
       payment_method_types: ["card"],
-      line_items: [{ price: priceIdFor(plan), quantity: 1 }],
+      line_items: [{ price: monthlyPriceId(plan), quantity: 1 }],
       success_url: SUCCESS_URL,
       cancel_url: CANCEL_URL,
       subscription_data: {
-        ...(jaUsouTeste ? {} : { trial_period_days: 7 }),
+        ...(jaUsouTeste || trialDays === 0 ? {} : { trial_period_days: trialDays }),
         metadata: { user_id: user.id },
       },
       metadata: { user_id: user.id },
