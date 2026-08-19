@@ -125,9 +125,43 @@ BEGIN
   SELECT count(DISTINCT codigo) INTO v_int FROM exercises WHERE status = 'ativo';
   IF v_int <> 126 THEN RAISE EXCEPTION 'códigos oficiais: esperava 126, achei %', v_int; END IF;
 
-  -- Nenhum código de triagem AT foi importado.
+  -- migration-10: os 24 códigos AT existem, mas fora de `exercises`.
   SELECT count(*) INTO v_int FROM exercises WHERE codigo ~ '^F0[1-6]AT\d{3}$';
-  IF v_int <> 0 THEN RAISE EXCEPTION 'códigos AT não deveriam ter sido importados (achei %)', v_int; END IF;
+  IF v_int <> 0 THEN RAISE EXCEPTION 'códigos AT não podem estar em exercises (achei %)', v_int; END IF;
+
+  SELECT count(*) INTO v_int FROM screening_programs;
+  IF v_int <> 72 THEN RAISE EXCEPTION 'screening_programs: esperava 72 linhas, achei %', v_int; END IF;
+
+  SELECT count(DISTINCT codigo) INTO v_int FROM screening_programs;
+  IF v_int <> 24 THEN RAISE EXCEPTION 'screening_programs: esperava 24 códigos, achei %', v_int; END IF;
+
+  SELECT count(*) INTO v_int FROM (
+    SELECT codigo FROM screening_programs GROUP BY codigo HAVING count(DISTINCT nivel) <> 3
+  ) q;
+  IF v_int <> 0 THEN RAISE EXCEPTION '% códigos AT sem os 3 níveis', v_int; END IF;
+
+  -- Total do material oficial: 450 registros / 150 códigos (378+72 e 126+24).
+  SELECT (SELECT count(*) FROM exercises WHERE status = 'ativo')
+       + (SELECT count(*) FROM screening_programs) INTO v_int;
+  IF v_int <> 450 THEN RAISE EXCEPTION 'total oficial: esperava 450 registros, achei %', v_int; END IF;
+
+  SELECT (SELECT count(DISTINCT codigo) FROM exercises WHERE status = 'ativo')
+       + (SELECT count(DISTINCT codigo) FROM screening_programs) INTO v_int;
+  IF v_int <> 150 THEN RAISE EXCEPTION 'total oficial: esperava 150 códigos, achei %', v_int; END IF;
+
+  -- screening_programs não pode ganhar vínculo com habilidade nem com plano
+  -- enquanto a regra de utilização estiver pendente da cliente.
+  SELECT count(*) INTO v_int FROM information_schema.columns
+   WHERE table_name = 'screening_programs' AND column_name IN ('skill_id', 'plano');
+  IF v_int <> 0 THEN
+    RAISE EXCEPTION 'screening_programs não pode ter skill_id/plano antes da definição da cliente';
+  END IF;
+
+  -- migration-09: a cadeia plano→sessão→tentativa é fechada por FK composta.
+  SELECT count(*) INTO v_int FROM pg_constraint
+   WHERE conname IN ('exercise_sessions_plan_child_fkey', 'exercise_attempts_session_plan_child_fkey')
+     AND contype = 'f' AND cardinality(conkey) >= 2;
+  IF v_int <> 2 THEN RAISE EXCEPTION 'FKs compostas de migration-09 ausentes (achei %)', v_int; END IF;
 
   -- Cada código oficial tem exatamente 3 níveis.
   SELECT count(*) INTO v_int FROM (

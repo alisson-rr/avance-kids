@@ -8,7 +8,8 @@ Fonte:
 
 Uso:
     python scripts/import_programas.py --check                 # só valida
-    python scripts/import_programas.py --out supabase/migrations/<arquivo>.sql
+    python scripts/import_programas.py --out supabase/migrations/<checklist>.sql
+    python scripts/import_programas.py --out-triagem supabase/migrations/<triagem>.sql
     python scripts/import_programas.py --self-check            # testes do próprio script
 
 O script falha (exit != 0) em qualquer inconsistência: código fora do padrão,
@@ -24,15 +25,22 @@ Decisões de mapeamento (todas explícitas aqui, nenhuma no SQL gerado):
     Confere com o agrupamento do checklist no documento oficial
     ("2026.08.18_Logica App para exercícios.docx").
 
-  * AT (F01AT001..F06AT004) NÃO é importado. São os "Programas Básicos de
-    Engajamento" da Triagem Inicial, um fluxo de pré-requisitos separado do
-    checklist. Duas coisas dependem de decisão da cliente e não podem ser
-    inventadas aqui:
-        - a regra que dispara esses programas ("marcar NÃO para 2 ou mais itens");
-        - a habilidade a que cada um pertence — a coluna Função não resolve,
-          porque "Atenção conjunta" aparece tanto em AC (comunicação) quanto
-          em AG (cognitiva) no próprio arquivo.
-    O script conta e reporta essas linhas para que fiquem registradas.
+  * AT (F01AT001..F06AT004) é importado, mas para `screening_programs`, não
+    para `exercises`. São os "Programas Básicos de Engajamento" da Triagem
+    Inicial e têm as mesmas 17 colunas preenchidas dos demais — é conteúdo
+    completo, então guardar é obrigação, não decisão.
+
+    O que NÃO cabe em `exercises`: a tabela exige `skill_id NOT NULL
+    REFERENCES skills(id)` e só existem 5 habilidades (comunicacao, social,
+    cognitiva, motora, funcional), espelhadas em HabilidadeKey no app. Colocar
+    AT ali obrigaria a inventar a habilidade de cada programa — e a coluna
+    Função não resolve, porque "Atenção conjunta" aparece tanto em AC
+    (comunicação) quanto em AG (cognitiva) no próprio arquivo. Além disso,
+    qualquer linha em `exercises` fica elegível para generate-activity-plan.
+
+    `screening_programs` guarda o conteúdo sem skill_id e sem vínculo com
+    plano: os dados existem, a regra de quando usá-los (gatilho da triagem,
+    rebaixamento) continua pendente da cliente.
 
   * `ordem` = número sequencial do código dentro da faixa+habilidade
     (F01AC001 -> 1 ... F01AC005 -> 5), o MESMO valor nos três níveis.
@@ -256,8 +264,10 @@ def resumo(checklist: list[dict], triagem: list[dict]) -> str:
     linhas.append(f"  por faixa:      {dict(sorted(por_faixa.items()))}")
     linhas.append(f"  por habilidade: {dict(sorted(por_skill.items()))}")
     linhas.append(f"  por nível:      {dict(sorted(por_nivel.items()))}")
-    linhas.append(f"triagem AT (NÃO importada): {len(triagem)} linhas, "
+    linhas.append(f"triagem AT -> screening_programs: {len(triagem)} linhas, "
                   f"{len({i['codigo'] for i in triagem})} códigos")
+    linhas.append(f"TOTAL: {len(checklist) + len(triagem)} linhas, "
+                  f"{len({i['codigo'] for i in checklist + triagem})} códigos")
     return "\n".join(linhas)
 
 
@@ -315,10 +325,11 @@ def gerar_sql(checklist: list[dict], triagem: list[dict], fonte: Path) -> str:
 -- O que esta migration NÃO faz:
 --   * não altera generate-activity-plan, check_exercise_completion,
 --     resolve_age_bracket nem qualquer regra de recomendação/progressão;
---   * não importa os {len(codigos_at)} códigos de triagem AT
+--   * não coloca em `exercises` os {len(codigos_at)} códigos de triagem AT
 --     ({primeiro_at}..{ultimo_at}) — são os Programas Básicos de
---     Engajamento, cuja regra de disparo e cuja habilidade estão pendentes
---     de definição da cliente;
+--     Engajamento e vão para `screening_programs` na migration-10, sem
+--     habilidade e sem vínculo com plano: o conteúdo existe, a regra de
+--     disparo continua pendente de definição da cliente;
 --   * não marca nenhuma atividade como premium (todas entram como 'free',
 --     igual ao seed anterior).
 --
@@ -406,6 +417,175 @@ END $$;
 """
 
 
+CAMPOS_SQL_TRIAGEM = [
+    "faixa", "codigo", "titulo", "nivel", "ordem",
+    "programa_aba", "funcao", "objetivo", "procedimento", "materiais",
+    "recursos_extras", "frequencia", "brincadeiras", "hierarquia_dicas",
+    "resposta_esperada", "procedimento_correcao", "criterio_avanco",
+    "registro_dados", "reforcos",
+]
+
+
+def gerar_sql_triagem(triagem: list[dict], fonte: Path) -> str:
+    """Migration dos Programas Básicos de Engajamento (códigos AT).
+
+    Tabela própria de propósito: ver a nota sobre AT no topo do arquivo.
+    """
+    ordem_nivel = {"aquisicao": 0, "generalizacao": 1, "manutencao": 2}
+    linhas = sorted(triagem, key=lambda i: (i["faixa"], i["ordem"], ordem_nivel[i["nivel"]]))
+
+    valores = []
+    for item in linhas:
+        campos = []
+        for campo in CAMPOS_SQL_TRIAGEM:
+            valor = item[campo]
+            campos.append(str(valor) if campo == "ordem" else sql_literal(valor))
+        valores.append("    (" + ", ".join(campos) + ")")
+
+    codigos = sorted({i["codigo"] for i in linhas})
+    total_linhas = len(linhas)
+    total_codigos = len(codigos)
+
+    return f"""-- ============================================================
+-- migration-10: Programas Básicos de Engajamento (códigos AT)
+--
+-- GERADO POR scripts/import_programas.py — NÃO EDITAR À MÃO.
+-- Fonte: {fonte.as_posix()}
+--        (aba "{ABA}", mesmas 17 colunas dos demais programas)
+--
+-- POR QUE UMA TABELA SEPARADA E NÃO `exercises`
+--
+-- Os {total_codigos} códigos AT ({codigos[0]}..{codigos[-1]}) têm as 17 colunas
+-- preenchidas, exatamente como os {ESPERADO['codigos'] - total_codigos} códigos do
+-- checklist: são programas completos e precisam existir no banco.
+--
+-- Só que `exercises.skill_id` é NOT NULL REFERENCES skills(id) e o catálogo
+-- tem exatamente 5 habilidades (baseline.sql:877 — comunicacao, social,
+-- cognitiva, motora, funcional), espelhadas em HabilidadeKey no app. Inserir
+-- AT ali exigiria decidir a habilidade de cada programa, e a coluna "Função"
+-- não resolve: "Atenção conjunta" aparece tanto em AC quanto em AG na própria
+-- planilha. Pior: toda linha de `exercises` é elegível para
+-- generate-activity-plan, então o conteúdo entraria no plano da criança sem
+-- que a regra de disparo estivesse definida.
+--
+-- Esta tabela guarda o conteúdo SEM skill_id, SEM `plano` e SEM qualquer
+-- vínculo com activity_plans. Consequência: os dados passam a existir e podem
+-- ser revisados no backoffice; a decisão de QUANDO usá-los (gatilho da
+-- Triagem Inicial, rebaixamento de faixa) continua pendente da cliente e não
+-- é antecipada por nenhuma linha deste arquivo.
+--
+-- Quando a regra for definida, o vínculo com a habilidade e com o plano entra
+-- em uma migration nova; nada aqui precisa ser reescrito.
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS screening_programs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  codigo TEXT NOT NULL,
+  age_bracket_id UUID NOT NULL REFERENCES age_brackets(id),
+  titulo TEXT NOT NULL,
+  nivel exercise_level NOT NULL,
+  ordem INTEGER NOT NULL,
+
+  -- Mesmas colunas de conteúdo de `exercises`, na mesma ordem da planilha.
+  programa_aba TEXT,
+  funcao TEXT,
+  objetivo TEXT,
+  procedimento TEXT,
+  materiais TEXT,
+  recursos_extras TEXT,
+  frequencia TEXT,
+  brincadeiras TEXT,
+  hierarquia_dicas TEXT,
+  resposta_esperada TEXT,
+  procedimento_correcao TEXT,
+  criterio_avanco TEXT,
+  registro_dados TEXT,
+  reforcos TEXT,
+
+  status record_status NOT NULL DEFAULT 'ativo',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+  CONSTRAINT uq_screening_programs_codigo_nivel UNIQUE (codigo, nivel)
+);
+
+COMMENT ON TABLE screening_programs IS
+  'Programas Básicos de Engajamento (códigos AT) da planilha oficial. Conteúdo armazenado sem habilidade e sem vínculo com plano: a regra de utilização depende de definição da cliente.';
+COMMENT ON COLUMN screening_programs.ordem IS
+  'Sequência do código dentro da faixa (F01AT001 -> 1). Mesmo valor nos três níveis.';
+
+CREATE INDEX IF NOT EXISTS idx_screening_programs_faixa
+  ON screening_programs (age_bracket_id, ordem, nivel);
+
+DROP TRIGGER IF EXISTS trg_screening_programs_updated_at ON screening_programs;
+CREATE TRIGGER trg_screening_programs_updated_at
+  BEFORE UPDATE ON screening_programs
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
+-- RLS: só admin, por enquanto. O app não tem tela para este conteúdo porque
+-- não há regra de quando exibi-lo; abrir a leitura para `authenticated` antes
+-- disso entregaria conteúdo sem contexto. A policy de leitura do app entra
+-- junto com a regra.
+ALTER TABLE screening_programs ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Admins manage screening programs"
+  ON screening_programs FOR ALL
+  TO authenticated
+  USING (is_admin())
+  WITH CHECK (is_admin());
+
+-- ── Conteúdo oficial ────────────────────────────────────────
+WITH triagem(
+  faixa_codigo, codigo, titulo, nivel, ordem,
+  programa_aba, funcao, objetivo, procedimento, materiais,
+  recursos_extras, frequencia, brincadeiras, hierarquia_dicas,
+  resposta_esperada, procedimento_correcao, criterio_avanco,
+  registro_dados, reforcos
+) AS (
+  VALUES
+{",\n".join(valores)}
+)
+INSERT INTO screening_programs (
+  codigo, age_bracket_id, titulo, nivel, ordem,
+  programa_aba, funcao, objetivo, procedimento, materiais, recursos_extras,
+  frequencia, brincadeiras, hierarquia_dicas, resposta_esperada,
+  procedimento_correcao, criterio_avanco, registro_dados, reforcos
+)
+SELECT
+  t.codigo,
+  b.id,
+  t.titulo,
+  t.nivel::exercise_level,
+  t.ordem,
+  t.programa_aba, t.funcao, t.objetivo, t.procedimento, t.materiais,
+  t.recursos_extras, t.frequencia, t.brincadeiras, t.hierarquia_dicas,
+  t.resposta_esperada, t.procedimento_correcao, t.criterio_avanco,
+  t.registro_dados, t.reforcos
+FROM triagem t
+JOIN age_brackets b ON b.codigo = t.faixa_codigo
+ON CONFLICT (codigo, nivel) DO NOTHING;
+
+-- ── Conferência ─────────────────────────────────────────────
+DO $$
+DECLARE
+  v_total INTEGER;
+  v_vinculo INTEGER;
+BEGIN
+  SELECT count(*) INTO v_total FROM screening_programs;
+  IF v_total <> {total_linhas} THEN
+    RAISE EXCEPTION 'esperava {total_linhas} programas de triagem, encontrei %', v_total;
+  END IF;
+
+  -- Nenhum código AT pode ter vazado para `exercises`: é lá que
+  -- generate-activity-plan procura conteúdo para a criança.
+  SELECT count(*) INTO v_vinculo FROM exercises WHERE codigo ~ '^F0[1-6]AT[0-9]{{3}}$';
+  IF v_vinculo <> 0 THEN
+    RAISE EXCEPTION 'códigos AT não podem estar em exercises (achei %)', v_vinculo;
+  END IF;
+END $$;
+"""
+
+
 def self_check() -> None:
     """Checagem executável do script, sem tocar na planilha."""
     assert normalizar_nivel("Aquisição") == "aquisicao"
@@ -466,6 +646,18 @@ def self_check() -> None:
     checklist, triagem, _ = validar([linha("F01AT001", n) for n in niveis])
     assert checklist == [] and len(triagem) == 3, (checklist, triagem)
 
+    # O SQL da triagem grava em screening_programs e nao pode carregar
+    # habilidade nem tocar no plano da crianca — e o que mantem a decisao
+    # pedagogica em aberto.
+    sql_triagem = gerar_sql_triagem(triagem, Path("planilha.xlsx"))
+    assert "INSERT INTO screening_programs" in sql_triagem
+    # Comentario explica por que skill_id nao cabe; o SQL executavel nao
+    # pode conter nem a coluna nem o vinculo com o plano.
+    executavel = "".join(l for l in sql_triagem.splitlines(True) if not l.lstrip().startswith("--"))
+    assert "skill_id" not in executavel, "triagem nao pode carregar habilidade"
+    assert "activity_plans" not in executavel, "triagem nao pode tocar o plano"
+    assert sql_triagem.count("\n    (") == 3, "esperava 3 linhas de VALUES"
+
     # Categoria -> habilidade.
     checklist, _, _ = validar([linha("F03AG002", "Aquisição")])
     assert checklist[0]["skill_key"] == "cognitiva"
@@ -478,7 +670,8 @@ def self_check() -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--fonte", default=FONTE_PADRAO, help="caminho do .xlsx oficial")
-    parser.add_argument("--out", help="arquivo .sql de saída")
+    parser.add_argument("--out", help="arquivo .sql do checklist (exercises)")
+    parser.add_argument("--out-triagem", help="arquivo .sql dos programas AT (screening_programs)")
     parser.add_argument("--check", action="store_true", help="apenas valida e resume")
     parser.add_argument("--self-check", action="store_true", help="roda os testes do script")
     args = parser.parse_args()
@@ -510,13 +703,19 @@ def main() -> int:
 
     print("\nvalidação: OK")
 
-    if args.check or not args.out:
+    if args.check or not (args.out or args.out_triagem):
         return 0
 
-    destino = Path(args.out)
-    destino.parent.mkdir(parents=True, exist_ok=True)
-    destino.write_text(gerar_sql(checklist, triagem, fonte), encoding="utf-8", newline="\n")
-    print(f"gerado: {destino} ({destino.stat().st_size} bytes)")
+    def escrever(caminho: str, conteudo: str) -> None:
+        destino = Path(caminho)
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_text(conteudo, encoding="utf-8", newline="\n")
+        print(f"gerado: {destino} ({destino.stat().st_size} bytes)")
+
+    if args.out:
+        escrever(args.out, gerar_sql(checklist, triagem, fonte))
+    if args.out_triagem:
+        escrever(args.out_triagem, gerar_sql_triagem(triagem, fonte))
     return 0
 
 

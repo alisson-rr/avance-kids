@@ -15,10 +15,11 @@
 -- O que esta migration NÃO faz:
 --   * não altera generate-activity-plan, check_exercise_completion,
 --     resolve_age_bracket nem qualquer regra de recomendação/progressão;
---   * não importa os 24 códigos de triagem AT
+--   * não coloca em `exercises` os 24 códigos de triagem AT
 --     (F01AT001..F06AT004) — são os Programas Básicos de
---     Engajamento, cuja regra de disparo e cuja habilidade estão pendentes
---     de definição da cliente;
+--     Engajamento e vão para `screening_programs` na migration-10, sem
+--     habilidade e sem vínculo com plano: o conteúdo existe, a regra de
+--     disparo continua pendente de definição da cliente;
 --   * não marca nenhuma atividade como premium (todas entram como 'free',
 --     igual ao seed anterior).
 --
