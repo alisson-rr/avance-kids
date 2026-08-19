@@ -1,0 +1,8 @@
+-- Seed local do `supabase db reset`.
+--
+-- Existe porque supabase/config.toml aponta `db.seed.sql_paths = ["./seed.sql"]`
+-- e o arquivo estava faltando no repositório, o que fazia o reset falhar.
+--
+-- Todo o conteúdo do produto vem por migration (baseline + migration-03 +
+-- migration-08). Este arquivo é só para dados de teste locais, que não devem
+-- ser versionados com valores reais.
