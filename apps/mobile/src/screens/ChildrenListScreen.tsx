@@ -28,7 +28,7 @@ export function ChildrenListScreen({ navigation }: any) {
           )}
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.nameText}>{item.name}</Text>
+          <Text style={styles.nameText} numberOfLines={2}>{item.name}</Text>
           <Text style={styles.dateText}>{fromIsoDate(item.birthDate)}</Text>
         </View>
         <View style={styles.actionsContainer}>
@@ -61,6 +61,14 @@ export function ChildrenListScreen({ navigation }: any) {
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => <View style={styles.scrollSpacer} />}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyTitle}>Nenhuma criança cadastrada</Text>
+            <Text style={styles.emptyText}>
+              Cadastre uma criança para gerar a avaliação e o plano de atividades.
+            </Text>
+          </View>
+        )}
         ListFooterComponent={() => (
           <TouchableOpacity
             style={styles.addButton}
@@ -93,13 +101,32 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingBottom: 40,
   },
+  emptyState: {
+    alignItems: 'center',
+    gap: 8,
+    paddingVertical: 32,
+  },
+  emptyTitle: {
+    fontFamily: theme.fonts.mulishBold,
+    fontSize: 16,
+    lineHeight: 22,
+    color: theme.colors.textDark,
+    textAlign: 'center',
+  },
+  emptyText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 14,
+    lineHeight: 20,
+    color: theme.colors.textHint,
+    textAlign: 'center',
+  },
   addButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colors.primary,
     borderRadius: 50,
-    paddingVertical: 12,
+    height: 48,
     marginBottom: 24,
   },
   addButtonText: {

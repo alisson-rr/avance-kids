@@ -3,6 +3,9 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { theme } from '../theme';
 import { getSkillColor } from '../data/habilidades';
 
+/** Cinza do card bloqueado: #AAAAAA dava 2.3:1 sobre branco (ilegivel). */
+const LOCKED_TEXT = '#6B6B6B';
+
 interface SkillActivityCardProps {
   skill: string;
   title: string;
@@ -42,12 +45,12 @@ export function SkillActivityCard({
         accessibilityState={{ disabled: !onPress }}
       >
         <View style={[styles.tagBadge, { backgroundColor: '#F1F1F1', alignSelf: 'flex-start' }]}>
-          <Text style={[styles.tagText, { color: '#AAAAAA' }]}>{skill}</Text>
+          <Text style={[styles.tagText, { color: LOCKED_TEXT }]} numberOfLines={1}>{skill}</Text>
         </View>
         <View style={styles.lockedRow}>
           <View style={styles.cardTextArea}>
-            <Text style={[styles.cardTitle, { color: '#AAAAAA' }]}>{title}</Text>
-            <Text style={[styles.cardDescription, { color: '#AAAAAA' }]} numberOfLines={2}>{description}</Text>
+            <Text style={[styles.cardTitle, { color: LOCKED_TEXT }]}>{title}</Text>
+            <Text style={[styles.cardDescription, { color: LOCKED_TEXT }]} numberOfLines={2}>{description}</Text>
           </View>
           <Text style={styles.lockIcon}>🔒</Text>
         </View>
@@ -62,7 +65,7 @@ export function SkillActivityCard({
       {/* Top row: tag + progress */}
       <View style={styles.cardTopRow}>
         <View style={[styles.tagBadge, { backgroundColor: color.bg }]}>
-          <Text style={[styles.tagText, { color: color.text }]}>{skill}</Text>
+          <Text style={[styles.tagText, { color: color.text }]} numberOfLines={1}>{skill}</Text>
         </View>
         {progress !== undefined && (
           <View style={[styles.progressRow, compactProgress && styles.progressRowCompact]}>
@@ -115,16 +118,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     height: 20,
     borderRadius: 12,
+    flexShrink: 1,
   },
   tagText: {
     fontFamily: theme.fonts.semiBold,
     fontSize: 12,
     lineHeight: 20,
-    fontWeight: '700',
   },
   progressRow: {
+    // Sem flex:1 aqui a linha "abraça" o conteúdo e o track (flexBasis 0)
+    // fica com 0px de largura — a barra some.
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
     gap: 12,
   },
   progressRowCompact: {
@@ -138,14 +145,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   progressTrackCompact: {
-    flex: 0,
-    width: 60,
+    flexGrow: 0,
+    flexShrink: 0,
+    flexBasis: 60,
   },
   progressFill: {
-    height: 7,
+    height: '100%',
     backgroundColor: '#79A5FF',
     borderRadius: 50,
-    marginTop: -0.5,
   },
   progressText: {
     fontFamily: theme.fonts.medium,
@@ -196,6 +203,6 @@ const styles = StyleSheet.create({
   },
   lockIcon: {
     fontSize: 16,
-    color: '#AAAAAA',
+    color: LOCKED_TEXT,
   },
 });

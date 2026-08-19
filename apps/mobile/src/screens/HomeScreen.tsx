@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Platform, Animated, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, ScrollView, StatusBar } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, CURVE_TOP, CURVE_MAX_HEIGHT } from '../components/CurvedHeader';
@@ -69,6 +70,7 @@ const SectionHeader = ({ title, subtitle }: { title: string; subtitle?: string }
 );
 
 export function HomeScreen({ navigation }: any) {
+  const insets = useSafeAreaInsets();
   const { parentName } = useProfileStore();
   const activeChild = useProfileStore(selectActiveChild);
   const firstName = parentName.split(' ')[0] || 'Usuário';
@@ -142,18 +144,23 @@ export function HomeScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      
+      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+
       {/* 1. Curved Background Extension (zIndex 0 - Behind ScrollView) */}
       {/* Animates its height to 0 so it morphs seamlessly into the top fixed header */}
       <Animated.View style={[styles.headerCurve, { height: curveHeight }]} />
 
       {/* 2. Top Fixed Header (zIndex 10 - Covers content scrolling under it) */}
       {/* Has rounded corners that are revealed when the curved background shrinks! */}
-      <View style={styles.topFixedHeader}>
+      <View style={[styles.topFixedHeader, { paddingTop: Math.max(insets.top, 24) }]}>
         <View style={styles.topBar}>
-          <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="chevron-back" size={28} color={theme.colors.white} />
-          </TouchableOpacity>
+          {navigation.canGoBack() ? (
+            <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
+              <Ionicons name="chevron-back" size={28} color={theme.colors.white} />
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.iconButton} />
+          )}
           
           <Animated.View style={[styles.compactProfile, { opacity: compactHeaderOpacity }]}>
             <View style={styles.compactAvatarPlaceholder}>
@@ -163,9 +170,9 @@ export function HomeScreen({ navigation }: any) {
                 <Text style={styles.compactAvatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
               )}
             </View>
-            <View>
-              <Text style={styles.compactProfileName}>{activeChild?.name}</Text>
-              <Text style={styles.compactProfileAge}>{childAge}</Text>
+            <View style={styles.compactProfileTexts}>
+              <Text style={styles.compactProfileName} numberOfLines={1}>{activeChild?.name}</Text>
+              <Text style={styles.compactProfileAge} numberOfLines={1}>{childAge}</Text>
             </View>
           </Animated.View>
           
@@ -186,7 +193,10 @@ export function HomeScreen({ navigation }: any) {
         scrollEventThrottle={16}
       >
         <View style={styles.scrollSpacer}>
-           <Animated.Text style={[styles.greeting, { opacity: largeTitleOpacity }]}>
+           <Animated.Text
+             style={[styles.greeting, { opacity: largeTitleOpacity }]}
+             numberOfLines={1}
+           >
              Olá, {firstName}
            </Animated.Text>
         </View>
@@ -198,7 +208,9 @@ export function HomeScreen({ navigation }: any) {
               <View style={styles.mainCardHeader}>
                 <Text style={styles.mainCardTitle}>Plano de atividades atual</Text>
                 <Text style={styles.mainCardSubtitle}>
-                  Cada conquista de {activeChild?.name} é um passo incrível no desenvolvimento!
+                  {activeChild
+                    ? `Cada conquista de ${activeChild.name} é um passo incrível no desenvolvimento!`
+                    : 'Cada conquista é um passo incrível no desenvolvimento!'}
                 </Text>
               </View>
               
@@ -207,11 +219,13 @@ export function HomeScreen({ navigation }: any) {
                   {activeChild?.avatarUrl ? (
                     <Image source={{ uri: activeChild.avatarUrl }} style={styles.avatarImage} />
                   ) : (
-                    <Text style={styles.avatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
+                    <Text style={styles.avatarText}>{activeChild?.name.charAt(0).toUpperCase() ?? '?'}</Text>
                   )}
                 </View>
                 <View style={styles.profileInfo}>
-                  <Text style={styles.profileName}>{activeChild?.name}</Text>
+                  <Text style={styles.profileName} numberOfLines={2}>
+                    {activeChild?.name ?? 'Nenhuma criança selecionada'}
+                  </Text>
                   <Text style={styles.profileAge}>{childAge}</Text>
                 </View>
                 <View style={styles.progressCircle}>
@@ -278,7 +292,7 @@ export function HomeScreen({ navigation }: any) {
               />
             </ScrollView>
             
-            <View style={{ height: 120 }} />
+            <View style={{ height: 24 }} />
           </View>
         </View>
       </Animated.ScrollView>
@@ -307,10 +321,11 @@ const styles = StyleSheet.create({
   },
   topFixedHeader: {
     backgroundColor: '#3678FD',
-    height: HEADER_MIN_HEIGHT,
+    minHeight: HEADER_MIN_HEIGHT,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    paddingTop: Platform.OS === 'ios' ? 50 : 30,
+    // paddingTop entra inline com insets.top: com edge-to-edge o valor fixo
+    // deixava o botao de voltar por baixo do relogio em aparelhos com recorte.
     position: 'absolute',
     top: 0,
     left: 0,
@@ -339,6 +354,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 50, 
+  },
+  compactProfileTexts: {
+    flexShrink: 1,
   },
   compactAvatarPlaceholder: {
     width: 36,
@@ -380,24 +398,29 @@ const styles = StyleSheet.create({
   },
   greeting: {
     position: 'absolute',
-    top: HEADER_MIN_HEIGHT + 10, 
-    left: 36, 
+    top: HEADER_MIN_HEIGHT + 10,
+    left: 24,
+    right: 24,
     fontFamily: theme.fonts.mulishBold,
     fontSize: 24,
+    lineHeight: 32,
     color: '#FFFFFF',
-    fontWeight: '700',
   },
   scrollWhiteBody: {
     backgroundColor: '#FFFFFF', 
     flex: 1,
   },
   mainCardWrapper: {
-    alignItems: 'center',
+    // 'stretch' (e nao 'center'): com maxWidth 345 e centralizacao, em telas de
+    // 412dp o card comecava em 33dp enquanto os titulos de secao ficam em 24dp.
+    alignItems: 'stretch',
     marginBottom: 32,
     marginTop: -40,
+    paddingHorizontal: 24,
   },
   mainCard: {
-    width: 345,
+    width: '100%',
+    maxWidth: 345,
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     paddingVertical: 40,
@@ -410,14 +433,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainCardHeader: {
-    width: 297,
+    alignSelf: 'stretch',
+    marginHorizontal: 24,
     marginBottom: 32,
   },
   mainCardTitle: {
     fontFamily: theme.fonts.mulishBold,
     fontSize: 20,
     color: '#000000',
-    fontWeight: '500',
     marginBottom: 6,
   },
   mainCardSubtitle: {
@@ -427,7 +450,8 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   profileSection: {
-    width: 297,
+    alignSelf: 'stretch',
+    marginHorizontal: 24,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 32,
@@ -458,7 +482,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.mulishSemiBold,
     fontSize: 16,
     color: '#424242',
-    fontWeight: '700',
     marginBottom: 4,
   },
   profileAge: {
@@ -481,8 +504,9 @@ const styles = StyleSheet.create({
     color: '#3678FD',
   },
   primaryButton: {
-    width: 297,
-    height: 40,
+    alignSelf: 'stretch',
+    marginHorizontal: 24,
+    height: 48,
     backgroundColor: '#0E5DFD',
     borderRadius: 50,
     justifyContent: 'center',
@@ -492,15 +516,16 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.mulishSemiBold,
     fontSize: 16,
     color: '#FFFFFF',
-    fontWeight: '600',
   },
   section: {
-    width: 393,
+    // Era width:393 (largura do frame do Figma). Em 360dp a secao estourava
+    // 33dp e cortava o "ver todos".
+    width: '100%',
     marginBottom: 32,
   },
   sectionHeaderContainer: {
-    width: 345,
-    alignSelf: 'center',
+    alignSelf: 'stretch',
+    marginHorizontal: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
@@ -513,7 +538,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.mulishBold,
     fontSize: 18,
     color: '#000000',
-    fontWeight: '500',
     marginBottom: 4,
   },
   sectionSubtitle: {
@@ -531,7 +555,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.mulishSemiBold,
     fontSize: 12,
     color: '#3678FD',
-    fontWeight: '600',
     marginRight: 4,
   },
   horizontalScroll: {
@@ -590,7 +613,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.mulishBold,
     fontSize: 14,
     color: '#424242',
-    fontWeight: '700',
   },
   activityCardDescription: {
     fontFamily: theme.fonts.regular,
@@ -606,7 +628,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.mulishSemiBold,
     fontSize: 14,
     color: '#3678FD',
-    fontWeight: '600',
     marginRight: 4,
   },
 });

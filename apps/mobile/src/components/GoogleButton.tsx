@@ -1,5 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps, Image } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { theme } from '../theme';
 
 interface GoogleButtonProps extends TouchableOpacityProps {
@@ -13,11 +14,8 @@ export function GoogleButton({ title = "Fazer login com o Google", style, ...pro
       activeOpacity={0.8}
       {...props}
     >
-      <Image 
-        source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg' }}
-        style={styles.icon}
-        // Using a remote URI for testing, but ideally this should be a local asset
-      />
+      {/* O <Image> do RN não renderiza SVG — o logo remoto ficava em branco no Android. */}
+      <FontAwesome name="google" size={20} color="#4285F4" />
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -37,10 +35,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 16,
     gap: 12,
-  },
-  icon: {
-    width: 24,
-    height: 24,
   },
   text: {
     fontFamily: theme.fonts.semiBold,

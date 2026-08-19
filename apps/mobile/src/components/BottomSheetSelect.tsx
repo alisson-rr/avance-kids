@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 
@@ -44,7 +44,7 @@ export function BottomSheetSelect({ placeholder, value, options, multiSelect, on
         activeOpacity={0.8} 
         onPress={() => setModalVisible(true)}
       >
-        <Text style={[styles.inputText, !displayText && styles.placeholderText]}>
+        <Text style={[styles.inputText, !displayText && styles.placeholderText]} numberOfLines={1}>
           {displayText || placeholder}
         </Text>
         <Feather name="chevron-down" size={20} color={theme.colors.textLight} />
@@ -56,11 +56,15 @@ export function BottomSheetSelect({ placeholder, value, options, multiSelect, on
         animationType="slide"
         onRequestClose={() => setModalVisible(false)}
       >
-        <TouchableOpacity 
-          style={styles.modalOverlay} 
-          activeOpacity={1} 
-          onPressOut={() => setModalVisible(false)}
-        >
+        {/* O fundo fecha a sheet; o toque dentro dela não deve fechar. Antes o
+            TouchableOpacity envolvia a própria sheet e qualquer toque em área
+            vazia (alça, cabeçalho) fechava sem querer. */}
+        <View style={styles.modalOverlay}>
+          <TouchableOpacity
+            style={styles.modalBackdrop}
+            activeOpacity={1}
+            onPress={() => setModalVisible(false)}
+          />
           <View style={styles.bottomSheet}>
             <View style={styles.dragHandle} />
             
@@ -93,9 +97,8 @@ export function BottomSheetSelect({ placeholder, value, options, multiSelect, on
               }}
               contentContainerStyle={styles.listContent}
             />
-            <SafeAreaView />
           </View>
-        </TouchableOpacity>
+        </View>
       </Modal>
     </>
   );
@@ -126,6 +129,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  modalBackdrop: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   bottomSheet: {
     backgroundColor: theme.colors.background,

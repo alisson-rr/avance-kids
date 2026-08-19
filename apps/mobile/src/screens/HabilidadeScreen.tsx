@@ -135,8 +135,8 @@ export function HabilidadeScreen({ route, navigation }: any) {
       }}
       perguntaAtual={currentQuestion}
       totalPerguntas={questions.length}
-      progressActiveStyle={{ backgroundColor: stylesConfig.textColor, opacity: 0.6 }}
-      progressInactiveStyle={{ backgroundColor: '#F0F0F0' }}
+      progressActiveStyle={{ backgroundColor: stylesConfig.textColor }}
+      progressInactiveStyle={{ backgroundColor: '#DCDCDC' }}
       pergunta={q.texto}
       opcoes={OPTION_LABELS}
       selectedOption={selectedOption}

@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-nat
 import { Image } from 'expo-image';
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import { showDialog, showError } from '../ui/dialog';
 import { theme } from '../theme';
 
 interface PhotoPickerProps {
@@ -19,7 +20,11 @@ export function PhotoPicker({ imageUri, onImageSelected }: PhotoPickerProps) {
       const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
       
       if (permissionResult.granted === false) {
-        alert("Você precisa permitir acesso à galeria para escolher uma foto!");
+        showDialog({
+          title: 'Permissão necessária',
+          message: 'Permita o acesso à galeria para escolher uma foto.',
+          variant: 'info',
+        });
         return;
       }
 
@@ -34,7 +39,8 @@ export function PhotoPicker({ imageUri, onImageSelected }: PhotoPickerProps) {
         onImageSelected(result.assets[0].uri);
       }
     } catch (error) {
-      console.error("Error picking image:", error);
+      console.warn('[foto] seleção falhou:', error);
+      showError('Erro', 'Não foi possível abrir a galeria. Tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -53,7 +59,7 @@ export function PhotoPicker({ imageUri, onImageSelected }: PhotoPickerProps) {
           loading ? (
             <ActivityIndicator color={theme.colors.textLight} />
           ) : (
-            <Feather name="camera" size={32} color={theme.colors.border} />
+            <Feather name="camera" size={32} color={theme.colors.textLight} />
           )
         )}
       </TouchableOpacity>

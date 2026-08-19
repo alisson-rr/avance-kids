@@ -56,7 +56,9 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    // 'flex-start': o rotulo "Plano de Atividades" tem 2 linhas e, centralizado,
+    // desalinhava os icones das outras abas.
+    alignItems: 'flex-start',
     backgroundColor: '#FFFFFF',
     borderTopWidth: 1,
     borderTopColor: '#EBEBEB',

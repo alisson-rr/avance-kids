@@ -236,7 +236,7 @@ export function ActivityScreen({ navigation, route }: any) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 120 }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 24 }}>
         {/* ── SKILL NAME (big bold) ── */}
         <Text style={styles.skillName}>{plan.skills.nome}</Text>
 
@@ -273,8 +273,8 @@ export function ActivityScreen({ navigation, route }: any) {
         </Text>
       </ScrollView>
 
-      {/* ── FIXED COMEÇAR BUTTON ── */}
-      <View style={[styles.fixedFooter, { paddingBottom: Math.max(insets.bottom, 16) }]}>
+      {/* ── FOOTER COM O BOTÃO COMEÇAR ── */}
+      <View style={styles.footer}>
         <TouchableOpacity
           style={[styles.primaryButton, starting && { opacity: 0.6 }]}
           activeOpacity={0.8}
@@ -304,7 +304,7 @@ export function ActivityScreen({ navigation, route }: any) {
           activeOpacity={1}
           onPress={() => setIsBottomSheetVisible(false)}
         >
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => {}}>
             <View style={styles.bottomSheet}>
               {/* Drag Handle */}
               <View style={styles.dragHandle} />
@@ -321,7 +321,7 @@ export function ActivityScreen({ navigation, route }: any) {
                 </View>
                 <Text style={styles.completionText}>
                   {activeChild?.name ?? 'Sua criança'}{' '}
-                  <Text style={{ fontFamily: theme.fonts.mulishBold, fontWeight: '700' }}>concluiu as tentativas</Text> deste exercício e uma nova atividade foi liberada!
+                  <Text style={{ fontFamily: theme.fonts.mulishBold }}>concluiu as tentativas</Text> deste exercício e uma nova atividade foi liberada!
                 </Text>
                 <TouchableOpacity style={styles.primaryButton} onPress={handleSkipOrNext}>
                   <Text style={styles.primaryButtonText}>Próxima atividade</Text>
@@ -455,7 +455,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 29,
     color: '#000000',
-    fontWeight: '700',
     paddingHorizontal: 24,
     marginTop: 16,
   },
@@ -511,18 +510,17 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
 
-  // ── Fixed Footer (Começar button) ───────────────────────────────
-  fixedFooter: {
-    position: 'absolute',
-    bottom: 85, // above bottomTabBar
-    left: 0,
-    right: 0,
+  // ── Footer (botão Começar) ──────────────────────────────────────
+  footer: {
+    // Era position:absolute com bottom:85 fixo. A altura real da tab bar
+    // depende de insets.bottom (48dp na navegação de 3 botões), então o botão
+    // cobria os ícones. Como filho normal da coluna isso não acontece.
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     paddingHorizontal: 24,
     paddingTop: 24,
-    zIndex: 40,
+    paddingBottom: 16,
   },
   primaryButton: {
     width: '100%',
@@ -536,7 +534,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.semiBold,
     fontSize: 16,
     color: '#FFFFFF',
-    fontWeight: '600',
   },
 
   // ── Bottom Sheet ────────────────────────────────────────────────
@@ -551,7 +548,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     paddingHorizontal: 24,
     paddingTop: 12,
-    paddingBottom: 32, // to ensure space at bottom
+    // O Modal do RN 0.86 sem navigationBarTranslucent não passa por baixo da
+    // barra de navegação (ReactModalHostView -> disableEdgeToEdge), então não
+    // se soma insets.bottom aqui.
+    paddingBottom: 32,
+    maxHeight: '90%',
   },
   dragHandle: {
     width: 48,
@@ -644,7 +645,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.semiBold,
     fontSize: 16,
     color: '#0E5DFD',
-    fontWeight: '600',
   },
   completionText: {
     fontFamily: theme.fonts.semiBold,
