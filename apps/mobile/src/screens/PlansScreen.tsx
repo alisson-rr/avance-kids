@@ -5,10 +5,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
   Linking,
   AppState,
 } from 'react-native';
+// SafeAreaView do 'react-native' e no-op no Android; com edge-to-edge o header
+// ficava por baixo da status bar.
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
@@ -29,9 +31,13 @@ const POLL_TRIES = 4;
 const POLL_INTERVAL_MS = 2000;
 
 export function PlansScreen({ navigation }: any) {
+  const insets = useSafeAreaInsets();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState<SubscriptionRow | null>(null);
+  // Sem isto, "ainda verificando" e "nao tem assinatura" ficam indistinguiveis e
+  // um assinante ve "Assinar agora" por alguns instantes.
+  const [checking, setChecking] = useState(true);
   const pollRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isPremium = isPremiumActive(subscription);
@@ -52,6 +58,8 @@ export function PlansScreen({ navigation }: any) {
       }
     } catch {
       // Sem o status a tela continua utilizável; o botão informa o erro real.
+    } finally {
+      setChecking(false);
     }
   }, []);
 
@@ -105,11 +113,14 @@ export function PlansScreen({ navigation }: any) {
   ];
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <View style={styles.container}>
         <ScreenHeader title="Meu Plano" onBack={() => navigation.goBack()} />
 
-        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: 40 + insets.bottom }]}
+          showsVerticalScrollIndicator={false}
+        >
           
           <View style={styles.introSection}>
             <Text style={styles.title}>Desbloqueie todo o potencial do seu filho</Text>
@@ -148,6 +159,8 @@ export function PlansScreen({ navigation }: any) {
             <TouchableOpacity 
               style={[styles.planCard, selectedPlan === 'monthly' && styles.planCardActive]}
               activeOpacity={0.8}
+              accessibilityRole="radio"
+              accessibilityState={{ selected: selectedPlan === 'monthly' }}
               onPress={() => setSelectedPlan('monthly')}
             >
               <View style={styles.planHeader}>
@@ -163,12 +176,14 @@ export function PlansScreen({ navigation }: any) {
             <TouchableOpacity 
               style={[styles.planCard, selectedPlan === 'annual' && styles.planCardActive]}
               activeOpacity={0.8}
+              accessibilityRole="radio"
+              accessibilityState={{ selected: selectedPlan === 'annual' }}
               onPress={() => setSelectedPlan('annual')}
             >
               <View style={styles.popularBadge}>
                 <Text style={styles.popularBadgeText}>Mais vantajoso</Text>
               </View>
-              <View style={styles.planHeader}>
+              <View style={[styles.planHeader, styles.planHeaderWithBadge]}>
                 <Text style={styles.planName}>Anual</Text>
                 {selectedPlan === 'annual' && (
                   <Ionicons name="checkmark-circle" size={24} color={theme.colors.primary} />
@@ -192,13 +207,16 @@ export function PlansScreen({ navigation }: any) {
           <View style={styles.actionContainer}>
             <Button
               title={
-                needsPaymentFix
-                  ? 'Atualizar pagamento'
-                  : isPremium
-                    ? 'Gerenciar assinatura'
-                    : 'Assinar agora'
+                checking
+                  ? 'Verificando assinatura…'
+                  : needsPaymentFix
+                    ? 'Atualizar pagamento'
+                    : isPremium
+                      ? 'Gerenciar assinatura'
+                      : 'Assinar agora'
               }
               loading={loading}
+              disabled={checking}
               onPress={isPremium || needsPaymentFix ? handleManage : handleSubscribe}
             />
             <Text style={styles.termsText}>
@@ -224,7 +242,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 24,
-    paddingBottom: 40,
+    // paddingBottom entra inline somando insets.bottom
   },
   introSection: {
     marginBottom: 32,
@@ -324,13 +342,16 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   popularBadge: {
-    position: 'absolute',
-    top: -12,
-    right: 20,
+    // Era position:absolute com top:-12. No Android um card com borderRadius
+    // recorta os filhos, entao o selo aparecia cortado pela metade.
+    alignSelf: 'flex-start',
     backgroundColor: theme.colors.primary,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
+  },
+  planHeaderWithBadge: {
+    marginTop: 12,
   },
   popularBadgeText: {
     fontFamily: theme.fonts.mulishBold,

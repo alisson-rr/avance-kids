@@ -211,6 +211,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
+    paddingVertical: 12,
+    paddingLeft: 12,
   },
   historyText: {
     fontFamily: theme.fonts.semiBold,

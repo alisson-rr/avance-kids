@@ -96,7 +96,7 @@ export function QuestionScreenLayout({
             <Text style={styles.headerChevron}>‹</Text>
           </TouchableOpacity>
 
-          <Text style={styles.headerTitle}>{headerTitle}</Text>
+          <Text style={styles.headerTitle} numberOfLines={1}>{headerTitle}</Text>
 
           {/* Espaçador invisível para manter o título centralizado */}
           <View style={styles.headerIconBtn} />
@@ -104,11 +104,12 @@ export function QuestionScreenLayout({
       </View>
 
       {/* ── CARD (overlaps the header band) ── */}
+      {/* Indicador de rolagem ligado: em telas de 640dp as opcoes e o botao de
+          avancar ficam abaixo da dobra e nao havia nenhuma pista disso. */}
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: 40 + insets.bottom }]}
         bounces={false}
-        showsVerticalScrollIndicator={false}
       >
         <View style={styles.card}>
           {/* Image area */}
@@ -180,14 +181,14 @@ export function QuestionScreenLayout({
                 {busy ? (
                   <>
                     <ActivityIndicator size="small" color="#02349A" />
-                    <Text style={styles.navLabel}>enviando…</Text>
+                    <Text style={[styles.navLabel, styles.navLabelPrimary]}>enviando…</Text>
                   </>
                 ) : (
                   <>
-                    <Text style={styles.navLabel}>
+                    <Text style={[styles.navLabel, styles.navLabelPrimary]}>
                       {perguntaAtual < totalPerguntas - 1 ? 'próxima' : 'finalizar'}
                     </Text>
-                    <Text style={styles.navChevron}>›</Text>
+                    <Text style={[styles.navChevron, styles.navChevronPrimary]}>›</Text>
                   </>
                 )}
               </TouchableOpacity>
@@ -233,6 +234,8 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     // Figma: Inter 600, 16px, line-height 20px, letter-spacing 2%, center, #FFFFFF
+    flex: 1,
+    marginHorizontal: 8,
     fontFamily: theme.fonts.semiBold,
     fontSize: 16,
     lineHeight: 20,
@@ -245,7 +248,7 @@ const styles = StyleSheet.create({
     marginTop: -60, // overlap the card onto the header band
   },
   scrollContent: {
-    paddingBottom: 40,
+    // paddingBottom entra inline somando insets.bottom
   },
   card: {
     marginHorizontal: CARD_SIDE_MARGIN,
@@ -322,12 +325,14 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   optionsList: {
-    gap: 20,
+    gap: 0,
   },
   optionRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+    // 20dp de altura (so o radio) era menos da metade do alvo minimo de toque.
+    paddingVertical: 12,
   },
   radio: {
     width: 20,
@@ -358,7 +363,6 @@ const styles = StyleSheet.create({
   optionDivider: {
     height: 1,
     backgroundColor: '#F0F0F0',
-    marginTop: 20,
   },
   navRow: {
     flexDirection: 'row',
@@ -369,7 +373,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    paddingVertical: 8,
+    paddingVertical: 12,
+    minHeight: 44,
   },
   navBtnDisabled: {
     opacity: 0.35,
@@ -378,11 +383,18 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.medium,
     fontSize: 14,
     lineHeight: 24,
+    color: '#5E5E5E',
+  },
+  navLabelPrimary: {
+    fontFamily: theme.fonts.semiBold,
     color: '#02349A',
   },
   navChevron: {
     fontSize: 22,
-    color: '#02349C',
+    color: '#5E5E5E',
     lineHeight: 24,
+  },
+  navChevronPrimary: {
+    color: '#02349A',
   },
 });

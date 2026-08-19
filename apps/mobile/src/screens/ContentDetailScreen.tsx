@@ -59,7 +59,7 @@ export function ContentDetailScreen({ navigation, route }: any) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 120 }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 24 }}>
         <Text style={styles.title}>{title}</Text>
         {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
 
@@ -104,17 +104,17 @@ const styles = StyleSheet.create({
     height: 44,
   },
   headerIconBtn: {
-    width: 24,
-    height: 24,
+    width: 44,
+    height: 44,
+    marginLeft: -10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     fontFamily: theme.fonts.semiBold,
     fontSize: 24,
-    lineHeight: 29,
+    lineHeight: 30,
     color: '#000000',
-    fontWeight: '700',
     paddingHorizontal: 24,
     marginTop: 16,
   },

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   StyleProp,
+  ScrollView,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
@@ -63,11 +64,18 @@ export function OnboardingLayout({
         )}
         {greeting && (
           <View style={styles.greetingRow}>
-            <Text style={styles.greeting}>{greeting}</Text>
+            <Text style={styles.greeting} numberOfLines={1}>{greeting}</Text>
           </View>
         )}
 
-        <View style={[styles.body, { gap: bodyGap }]}>
+        {/* ScrollView: a ilustração (404dp) + título + subtítulo não cabem em
+            telas de 640dp. Sem rolagem o conteúdo transbordava e ficava por
+            baixo do botão e por cima da saudação. */}
+        <ScrollView
+          style={styles.bodyScroll}
+          contentContainerStyle={[styles.body, { gap: bodyGap }]}
+          bounces={false}
+        >
           <View style={styles.imageWrapper}>
             <Image source={image} style={imageStyle} resizeMode="contain" />
           </View>
@@ -76,7 +84,7 @@ export function OnboardingLayout({
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.subtitle}>{subtitle}</Text>
           </View>
-        </View>
+        </ScrollView>
 
         <View style={styles.buttonSection}>
           <TouchableOpacity
@@ -107,7 +115,9 @@ const styles = StyleSheet.create({
     paddingTop: 4,
   },
   backBtn: {
-    padding: 4,
+    width: 44,
+    height: 44,
+    marginLeft: -10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -127,11 +137,15 @@ const styles = StyleSheet.create({
     lineHeight: 29,
     color: '#000000',
   },
-  body: {
+  bodyScroll: {
     flex: 1,
+  },
+  body: {
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
+    paddingVertical: 8,
   },
   imageWrapper: {
     alignItems: 'center',
@@ -145,7 +159,7 @@ const styles = StyleSheet.create({
     // Figma: Mulish 800, 24px, line-height 30px, centered, #424242
     fontFamily: theme.fonts.mulishExtraBold,
     fontSize: 24,
-    lineHeight: 30,
+    lineHeight: 32,
     textAlign: 'center',
     color: '#424242',
   },

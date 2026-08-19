@@ -7,12 +7,15 @@ interface ButtonProps extends TouchableOpacityProps {
   loading?: boolean;
 }
 
-export function Button({ title, loading, style, ...props }: ButtonProps) {
+export function Button({ title, loading, style, disabled, ...props }: ButtonProps) {
+  const isDisabled = loading || disabled;
   return (
     <TouchableOpacity
-      style={[styles.button, style]}
+      style={[styles.button, isDisabled && styles.buttonDisabled, style]}
       activeOpacity={0.8}
-      disabled={loading}
+      disabled={isDisabled}
+      accessibilityRole="button"
+      accessibilityState={{ disabled: !!isDisabled, busy: !!loading }}
       {...props}
     >
       {loading ? (
@@ -34,6 +37,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 24,
     paddingVertical: 14,
+  },
+  buttonDisabled: {
+    opacity: 0.5,
   },
   text: {
     fontFamily: theme.fonts.semiBold,

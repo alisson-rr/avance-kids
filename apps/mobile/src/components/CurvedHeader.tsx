@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 
@@ -18,18 +19,20 @@ interface CurvedHeaderProps {
  * A HomeScreen usa uma variante animada própria, compartilhando as constantes acima.
  */
 export function CurvedHeader({ title, onBack }: CurvedHeaderProps) {
+  const insets = useSafeAreaInsets();
+
   return (
     <>
       {/* Curved background extension (behind the ScrollView) */}
       <View style={styles.headerCurve} />
 
       {/* Top fixed header */}
-      <View style={styles.topFixedHeader}>
+      <View style={[styles.topFixedHeader, { paddingTop: Math.max(insets.top, 24) }]}>
         <View style={styles.topBar}>
           <TouchableOpacity style={styles.iconButton} onPress={onBack}>
             <Ionicons name="chevron-back" size={28} color={theme.colors.white} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>{title}</Text>
+          <Text style={styles.headerTitle} numberOfLines={1}>{title}</Text>
           <View style={{ width: 44 }} />
         </View>
       </View>
@@ -52,10 +55,11 @@ const styles = StyleSheet.create({
   },
   topFixedHeader: {
     backgroundColor: '#3678FD',
-    height: HEADER_MIN_HEIGHT,
+    minHeight: HEADER_MIN_HEIGHT,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    paddingTop: Platform.OS === 'ios' ? 50 : 30,
+    // paddingTop entra inline com insets.top: com edge-to-edge o valor fixo
+    // deixava o titulo por baixo do relogio em aparelhos com recorte.
     position: 'absolute',
     top: 0,
     left: 0,
@@ -78,8 +82,11 @@ const styles = StyleSheet.create({
     zIndex: 20,
   },
   headerTitle: {
+    flex: 1,
+    textAlign: 'center',
     fontFamily: theme.fonts.mulishBold,
     fontSize: 20,
+    lineHeight: 26,
     color: '#FFFFFF',
   },
 });

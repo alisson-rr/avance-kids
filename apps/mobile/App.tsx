@@ -54,10 +54,12 @@ export default function App() {
   const [sessionLoaded, setSessionLoaded] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setSessionLoaded(true);
-    });
+    supabase.auth
+      .getSession()
+      .then(({ data }) => setSession(data.session))
+      // Sem catch, uma falha aqui deixava o app preso na splash para sempre.
+      .catch((err) => console.warn('[auth] getSession falhou:', err))
+      .finally(() => setSessionLoaded(true));
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       setSession(nextSession);
     });

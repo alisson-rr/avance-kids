@@ -38,7 +38,7 @@ export function SettingsScreen({ navigation }: any) {
     { title: 'Meu plano', action: () => navigation.navigate('Plans') },
     { title: 'Histórico de atividades', action: () => navigation.navigate('ActivityHistory') },
     { title: 'Alterar senha', action: () => navigation.navigate('ChangePassword') },
-    { title: 'Sair da conta', action: handleSignOut },
+    { title: 'Sair da conta', action: handleSignOut, destructive: true },
   ];
 
   return (
@@ -62,14 +62,24 @@ export function SettingsScreen({ navigation }: any) {
                     <Text style={styles.avatarText}>{initials}</Text>
                   )}
                 </View>
-                <Text style={styles.profileName}>{parentName || 'Meu perfil'}</Text>
+                <Text style={styles.profileName} numberOfLines={2}>{parentName || 'Meu perfil'}</Text>
               </View>
 
               <View style={styles.menuContainer}>
                 {menuItems.map((item, index) => (
-                  <TouchableOpacity key={index} style={styles.menuItem} onPress={item.action}>
-                    <Text style={styles.menuText}>{item.title}</Text>
-                    <Ionicons name="chevron-forward" color={theme.colors.textLight} size={20} />
+                  <TouchableOpacity
+                    key={index}
+                    style={[styles.menuItem, item.destructive && styles.menuItemDestructive]}
+                    onPress={item.action}
+                  >
+                    <Text style={[styles.menuText, item.destructive && styles.menuTextDestructive]}>
+                      {item.title}
+                    </Text>
+                    {item.destructive ? (
+                      <Ionicons name="log-out-outline" color={DESTRUCTIVE} size={20} />
+                    ) : (
+                      <Ionicons name="chevron-forward" color={theme.colors.textLight} size={20} />
+                    )}
                   </TouchableOpacity>
                 ))}
               </View>
@@ -80,7 +90,7 @@ export function SettingsScreen({ navigation }: any) {
             </View>
           </View>
 
-          <View style={{ height: 120 }} />
+          <View style={{ height: 24 }} />
         </View>
       </ScrollView>
 
@@ -90,6 +100,10 @@ export function SettingsScreen({ navigation }: any) {
     </View>
   );
 }
+
+/** Sair da conta e uma acao destrutiva: nao pode ter o mesmo peso visual dos
+ *  itens de navegacao. Mesmo tom do botao destrutivo do dialogo. */
+const DESTRUCTIVE = '#C2244B';
 
 const styles = StyleSheet.create({
   container: {
@@ -152,7 +166,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.mulishSemiBold,
     fontSize: 18,
     color: '#424242',
-    fontWeight: '700',
   },
   menuContainer: {
     marginTop: 10,
@@ -166,10 +179,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#EBEBEB'
   },
+  menuItemDestructive: {
+    borderBottomWidth: 0,
+    marginTop: 8,
+  },
   menuText: {
     fontFamily: theme.fonts.mulishSemiBold,
     fontSize: 16,
     color: '#424242'
+  },
+  menuTextDestructive: {
+    color: DESTRUCTIVE,
   },
   termsButton: {
     marginTop: 30,

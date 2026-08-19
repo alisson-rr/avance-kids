@@ -14,7 +14,7 @@ export function TermsModal({ visible, onClose }: TermsModalProps) {
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Termos de Consentimento</Text>
-          <ScrollView style={styles.modalScrollView}>
+          <ScrollView style={styles.modalScrollView} contentContainerStyle={styles.modalScrollContent}>
             <Text style={styles.modalText}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               {'\n\n'}
@@ -53,7 +53,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalScrollView: {
-    maxHeight: 400,
+    // Sem maxHeight fixo: com texto longo (400 + título + botão) o conteúdo
+    // ultrapassava o maxHeight de 80% do card e cortava o botão "Fechar".
+    flexShrink: 1,
+  },
+  modalScrollContent: {
+    paddingBottom: 4,
   },
   modalText: {
     fontFamily: theme.fonts.regular,

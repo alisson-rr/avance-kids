@@ -34,11 +34,13 @@ export function TriagemScreen({ navigation }: any) {
   const [totals, setTotals] = useState<Record<string, number>>({});
   const [answered, setAnswered] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [generating, setGenerating] = useState(false);
 
   const load = useCallback(async () => {
     if (!activeChild) return;
     setLoading(true);
+    setLoadError(null);
     try {
       const [brackets, skillRows] = await Promise.all([fetchAgeBrackets(), fetchSkills()]);
       const months =
@@ -61,6 +63,9 @@ export function TriagemScreen({ navigation }: any) {
       setTotals(totalsBySkill);
       setAnswered(counts);
     } catch (err) {
+      // Além do diálogo, a tela precisa mostrar o erro e um caminho de volta:
+      // sem isso ela ficava vazia e o usuário não sabia o que fazer.
+      setLoadError(errorMessage(err));
       showError('Erro ao carregar', errorMessage(err));
     } finally {
       setLoading(false);
@@ -142,6 +147,11 @@ export function TriagemScreen({ navigation }: any) {
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={theme.colors.primary} />
           </View>
+        ) : loadError ? (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>{loadError}</Text>
+            <Button title="Tentar novamente" onPress={load} />
+          </View>
         ) : (
           <View style={styles.cardsList}>
             {skills.map((skill) => (
@@ -165,7 +175,7 @@ export function TriagemScreen({ navigation }: any) {
                 <View style={styles.cardRight}>
                   <View style={styles.cardMeta}>
                     <View style={styles.cardTitleGroup}>
-                      <Text style={styles.cardTitle}>{skill.nome}</Text>
+                      <Text style={styles.cardTitle} numberOfLines={2}>{skill.nome}</Text>
                     </View>
                     <View style={styles.cardCountGroup}>
                       <Text style={styles.cardCount}>
@@ -186,7 +196,12 @@ export function TriagemScreen({ navigation }: any) {
         )}
 
         <View style={styles.bottomActions}>
-          <Button title="Concluir" loading={generating} onPress={handleConcluir} />
+          <Button
+            title="Concluir"
+            loading={generating}
+            disabled={loading || skills.length === 0}
+            onPress={handleConcluir}
+          />
           <TouchableOpacity style={styles.ghostBtn} onPress={() => navigation.navigate('Onboarding3')}>
             <Text style={styles.ghostBtnText}>Responder depois</Text>
           </TouchableOpacity>
@@ -230,9 +245,8 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontFamily: theme.fonts.semiBold,
     fontSize: 24,
-    lineHeight: 29,
+    lineHeight: 30,
     color: '#000000',
-    fontWeight: '700',
   },
   pageDescription: {
     fontFamily: theme.fonts.regular,
@@ -247,6 +261,19 @@ const styles = StyleSheet.create({
     paddingTop: 64,
     alignItems: 'center',
   },
+  errorContainer: {
+    paddingTop: 48,
+    paddingHorizontal: 24,
+    alignItems: 'center',
+    gap: 24,
+  },
+  errorText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 15,
+    lineHeight: 22,
+    color: '#5E5E5E',
+    textAlign: 'center',
+  },
   cardsList: {
     paddingHorizontal: 24,
     paddingTop: 24,
@@ -257,7 +284,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 24,
     gap: 16,
-    height: 124,
+    minHeight: 124,
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     shadowColor: '#AAAAAA',
@@ -285,9 +312,8 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontFamily: theme.fonts.semiBold,
     fontSize: 16,
-    lineHeight: 19,
+    lineHeight: 20,
     color: '#424242',
-    fontWeight: '700',
   },
   cardCountGroup: {
     gap: 12,
@@ -323,7 +349,9 @@ const styles = StyleSheet.create({
   },
   ghostBtn: {
     alignItems: 'center',
-    paddingVertical: 4,
+    paddingVertical: 12,
+    minHeight: 44,
+    justifyContent: 'center',
   },
   ghostBtnText: {
     fontFamily: theme.fonts.medium,

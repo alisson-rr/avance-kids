@@ -10,6 +10,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { theme } from '../theme';
+import { Button } from '../components/Button';
 import { BottomSheetSelect } from '../components/BottomSheetSelect';
 import { ScreenHeader } from '../components/ScreenHeader';
 import { SkillActivityCard } from '../components/SkillActivityCard';
@@ -99,9 +100,18 @@ export function ActivityHistoryScreen({ navigation }: any) {
               <ActivityIndicator size="large" color={theme.colors.primary} />
             </View>
           ) : loadError ? (
-            <Text style={styles.stateText}>{loadError}</Text>
+            <View style={styles.stateContainer}>
+              <Text style={styles.stateText}>{loadError}</Text>
+              <Button title="Tentar novamente" onPress={load} />
+            </View>
           ) : history.length === 0 ? (
-            <Text style={styles.stateText}>Nenhuma atividade concluída ainda.</Text>
+            <View style={styles.stateContainer}>
+              <Text style={styles.stateTitle}>Nenhuma atividade concluída ainda</Text>
+              <Text style={styles.stateText}>
+                Quando uma atividade do plano for concluída, ela aparece aqui com o
+                desempenho de cada repetição.
+              </Text>
+            </View>
           ) : (
             <View style={styles.cardsList}>
               {history.map((plan) => (
@@ -151,12 +161,21 @@ const styles = StyleSheet.create({
   stateContainer: {
     paddingTop: 24,
     alignItems: 'center',
+    gap: 16,
+  },
+  stateTitle: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: 16,
+    lineHeight: 22,
+    color: '#3B3B3B',
+    textAlign: 'center',
   },
   stateText: {
     fontFamily: theme.fonts.regular,
     fontSize: 15,
     lineHeight: 22,
     color: '#5E5E5E',
+    textAlign: 'center',
   },
   sectionContainer: {
     gap: 24,
