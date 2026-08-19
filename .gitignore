@@ -1,0 +1,27 @@
+# Rede de segurança do repositório inteiro.
+#
+# Existe porque um keystore de release e a senha dele já foram versionados aqui
+# (commits 77a3f5b e b79e403). As regras de apps/mobile/.gitignore cobriam o
+# caso, mas só valem abaixo daquele diretório — qualquer credencial deixada em
+# outro canto do monorepo passava batida.
+
+# Material de assinatura (Android/iOS) em qualquer diretório
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.p8
+*.pem
+*.key
+*.mobileprovision
+*.cer
+credentials/
+
+# Variáveis de ambiente — só o exemplo é versionado
+.env
+.env.*
+!.env.example
+
+# Chaves de serviço do Supabase / Google baixadas para a máquina
+service-account*.json
+*-service-account.json

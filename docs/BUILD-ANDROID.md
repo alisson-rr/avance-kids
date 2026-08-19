@@ -18,35 +18,53 @@ Definida em [apps/mobile/app.json](../apps/mobile/app.json):
 
 ## Assinatura
 
-Keystore em `apps/mobile/credentials/avancekids-release.keystore`:
+Keystore de release em `apps/mobile/credentials/avancekids-release.keystore`
+(git-ignorado, nunca versionado):
 
 - alias: `avancekids`
-- senha do store e da chave: **fora do repositório** (gerenciador de senhas da equipe)
-- validade: 10.000 dias
+- algoritmo: RSA 4096, formato PKCS12, validade 10.000 dias
+- titular do certificado: `CN=Avance Kids, O=Avance Kids, C=BR`
+- SHA-256: `E0:D4:D8:E6:AF:00:8A:DA:50:7F:FF:36:D7:D0:C4:67:84:E2:65:B9:05:20:D9:CB:1A:8C:A8:D2:69:32:6C:4D`
+- senha do store e da chave: **fora do repositório** — está apenas em
+  `apps/mobile/android/gradle.properties` (git-ignorado pela regra `/android`).
+  Copie para o gerenciador de senhas da equipe.
 
-> ⚠️ **O keystore de release e a senha dele estavam versionados neste
-> repositório** (commit `77a3f5b`; a senha em texto puro estava nesta seção).
-> `.gitignore` já listava `credentials/` e `*.keystore`, mas a regra não afeta
-> arquivo que já entrou no índice. Esta branch remove o arquivo do índice e
-> apaga a senha daqui — o histórico do git **continua contendo os dois**.
->
-> Remediação pendente (decisão do responsável pelo repositório, não aplicada
-> aqui por ser irreversível):
-> 1. **Gerar um keystore novo.** O app ainda não foi publicado, então trocar a
->    chave agora custa zero. Depois da primeira publicação na Play Store a
->    troca só é possível com Play App Signing.
-> 2. Purgar o arquivo e a senha do histórico (`git filter-repo`) ou tratar o
->    repositório inteiro como comprometido para esse segredo.
-> 3. Guardar o novo keystore e a senha fora do git.
-
-> **Guarde um backup deste arquivo fora do repositório.** Perder o keystore
+> **Guarde um backup do arquivo e da senha fora do git.** Perder o keystore
 > significa não conseguir mais publicar atualizações do app na Play Store sob o
 > mesmo package (a menos que o Play App Signing esteja ativo).
+
+Se preferir que o certificado leve a razão social da empresa em vez de
+`O=Avance Kids`, gere outro keystore **antes do primeiro envio à Play Store** —
+depois disso a chave fica presa ao package.
 
 As credenciais são lidas por `android/gradle.properties` (`AVANCEKIDS_STORE_FILE`,
 `AVANCEKIDS_STORE_PASSWORD`, `AVANCEKIDS_KEY_ALIAS`, `AVANCEKIDS_KEY_PASSWORD`) e
 consumidas pelo `signingConfigs.release` em `android/app/build.gradle`. Sem essas
 propriedades, o Gradle cai no keystore de debug.
+
+### Keystore anterior: comprometido e substituído
+
+O keystore de release **antigo** e a senha dele **estiveram versionados** neste
+repositório:
+
+| O quê | Onde entrou | Onde saiu do índice |
+| --- | --- | --- |
+| `apps/mobile/credentials/avancekids-release.keystore` | commit `77a3f5b` | commit `b9a0cde` |
+| senha em texto puro nesta página | commit `b79e403` | commit `b9a0cde` |
+
+O que foi feito nesta branch de integração:
+
+1. **Keystore novo gerado** (o descrito acima). O app ainda não foi publicado,
+   então a troca não custou nada. O antigo está permanentemente comprometido e
+   **não deve ser usado para assinar nenhuma versão**.
+2. **Histórico local reescrito** para remover o arquivo e a senha de todos os
+   commits — procedimento em [SEGURANCA-KEYSTORE.md](SEGURANCA-KEYSTORE.md).
+3. `.gitignore` na raiz passou a barrar `*.keystore`, `*.jks`, `*.p12`, `.env` e
+   afins em qualquer diretório do monorepo, não só em `apps/mobile/`.
+
+**Ainda pendente e fora do alcance desta branch:** o `origin` (GitHub) continua
+com o histórico antigo até alguém fazer o push forçado descrito no documento de
+procedimento. Enquanto isso, considere o keystore antigo como público.
 
 ## Limite de 260 caracteres no Windows
 
