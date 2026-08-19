@@ -162,4 +162,7 @@ SQL
 echo "==> testes de aceite e exclusão"
 psql_exec < "$RAIZ/scripts/test_termos_exclusao.sql"
 
+echo "==> testes de isolamento entre contas (multi-tenant)"
+psql_exec < "$RAIZ/scripts/test_multi_tenant.sql"
+
 echo "==> OK"
