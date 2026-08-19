@@ -1,0 +1,737 @@
+{
+  "communities": {
+    "0": [
+      "apps_mobile_app_app",
+      "apps_mobile_app_stack",
+      "apps_mobile_app_tsx_apps_mobile_app",
+      "apps_mobile_index",
+      "apps_mobile_src_components_bottomsheetselect",
+      "apps_mobile_src_components_bottomsheetselect_bottomsheetselect",
+      "apps_mobile_src_components_bottomsheetselect_bottomsheetselectprops",
+      "apps_mobile_src_components_bottomsheetselect_styles",
+      "apps_mobile_src_components_button",
+      "apps_mobile_src_components_button_button",
+      "apps_mobile_src_components_button_buttonprops",
+      "apps_mobile_src_components_button_styles",
+      "apps_mobile_src_components_checkbox",
+      "apps_mobile_src_components_checkbox_checkbox",
+      "apps_mobile_src_components_checkbox_checkboxprops",
+      "apps_mobile_src_components_checkbox_styles",
+      "apps_mobile_src_components_ghostbutton",
+      "apps_mobile_src_components_ghostbutton_ghostbutton",
+      "apps_mobile_src_components_ghostbutton_ghostbuttonprops",
+      "apps_mobile_src_components_ghostbutton_styles",
+      "apps_mobile_src_components_photopicker",
+      "apps_mobile_src_components_photopicker_photopicker",
+      "apps_mobile_src_components_photopicker_photopickerprops",
+      "apps_mobile_src_components_photopicker_styles",
+      "apps_mobile_src_components_solidinput",
+      "apps_mobile_src_components_solidinput_solidinput",
+      "apps_mobile_src_components_solidinput_solidinputprops",
+      "apps_mobile_src_components_solidinput_styles",
+      "apps_mobile_src_screens_changepasswordscreen",
+      "apps_mobile_src_screens_changepasswordscreen_changepasswordscreen",
+      "apps_mobile_src_screens_changepasswordscreen_styles",
+      "apps_mobile_src_screens_childregisterscreen",
+      "apps_mobile_src_screens_childregisterscreen_childregisterscreen",
+      "apps_mobile_src_screens_childregisterscreen_styles",
+      "apps_mobile_src_screens_editchildprofilescreen",
+      "apps_mobile_src_screens_editchildprofilescreen_editchildprofilescreen",
+      "apps_mobile_src_screens_editchildprofilescreen_styles",
+      "apps_mobile_src_screens_editparentprofilescreen",
+      "apps_mobile_src_screens_editparentprofilescreen_editparentprofilescreen",
+      "apps_mobile_src_screens_editparentprofilescreen_styles",
+      "apps_mobile_src_screens_onboarding1screen",
+      "apps_mobile_src_screens_onboarding1screen_onboarding1screen",
+      "apps_mobile_src_screens_onboarding1screen_styles",
+      "apps_mobile_src_screens_onboarding1screen_width",
+      "apps_mobile_src_screens_onboarding2screen",
+      "apps_mobile_src_screens_onboarding2screen_onboarding2screen",
+      "apps_mobile_src_screens_onboarding2screen_styles",
+      "apps_mobile_src_screens_onboarding2screen_width",
+      "apps_mobile_src_screens_onboarding3screen",
+      "apps_mobile_src_screens_onboarding3screen_onboarding3screen",
+      "apps_mobile_src_screens_onboarding3screen_styles",
+      "apps_mobile_src_screens_onboarding3screen_width",
+      "apps_mobile_src_screens_parentregisterscreen",
+      "apps_mobile_src_screens_parentregisterscreen_parentregisterscreen",
+      "apps_mobile_src_screens_parentregisterscreen_styles",
+      "apps_mobile_src_screens_perguntasscreen",
+      "apps_mobile_src_screens_perguntasscreen_perguntasscreen",
+      "apps_mobile_src_screens_perguntasscreen_questions",
+      "apps_mobile_src_screens_perguntasscreen_styles",
+      "apps_mobile_src_screens_plansscreen",
+      "apps_mobile_src_screens_plansscreen_plansscreen",
+      "apps_mobile_src_screens_plansscreen_styles",
+      "apps_mobile_src_screens_triagemscreen",
+      "apps_mobile_src_screens_triagemscreen_habilidades",
+      "apps_mobile_src_screens_triagemscreen_styles",
+      "apps_mobile_src_screens_triagemscreen_triagemscreen",
+      "apps_mobile_src_theme",
+      "apps_mobile_src_theme_theme",
+      "apps_mobile_src_utils_formatters",
+      "apps_mobile_src_utils_formatters_maskcpf",
+      "apps_mobile_src_utils_formatters_maskdate",
+      "apps_mobile_src_utils_formatters_maskphone",
+      "ref_react"
+    ],
+    "1": [
+      "apps_mobile_package_dependencies",
+      "apps_mobile_package_dependencies_expo",
+      "apps_mobile_package_dependencies_expo_font",
+      "apps_mobile_package_dependencies_expo_google_fonts_inter",
+      "apps_mobile_package_dependencies_expo_google_fonts_mulish",
+      "apps_mobile_package_dependencies_expo_image",
+      "apps_mobile_package_dependencies_expo_image_picker",
+      "apps_mobile_package_dependencies_expo_linear_gradient",
+      "apps_mobile_package_dependencies_expo_metro_runtime",
+      "apps_mobile_package_dependencies_expo_splash_screen",
+      "apps_mobile_package_dependencies_expo_status_bar",
+      "apps_mobile_package_dependencies_expo_vector_icons",
+      "apps_mobile_package_dependencies_react",
+      "apps_mobile_package_dependencies_react_dom",
+      "apps_mobile_package_dependencies_react_native",
+      "apps_mobile_package_dependencies_react_native_safe_area_context",
+      "apps_mobile_package_dependencies_react_native_screens",
+      "apps_mobile_package_dependencies_react_native_svg",
+      "apps_mobile_package_dependencies_react_native_web",
+      "apps_mobile_package_dependencies_react_navigation_native",
+      "apps_mobile_package_dependencies_react_navigation_native_stack",
+      "apps_mobile_package_dependencies_zustand",
+      "apps_mobile_package_json_react",
+      "apps_mobile_package_json_react_dom",
+      "apps_mobile_package_json_zustand",
+      "expo",
+      "expo_font",
+      "expo_google_fonts_inter",
+      "expo_google_fonts_mulish",
+      "expo_image",
+      "expo_image_picker",
+      "expo_linear_gradient",
+      "expo_metro_runtime",
+      "expo_splash_screen",
+      "expo_status_bar",
+      "expo_vector_icons",
+      "react_native",
+      "react_native_safe_area_context",
+      "react_native_screens",
+      "react_native_svg",
+      "react_native_web",
+      "react_navigation_native",
+      "react_navigation_native_stack"
+    ],
+    "2": [
+      "apps_backoffice_package",
+      "apps_backoffice_package_dependencies",
+      "apps_backoffice_package_dependencies_lucide_react",
+      "apps_backoffice_package_dependencies_react",
+      "apps_backoffice_package_dependencies_react_dom",
+      "apps_backoffice_package_dependencies_react_router_dom",
+      "apps_backoffice_package_dependencies_recharts",
+      "apps_backoffice_package_dependencies_zustand",
+      "apps_backoffice_package_devdependencies",
+      "apps_backoffice_package_devdependencies_oxlint",
+      "apps_backoffice_package_devdependencies_types_node",
+      "apps_backoffice_package_devdependencies_types_react",
+      "apps_backoffice_package_devdependencies_types_react_dom",
+      "apps_backoffice_package_devdependencies_typescript",
+      "apps_backoffice_package_devdependencies_vite",
+      "apps_backoffice_package_devdependencies_vitejs_plugin_react",
+      "apps_backoffice_package_json_react",
+      "apps_backoffice_package_json_react_dom",
+      "apps_backoffice_package_json_types_react",
+      "apps_backoffice_package_json_typescript",
+      "apps_backoffice_package_json_zustand",
+      "apps_backoffice_package_name",
+      "apps_backoffice_package_private",
+      "apps_backoffice_package_scripts",
+      "apps_backoffice_package_scripts_build",
+      "apps_backoffice_package_scripts_dev",
+      "apps_backoffice_package_scripts_lint",
+      "apps_backoffice_package_scripts_preview",
+      "apps_backoffice_package_type",
+      "apps_backoffice_package_version",
+      "lucide_react",
+      "oxlint",
+      "react_router_dom",
+      "recharts",
+      "types_node",
+      "types_react_dom",
+      "vite",
+      "vitejs_plugin_react"
+    ],
+    "3": [
+      "supabase_functions_create_checkout_session_index",
+      "supabase_functions_create_checkout_session_index_stripe",
+      "supabase_functions_generate_activity_plan_index",
+      "supabase_functions_generate_activity_plan_index_inputschema",
+      "supabase_functions_handle_stripe_webhook_index",
+      "supabase_functions_handle_stripe_webhook_index_stripe",
+      "supabase_functions_register_attempt_index",
+      "supabase_functions_register_child_index",
+      "supabase_functions_shared_auth",
+      "supabase_functions_shared_auth_getserviceclient",
+      "supabase_functions_shared_auth_getsupabaseclient",
+      "supabase_functions_shared_auth_getuser",
+      "supabase_functions_shared_cors",
+      "supabase_functions_shared_cors_corsheaders",
+      "supabase_functions_shared_response",
+      "supabase_functions_shared_response_errorresponse",
+      "supabase_functions_shared_response_jsonresponse",
+      "supabase_functions_shared_schemas",
+      "supabase_functions_shared_schemas_attemptresultenum",
+      "supabase_functions_shared_schemas_createcheckoutschema",
+      "supabase_functions_shared_schemas_exerciselevelenum",
+      "supabase_functions_shared_schemas_planstatusenum",
+      "supabase_functions_shared_schemas_registerattemptschema",
+      "supabase_functions_shared_schemas_registerchildschema",
+      "supabase_functions_shared_schemas_registeruserschema",
+      "supabase_functions_shared_schemas_startsessionschema",
+      "supabase_functions_shared_schemas_submitinitialanswersschema",
+      "supabase_functions_shared_schemas_submitscreeninganswersschema",
+      "supabase_functions_shared_schemas_subscriptionplanenum",
+      "supabase_functions_start_exercise_session_index",
+      "supabase_functions_submit_initial_answers_index",
+      "supabase_functions_submit_screening_answers_index"
+    ],
+    "4": [
+      "apps_mobile_assets_cognitiva",
+      "apps_mobile_assets_comunicacao",
+      "apps_mobile_assets_coordenacao",
+      "apps_mobile_assets_funcional",
+      "apps_mobile_assets_onboarding1",
+      "apps_mobile_assets_onboarding2",
+      "apps_mobile_assets_social",
+      "avancekids_documentacao_extracted_logica_age_regression_triage",
+      "avancekids_documentacao_extracted_logica_band_f01a",
+      "avancekids_documentacao_extracted_logica_band_f02a",
+      "avancekids_documentacao_extracted_logica_band_f03a",
+      "avancekids_documentacao_extracted_logica_band_f04a",
+      "avancekids_documentacao_extracted_logica_band_f05a",
+      "avancekids_documentacao_extracted_logica_band_f06a",
+      "avancekids_documentacao_extracted_logica_document",
+      "avancekids_documentacao_extracted_logica_fxayzzz_coding_scheme",
+      "avancekids_documentacao_imagens_e_logo_cognitiva",
+      "avancekids_documentacao_imagens_e_logo_comunicacao",
+      "avancekids_documentacao_imagens_e_logo_coordenacao",
+      "avancekids_documentacao_imagens_e_logo_funcional",
+      "avancekids_documentacao_mensagens_admin_portal_free_premium_toggle",
+      "avancekids_documentacao_mensagens_bubble_vs_n8n_decision",
+      "avancekids_documentacao_mensagens_child_registration_fields",
+      "avancekids_documentacao_mensagens_freemium_model_decision",
+      "avancekids_documentacao_mensagens_relevantes_sobre_a_arquitetura_do_projeto",
+      "avancekids_documentacao_roadmap_horizontal",
+      "avancekids_documentacao_styleguide_avance_kids"
+    ],
+    "5": [
+      "apps_mobile_app_adaptiveicon_backgroundcolor",
+      "apps_mobile_app_adaptiveicon_backgroundimage",
+      "apps_mobile_app_adaptiveicon_foregroundimage",
+      "apps_mobile_app_adaptiveicon_monochromeimage",
+      "apps_mobile_app_android_adaptiveicon",
+      "apps_mobile_app_android_predictivebackgestureenabled",
+      "apps_mobile_app_expo",
+      "apps_mobile_app_expo_android",
+      "apps_mobile_app_expo_icon",
+      "apps_mobile_app_expo_ios",
+      "apps_mobile_app_expo_name",
+      "apps_mobile_app_expo_orientation",
+      "apps_mobile_app_expo_plugins",
+      "apps_mobile_app_expo_slug",
+      "apps_mobile_app_expo_splash",
+      "apps_mobile_app_expo_userinterfacestyle",
+      "apps_mobile_app_expo_version",
+      "apps_mobile_app_expo_web",
+      "apps_mobile_app_ios_supportstablet",
+      "apps_mobile_app_json_apps_mobile_app",
+      "apps_mobile_app_splash_backgroundcolor",
+      "apps_mobile_app_splash_image",
+      "apps_mobile_app_splash_resizemode",
+      "apps_mobile_app_web_favicon",
+      "ref_expo_splash_screen"
+    ],
+    "6": [
+      "apps_backoffice_tsconfig_app",
+      "apps_backoffice_tsconfig_app_compileroptions",
+      "apps_backoffice_tsconfig_app_compileroptions_allowarbitraryextensions",
+      "apps_backoffice_tsconfig_app_compileroptions_allowimportingtsextensions",
+      "apps_backoffice_tsconfig_app_compileroptions_erasablesyntaxonly",
+      "apps_backoffice_tsconfig_app_compileroptions_jsx",
+      "apps_backoffice_tsconfig_app_compileroptions_lib",
+      "apps_backoffice_tsconfig_app_compileroptions_module",
+      "apps_backoffice_tsconfig_app_compileroptions_moduledetection",
+      "apps_backoffice_tsconfig_app_compileroptions_moduleresolution",
+      "apps_backoffice_tsconfig_app_compileroptions_noemit",
+      "apps_backoffice_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
+      "apps_backoffice_tsconfig_app_compileroptions_nounusedlocals",
+      "apps_backoffice_tsconfig_app_compileroptions_nounusedparameters",
+      "apps_backoffice_tsconfig_app_compileroptions_skiplibcheck",
+      "apps_backoffice_tsconfig_app_compileroptions_target",
+      "apps_backoffice_tsconfig_app_compileroptions_tsbuildinfofile",
+      "apps_backoffice_tsconfig_app_compileroptions_types",
+      "apps_backoffice_tsconfig_app_compileroptions_verbatimmodulesyntax",
+      "apps_backoffice_tsconfig_app_include",
+      "apps_backoffice_tsconfig_app_json_ref_es2023",
+      "ref_dom",
+      "ref_src",
+      "ref_vite_client"
+    ],
+    "7": [
+      "apps_backoffice_tsconfig_node",
+      "apps_backoffice_tsconfig_node_compileroptions",
+      "apps_backoffice_tsconfig_node_compileroptions_allowimportingtsextensions",
+      "apps_backoffice_tsconfig_node_compileroptions_erasablesyntaxonly",
+      "apps_backoffice_tsconfig_node_compileroptions_lib",
+      "apps_backoffice_tsconfig_node_compileroptions_module",
+      "apps_backoffice_tsconfig_node_compileroptions_moduledetection",
+      "apps_backoffice_tsconfig_node_compileroptions_noemit",
+      "apps_backoffice_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
+      "apps_backoffice_tsconfig_node_compileroptions_nounusedlocals",
+      "apps_backoffice_tsconfig_node_compileroptions_nounusedparameters",
+      "apps_backoffice_tsconfig_node_compileroptions_skiplibcheck",
+      "apps_backoffice_tsconfig_node_compileroptions_target",
+      "apps_backoffice_tsconfig_node_compileroptions_tsbuildinfofile",
+      "apps_backoffice_tsconfig_node_compileroptions_types",
+      "apps_backoffice_tsconfig_node_compileroptions_verbatimmodulesyntax",
+      "apps_backoffice_tsconfig_node_include",
+      "apps_backoffice_tsconfig_node_json_ref_es2023",
+      "ref_node",
+      "ref_vite_config_ts"
+    ],
+    "8": [
+      "apps_mobile_src_components_bottomtabbar",
+      "apps_mobile_src_components_bottomtabbar_bottomtabbar",
+      "apps_mobile_src_components_bottomtabbar_bottomtabbarprops",
+      "apps_mobile_src_components_bottomtabbar_homeicon",
+      "apps_mobile_src_components_bottomtabbar_planicon",
+      "apps_mobile_src_components_bottomtabbar_profileicon",
+      "apps_mobile_src_components_bottomtabbar_styles",
+      "apps_mobile_src_screens_activityplanscreen",
+      "apps_mobile_src_screens_activityplanscreen_activityplanscreen",
+      "apps_mobile_src_screens_activityplanscreen_mock_active",
+      "apps_mobile_src_screens_activityplanscreen_mock_locked",
+      "apps_mobile_src_screens_activityplanscreen_skill_colors",
+      "apps_mobile_src_screens_activityplanscreen_styles",
+      "apps_mobile_src_screens_activityscreen",
+      "apps_mobile_src_screens_activityscreen_activityscreen",
+      "apps_mobile_src_screens_activityscreen_mock_activities",
+      "apps_mobile_src_screens_activityscreen_styles",
+      "apps_mobile_src_screens_settingsscreen",
+      "apps_mobile_src_screens_settingsscreen_settingsscreen",
+      "apps_mobile_src_screens_settingsscreen_styles"
+    ],
+    "9": [
+      "apps_backoffice_src_app",
+      "apps_backoffice_src_app_app",
+      "apps_backoffice_src_components_layout_adminlayout",
+      "apps_backoffice_src_components_layout_adminlayout_adminlayout",
+      "apps_backoffice_src_components_layout_adminlayout_navitems",
+      "apps_backoffice_src_main",
+      "apps_backoffice_src_screens_activitiesscreen",
+      "apps_backoffice_src_screens_activitiesscreen_activitiesscreen",
+      "apps_backoffice_src_screens_activitiesscreen_mockdata",
+      "apps_backoffice_src_screens_crudscreen",
+      "apps_backoffice_src_screens_crudscreen_crudscreen",
+      "apps_backoffice_src_screens_crudscreen_crudscreenprops",
+      "apps_backoffice_src_screens_crudscreen_mockdata",
+      "apps_backoffice_src_screens_dashboardscreen",
+      "apps_backoffice_src_screens_dashboardscreen_dashboardscreen",
+      "apps_backoffice_src_screens_dashboardscreen_data",
+      "apps_backoffice_src_screens_loginscreen",
+      "apps_backoffice_src_screens_loginscreen_loginscreen"
+    ],
+    "10": [
+      "apps_mobile_src_screens_activityhistoryscreen",
+      "apps_mobile_src_screens_activityhistoryscreen_activityhistoryscreen",
+      "apps_mobile_src_screens_activityhistoryscreen_mock_history",
+      "apps_mobile_src_screens_activityhistoryscreen_skill_colors",
+      "apps_mobile_src_screens_activityhistoryscreen_styles",
+      "apps_mobile_src_screens_childrenlistscreen",
+      "apps_mobile_src_screens_childrenlistscreen_childrenlistscreen",
+      "apps_mobile_src_screens_childrenlistscreen_styles",
+      "apps_mobile_src_screens_homescreen",
+      "apps_mobile_src_screens_homescreen_activitycard",
+      "apps_mobile_src_screens_homescreen_activitycardprops",
+      "apps_mobile_src_screens_homescreen_homescreen",
+      "apps_mobile_src_screens_homescreen_sectionheader",
+      "apps_mobile_src_screens_homescreen_styles",
+      "apps_mobile_src_store_useprofilestore",
+      "apps_mobile_src_store_useprofilestore_child",
+      "apps_mobile_src_store_useprofilestore_profilestore",
+      "apps_mobile_src_store_useprofilestore_useprofilestore"
+    ],
+    "11": [
+      "apps_mobile_package",
+      "apps_mobile_package_devdependencies",
+      "apps_mobile_package_devdependencies_react_native_svg_transformer",
+      "apps_mobile_package_devdependencies_types_react",
+      "apps_mobile_package_devdependencies_typescript",
+      "apps_mobile_package_json_types_react",
+      "apps_mobile_package_json_typescript",
+      "apps_mobile_package_main",
+      "apps_mobile_package_name",
+      "apps_mobile_package_private",
+      "apps_mobile_package_scripts",
+      "apps_mobile_package_scripts_android",
+      "apps_mobile_package_scripts_ios",
+      "apps_mobile_package_scripts_start",
+      "apps_mobile_package_scripts_web",
+      "apps_mobile_package_version",
+      "react_native_svg_transformer"
+    ],
+    "12": [
+      "apps_mobile_src_components_googlebutton",
+      "apps_mobile_src_components_googlebutton_googlebutton",
+      "apps_mobile_src_components_googlebutton_googlebuttonprops",
+      "apps_mobile_src_components_googlebutton_styles",
+      "apps_mobile_src_components_input",
+      "apps_mobile_src_components_input_input",
+      "apps_mobile_src_components_input_inputprops",
+      "apps_mobile_src_components_input_styles",
+      "apps_mobile_src_components_logo",
+      "apps_mobile_src_components_logo_logo",
+      "apps_mobile_src_components_logo_styles",
+      "apps_mobile_src_screens_loginscreen",
+      "apps_mobile_src_screens_loginscreen_loginscreen",
+      "apps_mobile_src_screens_loginscreen_styles"
+    ],
+    "13": [
+      "apps_mobile_src_components_triagembasescreen",
+      "apps_mobile_src_components_triagembasescreen_styles",
+      "apps_mobile_src_components_triagembasescreen_triagembasescreen",
+      "apps_mobile_src_components_triagembasescreen_triagembasescreenprops",
+      "apps_mobile_src_data_habilidades",
+      "apps_mobile_src_data_habilidades_habilidade_styles",
+      "apps_mobile_src_data_habilidades_habilidadekey",
+      "apps_mobile_src_data_habilidades_habilidadestyle",
+      "apps_mobile_src_data_habilidades_mock_perguntas",
+      "apps_mobile_src_screens_habilidadescreen",
+      "apps_mobile_src_screens_habilidadescreen_habilidadescreen"
+    ],
+    "14": [
+      "apps_backoffice_oxlintrc",
+      "apps_backoffice_oxlintrc_plugins",
+      "apps_backoffice_oxlintrc_rules",
+      "apps_backoffice_oxlintrc_rules_react_only_export_components",
+      "apps_backoffice_oxlintrc_rules_react_rules_of_hooks",
+      "apps_backoffice_oxlintrc_schema",
+      "ref_oxc",
+      "ref_typescript",
+      "ref_warn"
+    ],
+    "15": [
+      "apps_mobile_assets_android_icon_background",
+      "apps_mobile_assets_android_icon_foreground",
+      "apps_mobile_assets_android_icon_monochrome",
+      "apps_mobile_assets_favicon",
+      "apps_mobile_assets_icon",
+      "apps_mobile_assets_splash_icon"
+    ],
+    "16": [
+      "apps_mobile_tsconfig",
+      "apps_mobile_tsconfig_compileroptions",
+      "apps_mobile_tsconfig_compileroptions_strict",
+      "apps_mobile_tsconfig_extends",
+      "ref_expo_tsconfig_base"
+    ],
+    "17": [
+      "apps_backoffice_public_logo_full",
+      "apps_backoffice_src_assets_hero",
+      "apps_mobile_assets_logo_texto_full",
+      "avancekids_documentacao_imagens_e_logo_logo_reduzida"
+    ],
+    "18": [
+      "avancekids_documentacao_imagens_e_logo_logo",
+      "avancekids_documentacao_imagens_e_logo_logo_texto",
+      "avancekids_documentacao_imagens_e_logo_social",
+      "avancekids_documentacao_imagens_e_logo_whisk_20b1a4674d9af4a8ca240956d8cd7412dr_1"
+    ],
+    "19": [
+      "supabase_functions_create_checkout_session_deno",
+      "supabase_functions_create_checkout_session_deno_imports",
+      "supabase_functions_create_checkout_session_deno_imports_supabase_functions_js",
+      "supabase_functions_create_checkout_session_deno_imports_supabase_server"
+    ],
+    "20": [
+      "supabase_functions_generate_activity_plan_deno",
+      "supabase_functions_generate_activity_plan_deno_imports",
+      "supabase_functions_generate_activity_plan_deno_imports_supabase_functions_js",
+      "supabase_functions_generate_activity_plan_deno_imports_supabase_server"
+    ],
+    "21": [
+      "supabase_functions_handle_stripe_webhook_deno",
+      "supabase_functions_handle_stripe_webhook_deno_imports",
+      "supabase_functions_handle_stripe_webhook_deno_imports_supabase_functions_js",
+      "supabase_functions_handle_stripe_webhook_deno_imports_supabase_server"
+    ],
+    "22": [
+      "supabase_functions_register_attempt_deno",
+      "supabase_functions_register_attempt_deno_imports",
+      "supabase_functions_register_attempt_deno_imports_supabase_functions_js",
+      "supabase_functions_register_attempt_deno_imports_supabase_server"
+    ],
+    "23": [
+      "supabase_functions_register_child_deno",
+      "supabase_functions_register_child_deno_imports",
+      "supabase_functions_register_child_deno_imports_supabase_functions_js",
+      "supabase_functions_register_child_deno_imports_supabase_server"
+    ],
+    "24": [
+      "supabase_functions_start_exercise_session_deno",
+      "supabase_functions_start_exercise_session_deno_imports",
+      "supabase_functions_start_exercise_session_deno_imports_supabase_functions_js",
+      "supabase_functions_start_exercise_session_deno_imports_supabase_server"
+    ],
+    "25": [
+      "supabase_functions_submit_initial_answers_deno",
+      "supabase_functions_submit_initial_answers_deno_imports",
+      "supabase_functions_submit_initial_answers_deno_imports_supabase_functions_js",
+      "supabase_functions_submit_initial_answers_deno_imports_supabase_server"
+    ],
+    "26": [
+      "supabase_functions_submit_screening_answers_deno",
+      "supabase_functions_submit_screening_answers_deno_imports",
+      "supabase_functions_submit_screening_answers_deno_imports_supabase_functions_js",
+      "supabase_functions_submit_screening_answers_deno_imports_supabase_server"
+    ],
+    "27": [
+      "apps_backoffice_index_entry",
+      "apps_backoffice_public_favicon_icon",
+      "apps_backoffice_src_assets_vite_logo"
+    ],
+    "28": [
+      "apps_backoffice_tsconfig",
+      "apps_backoffice_tsconfig_files",
+      "apps_backoffice_tsconfig_references"
+    ],
+    "29": [
+      "apps_mobile_agents_expo_note",
+      "apps_mobile_claude_include",
+      "claude_graphify_rules"
+    ],
+    "30": [
+      "avancekids_documentacao_outros_documentos_3_folha_de_registro_aba",
+      "avancekids_documentacao_outros_documentos_5_folha_do_programa_de_pareamento",
+      "avancekids_documentacao_outros_documentos_folha_de_registro"
+    ],
+    "31": [
+      "apps_backoffice_src_theme",
+      "apps_backoffice_src_theme_theme"
+    ],
+    "32": [
+      "apps_mobile_assets_onboarding3",
+      "apps_mobile_assets_perguntas"
+    ],
+    "33": [
+      "apps_mobile_metro_config",
+      "apps_mobile_metro_config_getdefaultconfig"
+    ],
+    "34": [
+      "avancekids_documentacao_imagens_e_logo_iphone_13",
+      "avancekids_documentacao_imagens_e_logo_iphone_14"
+    ],
+    "35": [
+      "apps_backoffice_public_icons_sprite"
+    ],
+    "36": [
+      "apps_backoffice_readme_vite_template"
+    ],
+    "37": [
+      "apps_backoffice_src_assets_react_logo"
+    ],
+    "38": [
+      "apps_backoffice_vite_config"
+    ],
+    "39": [
+      "readme_avance_kids"
+    ]
+  },
+  "cohesion": {
+    "0": 0.07496194824961948,
+    "1": 0.046511627906976744,
+    "2": 0.05263157894736842,
+    "3": 0.16129032258064516,
+    "4": 0.07977207977207977,
+    "5": 0.08,
+    "6": 0.08333333333333333,
+    "7": 0.1,
+    "8": 0.11578947368421053,
+    "9": 0.1437908496732026,
+    "10": 0.1568627450980392,
+    "11": 0.11764705882352941,
+    "12": 0.17582417582417584,
+    "13": 0.3090909090909091,
+    "14": 0.2222222222222222,
+    "15": 0.3333333333333333,
+    "16": 0.4,
+    "17": 0.5,
+    "18": 0.5,
+    "19": 0.5,
+    "20": 0.5,
+    "21": 0.5,
+    "22": 0.5,
+    "23": 0.5,
+    "24": 0.5,
+    "25": 0.5,
+    "26": 0.5,
+    "27": 0.6666666666666666,
+    "28": 0.6666666666666666,
+    "29": 0.6666666666666666,
+    "30": 0.6666666666666666,
+    "31": 1.0,
+    "32": 1.0,
+    "33": 1.0,
+    "34": 1.0,
+    "35": 1.0,
+    "36": 1.0,
+    "37": 1.0,
+    "38": 1.0,
+    "39": 1.0
+  },
+  "gods": [
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 36
+    },
+    {
+      "id": "apps_mobile_src_theme_theme",
+      "label": "theme",
+      "degree": 29
+    },
+    {
+      "id": "apps_backoffice_tsconfig_app_compileroptions",
+      "label": "compilerOptions",
+      "degree": 18
+    },
+    {
+      "id": "apps_backoffice_tsconfig_node_compileroptions",
+      "label": "compilerOptions",
+      "degree": 15
+    },
+    {
+      "id": "apps_mobile_app_expo",
+      "label": "expo",
+      "degree": 12
+    },
+    {
+      "id": "apps_mobile_src_store_useprofilestore_useprofilestore",
+      "label": "useProfileStore",
+      "degree": 11
+    },
+    {
+      "id": "apps_mobile_src_components_button_button",
+      "label": "Button()",
+      "degree": 9
+    },
+    {
+      "id": "apps_mobile_src_utils_formatters_maskcpf",
+      "label": "maskCpf()",
+      "degree": 9
+    },
+    {
+      "id": "apps_mobile_src_utils_formatters_maskdate",
+      "label": "maskDate()",
+      "degree": 9
+    },
+    {
+      "id": "supabase_functions_shared_auth_getuser",
+      "label": "getUser()",
+      "degree": 9
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Cognitiva Domain Avatar (girl, purple shirt with gear icon)",
+      "target": "ABA Checklist & Programs Logic Specification",
+      "source_files": [
+        "apps/mobile/assets/Cognitiva.png",
+        "AvanceKids-DOCUMENTACAO/extracted_logica.txt"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image ↔ doc); connects across different repos/directories; peripheral node `Cognitiva Domain Avatar (girl, purple shirt with gear icon)` unexpectedly reaches hub `ABA Checklist & Programs Logic Specification`"
+    },
+    {
+      "source": "Coordenacao/Motora Domain Avatar (boy, orange shirt, footprint icon)",
+      "target": "ABA Checklist & Programs Logic Specification",
+      "source_files": [
+        "apps/mobile/assets/Coordenacao.png",
+        "AvanceKids-DOCUMENTACAO/extracted_logica.txt"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image ↔ doc); connects across different repos/directories; peripheral node `Coordenacao/Motora Domain Avatar (boy, orange shirt, footprint icon)` unexpectedly reaches hub `ABA Checklist & Programs Logic Specification`"
+    },
+    {
+      "source": "Funcional Domain Avatar (girl, pink dress, holding card)",
+      "target": "ABA Checklist & Programs Logic Specification",
+      "source_files": [
+        "apps/mobile/assets/Funcional.png",
+        "AvanceKids-DOCUMENTACAO/extracted_logica.txt"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image ↔ doc); connects across different repos/directories; peripheral node `Funcional Domain Avatar (girl, pink dress, holding card)` unexpectedly reaches hub `ABA Checklist & Programs Logic Specification`"
+    },
+    {
+      "source": "Social Domain Avatar (boy, green shirt, holding emoji cards)",
+      "target": "ABA Checklist & Programs Logic Specification",
+      "source_files": [
+        "apps/mobile/assets/Social.png",
+        "AvanceKids-DOCUMENTACAO/extracted_logica.txt"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image ↔ doc); connects across different repos/directories; peripheral node `Social Domain Avatar (boy, green shirt, holding emoji cards)` unexpectedly reaches hub `ABA Checklist & Programs Logic Specification`"
+    },
+    {
+      "source": "Comunicacao Domain Avatar (girl, yellow dress, waving)",
+      "target": "ABA Checklist & Programs Logic Specification",
+      "source_files": [
+        "apps/mobile/assets/Comunicacao.png",
+        "AvanceKids-DOCUMENTACAO/extracted_logica.txt"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (image ↔ doc); connects across different repos/directories"
+    }
+  ],
+  "questions": [
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `WhatsApp Chat: Project Architecture & Contract Discussion` and `Roadmap Horizontal (PDF, content unextracted/empty)`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `WhatsApp Chat: Project Architecture & Contract Discussion` and `Avance Kids Styleguide (PDF, content unextracted/empty)`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `Admin Portal Free/Premium Feature Toggle (descoped from initial proposal)` and `ABA Checklist & Programs Logic Specification`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `AvanceKids Logo (Icon Mark)` and `App Mascot Character Holding Phone (Social Promo Image)`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `Folha de Registro - ABA (Registration Sheet)` and `Folha de Registro (Registration Sheet, generic)`?",
+      "why": "Edge tagged AMBIGUOUS (relation: references) - confidence is low."
+    },
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `Folha de Registro - ABA (Registration Sheet)` and `Folha do Programa de Pareamento (Pairing Program Sheet)`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `react` connect `App.tsx` to `BottomTabBar.tsx`, `App.tsx`, `HomeScreen.tsx`, `LoginScreen.tsx`, `TriagemBaseScreen.tsx`, `plugins`?",
+      "why": "High betweenness centrality (0.065) - this node is a cross-community bridge."
+    }
+  ]
+}
