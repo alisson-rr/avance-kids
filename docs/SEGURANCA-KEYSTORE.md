@@ -82,13 +82,16 @@ Branches afetadas (todas continham os objetos):
 
 Comando executado (`git filter-repo` não está instalado nesta máquina; o
 `filter-branch` com `--index-filter` não precisa de checkout e é rápido em um
-repositório deste tamanho — 42 commits, ~12 MB):
+repositório deste tamanho — 49 commits, ~12 MB):
 
 ```bash
 FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f \
-  --index-filter '<script de purga>' \
-  --prune-empty -- --branches --tags
+  --index-filter "sh <script de purga>" -- --branches --tags
 ```
+
+Sem `--prune-empty`: nenhum commit fica vazio depois da purga (os que tocavam o
+keystore mexiam em mais arquivos), e manter os nós evita ter de reconferir o
+grafo inteiro.
 
 O script de purga faz duas coisas em cada commit:
 
@@ -103,14 +106,33 @@ novo=$(git cat-file blob "$blob" | sed "s/$SENHA/[SENHA REMOVIDA DO HISTORICO]/g
 [ "$novo" = "$blob" ] || git update-index --cacheinfo 100644,"$novo",docs/BUILD-ANDROID.md
 ```
 
+Hashes antes e depois (todas as refs mudaram, como esperado):
+
+| Ref | Antes | Depois |
+| --- | --- | --- |
+| `main` | `f1f1076` | `5eb0e1d` |
+| `fix/mobile-ui-audit` | `dc6009b` | `c4a24ca` |
+| `feat/nonblocking-core-prep` | `44a8db6` | `2901fe8` |
+| `integration/pre-client-response` | `a91ced8` | `36782ba` |
+
 Depois da reescrita, para que os objetos antigos deixem de ser alcançáveis
 localmente:
 
 ```bash
 git for-each-ref --format='delete %(refname)' refs/original | git update-ref --stdin
 git reflog expire --expire=now --all
-git gc --prune=now --aggressive
+git gc --prune=now
 ```
+
+### Onde está o backup
+
+`C:\Users\Alisson\CascadeProjects\AVANCE-Kids-backup-pre-purge.git` — espelho completo tirado **depois** da reescrita e **antes** da
+limpeza, então contém as refs novas *e* `refs/original/**` com o histórico
+antigo inteiro.
+
+> ⚠️ **Esse espelho contém o keystore antigo e a senha.** Ele existe para
+> reverter a reescrita se algo tiver saído errado. Apague-o assim que a
+> integração estiver revisada e aceita.
 
 ## 3. O que continua pendente
 
@@ -154,6 +176,15 @@ git rev-list --objects --branches --tags | while read sha rest; do
 done
 ```
 
-Ambos devem sair vazios. Enquanto `refs/remotes/origin/*` não for atualizado
-após o push forçado, o objeto antigo continua alcançável por essas refs — o que
-é a representação correta do estado do remoto.
+Ambos devem sair vazios — e saíram, na conferência feita após a purga.
+
+Uma varredura em `--all` (e não só em branches e tags) **ainda encontra** os dois
+segredos. Isso é esperado e correto: a única ref que os alcança é
+`refs/remotes/origin/main`, o espelho local do que o GitHub ainda tem. Ela é
+substituída no primeiro `git fetch` depois do push forçado da seção 3.
+
+```bash
+git for-each-ref --format='%(refname)' refs/remotes
+# refs/remotes/origin/HEAD
+# refs/remotes/origin/main   <- f1f1076, o histórico antigo
+```
