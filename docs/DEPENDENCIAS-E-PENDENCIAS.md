@@ -1,8 +1,28 @@
-# Dependências e pendências — branch `feat/nonblocking-core-prep`
+# Dependências e pendências
 
-Registro do que **não** foi implementado nesta branch e por quê. Cada item traz
-a evidência no código, para que a decisão possa ser tomada sem reabrir a
-investigação.
+Registro do que **não** foi implementado e por quê. Cada item traz a evidência
+no código, para que a decisão possa ser tomada sem reabrir a investigação.
+
+> **Atualizado na branch `integration/pre-client-response`.** O documento nasceu
+> em `feat/nonblocking-core-prep`; a integração resolveu parte dos itens. O
+> status de cada um está marcado abaixo.
+
+## Resolvido na integração
+
+| Item | O que mudou |
+| --- | --- |
+| 1.7 Códigos AT | Importados para `screening_programs` (migration-10). Conteúdo existe; regra de uso continua pendente. |
+| 2.1 Plano anual | Removido da `PlansScreen`. Backend já recusava; a tela era o único lugar que ainda oferecia. |
+| 2.2 Preço e trial do servidor | Nova function `billing-config`; a tela não tem mais valor escrito no código. |
+| 2.3 `accept-terms` no cadastro | Chamado após o signup, com retentativa em caso de falha. |
+| 2.4 Texto real dos termos | `constants/termos.ts` com a transcrição do PDF oficial; versão vem do servidor. |
+| 2.5 Exclusão de conta | Fluxo em `SettingsScreen` com dupla confirmação e limpeza de sessão. |
+| 2.7 `.env.example` | `STRIPE_PRICE_ANNUAL` fora; aponta `STRIPE_TRIAL_DAYS` e `billing-config`. |
+| 4.1 Keystore versionado | Keystore novo gerado, histórico local purgado — [SEGURANCA-KEYSTORE.md](SEGURANCA-KEYSTORE.md). |
+| 4.2 Tenant crossing | Fechado por FKs compostas (migration-09) + `scripts/test_multi_tenant.sql`. |
+
+Continuam abertos: **1.1–1.6, 1.8, 1.9, 2.6, 4.3–4.6** e os dois itens novos da
+seção 5.
 
 ---
 
@@ -103,21 +123,30 @@ Nada no schema representa "contexto". A coluna `exercises.brincadeiras` e o
 texto oficial de generalização descrevem contextos em prosa, mas não há campo
 estruturado. **Não alterado.**
 
-### 1.7 Códigos de Triagem (AT) — 24 códigos, 72 registros
+### 1.7 Códigos de Triagem (AT) — 24 códigos, 72 registros — ✅ conteúdo importado
 
 Os códigos `F01AT001`..`F06AT004` são os "Programas Básicos de Engajamento" da
-Triagem Inicial. **Não foram importados.** Dois motivos, os dois dependentes da
-cliente:
+Triagem Inicial. Eles têm as **mesmas 17 colunas preenchidas** dos demais 126
+códigos: é conteúdo completo, e guardar conteúdo não depende de decisão
+pedagógica. Na integração foram importados para a tabela `screening_programs`
+(migration-10) — 72 registros, fechando os 450 do material oficial.
 
-1. A regra de disparo ("marcar NÃO para 2 ou mais itens → iniciar com programas
-   básicos") não existe no código e não pode ser inventada.
-2. Não dá para derivar a qual das 5 habilidades cada um pertence. A coluna
-   `Função` não resolve: `Atenção conjunta` aparece tanto em códigos AC
-   (comunicação) quanto em códigos AG (cognitiva) no próprio arquivo oficial.
+Não entraram em `exercises` porque há impedimento técnico verificado:
 
-O importador conta e reporta esses registros a cada execução. Assim que a
-cliente definir os dois pontos, basta ajustar `CATEGORIA_SKILL` /
-`CATEGORIA_TRIAGEM` em `scripts/import_programas.py` e regerar a migration.
+- `exercises.skill_id` é `NOT NULL REFERENCES skills(id)` (`baseline.sql:355`) e
+  o catálogo tem exatamente 5 habilidades (`baseline.sql:877-882`), espelhadas
+  em `HabilidadeKey` no app. Inserir AT ali obrigaria a inventar a habilidade.
+- A coluna `Função` não resolve: `Atenção conjunta` aparece tanto em códigos AC
+  (comunicação) quanto AG (cognitiva) no próprio arquivo oficial.
+- Toda linha de `exercises` é elegível para `generate-activity-plan`, ou seja, o
+  conteúdo entraria no plano da criança sem regra de disparo definida.
+
+`screening_programs` não tem `skill_id`, não tem `plano` e não se liga a
+`activity_plans` — checado no harness.
+
+**Continua pendente da cliente:** a regra de disparo ("marcar NÃO para 2 ou mais
+itens → iniciar com programas básicos") e a habilidade de cada código. Quando
+existirem, o vínculo entra em uma migration nova; nada precisa ser reimportado.
 
 ### 1.8 Quais atividades são premium
 
@@ -142,63 +171,26 @@ direito de exclusão é decisão de produto e tem leitura jurídica.
 
 ---
 
-## 2. Patches pendentes para o agente de UI
+## 2. Patches de UI — ✅ aplicados na integração
 
-Nada em `apps/mobile/src/screens/**` nem `apps/mobile/src/components/**` foi
-tocado. Estes pontos precisam de alteração visual para fechar o que o backend
-já entrega:
+Esta seção era a lista de pedidos para o agente de UI. Tudo, exceto o item 2.6,
+foi aplicado em `integration/pre-client-response`.
 
-### 2.1 Remover o plano anual da tela de planos
+| # | Pedido | Onde ficou |
+| --- | --- | --- |
+| 2.1 | Remover o plano anual | `PlansScreen.tsx` — card único mensal; sem selo, sem estilos e sem labels do anual |
+| 2.2 | Preço e trial do servidor | `supabase/functions/billing-config/` + `services/subscription.ts` |
+| 2.3 | `accept-terms` no cadastro | `ParentRegisterScreen.tsx` + `services/terms.ts` |
+| 2.4 | Texto real dos termos | `constants/termos.ts` + `components/TermsModal.tsx` |
+| 2.5 | Exclusão de conta | `SettingsScreen.tsx` + `services/auth.ts` (`deleteAccount`) |
+| 2.7 | `.env.example` | `STRIPE_PRICE_ANNUAL` removido |
 
-- `apps/mobile/src/screens/PlansScreen.tsx:12` — `useState<'monthly' | 'annual'>('annual')`
-  (o **anual vem selecionado por padrão**)
-- `apps/mobile/src/screens/PlansScreen.tsx:82-97` — card "Anual", `R$ 299,00/ano`
-- `apps/mobile/src/services/subscription.ts:14` — `export type CheckoutPlan = 'monthly' | 'annual'`
+### 2.6 Campos novos no backoffice — ⬜ aberto
 
-**Estado do backend:** `plan` virou opcional e o servidor resolve o preço
-mensal sozinho. Enviar `plan: 'monthly'` ou não enviar nada funciona; enviar
-`'annual'` recebe 400 com *"No momento a assinatura é apenas mensal."* — erro
-explícito de propósito, para não cobrar mensal em quem clicou em anual.
-
-### 2.2 Preço e período do teste vindos do servidor
-
-`PlansScreen.tsx` escreve o valor e o período à mão. Como o preço real está no
-Stripe e o trial no secret `STRIPE_TRIAL_DAYS`, a tela pode divergir da
-cobrança sem ninguém perceber.
-
-### 2.3 Chamar `accept-terms` no cadastro
-
-Hoje o checkbox de aceite é decorativo: `apps/mobile/src/services/auth.ts:41`
-envia `termos_aceitos: true` fixo no metadata do signup, independentemente do
-checkbox (`ParentRegisterScreen.tsx:30,41,155`).
-
-**A fazer:** depois do signup (ou no primeiro login com sessão), chamar
-`accept-terms`. Sem isso as tabelas novas ficam vazias e a prova de
-consentimento continua sendo só o booleano.
-
-### 2.4 Texto real dos termos no modal
-
-`apps/mobile/src/components/TermsModal.tsx` mostra texto de exemplo. O
-documento real existe
-(`AvanceKids-DOCUMENTACAO/Termos_e_Privacidade_Avance_Kids_Final.pdf`,
-versão `2026-08-17`) e já está catalogado em `terms_documents`, com `url` a
-preencher no deploy. O app deve ler a versão vigente dessa tabela.
-
-### 2.5 Tela de exclusão de conta
-
-`delete-account` está pronta. Falta o botão (provavelmente em
-`SettingsScreen.tsx`), com confirmação, enviando
-`{"confirmacao":"EXCLUIR"}` e fazendo logout na resposta.
-
-### 2.6 Campos novos no backoffice
-
-`exercises` ganhou `programa_aba` e `funcao` (as duas colunas da planilha
-oficial que não tinham destino). O formulário do backoffice não as exibe.
-
-### 2.7 `apps/mobile/.env.example`
-
-Contém `EXPO_PUBLIC_STRIPE_PRICE_ANNUAL`, que não é mais usado. Arquivo em
-alteração pelo outro agente — não tocado aqui.
+`exercises` ganhou `programa_aba` e `funcao` na migration-08 (as duas colunas da
+planilha oficial que não tinham destino). O formulário do backoffice não as
+exibe. `screening_programs` (migration-10) também não tem tela — a RLS dela hoje
+é só de admin, então o conteúdo dos 24 códigos AT só é visível via SQL.
 
 ---
 
@@ -231,35 +223,32 @@ se houver dados reais, avaliar antes de aplicar.
 
 ---
 
-## 4. Riscos confirmados que **não** foram corrigidos
+## 4. Riscos levantados (com status)
 
-### 4.1 🔴 Keystore de release e senha versionados no git
+### 4.1 ✅ Keystore de release e senha versionados no git — resolvido
 
-- `apps/mobile/credentials/avancekids-release.keystore` — rastreado desde o
-  commit `77a3f5b`
-- A senha estava em texto puro em `docs/BUILD-ANDROID.md`
+Keystore novo gerado (RSA 4096, PKCS12, senha aleatória de 32 caracteres, fora
+do git), `.gitignore` na raiz cobrindo material de assinatura no monorepo
+inteiro e histórico local purgado. O detalhamento — escopo verificado,
+procedimento executado e o push forçado que **continua pendente de decisão** —
+está em [SEGURANCA-KEYSTORE.md](SEGURANCA-KEYSTORE.md).
 
-Esta branch remove o arquivo do índice e apaga a senha do documento, mas **o
-histórico do git continua com os dois**. Quem tiver acesso ao repositório
-consegue assinar um APK como Avance Kids.
+O keystore antigo permanece comprometido e não deve assinar nada.
 
-**Remediação (irreversível, não aplicada aqui):** gerar keystore novo — o app
-ainda não foi publicado, então trocar agora custa zero e depois da publicação
-na Play Store deixa de ser possível sem Play App Signing. Detalhes em
-`docs/BUILD-ANDROID.md`.
+### 4.2 ✅ Tenant crossing em `exercise_sessions` / `exercise_attempts` — resolvido
 
-### 4.2 🔴 Tenant crossing em `exercise_sessions` / `exercise_attempts`
+Fechado pela migration-09 com chaves estrangeiras compostas:
 
-A policy de `exercise_attempts` (`baseline.sql:499-510`) valida apenas
-`child_id`. As colunas `session_id` e `plan_id` (`baseline.sql:484-485`) são
-FKs soltas, sem FK composta, sem trigger e sem CHECK correlacionando-as. Um
-usuário autenticado pode registrar tentativas apontando para o `plan_id` de
-outra criança e concluir o plano dela.
+```
+exercise_sessions (plan_id, child_id)          -> activity_plans (id, child_id)
+exercise_attempts (session_id, plan_id, child_id) -> exercise_sessions (id, plan_id, child_id)
+```
 
-**Não corrigido de propósito:** a instrução desta branch congela o *session
-engine*. A correção é uma policy `WITH CHECK` correlacionando
-`session_id`/`plan_id` ao `child_id` do próprio usuário — mudança pequena, mas
-dentro da área congelada.
+Constraint em vez de policy de propósito: as Edge Functions rodam com
+`service_role` e ignoram RLS, então uma correção só de RLS deixaria o caminho do
+servidor aberto. `scripts/test_multi_tenant.sql` cobre 5 travessias negativas
+entre duas contas, o bloqueio sob `service_role`, o fluxo legítimo, a progressão
+e a cascata — e foi conferido que o teste falha quando a migration-09 é retirada.
 
 ### 4.3 🟠 Bucket `avatars` é público
 
@@ -302,5 +291,59 @@ deno check supabase/functions/create-checkout-session/index.ts
 
 **Não corrigido:** trocar a string muda a versão da API do Stripe usada pelo
 checkout em produção. As opções são alinhar as três para `"2023-08-16"` ou
-subir o SDK; as duas mexem no comportamento de cobrança. `delete-account`
-(nova) já usa `"2023-08-16"` e passa no check.
+subir o SDK; as duas mexem no comportamento de cobrança. `delete-account` e
+`billing-config` (as duas novas) já usam `"2023-08-16"` e passam no check.
+
+> Não foi possível rodar `deno check` nesta máquina: o Deno e o binário do
+> Supabase CLI com runtime embutido não estão instalados. O que se sabe sobre
+> este item vem da leitura dos tipos do SDK.
+
+---
+
+## 5. Aberto desde a integração
+
+### 5.1 ⬜ CPF da criança — aguardando a cliente
+
+O app coleta CPF da criança (`ChildRegisterScreen.tsx:97`,
+`EditChildProfileScreen.tsx:117`), o schema tem `children.cpf`
+(`baseline.sql:218`) e `RegisterChildSchema` aceita o campo como opcional
+(`_shared/schemas.ts:25`).
+
+O documento oficial de Termos e Privacidade (17/08/2026), seção 2, lista os
+dados da criança como *"Nome ou apelido, data de nascimento, foto de perfil e
+informações sensíveis de saúde e desenvolvimento"* — **CPF não aparece**.
+
+Ou seja: há divergência entre o que o app coleta e o que os Termos declaram
+coletar. **Nada foi alterado**: nem o campo foi removido, nem os Termos foram
+ajustados. As duas saídas mexem em decisão da cliente.
+
+- Remover o CPF da criança: exige migration (`children.cpf`), ajuste do schema
+  de validação e das duas telas. Consequência: perde-se um identificador que
+  pode ser usado para emissão fiscal ou integração com convênios.
+- Manter o CPF: exige alterar os Termos para declará-lo, o que gera nova versão
+  do documento em `terms_documents` e novo aceite de todos os usuários.
+
+### 5.2 ⬜ Exportação de relatório — direito previsto nos Termos, sem tela
+
+A seção 9 dos Termos garante ao titular *"Exportar um relatório com as
+informações mantidas pela plataforma"*. Não existe esse fluxo no app.
+
+Por instrução explícita, **nenhuma exportação self-service foi criada** nesta
+integração. Enquanto não existir, o pedido tem de ser atendido manualmente pelo
+e-mail de suporte — que é o que os próprios Termos permitem ("ou através do
+e-mail de suporte institucional"), mas depende de alguém executar.
+
+### 5.3 ⬜ Aceite dos termos para contas antigas e para confirmação de e-mail
+
+`accept-terms` é chamado logo após o cadastro, que é onde o checkbox existe. Dois
+casos ficam sem registro auditável:
+
+- contas criadas **antes** da migration-06 — a própria migration explica que
+  não se inventa timestamp e IP para um aceite que nunca foi registrado;
+- cadastros feitos com `auth.email.enable_confirmations = true`, quando o signup
+  não devolve sessão e a function (que exige JWT) não pode ser chamada. Hoje a
+  opção está desligada (`supabase/config.toml`), então o caso não ocorre.
+
+Fechar os dois exige pedir o aceite de novo no primeiro login quando não há
+linha em `terms_acceptances` para a versão vigente — um gate na entrada do app,
+que muda o fluxo de login e não foi pedido nesta etapa.

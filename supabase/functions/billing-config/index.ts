@@ -23,8 +23,12 @@ import { monthlyPriceId, trialPeriodDays, handleBillingError, BillingError } fro
 import { getUser, getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, corsHeaders } from "../_shared/response.ts";
 
+// apiVersion "2023-08-16" e não "2023-10-16" como nas functions de checkout:
+// é a versão que os tipos do stripe@13.11.0 declaram como LatestApiVersion, então
+// "2023-10-16" não passa em `deno check`. Aqui a escolha é livre — esta function
+// só lê um Price, não cria cobrança — então entra já passando no typecheck.
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
-  apiVersion: "2023-10-16",
+  apiVersion: "2023-08-16",
   httpClient: Stripe.createFetchHttpClient(),
 });
 
