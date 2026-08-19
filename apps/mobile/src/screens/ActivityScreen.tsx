@@ -43,6 +43,7 @@ export function ActivityScreen({ navigation, route }: any) {
 
   const [plan, setPlan] = useState<PlanWithDetails | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [blockedByPlan, setBlockedByPlan] = useState(false);
   const [session, setSession] = useState<ExerciseSessionRow | null>(null);
   const [starting, setStarting] = useState(false);
   const [registering, setRegistering] = useState(false);
@@ -64,6 +65,8 @@ export function ActivityScreen({ navigation, route }: any) {
         setLoadError('Atividade não encontrada.');
         return;
       }
+      // `exercises` nulo = atividade premium sem assinatura ativa (RLS).
+      setBlockedByPlan(data.exercises === null);
       setPlan(data);
     } catch (err) {
       setLoadError(errorMessage(err));
@@ -141,8 +144,8 @@ export function ActivityScreen({ navigation, route }: any) {
   };
 
   const handleInfo = () => {
-    if (!plan) return;
-    const e = plan.exercises;
+    const e = plan?.exercises;
+    if (!e) return;
     const sections = [
       ['Materiais', e.materiais],
       ['Frequência', e.frequencia],
@@ -163,7 +166,7 @@ export function ActivityScreen({ navigation, route }: any) {
   };
 
   const handlePlayVideo = () => {
-    const url = plan?.exercises.media_url;
+    const url = plan?.exercises?.media_url;
     if (url) {
       Linking.openURL(url).catch(() => showError('Erro', 'Não foi possível abrir o vídeo.'));
     }
@@ -180,7 +183,24 @@ export function ActivityScreen({ navigation, route }: any) {
     );
   }
 
-  if (!plan) {
+  if (blockedByPlan) {
+    return (
+      <View style={[styles.screen, styles.stateContainer, { paddingTop: safeTop }]}>
+        <Ionicons name="lock-closed" size={40} color={theme.colors.primary} />
+        <Text style={styles.stateText}>
+          Esta atividade faz parte do plano premium. Assine para liberar.
+        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Plans')}>
+          <Text style={styles.stateLink}>Ver planos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.stateLink}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (!plan?.exercises) {
     return (
       <View style={[styles.screen, styles.stateContainer, { paddingTop: safeTop }]}>
         <ActivityIndicator size="large" color={theme.colors.primary} />

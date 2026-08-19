@@ -59,10 +59,13 @@ export const StartSessionSchema = z.object({
 });
 
 // === Stripe ===
+// O cliente escolhe o plano, nunca o price_id nem as URLs de retorno: senão
+// qualquer token válido conseguiria assinar por um preço de teste ou mandar o
+// checkout redirecionar para fora do app.
+export const CheckoutPlanEnum = z.enum(["monthly", "annual"]);
+
 export const CreateCheckoutSchema = z.object({
-  price_id: z.string().min(1),
-  success_url: z.string().url(),
-  cancel_url: z.string().url(),
+  plan: CheckoutPlanEnum,
 });
 
 // === Admin ===

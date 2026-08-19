@@ -29,8 +29,18 @@ export function SkillActivityCard({
   locked = false,
 }: SkillActivityCardProps) {
   if (locked) {
+    // Sem onPress continua sendo um card inerte (atividade ainda não liberada
+    // pela progressão); com onPress vira o atalho para a tela de planos.
     return (
-      <View style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        activeOpacity={0.7}
+        onPress={onPress}
+        disabled={!onPress}
+        accessibilityRole={onPress ? 'button' : undefined}
+        accessibilityLabel={`${title}. ${description}`}
+        accessibilityState={{ disabled: !onPress }}
+      >
         <View style={[styles.tagBadge, { backgroundColor: '#F1F1F1', alignSelf: 'flex-start' }]}>
           <Text style={[styles.tagText, { color: '#AAAAAA' }]}>{skill}</Text>
         </View>
@@ -41,7 +51,7 @@ export function SkillActivityCard({
           </View>
           <Text style={styles.lockIcon}>🔒</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 

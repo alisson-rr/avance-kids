@@ -33,7 +33,10 @@ Deno.serve(async (req: Request) => {
 
     const serviceClient = getServiceClient();
 
-    // Gating free/premium: assinante free só recebe atividades do plano free
+    // O plano recebe TODAS as atividades da faixa, inclusive as premium: a RLS
+    // (migration-05) esconde o conteúdo pago de quem não assina e libera na
+    // hora em que a assinatura entra, sem precisar regerar o plano — regerar
+    // apagaria o histórico da criança.
     const { data: sub } = await serviceClient
       .from("subscriptions")
       .select("plano, status")
@@ -46,33 +49,33 @@ Deno.serve(async (req: Request) => {
 
     // Para cada habilidade, buscar as atividades ativas da faixa correspondente
     for (const sa of skillAges) {
-      let query = serviceClient
+      const { data: exercises } = await serviceClient
         .from("exercises")
-        .select("id, nivel, ordem")
+        .select("id, nivel, ordem, plano")
         .eq("skill_id", sa.skill_id)
         .eq("age_bracket_id", sa.faixa_id)
-        .eq("status", "ativo");
-
-      if (!isPremium) {
-        query = query.eq("plano", "free");
-      }
-
-      const { data: exercises } = await query
+        .eq("status", "ativo")
         .order("nivel", { ascending: true })   // aquisicao → generalizacao → manutencao
         .order("ordem", { ascending: true });
 
-      if (exercises && exercises.length > 0) {
-        exercises.forEach((ex, idx) => {
-          plansToInsert.push({
-            child_id,
-            skill_id: sa.skill_id,
-            exercise_id: ex.id,
-            status: idx === 0 ? "ativo" : "bloqueado", // primeiro = ativo
-            ordem: idx,
-            started_at: idx === 0 ? new Date().toISOString() : null,
-          });
+      if (!exercises || exercises.length === 0) continue;
+
+      // A primeira atividade que a conta consegue abrir é a que começa ativa;
+      // senão um plano que abre com atividade premium deixaria o usuário free
+      // sem nada para fazer.
+      const firstAvailable = exercises.findIndex((ex) => isPremium || ex.plano === "free");
+
+      exercises.forEach((ex, idx) => {
+        const isFirst = idx === firstAvailable;
+        plansToInsert.push({
+          child_id,
+          skill_id: sa.skill_id,
+          exercise_id: ex.id,
+          status: isFirst ? "ativo" : "bloqueado",
+          ordem: idx,
+          started_at: isFirst ? new Date().toISOString() : null,
         });
-      }
+      });
     }
 
     if (plansToInsert.length === 0) {

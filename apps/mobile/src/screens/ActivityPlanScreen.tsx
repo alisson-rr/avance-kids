@@ -21,8 +21,11 @@ import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
 import type { PlanWithDetails } from '../types/db';
 
 function planDescription(plan: PlanWithDetails): string {
-  return plan.exercises.objetivo ?? plan.exercises.procedimento ?? '';
+  return plan.exercises?.objetivo ?? plan.exercises?.procedimento ?? '';
 }
+
+/** `exercises` nulo = atividade premium sem assinatura ativa (RLS, migration-05). */
+const isPremiumLocked = (plan: PlanWithDetails) => plan.exercises === null;
 
 // ─── COMPONENT ────────────────────────────────────────────────────────
 export function ActivityPlanScreen({ navigation }: any) {
@@ -53,8 +56,10 @@ export function ActivityPlanScreen({ navigation }: any) {
     }, [load]),
   );
 
-  const activePlans = (plans ?? []).filter((p) => p.status === 'ativo');
-  const lockedPlans = (plans ?? []).filter((p) => p.status === 'bloqueado');
+  const visiblePlans = (plans ?? []).filter((p) => !isPremiumLocked(p));
+  const activePlans = visiblePlans.filter((p) => p.status === 'ativo');
+  const lockedPlans = visiblePlans.filter((p) => p.status === 'bloqueado');
+  const premiumPlans = (plans ?? []).filter(isPremiumLocked);
 
   // % = acertos "sem ajuda" da sessão atual rumo à meta de 8/10 (80% conclui)
   const progressFor = (plan: PlanWithDetails): number => {
@@ -119,7 +124,7 @@ export function ActivityPlanScreen({ navigation }: any) {
                   <SkillActivityCard
                     key={plan.id}
                     skill={plan.skills.nome}
-                    title={plan.exercises.titulo}
+                    title={plan.exercises!.titulo}
                     description={planDescription(plan)}
                     progress={progressFor(plan)}
                     onPress={() => navigation.navigate('Activity', { planId: plan.id })}
@@ -143,9 +148,33 @@ export function ActivityPlanScreen({ navigation }: any) {
                     <SkillActivityCard
                       key={plan.id}
                       skill={plan.skills.nome}
-                      title={plan.exercises.titulo}
+                      title={plan.exercises!.titulo}
                       description={planDescription(plan)}
                       locked
+                    />
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {/* ── Atividades do plano premium ── */}
+            {premiumPlans.length > 0 && (
+              <View style={styles.sectionContainer}>
+                <View style={styles.sectionHeaderGroup}>
+                  <Text style={styles.sectionTitle}>Atividades do plano premium</Text>
+                  <Text style={styles.sectionSubtitle}>
+                    Assine para liberar estas atividades no plano de {activeChild?.name ?? 'seu filho'}
+                  </Text>
+                </View>
+                <View style={styles.cardsList}>
+                  {premiumPlans.map((plan) => (
+                    <SkillActivityCard
+                      key={plan.id}
+                      skill={plan.skills.nome}
+                      title="Atividade premium"
+                      description="Disponível para assinantes. Toque para ver os planos."
+                      locked
+                      onPress={() => navigation.navigate('Plans')}
                     />
                   ))}
                 </View>
