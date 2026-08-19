@@ -11,20 +11,31 @@ import {
 // SafeAreaView do 'react-native' e no-op no Android; com edge-to-edge o header
 // ficava por baixo da status bar.
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Ionicons, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
 import { ScreenHeader } from '../components/ScreenHeader';
 import {
   createBillingPortalSession,
   createCheckoutSession,
+  fetchBillingConfig,
   fetchSubscription,
   isPremiumActive,
 } from '../services/subscription';
+import type { BillingConfig } from '../services/subscription';
 import { errorMessage } from '../services/api';
 import { fromIsoDate } from '../utils/formatters';
 import { showError } from '../ui/dialog';
 import type { SubscriptionRow } from '../types/db';
+
+/**
+ * Centavos do Stripe para texto. Sem Intl de propósito: o valor precisa sair
+ * igual em qualquer runtime, e o único caso real é BRL.
+ */
+function formatarPreco(centavos: number, moeda: string): string {
+  const valor = (centavos / 100).toFixed(2).replace('.', ',');
+  return moeda.toLowerCase() === 'brl' ? `R$ ${valor}` : `${moeda.toUpperCase()} ${valor}`;
+}
 
 /** Releituras após voltar do checkout: o webhook do Stripe leva alguns segundos. */
 const POLL_TRIES = 4;
@@ -32,8 +43,12 @@ const POLL_INTERVAL_MS = 2000;
 
 export function PlansScreen({ navigation }: any) {
   const insets = useSafeAreaInsets();
-  const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   const [loading, setLoading] = useState(false);
+  // Preço e teste vêm do servidor (billing-config). Enquanto não chegam a tela
+  // não inventa valor nenhum: anunciar um número que o Stripe não pratica é
+  // pior do que não anunciar.
+  const [billing, setBilling] = useState<BillingConfig | null>(null);
+  const [billingErro, setBillingErro] = useState(false);
   const [subscription, setSubscription] = useState<SubscriptionRow | null>(null);
   // Sem isto, "ainda verificando" e "nao tem assinatura" ficam indistinguiveis e
   // um assinante ve "Assinar agora" por alguns instantes.
@@ -64,6 +79,12 @@ export function PlansScreen({ navigation }: any) {
   }, []);
 
   useEffect(() => {
+    fetchBillingConfig()
+      .then(setBilling)
+      .catch(() => setBillingErro(true));
+  }, []);
+
+  useEffect(() => {
     refresh();
     // O checkout abre no navegador e a tela não remonta na volta — só o
     // AppState avisa que o app voltou ao primeiro plano.
@@ -87,8 +108,7 @@ export function PlansScreen({ navigation }: any) {
     }
   };
 
-  const handleSubscribe = () =>
-    openStripe(() => createCheckoutSession(selectedPlan), 'Erro na assinatura');
+  const handleSubscribe = () => openStripe(createCheckoutSession, 'Erro na assinatura');
 
   const handleManage = () =>
     openStripe(createBillingPortalSession, 'Erro ao abrir a assinatura');
@@ -124,7 +144,7 @@ export function PlansScreen({ navigation }: any) {
           
           <View style={styles.introSection}>
             <Text style={styles.title}>Desbloqueie todo o potencial do seu filho</Text>
-            <Text style={styles.subtitle}>Escolha o plano ideal para acompanhar e estimular o desenvolvimento contínuo.</Text>
+            <Text style={styles.subtitle}>Assinatura mensal, sem fidelidade, para acompanhar e estimular o desenvolvimento contínuo.</Text>
           </View>
 
           {needsPaymentFix && (
@@ -155,43 +175,38 @@ export function PlansScreen({ navigation }: any) {
           )}
 
           <View style={styles.plansContainer}>
-            {/* Plano Mensal */}
-            <TouchableOpacity 
-              style={[styles.planCard, selectedPlan === 'monthly' && styles.planCardActive]}
-              activeOpacity={0.8}
-              accessibilityRole="radio"
-              accessibilityState={{ selected: selectedPlan === 'monthly' }}
-              onPress={() => setSelectedPlan('monthly')}
-            >
+            {/* Plano único: mensal. Não existe anual — o backend recusa
+                qualquer plano diferente de "monthly" (billing.ts). */}
+            <View style={styles.planCard} accessible accessibilityRole="summary">
               <View style={styles.planHeader}>
                 <Text style={styles.planName}>Mensal</Text>
-                {selectedPlan === 'monthly' && (
-                  <Ionicons name="checkmark-circle" size={24} color={theme.colors.primary} />
-                )}
               </View>
-              <Text style={styles.planPrice}>R$ 29,90<Text style={styles.planPeriod}>/mês</Text></Text>
-            </TouchableOpacity>
 
-            {/* Plano Anual */}
-            <TouchableOpacity 
-              style={[styles.planCard, selectedPlan === 'annual' && styles.planCardActive]}
-              activeOpacity={0.8}
-              accessibilityRole="radio"
-              accessibilityState={{ selected: selectedPlan === 'annual' }}
-              onPress={() => setSelectedPlan('annual')}
-            >
-              <View style={styles.popularBadge}>
-                <Text style={styles.popularBadgeText}>Mais vantajoso</Text>
-              </View>
-              <View style={[styles.planHeader, styles.planHeaderWithBadge]}>
-                <Text style={styles.planName}>Anual</Text>
-                {selectedPlan === 'annual' && (
-                  <Ionicons name="checkmark-circle" size={24} color={theme.colors.primary} />
-                )}
-              </View>
-              <Text style={styles.planPrice}>R$ 299,00<Text style={styles.planPeriod}>/ano</Text></Text>
-              <Text style={styles.discountText}>Equivale a R$ 24,91/mês</Text>
-            </TouchableOpacity>
+              {billing ? (
+                <>
+                  <Text style={styles.planPrice}>
+                    {formatarPreco(billing.valor_centavos, billing.moeda)}
+                    <Text style={styles.planPeriod}>/mês</Text>
+                  </Text>
+                  {billing.trial_dias > 0 && (
+                    <Text style={styles.trialText}>
+                      {billing.trial_dias} dias grátis para experimentar
+                    </Text>
+                  )}
+                  {billing.ja_usou_teste && !isPremium && (
+                    <Text style={styles.planNote}>
+                      O período de teste já foi utilizado nesta conta.
+                    </Text>
+                  )}
+                </>
+              ) : (
+                <Text style={styles.planNote}>
+                  {billingErro
+                    ? 'Não foi possível carregar o valor agora. O preço aparece na tela de pagamento.'
+                    : 'Carregando valor…'}
+                </Text>
+              )}
+            </View>
           </View>
 
           <View style={styles.benefitsContainer}>
@@ -310,10 +325,6 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
   },
-  planCardActive: {
-    borderColor: theme.colors.primary,
-    backgroundColor: '#F5F9FF',
-  },
   planHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -335,28 +346,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: theme.colors.textHint,
   },
-  discountText: {
+  trialText: {
     fontFamily: theme.fonts.mulishSemiBold,
     fontSize: 13,
     color: '#00A86B',
     marginTop: 8,
   },
-  popularBadge: {
-    // Era position:absolute com top:-12. No Android um card com borderRadius
-    // recorta os filhos, entao o selo aparecia cortado pela metade.
-    alignSelf: 'flex-start',
-    backgroundColor: theme.colors.primary,
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  planHeaderWithBadge: {
-    marginTop: 12,
-  },
-  popularBadgeText: {
-    fontFamily: theme.fonts.mulishBold,
-    color: theme.colors.white,
-    fontSize: 12,
+  planNote: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 13,
+    color: theme.colors.textHint,
+    marginTop: 8,
+    lineHeight: 19,
   },
   benefitsContainer: {
     backgroundColor: theme.colors.white,

@@ -120,7 +120,12 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
       ),
     })),
 
-  reset: () => set({ ...EMPTY_STATE }),
+  reset: () => {
+    // A criança ativa é do usuário que saiu: mantê-la no dispositivo faria a
+    // próxima conta (ou a mesma, recriada) começar apontando para um id alheio.
+    AsyncStorage.removeItem(ACTIVE_CHILD_KEY).catch(() => {});
+    set({ ...EMPTY_STATE });
+  },
 }));
 
 export const selectActiveChild = (state: ProfileStore): Child | undefined =>

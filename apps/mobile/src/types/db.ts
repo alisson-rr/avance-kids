@@ -148,3 +148,19 @@ export interface SubscriptionRow {
   trial_end: string | null;
   current_period_end: string | null;
 }
+
+/** Documento legal vigente publicado pelo servidor (migration-06). */
+export interface TermsDocumentRow {
+  id: string;
+  tipo: string;
+  versao: string;
+  titulo: string;
+  url: string | null;
+}
+
+/** Linha do log de aceite devolvida por accept-terms. */
+export interface TermsAcceptanceRow {
+  tipo: string;
+  versao: string;
+  aceito_em: string;
+}

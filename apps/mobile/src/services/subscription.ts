@@ -22,13 +22,36 @@ export function isPremiumActive(sub: SubscriptionRow | null | undefined): boolea
   return sub?.plano === 'premium' && (sub.status === 'active' || sub.status === 'trialing');
 }
 
-export type CheckoutPlan = 'monthly' | 'annual';
+/**
+ * Preço e período de teste vigentes, resolvidos no servidor.
+ *
+ * O preço vem do próprio Price do Stripe usado no checkout, e `trial_dias` já
+ * chega zerado para quem não tem mais direito ao teste — é o que impede a tela
+ * de anunciar um valor ou um período diferente do que será cobrado.
+ */
+export interface BillingConfig {
+  intervalo: 'mensal';
+  valor_centavos: number;
+  moeda: string;
+  trial_dias: number;
+  ja_usou_teste: boolean;
+}
 
-/** O servidor resolve o price ID e as URLs de retorno; o app só escolhe o plano. */
-export async function createCheckoutSession(plan: CheckoutPlan): Promise<string> {
+export async function fetchBillingConfig(): Promise<BillingConfig> {
+  return invokeFunction<BillingConfig>('billing-config', {});
+}
+
+/**
+ * Abre o checkout da assinatura mensal — o único plano que existe.
+ *
+ * Nenhum plano é enviado: o servidor resolve o price ID, o período de teste e
+ * as URLs de retorno. Mandar o plano daqui foi o que permitiu, por um tempo, a
+ * tela oferecer um anual que o backend recusa.
+ */
+export async function createCheckoutSession(): Promise<string> {
   const { url } = await invokeFunction<{ url: string; session_id: string }>(
     'create-checkout-session',
-    { plan },
+    {},
   );
   return url;
 }

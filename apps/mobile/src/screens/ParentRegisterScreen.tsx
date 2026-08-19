@@ -12,6 +12,7 @@ import { TermsModal } from '../components/TermsModal';
 import { maskDate, maskCpf, maskPhone, toIsoDate, digitsOnly } from '../utils/formatters';
 import { GENDER_OPTIONS } from '../constants/options';
 import { signUpParent, updateProfile } from '../services/auth';
+import { registrarAceiteTermos } from '../services/terms';
 import { uploadAvatar } from '../services/storage';
 import { errorMessage } from '../services/api';
 import { showDialog, showError, showSuccess } from '../ui/dialog';
@@ -38,8 +39,31 @@ export function ParentRegisterScreen({ navigation }: any) {
     if (digitsOnly(cpf).length !== 11) return 'CPF inválido.';
     if (senha.length < 6) return 'A senha deve ter pelo menos 6 caracteres.';
     if (senha !== confirmarSenha) return 'A senha e a confirmação não conferem.';
-    if (!aceitouTermos) return 'Você precisa aceitar os termos de consentimento.';
+    if (!aceitouTermos) return 'Você precisa aceitar os Termos de Uso e a Política de Privacidade.';
     return null;
+  };
+
+  /**
+   * Registra o aceite e, se falhar, oferece nova tentativa. A conta já existe
+   * neste ponto — travar o usuário fora do app não desfaz isso —, mas seguir
+   * em silêncio deixaria o consentimento sem prova nenhuma.
+   */
+  const registrarAceite = async (): Promise<void> => {
+    try {
+      await registrarAceiteTermos();
+    } catch (err) {
+      await new Promise<void>((resolve) => {
+        showDialog({
+          title: 'Não foi possível registrar seu aceite',
+          message: `${errorMessage(err)}\n\nSua conta já foi criada, mas o registro do aceite dos termos não foi gravado.`,
+          variant: 'error',
+          buttons: [
+            { label: 'Tentar novamente', onPress: () => void registrarAceite().then(resolve) },
+            { label: 'Continuar assim mesmo', kind: 'ghost', onPress: resolve },
+          ],
+        });
+      });
+    }
   };
 
   const handleSave = async () => {
@@ -62,6 +86,10 @@ export function ParentRegisterScreen({ navigation }: any) {
       });
 
       if (needsEmailConfirmation) {
+        // ponytail: sem sessão não dá para chamar accept-terms (a function exige
+        // JWT). Hoje o projeto está com auth.email.enable_confirmations = false,
+        // então este ramo não roda. Se a confirmação for ligada, o aceite precisa
+        // ser pedido e registrado no primeiro login.
         showSuccess(
           'Confirme seu e-mail',
           `Enviamos um link de confirmação para ${email.trim()}. Depois de confirmar, faça login.`,
@@ -69,6 +97,11 @@ export function ParentRegisterScreen({ navigation }: any) {
         );
         return;
       }
+
+      // Prova de consentimento. O booleano que vai nos metadados do signup é
+      // escolhido pelo próprio client e não sustenta a alegação sob a LGPD
+      // (migration-06); quem grava versão, data e IP é o servidor.
+      await registrarAceite();
 
       if (photoUri) {
         try {
@@ -156,9 +189,9 @@ export function ParentRegisterScreen({ navigation }: any) {
             onValueChange={setAceitouTermos}
             label={
               <Text style={styles.termsLabelText}>
-                Concordo com os{' '}
+                Li e concordo com os{' '}
                 <Text style={styles.termsLink} onPress={() => setTermsVisible(true)}>
-                  Termos de Consentimento.
+                  Termos de Uso e Política de Privacidade.
                 </Text>
               </Text>
             }

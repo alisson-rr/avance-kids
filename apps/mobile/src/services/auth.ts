@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase';
+import { invokeFunction } from './api';
 import type { ProfileRow } from '../types/db';
 import { digitsOnly, toIsoDate } from '../utils/formatters';
 
@@ -49,6 +50,23 @@ export async function signUpParent(input: ParentSignUpInput) {
 
 export async function signOut() {
   await supabase.auth.signOut();
+}
+
+/**
+ * Exclusão definitiva da conta.
+ *
+ * O servidor (delete-account) cancela a assinatura no Stripe, remove os
+ * arquivos do usuário no Storage, grava o log pseudonimizado e apaga a conta
+ * do Auth — o CASCADE leva perfil, crianças, respostas, planos, sessões,
+ * tentativas e aceites (migration-07).
+ *
+ * `scope: 'local'` no signOut é proposital: o usuário do Auth já não existe,
+ * então um logout global bateria em /logout com um token morto e falharia. O
+ * que importa aqui é limpar a sessão guardada no dispositivo.
+ */
+export async function deleteAccount(): Promise<void> {
+  await invokeFunction('delete-account', { confirmacao: 'EXCLUIR' });
+  await supabase.auth.signOut({ scope: 'local' });
 }
 
 export async function resetPassword(email: string) {

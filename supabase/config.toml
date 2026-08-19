@@ -520,3 +520,10 @@ entrypoint = "./functions/accept-terms/index.ts"
 enabled = true
 verify_jwt = true
 entrypoint = "./functions/delete-account/index.ts"
+
+# billing-config: preco e trial vigentes para a PlansScreen. Exige login (o
+# valor de `ja_usou_teste` e por usuario) e nao aceita nenhum parametro.
+[functions.billing-config]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/billing-config/index.ts"
