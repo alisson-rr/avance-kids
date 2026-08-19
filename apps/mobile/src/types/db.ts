@@ -112,11 +112,16 @@ export interface ExerciseSessionRow {
 }
 
 export interface PlanWithDetails extends ActivityPlanRow {
-  exercises: ExerciseRow;
+  /** Nulo quando a atividade é premium e a conta não tem assinatura ativa (RLS). */
+  exercises: ExerciseRow | null;
   skills: Pick<SkillRow, 'id' | 'key' | 'nome' | 'cor_hex'>;
   exercise_sessions: ExerciseSessionRow[];
 }
 
+/**
+ * Linhas das views plays_feed / articles_feed: o item premium aparece na
+ * listagem com `bloqueado = true` e sem conteúdo (migration-05).
+ */
 export interface PlayRow {
   id: string;
   titulo: string;
@@ -125,14 +130,16 @@ export interface PlayRow {
   media_type: MediaType;
   media_url: string | null;
   plano: SubscriptionPlan;
+  bloqueado: boolean;
 }
 
 export interface ArticleRow {
   id: string;
   titulo: string;
-  corpo: string;
+  corpo: string | null;
   imagem_url: string | null;
   plano: SubscriptionPlan;
+  bloqueado: boolean;
 }
 
 export interface SubscriptionRow {

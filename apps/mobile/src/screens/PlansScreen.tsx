@@ -1,46 +1,99 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Linking } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+  Linking,
+  AppState,
+} from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
 import { ScreenHeader } from '../components/ScreenHeader';
-import { createCheckoutSession, fetchSubscription } from '../services/subscription';
+import {
+  createBillingPortalSession,
+  createCheckoutSession,
+  fetchSubscription,
+  isPremiumActive,
+} from '../services/subscription';
 import { errorMessage } from '../services/api';
-import { showDialog, showError } from '../ui/dialog';
+import { fromIsoDate } from '../utils/formatters';
+import { showError } from '../ui/dialog';
+import type { SubscriptionRow } from '../types/db';
+
+/** Releituras após voltar do checkout: o webhook do Stripe leva alguns segundos. */
+const POLL_TRIES = 4;
+const POLL_INTERVAL_MS = 2000;
 
 export function PlansScreen({ navigation }: any) {
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   const [loading, setLoading] = useState(false);
-  const [isPremium, setIsPremium] = useState(false);
+  const [subscription, setSubscription] = useState<SubscriptionRow | null>(null);
+  const pollRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    fetchSubscription()
-      .then((sub) => {
-        setIsPremium(sub?.plano === 'premium' && ['active', 'trialing'].includes(sub.status));
-      })
-      .catch(() => {});
+  const isPremium = isPremiumActive(subscription);
+  // Cobrança recusada: mandar para um checkout novo criaria uma segunda
+  // assinatura no Stripe. O caminho certo é o portal, para trocar o cartão.
+  const needsPaymentFix =
+    subscription?.plano === 'premium' && subscription.status === 'past_due';
+
+  const refresh = useCallback(async (retries = 0) => {
+    // Cada volta ao primeiro plano recomeça o poll; sem isso a cadeia anterior
+    // continuaria rodando sem ninguém para cancelá-la.
+    if (pollRef.current) clearTimeout(pollRef.current);
+    try {
+      const next = await fetchSubscription();
+      setSubscription(next);
+      if (!isPremiumActive(next) && retries > 0) {
+        pollRef.current = setTimeout(() => refresh(retries - 1), POLL_INTERVAL_MS);
+      }
+    } catch {
+      // Sem o status a tela continua utilizável; o botão informa o erro real.
+    }
   }, []);
 
-  const handleSubscribe = async () => {
-    if (isPremium) {
-      showDialog({
-        title: 'Assinatura ativa',
-        message: 'Você já é assinante premium. Obrigado!',
-        variant: 'success',
-      });
-      return;
-    }
+  useEffect(() => {
+    refresh();
+    // O checkout abre no navegador e a tela não remonta na volta — só o
+    // AppState avisa que o app voltou ao primeiro plano.
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') refresh(POLL_TRIES);
+    });
+    return () => {
+      sub.remove();
+      if (pollRef.current) clearTimeout(pollRef.current);
+    };
+  }, [refresh]);
+
+  const openStripe = async (getUrl: () => Promise<string>, tituloErro: string) => {
     setLoading(true);
     try {
-      const url = await createCheckoutSession(selectedPlan);
-      const supported = await Linking.canOpenURL(url);
-      if (!supported) throw new Error('Não foi possível abrir a página de pagamento.');
-      await Linking.openURL(url);
+      await Linking.openURL(await getUrl());
     } catch (err) {
-      showError('Erro na assinatura', errorMessage(err));
+      showError(tituloErro, errorMessage(err));
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubscribe = () =>
+    openStripe(() => createCheckoutSession(selectedPlan), 'Erro na assinatura');
+
+  const handleManage = () =>
+    openStripe(createBillingPortalSession, 'Erro ao abrir a assinatura');
+
+  const statusLabel = () => {
+    if (!isPremium) return null;
+    if (subscription?.status === 'trialing' && subscription.trial_end) {
+      return `Teste grátis até ${fromIsoDate(subscription.trial_end)}`;
+    }
+    if (subscription?.current_period_end) {
+      return `Renova em ${fromIsoDate(subscription.current_period_end)}`;
+    }
+    return 'Assinatura ativa';
   };
 
   const benefits = [
@@ -62,6 +115,33 @@ export function PlansScreen({ navigation }: any) {
             <Text style={styles.title}>Desbloqueie todo o potencial do seu filho</Text>
             <Text style={styles.subtitle}>Escolha o plano ideal para acompanhar e estimular o desenvolvimento contínuo.</Text>
           </View>
+
+          {needsPaymentFix && (
+            <View style={[styles.activeBanner, styles.warningBanner]} accessible accessibilityRole="alert">
+              <Feather name="alert-circle" size={20} color="#B26A00" />
+              <View style={styles.activeBannerText}>
+                <Text style={[styles.activeBannerTitle, styles.warningTitle]}>Pagamento não confirmado</Text>
+                <Text style={[styles.activeBannerSubtitle, styles.warningSubtitle]}>
+                  Atualize a forma de pagamento para manter o acesso premium.
+                </Text>
+              </View>
+            </View>
+          )}
+
+          {isPremium && (
+            <View
+              style={styles.activeBanner}
+              accessible
+              accessibilityRole="summary"
+              accessibilityLabel={`Assinatura premium ativa. ${statusLabel()}`}
+            >
+              <Feather name="check-circle" size={20} color="#0B7D57" />
+              <View style={styles.activeBannerText}>
+                <Text style={styles.activeBannerTitle}>Assinatura premium ativa</Text>
+                <Text style={styles.activeBannerSubtitle}>{statusLabel()}</Text>
+              </View>
+            </View>
+          )}
 
           <View style={styles.plansContainer}>
             {/* Plano Mensal */}
@@ -111,12 +191,20 @@ export function PlansScreen({ navigation }: any) {
 
           <View style={styles.actionContainer}>
             <Button
-              title={isPremium ? 'Assinatura ativa' : 'Assinar agora'}
+              title={
+                needsPaymentFix
+                  ? 'Atualizar pagamento'
+                  : isPremium
+                    ? 'Gerenciar assinatura'
+                    : 'Assinar agora'
+              }
               loading={loading}
-              onPress={handleSubscribe}
+              onPress={isPremium || needsPaymentFix ? handleManage : handleSubscribe}
             />
             <Text style={styles.termsText}>
-              Cancelamento grátis a qualquer momento. Ao assinar, você concorda com nossos Termos de Uso e Política de Privacidade.
+              {isPremium || needsPaymentFix
+                ? 'No portal do Stripe você troca o cartão, vê suas faturas e cancela quando quiser.'
+                : 'Cancelamento grátis a qualquer momento. Ao assinar, você concorda com nossos Termos de Uso e Política de Privacidade.'}
             </Text>
           </View>
           
@@ -155,6 +243,38 @@ const styles = StyleSheet.create({
     color: theme.colors.textHint,
     textAlign: 'center',
     lineHeight: 22,
+  },
+  activeBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    backgroundColor: '#E8F6F0',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 24,
+  },
+  activeBannerText: {
+    flex: 1,
+  },
+  activeBannerTitle: {
+    fontFamily: theme.fonts.mulishBold,
+    fontSize: 15,
+    color: '#0B7D57',
+  },
+  activeBannerSubtitle: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 13,
+    color: '#3B6B5B',
+    marginTop: 2,
+  },
+  warningBanner: {
+    backgroundColor: '#FFF6E6',
+  },
+  warningTitle: {
+    color: '#B26A00',
+  },
+  warningSubtitle: {
+    color: '#7A5210',
   },
   plansContainer: {
     gap: 16,

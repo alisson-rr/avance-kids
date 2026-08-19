@@ -49,7 +49,9 @@ export function ActivityHistoryScreen({ navigation }: any) {
     setLoadError(null);
     try {
       const plans = await fetchActivityPlans(childId);
-      setHistory(plans.filter((p) => p.status === 'concluido'));
+      // `exercises` nulo = atividade premium que a assinatura atual não abre
+      // (ex.: assinatura cancelada). Sem o exercício não há o que exibir.
+      setHistory(plans.filter((p) => p.status === 'concluido' && p.exercises !== null));
     } catch (err) {
       setLoadError(errorMessage(err));
       setHistory([]);
@@ -106,8 +108,8 @@ export function ActivityHistoryScreen({ navigation }: any) {
                 <SkillActivityCard
                   key={plan.id}
                   skill={plan.skills.nome}
-                  title={plan.exercises.titulo}
-                  description={plan.exercises.objetivo ?? ''}
+                  title={plan.exercises!.titulo}
+                  description={plan.exercises!.objetivo ?? ''}
                   progress={successRate(plan)}
                   progressSuffix="% de acerto"
                   compactProgress

@@ -3,40 +3,38 @@ import { invokeFunction } from './api';
 import type { SubscriptionRow } from '../types/db';
 
 export async function fetchSubscription(): Promise<SubscriptionRow | null> {
+  const { data: userData } = await supabase.auth.getUser();
+  if (!userData.user) return null;
+
+  // Filtro explícito: a policy de admin enxerga todas as assinaturas e sem o
+  // eq() o maybeSingle() quebraria para quem é admin.
   const { data, error } = await supabase
     .from('subscriptions')
     .select('plano, status, trial_end, current_period_end')
+    .eq('user_id', userData.user.id)
     .maybeSingle();
   if (error) throw new Error(error.message);
   return data;
 }
 
+/** Única definição de "tem acesso premium" no app — espelha has_premium_access() no banco. */
+export function isPremiumActive(sub: SubscriptionRow | null | undefined): boolean {
+  return sub?.plano === 'premium' && (sub.status === 'active' || sub.status === 'trialing');
+}
+
 export type CheckoutPlan = 'monthly' | 'annual';
 
-const PRICE_IDS: Record<CheckoutPlan, string | undefined> = {
-  monthly: process.env.EXPO_PUBLIC_STRIPE_PRICE_MONTHLY,
-  annual: process.env.EXPO_PUBLIC_STRIPE_PRICE_ANNUAL,
-};
-
+/** O servidor resolve o price ID e as URLs de retorno; o app só escolhe o plano. */
 export async function createCheckoutSession(plan: CheckoutPlan): Promise<string> {
-  const priceId = PRICE_IDS[plan];
-  if (!priceId) {
-    throw new Error(
-      'Plano indisponível no momento. (Price ID do Stripe não configurado no app.)',
-    );
-  }
-
   const { url } = await invokeFunction<{ url: string; session_id: string }>(
     'create-checkout-session',
-    {
-      price_id: priceId,
-      success_url:
-        process.env.EXPO_PUBLIC_CHECKOUT_SUCCESS_URL ??
-        'https://avancekids.com.br/assinatura/sucesso',
-      cancel_url:
-        process.env.EXPO_PUBLIC_CHECKOUT_CANCEL_URL ??
-        'https://avancekids.com.br/assinatura/cancelado',
-    },
+    { plan },
   );
+  return url;
+}
+
+/** Portal do Stripe: trocar cartão, ver faturas e cancelar a assinatura. */
+export async function createBillingPortalSession(): Promise<string> {
+  const { url } = await invokeFunction<{ url: string }>('create-billing-portal-session', {});
   return url;
 }

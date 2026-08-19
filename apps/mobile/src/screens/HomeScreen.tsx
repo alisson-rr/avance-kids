@@ -15,14 +15,27 @@ interface ActivityCardProps {
   title: string;
   description?: string;
   imageSource?: any;
+  /** Conteúdo premium sem assinatura: mostra cadeado e leva para os planos. */
+  locked?: boolean;
   onPress?: () => void;
 }
 
-const ActivityCard = ({ title, description, imageSource, onPress }: ActivityCardProps) => (
-  <TouchableOpacity style={styles.activityCard} activeOpacity={0.8} onPress={onPress}>
+const ActivityCard = ({ title, description, imageSource, locked, onPress }: ActivityCardProps) => (
+  <TouchableOpacity
+    style={styles.activityCard}
+    activeOpacity={0.8}
+    onPress={onPress}
+    accessibilityRole="button"
+    accessibilityLabel={locked ? `${title}. Conteúdo premium, assine para ver.` : title}
+  >
     <View style={[styles.activityCardImageContainer, !imageSource && styles.activityCardPlaceholder]}>
       {imageSource && (
         <Image source={imageSource} style={styles.activityCardImage} resizeMode="cover" />
+      )}
+      {locked && (
+        <View style={styles.activityCardLockOverlay}>
+          <Ionicons name="lock-closed" size={22} color="#FFFFFF" />
+        </View>
       )}
     </View>
     <View style={styles.activityCardContent}>
@@ -31,8 +44,12 @@ const ActivityCard = ({ title, description, imageSource, onPress }: ActivityCard
         {description && <Text style={styles.activityCardDescription} numberOfLines={2}>{description}</Text>}
       </View>
       <View style={styles.activityCardLinkGroup}>
-        <Text style={styles.activityCardLink}>Acessar</Text>
-        <Ionicons name="chevron-forward" size={16} color={theme.colors.primary} />
+        <Text style={styles.activityCardLink}>{locked ? 'Assinar para ver' : 'Acessar'}</Text>
+        <Ionicons
+          name={locked ? 'lock-closed' : 'chevron-forward'}
+          size={16}
+          color={theme.colors.primary}
+        />
       </View>
     </View>
   </TouchableOpacity>
@@ -79,6 +96,7 @@ export function HomeScreen({ navigation }: any) {
   );
 
   const openPlay = (play: PlayRow) => {
+    if (play.bloqueado) return navigation.navigate('Plans');
     navigation.navigate('ContentDetail', {
       title: play.titulo,
       subtitle: 'Brincadeira educativa',
@@ -89,10 +107,11 @@ export function HomeScreen({ navigation }: any) {
   };
 
   const openArticle = (article: ArticleRow) => {
+    if (article.bloqueado) return navigation.navigate('Plans');
     navigation.navigate('ContentDetail', {
       title: article.titulo,
       subtitle: 'Conteúdo para pais',
-      body: article.corpo,
+      body: article.corpo ?? '',
       mediaUrl: article.imagem_url,
       mediaType: 'imagem',
     });
@@ -214,12 +233,13 @@ export function HomeScreen({ navigation }: any) {
                   <ActivityCard
                     key={play.id}
                     title={play.titulo}
-                    description={play.descricao ?? undefined}
+                    description={play.descricao ?? (play.bloqueado ? 'Disponível no plano premium' : undefined)}
                     imageSource={
                       play.media_type === 'imagem' && play.media_url
                         ? { uri: play.media_url }
                         : undefined
                     }
+                    locked={play.bloqueado}
                     onPress={() => openPlay(play)}
                   />
                 ))}
@@ -235,8 +255,9 @@ export function HomeScreen({ navigation }: any) {
                   <ActivityCard
                     key={article.id}
                     title={article.titulo}
-                    description={article.corpo.slice(0, 90)}
+                    description={article.corpo?.slice(0, 90) ?? 'Disponível no plano premium'}
                     imageSource={article.imagem_url ? { uri: article.imagem_url } : undefined}
+                    locked={article.bloqueado}
                     onPress={() => openArticle(article)}
                   />
                 ))}
@@ -538,6 +559,16 @@ const styles = StyleSheet.create({
   },
   activityCardPlaceholder: {
     backgroundColor: '#C9C9C9',
+  },
+  activityCardLockOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(14, 93, 253, 0.55)',
   },
   activityCardImage: {
     width: '100%',
