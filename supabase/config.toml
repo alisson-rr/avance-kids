@@ -488,6 +488,16 @@ enabled = true
 verify_jwt = false
 entrypoint = "./functions/admin-create-user/index.ts"
 
+[functions.create-billing-portal-session]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/create-billing-portal-session/index.ts"
+
+[functions.checkout-return]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/checkout-return/index.ts"
+
 [functions.create-checkout-session]
 enabled = true
 verify_jwt = false

@@ -9,15 +9,24 @@ Deno.serve(async (req: Request) => {
     const { supabase, user } = await getUser(req);
     const { plan_id } = StartSessionSchema.parse(await req.json());
 
-    // Verificar ownership e que o plano está ativo
+    // Ownership, status e acesso ao conteúdo em uma consulta: o embed de
+    // exercises passa pela RLS do usuário, então volta nulo quando a
+    // atividade é premium e a conta não tem assinatura ativa.
     const { data: plan } = await supabase
       .from("activity_plans")
-      .select("id, child_id, status")
+      .select("id, child_id, status, exercises(id)")
       .eq("id", plan_id)
-      .single();
+      .maybeSingle();
 
     if (!plan) return errorResponse("Plano não encontrado", 404);
     if (plan.status !== "ativo") return errorResponse("Este exercício não está ativo", 400);
+
+    // Embed to-one volta objeto ou null; normalizar evita que um array vazio
+    // (truthy) passe batido pela checagem de acesso.
+    const exercise = Array.isArray(plan.exercises) ? plan.exercises[0] : plan.exercises;
+    if (!exercise) {
+      return errorResponse("Esta atividade faz parte do plano premium. Assine para liberar.", 403);
+    }
 
     // Verificar se já existe sessão ativa (não expirada e com repetições
     // restantes — sessão cheia sem atingir o critério recomeça do zero)
