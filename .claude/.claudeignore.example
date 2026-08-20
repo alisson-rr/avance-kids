@@ -1,0 +1,18 @@
+# Segredos locais
+.env
+.env.*
+!.env.example
+
+# Dependências e artefatos gerados
+node_modules/
+.next/
+dist/
+build/
+coverage/
+.cache/
+*.log
+
+# Graphify: consultar pela CLI sem invalidar o cache de prompt
+graphify-out/
+graph.json
+.graphify_learning.json
