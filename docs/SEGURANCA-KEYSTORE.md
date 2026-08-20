@@ -124,42 +124,86 @@ git reflog expire --expire=now --all
 git gc --prune=now
 ```
 
-### Onde está o backup
+### Onde estava o backup
 
-`C:\Users\Alisson\CascadeProjects\AVANCE-Kids-backup-pre-purge.git` — espelho completo tirado **depois** da reescrita e **antes** da
-limpeza, então contém as refs novas *e* `refs/original/**` com o histórico
-antigo inteiro.
+`C:\Users\Alisson\CascadeProjects\AVANCE-Kids-backup-pre-purge.git` — espelho
+completo tirado **depois** da reescrita e **antes** da limpeza, com as refs
+novas e `refs/original/**` guardando o histórico antigo inteiro.
 
-> ⚠️ **Esse espelho contém o keystore antigo e a senha.** Ele existe para
-> reverter a reescrita se algo tiver saído errado. Apague-o assim que a
-> integração estiver revisada e aceita.
+**Apagado** depois de a purga remota ser verificada (seção 3). Ele existia para
+reverter a reescrita e, ao mesmo tempo, era a última cópia local do keystore e
+da senha antigos — mantê-lo depois da verificação só preservaria o segredo.
 
-## 3. O que continua pendente
+Antes de apagar foi conferido: `git fsck --full --strict` sem erro, a branch
+`integration/pre-client-response` íntegra (18 commits sobre a `main`), as 4
+branches e as 3 tags de segurança presentes, e o remoto já servindo o histórico
+limpo.
 
-**O `origin` (GitHub) ainda tem o histórico antigo.** A reescrita foi local. Só
-um push forçado propaga a limpeza, e ele reescreve o repositório remoto para
-todo mundo — por isso não foi executado aqui. Quando o responsável decidir:
+## 3. Propagação para o remoto — executada
+
+A reescrita da seção 2 foi local. O `origin` continuava servindo o histórico
+antigo até este passo.
+
+### Levantamento antes do push
+
+`git fetch origin` e `git ls-remote origin` mostraram que o repositório remoto
+tinha **uma única ref**:
+
+| Ref remota | Hash antes | Alcançava o segredo? |
+| --- | --- | --- |
+| `refs/heads/main` | `f1f1076` | sim — 7 commits com o keystore, e o doc com a senha |
+
+Nenhuma tag e nenhuma outra branch no remoto: `fix/mobile-ui-audit`,
+`feat/nonblocking-core-prep`, `integration/pre-client-response` e as tags
+`safety/*` só existem localmente. Portanto **só `main` precisava ser reescrita**
+— nenhuma outra ref remota foi tocada, e nada novo foi publicado.
+
+`f1f1076` é exatamente o hash que o backup havia capturado, o que confirma que
+ninguém publicou nada no remoto entre a criação da cópia de segurança e o push.
+
+`gh pr list --state all` devolveu lista vazia: não havia Pull Request para ficar
+órfão.
+
+### O push
+
+Com `--force-with-lease` amarrado ao hash esperado — se alguém tivesse
+publicado algo nesse intervalo, o push falharia em vez de sobrescrever:
 
 ```bash
-git push --force-with-lease origin main
-git push --force-with-lease origin fix/mobile-ui-audit
-git push --force-with-lease origin feat/nonblocking-core-prep
+git push --force-with-lease=main:f1f1076... origin main
+#  + f1f1076...5eb0e1d main -> main (forced update)
 ```
 
-Consequências de fazer o push forçado:
+A `main` local difere da remota antiga **apenas** pela purga
+(`apps/mobile/credentials/avancekids-release.keystore` removido e uma linha em
+`docs/BUILD-ANDROID.md`); nenhum trabalho da integração foi publicado junto.
 
-- todo clone existente fica divergente e precisa de `git fetch && git reset --hard`
-  (ou de um clone novo); rebase por cima do histórico antigo reintroduz os objetos;
-- Pull Requests abertos apontando para os commits antigos ficam órfãos;
-- o GitHub mantém objetos "soltos" acessíveis por URL de commit durante algum
-  tempo mesmo após o push — para apagá-los de vez é preciso abrir chamado no
-  suporte do GitHub **ou** aceitar que o segredo antigo é público (que é a
-  premissa correta aqui, já que a chave foi substituída).
+### Verificação depois do push
 
-Consequência de **não** fazer: o keystore antigo e a senha continuam
-recuperáveis por qualquer pessoa com acesso ao repositório remoto. Como a chave
-foi trocada, o impacto é histórico, não operacional — mas a senha antiga não
-deve ser reutilizada em nenhum outro sistema.
+`git fetch --prune` e uma varredura de `--all` (branches, tags e refs remotas),
+mais um `git clone --mirror` novo direto do GitHub:
+
+| Onde | Commits com o keystore | Blobs com a senha antiga |
+| --- | --- | --- |
+| Repositório de trabalho (`--all`, 9 refs) | 0 | 0 de 679 blobs |
+| Clone novo do GitHub | 0 | 0 de 509 blobs |
+
+A varredura carregava um **controle negativo**: a mesma busca aplicada ao blob
+antigo encontrava a senha. Sem isso, "zero achados" poderia significar apenas
+que a busca estava errada.
+
+O GitHub passou a servir uma ref só, `refs/heads/main` em `5eb0e1d`.
+
+### O que isso não resolve
+
+- Clones feitos antes do push continuam com o histórico antigo. Quem tiver um
+  precisa de `git fetch && git reset --hard origin/main`, ou de um clone novo;
+  rebase por cima do histórico antigo reintroduz os objetos.
+- O GitHub mantém objetos soltos acessíveis por URL de commit por algum tempo
+  após um force-push. Apagá-los de vez exigiria chamado ao suporte. Aqui a
+  premissa correta é a outra: **o keystore antigo é público e foi substituído**,
+  então o que resta é histórico, não risco operacional.
+- A senha antiga não deve ser reutilizada em nenhum outro sistema.
 
 ## 4. Como conferir que a limpeza funcionou
 
@@ -178,13 +222,16 @@ done
 
 Ambos devem sair vazios — e saíram, na conferência feita após a purga.
 
-Uma varredura em `--all` (e não só em branches e tags) **ainda encontra** os dois
-segredos. Isso é esperado e correto: a única ref que os alcança é
-`refs/remotes/origin/main`, o espelho local do que o GitHub ainda tem. Ela é
-substituída no primeiro `git fetch` depois do push forçado da seção 3.
+Depois do push da seção 3 a varredura de `--all` também sai vazia — inclusive
+`refs/remotes/origin/main`, que agora espelha o histórico limpo:
 
 ```bash
-git for-each-ref --format='%(refname)' refs/remotes
-# refs/remotes/origin/HEAD
-# refs/remotes/origin/main   <- f1f1076, o histórico antigo
+git for-each-ref --format='%(refname) %(objectname:short)' refs/remotes
+# refs/remotes/origin/HEAD  5eb0e1d
+# refs/remotes/origin/main  5eb0e1d
 ```
+
+Com o backup apagado, a senha antiga não está mais disponível nesta máquina
+para servir de termo de busca — ou seja, uma nova varredura por ela não é mais
+reproduzível aqui. As conferências acima foram feitas enquanto o backup ainda
+existia.
