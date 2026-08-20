@@ -10,7 +10,10 @@ import type { Session } from '@supabase/supabase-js';
 import './src/utils/webAlertShim';
 import { supabase } from './src/lib/supabase';
 import { useProfileStore } from './src/store/useProfileStore';
+import { useTermsGate } from './src/store/useTermsGate';
+import { navigationRef, irParaLogin } from './src/lib/navigation';
 import { AnimatedSplash } from './src/components/AnimatedSplash';
+import { TermsGate } from './src/components/TermsGate';
 
 import { LoginScreen } from './src/screens/LoginScreen';
 import { ParentRegisterScreen } from './src/screens/ParentRegisterScreen';
@@ -54,14 +57,33 @@ export default function App() {
   const [sessionLoaded, setSessionLoaded] = useState(false);
 
   useEffect(() => {
+    // A avaliação dos termos entra no MESMO tick do setSession: o React agrupa
+    // os dois no mesmo commit, então o navigator nunca chega a renderizar as
+    // telas autenticadas antes de o gate ter opinião. Feita num efeito
+    // separado, havia um commit com a Home montada (e buscando dados) antes de
+    // qualquer verificação.
+    const aplicarSessao = (proxima: Session | null) => {
+      setSession(proxima);
+      const id = proxima?.user.id;
+      if (id) {
+        void useTermsGate.getState().avaliar(id);
+      } else {
+        useTermsGate.getState().limpar();
+        // Perder a sessão no meio do bloqueio apenas escondia o gate e deixava
+        // o app navegável nas telas autenticadas. No boot deslogado o
+        // navigator ainda não existe e isto é inócuo.
+        irParaLogin();
+      }
+    };
+
     supabase.auth
       .getSession()
-      .then(({ data }) => setSession(data.session))
+      .then(({ data }) => aplicarSessao(data.session))
       // Sem catch, uma falha aqui deixava o app preso na splash para sempre.
       .catch((err) => console.warn('[auth] getSession falhou:', err))
       .finally(() => setSessionLoaded(true));
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      setSession(nextSession);
+      aplicarSessao(nextSession);
     });
     return () => subscription.subscription.unsubscribe();
   }, []);
@@ -92,7 +114,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
           initialRouteName={session ? 'Home' : 'Login'}
           screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
@@ -120,6 +142,7 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
       <DialogHost />
+      <TermsGate />
     </SafeAreaProvider>
   );
 }

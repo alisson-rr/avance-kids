@@ -44,3 +44,6 @@ yarn-error.*
 
 # supabase env
 .env
+
+# saída temporária de scripts/test_terms_gate.sh
+.test-build/

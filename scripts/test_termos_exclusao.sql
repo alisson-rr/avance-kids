@@ -139,6 +139,131 @@ RESET ROLE;
 RESET request.jwt.claim.sub;
 
 -- ============================================================
+-- GATE DE REACEITE
+--
+-- Mesma consulta que o app roda a cada início de sessão
+-- (apps/mobile/src/services/terms.ts): documento vigente + existe linha em
+-- terms_acceptances para AQUELE documento. Aqui o que se testa é o estado do
+-- banco em cada cenário; a decisão em cima dele está em
+-- scripts/test_terms_gate.ts.
+-- ============================================================
+
+-- Conta anterior à migration-06: existe em auth.users e nunca passou por
+-- accept-terms. É o caso que o booleano profiles.termos_aceitos escondia.
+INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
+  ('33333333-3333-3333-3333-333333333333', 'antigo@exemplo.test', '{"nome":"Conta Antiga"}'::jsonb);
+
+SET LOCAL ROLE authenticated;
+SET LOCAL request.jwt.claim.sub = '33333333-3333-3333-3333-333333333333';
+
+DO $$
+DECLARE v_doc UUID; v_int INTEGER;
+BEGIN
+  SELECT id INTO v_doc FROM terms_documents WHERE tipo = 'termos_e_privacidade' AND vigente;
+  IF v_doc IS NULL THEN
+    RAISE EXCEPTION 'gate: conta antiga não enxerga o documento vigente';
+  END IF;
+
+  SELECT count(*) INTO v_int FROM terms_acceptances WHERE document_id = v_doc;
+  IF v_int <> 0 THEN
+    RAISE EXCEPTION 'gate B: conta antiga apareceu com aceite (% linhas)', v_int;
+  END IF;
+
+  RAISE NOTICE 'gate B: conta antiga sem registro -> bloqueio correto';
+END $$;
+
+RESET ROLE;
+RESET request.jwt.claim.sub;
+
+SET LOCAL ROLE authenticated;
+SET LOCAL request.jwt.claim.sub = '11111111-1111-1111-1111-111111111111';
+
+DO $$
+DECLARE v_doc UUID; v_int INTEGER;
+BEGIN
+  SELECT id INTO v_doc FROM terms_documents WHERE tipo = 'termos_e_privacidade' AND vigente;
+  SELECT count(*) INTO v_int FROM terms_acceptances WHERE document_id = v_doc;
+  IF v_int <> 1 THEN
+    RAISE EXCEPTION 'gate D: quem aceitou a vigente deveria passar (% linhas)', v_int;
+  END IF;
+  RAISE NOTICE 'gate D: aceite da versão vigente -> libera';
+END $$;
+
+RESET ROLE;
+RESET request.jwt.claim.sub;
+
+-- Publica uma versão nova. O aceite antigo continua na tabela (log
+-- append-only) e mesmo assim não pode valer para a versão nova — é isto que
+-- faz uma atualização dos termos exigir novo consentimento.
+UPDATE terms_documents SET vigente = false
+ WHERE tipo = 'termos_e_privacidade' AND vigente;
+
+INSERT INTO terms_documents (tipo, versao, titulo, vigente)
+VALUES ('termos_e_privacidade', '2027-03-01', 'Termos de Uso e Política de Privacidade', true);
+
+SET LOCAL ROLE authenticated;
+SET LOCAL request.jwt.claim.sub = '11111111-1111-1111-1111-111111111111';
+
+DO $$
+DECLARE v_doc UUID; v_vigente INTEGER; v_total INTEGER;
+BEGIN
+  SELECT id INTO v_doc FROM terms_documents WHERE tipo = 'termos_e_privacidade' AND vigente;
+
+  SELECT count(*) INTO v_vigente FROM terms_acceptances WHERE document_id = v_doc;
+  IF v_vigente <> 0 THEN
+    RAISE EXCEPTION 'gate C: aceite da versão antiga contou para a nova (% linhas)', v_vigente;
+  END IF;
+
+  -- Controle: o usuário TEM aceite — só não o da versão que passou a vigorar.
+  SELECT count(*) INTO v_total FROM terms_acceptances;
+  IF v_total <> 1 THEN
+    RAISE EXCEPTION 'gate C: esperava o aceite antigo preservado, achei % linhas', v_total;
+  END IF;
+
+  RAISE NOTICE 'gate C: versão nova vigente -> exige novo aceite';
+END $$;
+
+RESET ROLE;
+RESET request.jwt.claim.sub;
+
+-- A conta que também é admin: prova por que o app filtra por user_id em vez
+-- de confiar na RLS. `terms_acceptances` tem DUAS policies permissivas de
+-- SELECT e policies permissivas se somam com OR — para um admin, a consulta
+-- sem filtro enxerga o aceite de todo mundo.
+INSERT INTO admin_users (id, nome, email, role, status) VALUES
+  ('33333333-3333-3333-3333-333333333333', 'Conta Antiga', 'antigo@exemplo.test', 'admin', 'ativo');
+
+SET LOCAL ROLE authenticated;
+SET LOCAL request.jwt.claim.sub = '33333333-3333-3333-3333-333333333333';
+
+DO $$
+DECLARE v_doc UUID; v_sem_filtro INTEGER; v_com_filtro INTEGER;
+BEGIN
+  -- Documento que os usuários 1 e 2 aceitaram (hoje não vigente, mas o ponto
+  -- aqui é o escopo da leitura, não a vigência).
+  SELECT id INTO v_doc FROM terms_documents
+   WHERE tipo = 'termos_e_privacidade' AND versao = '2026-08-17';
+
+  SELECT count(*) INTO v_sem_filtro
+    FROM terms_acceptances WHERE document_id = v_doc;
+
+  SELECT count(*) INTO v_com_filtro
+    FROM terms_acceptances WHERE document_id = v_doc AND user_id = auth.uid();
+
+  IF v_sem_filtro < 2 THEN
+    RAISE EXCEPTION 'cenário inválido: esperava ver 2+ aceites como admin, vi %', v_sem_filtro;
+  END IF;
+  IF v_com_filtro <> 0 THEN
+    RAISE EXCEPTION 'gate: admin sem aceite apareceu com % linha(s) próprias', v_com_filtro;
+  END IF;
+
+  RAISE NOTICE 'gate: RLS não escopa admin (% linhas) — o filtro por user_id é obrigatório', v_sem_filtro;
+END $$;
+
+RESET ROLE;
+RESET request.jwt.claim.sub;
+
+-- ============================================================
 -- EXCLUSÃO DE CONTA
 -- ============================================================
 

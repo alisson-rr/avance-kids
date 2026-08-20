@@ -48,8 +48,21 @@ export async function signUpParent(input: ParentSignUpInput) {
   return { session: data.session, needsEmailConfirmation: !data.session };
 }
 
+/**
+ * Encerra a sessão garantindo que ela saia do dispositivo.
+ *
+ * O auth-js só apaga a sessão do armazenamento local depois que o POST
+ * /logout responde: em falha de rede ele retorna antes, e o erro era
+ * descartado aqui — o usuário tocava em "Sair", nada acontecia e ele
+ * continuava logado sem nenhum aviso. O `scope: 'local'` é o mesmo recurso já
+ * usado em `deleteAccount`, e resolve sem depender da rede.
+ */
 export async function signOut() {
-  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
+  if (!error) return;
+
+  const { error: erroLocal } = await supabase.auth.signOut({ scope: 'local' });
+  if (erroLocal) throw new Error(erroLocal.message);
 }
 
 /**

@@ -245,4 +245,9 @@ psql_exec < "$RAIZ/scripts/test_termos_exclusao.sql"
 echo "==> testes de isolamento entre contas (multi-tenant)"
 psql_exec < "$RAIZ/scripts/test_multi_tenant.sql"
 
+# Não depende do Postgres, mas fecha o par com os cenários SQL do gate: o banco
+# diz o que existe, este diz o que o app decide em cima disso.
+echo "==> cenários do gate de reaceite dos termos"
+bash "$RAIZ/scripts/test_terms_gate.sh"
+
 echo "==> OK"

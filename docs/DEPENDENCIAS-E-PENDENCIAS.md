@@ -14,15 +14,15 @@ no código, para que a decisão possa ser tomada sem reabrir a investigação.
 | 1.7 Códigos AT | Importados para `screening_programs` (migration-10). Conteúdo existe; regra de uso continua pendente. |
 | 2.1 Plano anual | Removido da `PlansScreen`. Backend já recusava; a tela era o único lugar que ainda oferecia. |
 | 2.2 Preço e trial do servidor | Nova function `billing-config`; a tela não tem mais valor escrito no código. |
-| 2.3 `accept-terms` no cadastro | Chamado após o signup, com retentativa em caso de falha. |
+| 2.3 `accept-terms` no cadastro | Chamado após o signup; se falhar, o gate da 5.3 assume e bloqueia até haver prova. |
 | 2.4 Texto real dos termos | `constants/termos.ts` com a transcrição do PDF oficial; versão vem do servidor. |
 | 2.5 Exclusão de conta | Fluxo em `SettingsScreen` com dupla confirmação e limpeza de sessão. |
 | 2.7 `.env.example` | `STRIPE_PRICE_ANNUAL` fora; aponta `STRIPE_TRIAL_DAYS` e `billing-config`. |
-| 4.1 Keystore versionado | Keystore novo gerado, histórico local purgado — [SEGURANCA-KEYSTORE.md](SEGURANCA-KEYSTORE.md). |
+| 4.1 Keystore versionado | Keystore novo, histórico local e remoto purgados e verificados — [SEGURANCA-KEYSTORE.md](SEGURANCA-KEYSTORE.md). |
 | 4.2 Tenant crossing | Fechado por FKs compostas (migration-09) + `scripts/test_multi_tenant.sql`. |
+| 5.3 Aceite de contas antigas | Gate na entrada do app (`TermsGate`); a prova é a linha em `terms_acceptances`, não um booleano. |
 
-Continuam abertos: **1.1–1.6, 1.8, 1.9, 2.6, 4.3–4.6** e os dois itens novos da
-seção 5.
+Continuam abertos: **1.1–1.6, 1.8, 1.9, 2.6, 4.3–4.6, 5.1 e 5.2**.
 
 ---
 
@@ -333,17 +333,85 @@ integração. Enquanto não existir, o pedido tem de ser atendido manualmente pe
 e-mail de suporte — que é o que os próprios Termos permitem ("ou através do
 e-mail de suporte institucional"), mas depende de alguém executar.
 
-### 5.3 ⬜ Aceite dos termos para contas antigas e para confirmação de e-mail
+### 5.3 ✅ Aceite dos termos para contas antigas — resolvido
 
-`accept-terms` é chamado logo após o cadastro, que é onde o checkbox existe. Dois
-casos ficam sem registro auditável:
+`accept-terms` era chamado só logo após o cadastro, que é onde o checkbox
+existe. Dois casos ficavam sem registro auditável: contas criadas **antes** da
+migration-06 e cadastros feitos com `auth.email.enable_confirmations = true`
+(o signup não devolve sessão e a function exige JWT).
 
-- contas criadas **antes** da migration-06 — a própria migration explica que
-  não se inventa timestamp e IP para um aceite que nunca foi registrado;
-- cadastros feitos com `auth.email.enable_confirmations = true`, quando o signup
-  não devolve sessão e a function (que exige JWT) não pode ser chamada. Hoje a
-  opção está desligada (`supabase/config.toml`), então o caso não ocorre.
+Fechado com um gate na entrada do app — `apps/mobile/src/components/TermsGate.tsx`,
+acionado pelo efeito de sessão em `apps/mobile/App.tsx`. Depois da autenticação
+e antes de liberar qualquer tela, o app consulta o documento vigente e verifica
+se existe linha em `terms_acceptances` para **aquele** documento; se não existe,
+bloqueia até o aceite ser gravado por `accept-terms`.
 
-Fechar os dois exige pedir o aceite de novo no primeiro login quando não há
-linha em `terms_acceptances` para a versão vigente — um gate na entrada do app,
-que muda o fluxo de login e não foi pedido nesta etapa.
+Detalhes que sustentam a decisão:
+
+- A fonte da verdade é `terms_documents` + `terms_acceptances`.
+  `profiles.termos_aceitos` continua sendo só flag de UX — nasce `true` no
+  cadastro e ninguém o reseta quando uma versão nova passa a vigorar, então
+  não serve de sinal.
+- O client nunca escolhe versão: compara pelo `id` do documento que o servidor
+  declarou vigente.
+- Falha de consulta vira estado de erro com "Tentar novamente", nunca
+  liberação. A regra está isolada em `apps/mobile/src/services/termsGate.ts`
+  justamente para poder ser testada sem React nem rede.
+- Não desloga, não exige cadastro novo e não navega — é um `Modal` sobre o
+  navigator, então não há ciclo de navegação possível.
+- Publicar uma versão nova em `terms_documents` volta a exigir aceite,
+  automaticamente.
+
+Pontos que uma revisão adversarial do gate mudou (todos com teste que falha
+sem a correção):
+
+- **A consulta do aceite filtra por `user_id` explicitamente.** Delegar o
+  escopo à RLS estava errado: `terms_acceptances` tem duas policies permissivas
+  de SELECT (a do próprio usuário e a de admin) e policies permissivas se somam
+  com OR. Para quem está em `admin_users`, a consulta sem filtro enxergava o
+  aceite de outras contas — liberava o app sem aceite nenhum (uma linha) ou
+  travava a conta no gate (duas ou mais). O harness prova o fato: como admin,
+  2 linhas sem o filtro e 0 com ele.
+- **O aceite fixa o documento exibido.** `accept-terms` passou a aceitar
+  `document_id` opcional e responder 409 quando ele não é mais o vigente. Sem
+  isso, uma versão publicada enquanto a tela estava aberta era gravada como
+  consentida sem nunca ter sido lida. No 409 o gate recarrega e mostra o texto
+  novo. O client continua sem escolher versão — só afirma o que exibiu.
+- **Não dá para aceitar um texto que o app não exibe.** O app só renderiza o
+  texto embutido no binário; quando a versão vigente é outra e
+  `terms_documents.url` está vazia, o botão de aceite some e a tela pede
+  atualização do aplicativo. **Consequência operacional: toda versão nova
+  precisa ser publicada com `url` preenchida**, senão quem estiver com build
+  antiga fica sem caminho para aceitar.
+- **O aceite respeita o sequenciamento.** Uma resposta atrasada não sobrescreve
+  mais o estado de outra sessão — antes, um aceite que respondia depois da
+  sessão cair reabria o bloqueio para um usuário inexistente (app inutilizável)
+  ou liberava para a conta seguinte sem aceite.
+- **"Sair da conta" sempre funciona.** `signOut()` passou a limpar a sessão
+  local quando o POST /logout falha (era descartado, e o usuário continuava
+  logado sem aviso), e o gate zera o próprio estado no `finally` em vez de
+  esperar um evento de sessão que pode não vir.
+- **Perder a sessão durante o bloqueio leva ao Login** em vez de só esconder o
+  gate e deixar as telas autenticadas navegáveis.
+- **O gate é overlay, não `Modal`.** O `DialogHost` já monta um `Modal` na
+  mesma raiz; no iOS dois Modais irmãos disputam a apresentação do mesmo view
+  controller e o segundo pode simplesmente não aparecer — o bloqueio ficaria
+  invisível com o app navegável por baixo. O botão voltar do Android passou a
+  ser tratado por `BackHandler`.
+
+Cobertura: 19 cenários em `scripts/test_terms_gate.ts` — decisão (A–L) e
+sequenciamento do store (M–S), com fakes injetados — e 4 cenários de banco em
+`scripts/test_termos_exclusao.sql` (conta antiga sem registro, aceite da
+vigente, versão nova com o aceite antigo preservado, e o escopo do admin). Os
+dois entram no `scripts/validate_migrations.sh`. Cada correção acima foi
+conferida reintroduzindo o defeito e vendo o teste correspondente falhar.
+
+Riscos residuais aceitos conscientemente:
+
+- `loadAll()` (perfil e crianças do próprio usuário) roda em paralelo à
+  avaliação, antes da liberação. São dados do próprio titular e o app não fica
+  acessível; separar exigiria acoplar o carregamento ao estado do gate.
+- A suspensão do gate durante o cadastro é global e só é desfeita ao fim do
+  fluxo. Se a chamada de cadastro nunca liquidar, o gate fica desligado até o
+  timeout de rede da plataforma — janela curta, que se resolve sozinha, marcada
+  com `ponytail:` no código.

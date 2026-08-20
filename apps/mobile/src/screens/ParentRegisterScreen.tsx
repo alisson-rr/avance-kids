@@ -17,6 +17,7 @@ import { uploadAvatar } from '../services/storage';
 import { errorMessage } from '../services/api';
 import { showDialog, showError, showSuccess } from '../ui/dialog';
 import { useProfileStore } from '../store/useProfileStore';
+import { useTermsGate } from '../store/useTermsGate';
 
 export function ParentRegisterScreen({ navigation }: any) {
   const [photoUri, setPhotoUri] = useState<string>();
@@ -43,29 +44,6 @@ export function ParentRegisterScreen({ navigation }: any) {
     return null;
   };
 
-  /**
-   * Registra o aceite e, se falhar, oferece nova tentativa. A conta já existe
-   * neste ponto — travar o usuário fora do app não desfaz isso —, mas seguir
-   * em silêncio deixaria o consentimento sem prova nenhuma.
-   */
-  const registrarAceite = async (): Promise<void> => {
-    try {
-      await registrarAceiteTermos();
-    } catch (err) {
-      await new Promise<void>((resolve) => {
-        showDialog({
-          title: 'Não foi possível registrar seu aceite',
-          message: `${errorMessage(err)}\n\nSua conta já foi criada, mas o registro do aceite dos termos não foi gravado.`,
-          variant: 'error',
-          buttons: [
-            { label: 'Tentar novamente', onPress: () => void registrarAceite().then(resolve) },
-            { label: 'Continuar assim mesmo', kind: 'ghost', onPress: resolve },
-          ],
-        });
-      });
-    }
-  };
-
   const handleSave = async () => {
     const validationError = validate();
     if (validationError) {
@@ -74,6 +52,12 @@ export function ParentRegisterScreen({ navigation }: any) {
     }
 
     setLoading(true);
+    let aceiteRegistrado = false;
+    // O signUp já cria a sessão, o que dispararia o TermsGate no meio deste
+    // fluxo — e a linha em terms_acceptances só é gravada algumas linhas
+    // abaixo. Suspender evita pedir de novo um aceite que o usuário acabou de
+    // dar no checkbox.
+    useTermsGate.getState().suspender();
     try {
       const { needsEmailConfirmation } = await signUpParent({
         nome,
@@ -86,10 +70,10 @@ export function ParentRegisterScreen({ navigation }: any) {
       });
 
       if (needsEmailConfirmation) {
-        // ponytail: sem sessão não dá para chamar accept-terms (a function exige
-        // JWT). Hoje o projeto está com auth.email.enable_confirmations = false,
-        // então este ramo não roda. Se a confirmação for ligada, o aceite precisa
-        // ser pedido e registrado no primeiro login.
+        // Sem sessão não dá para chamar accept-terms (a function exige JWT).
+        // Hoje o projeto está com auth.email.enable_confirmations = false, então
+        // este ramo não roda; se a confirmação for ligada, o TermsGate pede e
+        // registra o aceite no primeiro login.
         showSuccess(
           'Confirme seu e-mail',
           `Enviamos um link de confirmação para ${email.trim()}. Depois de confirmar, faça login.`,
@@ -101,7 +85,16 @@ export function ParentRegisterScreen({ navigation }: any) {
       // Prova de consentimento. O booleano que vai nos metadados do signup é
       // escolhido pelo próprio client e não sustenta a alegação sob a LGPD
       // (migration-06); quem grava versão, data e IP é o servidor.
-      await registrarAceite();
+      //
+      // Falhar aqui não trava o cadastro: `retomar()` reavalia no finally e o
+      // TermsGate bloqueia o app pedindo o aceite de novo. Sem esse fallback a
+      // conta ficaria sem prova nenhuma de consentimento.
+      try {
+        await registrarAceiteTermos();
+        aceiteRegistrado = true;
+      } catch (aceiteErr) {
+        console.warn('[termos] registro do aceite falhou no cadastro:', aceiteErr);
+      }
 
       if (photoUri) {
         try {
@@ -118,6 +111,11 @@ export function ParentRegisterScreen({ navigation }: any) {
       showError('Erro no cadastro', errorMessage(err));
     } finally {
       setLoading(false);
+      // Só reavalia quando há motivo. Com o aceite gravado, reavaliar cobriria
+      // a tela seguinte com a splash de verificação por duas idas ao servidor,
+      // parecendo travamento no meio do onboarding; sem ele, o gate assume e
+      // bloqueia o app até existir prova no banco.
+      useTermsGate.getState().retomar(!aceiteRegistrado);
     }
   };
 

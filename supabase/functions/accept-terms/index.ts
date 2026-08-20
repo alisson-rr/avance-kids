@@ -17,6 +17,13 @@ const InputSchema = z.object({
   // Opcional: sem `tipos`, aceita todos os documentos vigentes (é como o app
   // apresenta hoje — um único texto de Termos + Privacidade).
   tipos: z.array(z.string().regex(/^[a-z0-9_]+$/)).min(1).optional(),
+  // Documento que estava na tela quando o usuário aceitou. Não é o client
+  // escolhendo versão — continua sendo o servidor que resolve a vigente. É o
+  // client AFIRMANDO o que exibiu, para o servidor recusar quando a vigente
+  // mudou no meio (tela aberta enquanto uma versão nova foi publicada). Sem
+  // isso o log afirmaria consentimento a um texto que o titular não leu, que é
+  // justamente a prova que esta function existe para produzir.
+  document_id: z.string().uuid().optional(),
   origem: z.enum(["app", "backoffice"]).default("app"),
 });
 
@@ -49,7 +56,7 @@ Deno.serve(async (req: Request) => {
 
     // Body vazio é um aceite válido de tudo que está vigente.
     const body = await req.json().catch(() => ({}));
-    const { tipos, origem } = InputSchema.parse(body ?? {});
+    const { tipos, document_id, origem } = InputSchema.parse(body ?? {});
 
     const serviceClient = getServiceClient();
 
@@ -71,6 +78,15 @@ Deno.serve(async (req: Request) => {
       const encontrados = documentos.map((d) => d.tipo);
       const faltando = tipos.filter((t) => !encontrados.includes(t));
       return errorResponse(`Documento não encontrado: ${faltando.join(", ")}`, 404);
+    }
+
+    if (document_id && !documentos.some((d) => d.id === document_id)) {
+      // 409 e não 400: nada está errado com o pedido, a versão é que mudou
+      // desde que a tela carregou. O app reavalia e mostra o texto novo.
+      return errorResponse(
+        "Os termos foram atualizados enquanto esta tela estava aberta. Leia a nova versão para aceitar.",
+        409,
+      );
     }
 
     const ip = clientIp(req);
