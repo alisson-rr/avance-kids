@@ -21,7 +21,7 @@ Definida em [apps/mobile/app.json](../apps/mobile/app.json):
 Keystore em `apps/mobile/credentials/avancekids-release.keystore` (git-ignorado):
 
 - alias: `avancekids`
-- senha do store e da chave: `[SENHA REMOVIDA DO HISTORICO]`
+- senha do store e da chave: `avancekids2026`
 - validade: 10.000 dias
 
 > **Guarde um backup deste arquivo fora do repositório.** Perder o keystore
