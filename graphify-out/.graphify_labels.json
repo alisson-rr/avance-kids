@@ -102,9 +102,7 @@
   "100": "activities.ts",
   "101": "HomeScreen.tsx",
   "102": "BottomSheetSelect.tsx",
-  "103": "billing-config/index.ts",
   "104": "seed_banco_existente.sql",
-  "105": "HomeScreen.tsx",
   "106": "validate_migrations.sh",
   "107": "20260819130000_migration-09_integridade_multi_tenant.sql",
   "108": "test_multi_tenant.sql",
@@ -120,5 +118,10 @@
   "118": "2026.08.18_Logica App para exercícios_0989800f.md",
   "119": "periodicidade _ca154844.md",
   "120": "test_termos_exclusao.sql",
-  "121": "seed.sql"
+  "121": "seed.sql",
+  "122": "HomeScreen.tsx",
+  "123": "PlansScreen.tsx",
+  "124": "TermsModal.tsx",
+  "129": "react-dom",
+  "130": "expo"
 }
