@@ -25,3 +25,7 @@ credentials/
 # Chaves de serviço do Supabase / Google baixadas para a máquina
 service-account*.json
 *-service-account.json
+
+# Python (scripts de importação)
+__pycache__/
+*.pyc
