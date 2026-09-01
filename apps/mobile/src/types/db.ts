@@ -31,6 +31,8 @@ export interface ChildRow {
   avatar_url: string | null;
   idade_biologica_meses: number | null;
   idade_geral_meses: number | null;
+  /** Faixa dos pré-requisitos (migration-11). NULL = nunca avaliada. */
+  faixa_id: string | null;
   triagem_completa: boolean;
 }
 

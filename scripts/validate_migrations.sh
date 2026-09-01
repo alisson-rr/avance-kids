@@ -224,16 +224,20 @@ BEGIN
   ) q;
   IF v_int <> 0 THEN RAISE EXCEPTION '% códigos com ordem divergente entre níveis', v_int; END IF;
 
-  -- Nenhuma atividade oficial entrou como premium por engano.
+  -- Nenhuma atividade entrou como premium POR MIGRATION. Marcar conteúdo como
+  -- premium é operação do backoffice (item 1.8), atividade por atividade — o
+  -- que esta asserção protege é o seed não decidir isso sozinho.
   SELECT count(*) INTO v_int FROM exercises WHERE status = 'ativo' AND plano <> 'free';
-  IF v_int <> 0 THEN RAISE EXCEPTION '% atividades oficiais marcadas como premium', v_int; END IF;
+  IF v_int <> 0 THEN RAISE EXCEPTION '% atividades marcadas como premium por migration', v_int; END IF;
 
-  -- Faixas etárias seguem exatamente como estavam (nenhuma decisão sobre 61-71).
+  -- Faixas etárias conforme a decisão da cliente (migration-11): contíguas de
+  -- 12 a 143 meses, sem lacuna. Continua sendo uma asserção travada de
+  -- propósito — mexer nos limites exige nova decisão registrada.
   SELECT count(*) INTO v_int FROM age_brackets
    WHERE (codigo, meses_min, meses_max) IN (
-     ('F01A',12,24),('F02A',25,36),('F03A',37,48),('F04A',49,60),('F05A',72,96),('F06A',108,144)
+     ('F01A',12,24),('F02A',25,36),('F03A',37,48),('F04A',49,60),('F05A',61,95),('F06A',96,143)
    );
-  IF v_int <> 6 THEN RAISE EXCEPTION 'age_brackets foram alteradas (esperava as 6 originais, achei %)', v_int; END IF;
+  IF v_int <> 6 THEN RAISE EXCEPTION 'age_brackets foram alteradas (esperava as 6 da migration-11, achei %)', v_int; END IF;
 
   RAISE NOTICE 'todas as conferências passaram';
 END $$;
@@ -244,6 +248,9 @@ psql_exec < "$RAIZ/scripts/test_termos_exclusao.sql"
 
 echo "==> testes de isolamento entre contas (multi-tenant)"
 psql_exec < "$RAIZ/scripts/test_multi_tenant.sql"
+
+echo "==> testes das decisões da cliente (migration-11)"
+psql_exec < "$RAIZ/scripts/test_logica_cliente.sql"
 
 # Não depende do Postgres, mas fecha o par com os cenários SQL do gate: o banco
 # diz o que existe, este diz o que o app decide em cima disso.

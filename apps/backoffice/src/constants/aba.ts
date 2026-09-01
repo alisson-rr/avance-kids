@@ -36,8 +36,8 @@ export const AGE_BRACKETS: AgeBracket[] = [
   { code: 'F02A', label: '25 a 36 meses' },
   { code: 'F03A', label: '37 a 48 meses' },
   { code: 'F04A', label: '49 a 60 meses' },
-  { code: 'F05A', label: '6 a 8 anos' },
-  { code: 'F06A', label: '9 a 12 anos' },
+  { code: 'F05A', label: '5 a 7 anos' },
+  { code: 'F06A', label: '8 a 11 anos' },
 ];
 
 export function getAgeBracket(code: AgeBracketCode): AgeBracket {

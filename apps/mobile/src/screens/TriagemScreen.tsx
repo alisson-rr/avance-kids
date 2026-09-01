@@ -43,13 +43,20 @@ export function TriagemScreen({ navigation }: any) {
     setLoadError(null);
     try {
       const [brackets, skillRows] = await Promise.all([fetchAgeBrackets(), fetchSkills()]);
-      const months =
-        activeChild.idadeGeralMeses ?? activeChild.idadeBiologicaMeses ?? 12;
-      const bracket = resolveBracketForMonths(months, brackets);
-      if (!bracket) throw new Error('Faixas etárias não configuradas.');
+
+      // Mesma fonte da PerguntasScreen: a faixa gravada pelo servidor manda,
+      // inclusive quando ela desceu por rebaixamento. A idade é só o fallback
+      // de quem ainda não respondeu os pré-requisitos.
+      let faixaAtualId = activeChild.faixaId ?? null;
+      if (!faixaAtualId) {
+        const months = activeChild.idadeGeralMeses ?? activeChild.idadeBiologicaMeses ?? 12;
+        const bracket = resolveBracketForMonths(months, brackets);
+        if (!bracket) throw new Error('Faixas etárias não configuradas.');
+        faixaAtualId = bracket.id;
+      }
 
       const [questions, counts] = await Promise.all([
-        fetchQuestions('triagem', bracket.id),
+        fetchQuestions('triagem', faixaAtualId),
         fetchScreeningAnsweredCounts(activeChild.id),
       ]);
 
@@ -59,7 +66,7 @@ export function TriagemScreen({ navigation }: any) {
       }
 
       setSkills(skillRows);
-      setBracketId(bracket.id);
+      setBracketId(faixaAtualId);
       setTotals(totalsBySkill);
       setAnswered(counts);
     } catch (err) {

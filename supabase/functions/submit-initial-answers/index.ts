@@ -2,6 +2,12 @@ import { SubmitInitialAnswersSchema } from "../_shared/schemas.ts";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
 
+interface BracketRef {
+  id: string;
+  codigo: string;
+  nome: string;
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
@@ -27,13 +33,22 @@ Deno.serve(async (req: Request) => {
     }
     const { data: questions } = await supabase
       .from("questions")
-      .select("id, kind")
+      .select("id, kind, age_bracket_id")
       .in("id", questionIds);
 
-    const validIds = new Set((questions ?? []).filter((q) => q.kind === "inicial").map((q) => q.id));
-    if (validIds.size !== new Set(questionIds).size) {
+    const iniciais = (questions ?? []).filter((q) => q.kind === "inicial");
+    if (iniciais.length !== new Set(questionIds).size) {
       return errorResponse("Uma ou mais perguntas são inválidas para a triagem inicial", 400);
     }
+
+    // O rebaixamento é sempre relativo a UMA faixa: um lote misturando faixas
+    // não teria como ser contado. Recusar na fronteira é mais honesto do que
+    // escolher uma delas por conta própria.
+    const faixasNoLote = new Set(iniciais.map((q) => q.age_bracket_id));
+    if (faixasNoLote.size !== 1) {
+      return errorResponse("As perguntas iniciais devem ser todas da mesma faixa etária", 400);
+    }
+    const faixaAvaliadaId = [...faixasNoLote][0] as string;
 
     // Salvar respostas na escala fixa (upsert permite refazer)
     const answersToInsert = body.answers.map((a) => ({
@@ -50,36 +65,59 @@ Deno.serve(async (req: Request) => {
 
     if (insertErr) return errorResponse(insertErr.message, 500);
 
-    // Recalcular idade geral e faixa sugerida
+    // Recalcular idade geral (NV fora da média desde a migration-11)
     const serviceClient = getServiceClient();
     const { data: idadeGeral, error: ageErr } = await serviceClient
       .rpc("calculate_general_age", { p_child_id: body.child_id });
 
     if (ageErr) return errorResponse(ageErr.message, 500);
 
+    // Rebaixamento automático (D3): 2+ respostas "A" nos pré-requisitos desta
+    // faixa descem uma faixa, sem perguntar ao responsável. A regra mora no
+    // banco (resolve_bracket_after_prerequisites) para não ter duas cópias.
+    const { data: faixaResultanteId, error: bracketErr } = await serviceClient
+      .rpc("resolve_bracket_after_prerequisites", {
+        p_child_id: body.child_id,
+        p_bracket_id: faixaAvaliadaId,
+      });
+
+    if (bracketErr) return errorResponse(bracketErr.message, 500);
+
+    const rebaixou = faixaResultanteId !== faixaAvaliadaId;
+
     const { error: updateErr } = await supabase
       .from("children")
-      .update({ idade_geral_meses: idadeGeral })
+      .update({ idade_geral_meses: idadeGeral, faixa_id: faixaResultanteId })
       .eq("id", body.child_id);
 
     if (updateErr) return errorResponse(updateErr.message, 500);
 
-    const { data: bracketId } = await serviceClient
+    // Faixa pela idade geral: campo antigo da resposta, mantido para não
+    // quebrar builds do app já publicadas. A faixa que vale para as perguntas
+    // é `faixa_atual`.
+    const { data: sugeridaId } = await serviceClient
       .rpc("resolve_age_bracket", { idade_meses: idadeGeral });
 
-    let faixaSugerida: { id: string; codigo: string; nome: string } | null = null;
-    if (bracketId) {
-      const { data: bracket } = await serviceClient
-        .from("age_brackets")
-        .select("id, codigo, nome")
-        .eq("id", bracketId)
-        .maybeSingle();
-      faixaSugerida = bracket ?? null;
-    }
+    const idsDesejados = [faixaAvaliadaId, faixaResultanteId, sugeridaId].filter(
+      (id): id is string => typeof id === "string",
+    );
+    const { data: brackets } = await serviceClient
+      .from("age_brackets")
+      .select("id, codigo, nome")
+      .in("id", idsDesejados);
+
+    const porId = new Map<string, BracketRef>((brackets ?? []).map((b) => [b.id, b]));
+    const faixaAtual = porId.get(faixaResultanteId) ?? null;
 
     return jsonResponse({
       idade_geral_meses: idadeGeral,
-      faixa_sugerida: faixaSugerida,
+      faixa_sugerida: sugeridaId ? porId.get(sugeridaId) ?? null : null,
+      faixa_avaliada: porId.get(faixaAvaliadaId) ?? null,
+      faixa_atual: faixaAtual,
+      rebaixou,
+      // Quando desceu, os pré-requisitos da faixa nova precisam ser aplicados
+      // — e podem rebaixar de novo. Sem rebaixamento não há o que repetir.
+      proxima_faixa: rebaixou ? faixaAtual : null,
     });
   } catch (err) {
     if (err instanceof Error && err.message === "Unauthorized") {

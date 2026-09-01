@@ -33,6 +33,12 @@ const RESULT_OPTIONS: { id: number; label: string; resultado: AttemptResult }[] 
   { id: 3, label: 'Fez com ajuda total', resultado: 'ajuda_total' },
 ];
 
+// Generalização é praticar a mesma habilidade em situações diferentes. Não há
+// campo de contexto a preencher: o critério são 3 dias diferentes, e o texto
+// abaixo é o único lugar em que isso precisa aparecer para o responsável.
+const AVISO_GENERALIZACAO =
+  'Esta atividade é de Generalização: para concluir, ela precisa ser praticada em 3 dias diferentes, em situações diferentes do dia a dia.';
+
 // ─── COMPONENT ────────────────────────────────────────────────────────
 export function ActivityScreen({ navigation, route }: any) {
   const insets = useSafeAreaInsets();
@@ -114,6 +120,26 @@ export function ActivityScreen({ navigation, route }: any) {
 
       if (result.exercise_completed) {
         setIsCompleted(true);
+      } else if (plan.exercises?.nivel === 'generalizacao' && result.successful_count >= 8) {
+        // Bateu o critério do dia, mas a Generalização só fecha no 3º dia
+        // distinto (check_exercise_completion). O servidor já encerrou esta
+        // sessão e manteve a atividade ativa: registrar mais repetições aqui
+        // só daria erro de "sessão inválida".
+        setIsBottomSheetVisible(false);
+        setSession(null);
+        showDialog({
+          title: 'Dia registrado!',
+          message:
+            'Muito bem! A Generalização precisa ser praticada em 3 dias diferentes. Volte em outro dia para registrar de novo — no terceiro dia a próxima atividade é liberada.',
+          variant: 'success',
+          buttons: [
+            {
+              label: 'Voltar ao plano',
+              kind: 'primary',
+              onPress: () => navigation.navigate('ActivityPlan'),
+            },
+          ],
+        });
       } else if (result.remaining <= 0) {
         // 10 repetições sem atingir 8 acertos sem ajuda: recomeça do zero
         setIsBottomSheetVisible(false);
@@ -271,6 +297,12 @@ export function ActivityScreen({ navigation, route }: any) {
         <Text style={styles.descriptionText}>
           {description || 'Siga as orientações do programa para aplicar esta atividade.'}
         </Text>
+
+        {exercise.nivel === 'generalizacao' && (
+          <View style={styles.noticeBox}>
+            <Text style={styles.noticeText}>{AVISO_GENERALIZACAO}</Text>
+          </View>
+        )}
       </ScrollView>
 
       {/* ── FOOTER COM O BOTÃO COMEÇAR ── */}
@@ -508,6 +540,21 @@ const styles = StyleSheet.create({
     color: '#3B3B3B',
     paddingHorizontal: 24,
     marginTop: 24,
+  },
+
+  // ── Aviso fixo da Generalização ─────────────────────────────────
+  noticeBox: {
+    marginHorizontal: 24,
+    marginTop: 16,
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: '#EEF4FF',
+  },
+  noticeText: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#0E5DFD',
   },
 
   // ── Footer (botão Começar) ──────────────────────────────────────

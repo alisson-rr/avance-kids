@@ -3,14 +3,17 @@ import { invokeFunction } from './api';
 import type { QuestionKind, QuestionRow } from '../types/db';
 
 /**
- * Escala fixa de resposta (ANSWER_SCALE do backoffice) exibida em toda
- * pergunta. A 4ª opção mapeia para valor 0 com nao_observado = true.
+ * Escala A/B/C/NV do checklist oficial, na frequência que a própria planilha
+ * define (1 em 5 / 2 a 3 em 5 / 4 a 5 em 5). O contrato com o banco não muda:
+ * A/B/C continuam sendo valor_numerico 0/1/2 e NV continua sendo valor 0 com
+ * nao_observado = true — a diferença é que a partir da migration-11 as médias
+ * de idade ignoram as linhas de NV, em vez de tratá-las como "quase nunca".
  */
 export const QUESTION_OPTIONS = [
-  { label: 'Quase nunca faz, mesmo com ajuda', valorNumerico: 0, naoObservado: false },
-  { label: 'Faz às vezes ou com ajuda', valorNumerico: 1, naoObservado: false },
-  { label: 'Faz quase sempre, com autonomia', valorNumerico: 2, naoObservado: false },
-  { label: 'Não observei essa situação ainda', valorNumerico: 0, naoObservado: true },
+  { label: 'Quase nunca — cerca de 1 vez a cada 5', valorNumerico: 0, naoObservado: false },
+  { label: 'Às vezes — cerca de 2 a 3 vezes a cada 5', valorNumerico: 1, naoObservado: false },
+  { label: 'Quase sempre — cerca de 4 a 5 vezes a cada 5', valorNumerico: 2, naoObservado: false },
+  { label: 'Ainda não verifiquei essa situação', valorNumerico: 0, naoObservado: true },
 ] as const;
 
 export interface AnswerInput {
@@ -38,9 +41,22 @@ export async function fetchQuestions(
   return data ?? [];
 }
 
+export interface BracketRef {
+  id: string;
+  codigo: string;
+  nome: string;
+}
+
 export interface SubmitInitialResult {
   idade_geral_meses: number;
-  faixa_sugerida: { id: string; codigo: string; nome: string } | null;
+  /** Faixa pela idade geral. Campo legado — a que vale é `faixa_atual`. */
+  faixa_sugerida: BracketRef | null;
+  faixa_avaliada: BracketRef | null;
+  /** Faixa gravada em children.faixa_id depois de aplicar o rebaixamento. */
+  faixa_atual: BracketRef | null;
+  rebaixou: boolean;
+  /** Faixa cujos pré-requisitos ainda precisam ser respondidos, se desceu. */
+  proxima_faixa: BracketRef | null;
 }
 
 export function submitInitialAnswers(childId: string, answers: AnswerInput[]) {

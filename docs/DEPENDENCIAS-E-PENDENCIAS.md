@@ -4,8 +4,23 @@ Registro do que **não** foi implementado e por quê. Cada item traz a evidênci
 no código, para que a decisão possa ser tomada sem reabrir a investigação.
 
 > **Atualizado na branch `integration/pre-client-response`.** O documento nasceu
-> em `feat/nonblocking-core-prep`; a integração resolveu parte dos itens. O
-> status de cada um está marcado abaixo.
+> em `feat/nonblocking-core-prep`; a integração resolveu parte dos itens e a
+> resposta da cliente (28/08/2026) resolveu o bloco 1.2–1.6. O status de cada
+> um está marcado abaixo.
+
+## Resolvido com as respostas da cliente (migration-11)
+
+Decisões recebidas em 28/08/2026 e implementadas em
+`supabase/migrations/20260828120000_migration-11_ajustes_logica_cliente.sql`,
+com cenários executáveis em `scripts/test_logica_cliente.sql`.
+
+| Item | Decisão | Onde ficou |
+| --- | --- | --- |
+| 1.2 A/B/C e os níveis | Toda criança percorre Aquisição → Generalização → Manutenção. A resposta A/B/C **não** escolhe o nível de entrada. | Já era o comportamento; agora tem asserção que falha se um plano começar fora da Aquisição. |
+| 1.3 Faixas etárias | F05A = 61–95 meses ("5 a 7 anos"), F06A = 96–143 ("8 a 11 anos"). Os rótulos antigos estavam errados; não há mais lacuna. | `UPDATE age_brackets` + clamp de `resolve_age_bracket` em 143. |
+| 1.4 Rebaixamento de faixa | 2 ou mais "A" nos pré-requisitos rebaixam **uma faixa, automaticamente**, sem confirmação, e repetem enquanto o critério se repetir. Piso em F01A. | `children.faixa_id` + `resolve_bracket_after_prerequisites()` + `submit-initial-answers`. |
+| 1.5 Tratamento de NV | NV **entra no plano** começando em Aquisição e **não** conta como "nunca". | `calculate_general_age` e `calculate_skill_age` ignoram `nao_observado = true`. |
+| 1.6 Contexto da Generalização | Não se pede detalhamento de contexto: bastam **3 dias diferentes**. | `check_exercise_completion` conta dias distintos em `America/Sao_Paulo`; a tela traz um texto fixo, sem campo novo. |
 
 ## Resolvido na integração
 
@@ -22,13 +37,15 @@ no código, para que a decisão possa ser tomada sem reabrir a investigação.
 | 4.2 Tenant crossing | Fechado por FKs compostas (migration-09) + `scripts/test_multi_tenant.sql`. |
 | 5.3 Aceite de contas antigas | Gate na entrada do app (`TermsGate`); a prova é a linha em `terms_acceptances`, não um booleano. |
 
-Continuam abertos: **1.1–1.6, 1.8, 1.9, 2.6, 4.3–4.6, 5.1 e 5.2**.
+Continuam abertos: **1.1 (só a importação das perguntas), 1.8, 1.9, 2.6,
+4.3–4.6, 5.1 (CPF da criança) e 5.2**. A lista das perguntas que faltam para a
+cliente está na [seção 6](#6-perguntas-em-aberto-para-a-cliente).
 
 ---
 
 ## 1. Bloqueado por decisão da cliente
 
-### 1.1 Escala A/B/C/NV do checklist
+### 1.1 Escala A/B/C/NV do checklist — 🟡 mapeamento definido, importação pendente
 
 O checklist oficial usa quatro respostas — **A** (nunca/raramente, 1 em 5),
 **B** (pouca frequência, 2–3 em 5), **C** (muito frequentemente, 4–5 em 5) e
@@ -40,88 +57,163 @@ O checklist oficial usa quatro respostas — **A** (nunca/raramente, 1 em 5),
 - Escala oficial: coluna "Registro de Dados (detalhado)" da planilha e as
   tabelas do `.docx`
 
-**Pendente:** a correspondência exata A/B/C → `valor_numerico`, e o que NV
-significa no cálculo (ignora a pergunta? conta como A? bloqueia o resultado?).
+**Mapeamento definido** (a partir da própria frequência da planilha, e da
+resposta da cliente sobre NV):
 
-**Consequência de não decidir:** as perguntas do checklist oficial **não foram
-importadas**. As 150 perguntas em `questions` continuam sendo o texto genérico
-do `migration-03`. As atividades (exercises) foram trocadas pelo conteúdo
-oficial porque não dependem dessa escala; as perguntas dependem.
-
-### 1.2 Como A/B/C determina Aquisição / Generalização / Manutenção
-
-O enum `exercise_level` existe e a progressão está implementada, mas nada no
-schema diz o que cada nível significa nem qual critério move a criança entre
-eles. O único critério codificado é o mesmo para os três níveis:
-`successful_count >= 8`.
-
-- `supabase/migrations/20260811000000_migration-05_gating_premium.sql:228`
-
-**Consequência:** `check_exercise_completion` não foi alterada. Com o conteúdo
-oficial ela produz a travessia **A → G → M do mesmo código, depois o próximo
-código** (ver secção 3.1). Se a intenção pedagógica for outra (todos os códigos
-em Aquisição antes de qualquer Generalização, por exemplo), é mudança de
-algoritmo.
-
-### 1.3 Faixa etária 61–71 meses (e as outras duas lacunas)
-
-Limites cadastrados hoje (`baseline.sql:868-874`), todos em meses:
-
-| Código | Rótulo | `meses_min` | `meses_max` |
+| Checklist | Frequência | `valor_numerico` | `nao_observado` |
 | --- | --- | --- | --- |
-| F01A | 12 a 24 meses | 12 | 24 |
-| F02A | 25 a 36 meses | 25 | 36 |
-| F03A | 37 a 48 meses | 37 | 48 |
-| F04A | 49 a 60 meses | 49 | 60 |
-| F05A | 6 a 8 anos | 72 | 96 |
-| F06A | 9 a 12 anos | 108 | 144 |
+| A | quase nunca — ~1 em 5 | 0 | `false` |
+| B | às vezes — ~2 a 3 em 5 | 1 | `false` |
+| C | quase sempre — ~4 a 5 em 5 | 2 | `false` |
+| NV | não verifiquei | 0 (ignorado) | `true` |
 
-Aritmética pura, sem interpretação:
+O contrato do banco não mudou: `AnswerItemSchema` continua aceitando 0–2 mais o
+booleano. O que mudou é o **peso** do NV — ver 1.5. Os rótulos exibidos ao
+responsável estão em `apps/mobile/src/services/questions.ts` (`QUESTION_OPTIONS`).
 
-- F01A→F04A são **contíguas**, sem lacuna nem sobreposição.
-- **61–71 meses** (5a1m a 5a11m): nenhuma faixa cobre.
-- **97–107 meses** (8a1m a 8a11m): nenhuma faixa cobre.
-- Acima de 144 meses (12 anos): não há faixa; o código faz *clamp* para 144.
+**Continua pendente:** as perguntas do checklist oficial **não foram
+importadas**. As 150 perguntas em `questions` continuam sendo o texto genérico
+do `migration-03`. As atividades (exercises) já são o conteúdo oficial.
 
-As três situações são **a mesma pergunta**: quando o rótulo diz "a 8 anos", o
-limite é o 8º aniversário (96 meses) ou o fim dos 8 anos (107 meses)? A
-resposta que resolve 61–71 resolve 97–107 e o teto de 144 junto.
+Não é mais decisão, é conteúdo a receber. O formato do arquivo está definido e
+documentado em [MODELOS-IMPORTACAO.md](MODELOS-IMPORTACAO.md), com a
+planilha-modelo em [`modelos-importacao.xlsx`](modelos-importacao.xlsx). O
+importador de atividades já existe; o de perguntas ainda não — é um script no
+mesmo molde, a ser escrito quando o arquivo chegar.
 
-**Nenhum limite foi alterado.** Não existe erro *objetivo* a corrigir: sob a
-leitura literal ("a 8 anos" = até 96 meses) o banco está coerente com os
-próprios rótulos, e sob a outra leitura os três limites mudam ao mesmo tempo.
-Escolher entre as duas é decidir a faixa 61–71. `scripts/validate_migrations.sh`
-tem uma asserção que **falha** se alguém alterar as 6 linhas sem essa decisão.
+### 1.2 Como A/B/C determina Aquisição / Generalização / Manutenção — ✅ resolvido
 
-### 1.4 Rebaixamento de faixa
+**Resposta da cliente:** toda criança percorre os três níveis na ordem
+Aquisição → Generalização → Manutenção. A resposta A/B/C do checklist **não**
+define o nível de entrada; ela alimenta a idade da habilidade e, por
+consequência, a faixa de conteúdo — nunca o ponto de partida na trilha.
 
-Hoje já existe um rebaixamento silencioso: quando a idade cai numa lacuna,
-`resolve_age_bracket` usa a **faixa anterior**.
+Nada no código usava A/B/C para escolher nível — foi conferido em
+`generate-activity-plan` (ordena por `nivel`, depois `ordem`) e em
+`check_exercise_completion` (avança aquisicao → generalizacao → manutencao). A
+mudança foi **travar** o comportamento, não reescrevê-lo:
 
-- `supabase/migrations/20260718000000_baseline.sql:677-702`
-- Espelhado no app em `apps/mobile/src/services/catalog.ts:20-34` (duas
-  implementações do mesmo algoritmo — unificar depois que a política for
-  definida)
+- `scripts/test_logica_cliente.sql` seção 3 falha se, em alguma combinação
+  (habilidade, faixa), a primeira atividade que uma conta consegue abrir não
+  for de aquisição — que é a condição sob a qual `generate-activity-plan`
+  produz um plano começando em Aquisição. Conferido que o teste quebra quando
+  as aquisições de uma faixa são marcadas como premium.
+- `scripts/test_logica_cliente.sql` seção 4 prova a travessia completa:
+  Aquisição concluída libera a Generalização do mesmo código, e a Manutenção
+  não abre antes disso.
 
-Efeito atual: criança de 5a1m–5a11m recebe conteúdo de F04A (4–5 anos);
-criança de 8a1m–8a11m recebe conteúdo de F05A (6–8 anos).
+**Continua em aberto (menor):** se a ordem é *por código* (A→G→M do código 1,
+depois o código 2 — comportamento atual, ver 3.1) ou *por faixa* (todos os
+códigos em Aquisição antes de qualquer Generalização). Mantido o comportamento
+atual; ver [seção 6](#6-perguntas-em-aberto-para-a-cliente).
 
-**Não alterado.**
+### 1.3 Faixa etária 61–71 meses (e as outras duas lacunas) — ✅ resolvido
 
-### 1.5 Tratamento de NV
+**Resposta da cliente:** os rótulos "6 a 8 anos" e "9 a 12 anos" estavam
+errados. As faixas corretas, em meses:
 
-`NV` **não existe em lugar nenhum** do repositório — nem coluna, nem enum, nem
-constante. O mais próximo é `child_question_answers.nao_observado`, que hoje é
-gravado junto com `valor_numerico = 0`, ou seja, NV e "nunca" são o mesmo
-número para qualquer cálculo.
+| Código | Rótulo | `meses_min` | `meses_max` | Antes |
+| --- | --- | --- | --- | --- |
+| F01A | 12 a 24 meses | 12 | 24 | igual |
+| F02A | 25 a 36 meses | 25 | 36 | igual |
+| F03A | 37 a 48 meses | 37 | 48 | igual |
+| F04A | 49 a 60 meses | 49 | 60 | igual |
+| F05A | **5 a 7 anos** | **61** | **95** | 72–96, rótulo "6 a 8 anos" |
+| F06A | **8 a 11 anos** | **96** | **143** | 108–144, rótulo "9 a 12 anos" |
 
-- `supabase/functions/_shared/schemas.ts:31-35`
+Com isso as seis faixas ficam **contíguas de 12 a 143 meses**: as lacunas de
+61–71 e 97–107 deixam de existir, e não há mais idade que dependa do ramo de
+fallback.
 
-### 1.6 Definição de contexto da Generalização
+O clamp de `resolve_age_bracket` passou de `LEAST(144, ...)` para
+`LEAST(143, ...)`. Sem isso, uma criança de 12 anos exatos entraria com 144,
+não casaria com nenhuma faixa e cairia no ramo de lacuna — devolveria F06A por
+acidente, por um caminho que só existe para dados quebrados. O espelho no app
+(`apps/mobile/src/services/catalog.ts`) foi ajustado junto.
 
-Nada no schema representa "contexto". A coluna `exercises.brincadeiras` e o
-texto oficial de generalização descrevem contextos em prosa, mas não há campo
-estruturado. **Não alterado.**
+Nenhuma linha de conteúdo mudou de faixa: `questions`, `exercises` e
+`child_skill_ages` referenciam a faixa por `id`, não por meses.
+
+A asserção de `scripts/validate_migrations.sh` continua travada — agora nos
+limites novos — e `scripts/test_logica_cliente.sql` confere 12, 24, 25, 36, 37,
+48, 49, 60, 61, 71, 95, 96 e 143 meses, mais o clamp nas duas pontas.
+
+### 1.4 Rebaixamento de faixa — ✅ resolvido
+
+**Resposta da cliente:** o rebaixamento é **automático**, sem perguntar ao
+responsável, e pode descer mais de uma faixa se o critério se repetir.
+
+Regra implementada: nas perguntas de pré-requisito da faixa
+(`questions.kind = 'inicial'`), **2 ou mais respostas "A"** — `valor_numerico = 0`
+com `nao_observado = false` — descem uma faixa. Aplicados os pré-requisitos da
+faixa nova, se o critério se repetir, desce de novo. **F01A é o piso.**
+
+O que precisou existir antes da regra: `children` não tinha coluna de faixa. A
+faixa era recalculada da data de nascimento em dois lugares, então qualquer
+rebaixamento se perdia no carregamento seguinte do app. Agora:
+
+- `children.faixa_id` (migration-11) é a fonte única da faixa de pré-requisitos.
+  `NULL` significa "nunca avaliada", e só nesse caso o app calcula pela idade.
+- `resolve_bracket_after_prerequisites(child, faixa)` concentra a regra no
+  banco — uma implementação só, testável em SQL puro.
+- `submit-initial-answers` grava a faixa resultante e devolve ao app
+  `faixa_atual`, `rebaixou` e `proxima_faixa`.
+- `PerguntasScreen` recarrega os pré-requisitos da faixa nova com um aviso
+  informativo (sem botão de recusar) e não repete a mesma faixa duas vezes.
+  `PerguntasScreen` e `TriagemScreen` leem `children.faixa_id` quando existe.
+
+**NV não conta** para os dois "A": não é evidência de falha (ver 1.5).
+
+O rebaixamento silencioso por lacuna descrito antes **deixou de existir**: sem
+lacunas (1.3), nenhuma idade entre 12 e 143 meses cai na faixa anterior.
+
+### 1.5 Tratamento de NV — ✅ resolvido
+
+**Resposta da cliente:** a habilidade marcada como NV **entra no plano**,
+começando em Aquisição. Não fica de fora.
+
+O problema concreto era outro, e vinha junto: NV era gravado como
+`valor_numerico = 0` com `nao_observado = true`, ou seja, era **idêntico a
+"quase nunca"** em qualquer média. Uma habilidade que o responsável apenas não
+teve chance de observar rebaixava a idade da criança — e portanto a faixa de
+conteúdo — sem nenhuma evidência de falha.
+
+`calculate_general_age` e `calculate_skill_age` passaram a **excluir da média**
+as respostas com `nao_observado = true`. Quando todas são NV, `AVG` volta `NULL`
+e o ramo que já existia devolve a idade base sem regressão — que é exatamente o
+comportamento pedido: a habilidade entra no plano pela faixa da criança,
+começando em Aquisição.
+
+O contrato de `AnswerItemSchema` não mudou (0–2 + booleano); mudou o peso.
+Coberto por `scripts/test_logica_cliente.sql` seção 2, incluindo o contraste com
+um "A" observado de verdade, que continua rebaixando.
+
+### 1.6 Definição de contexto da Generalização — ✅ resolvido
+
+**Resposta da cliente:** na Generalização **não se pede detalhamento de
+contexto**. Três situações/dias diferentes bastam.
+
+Antes, os três níveis usavam o mesmo critério: `successful_count >= 8` numa
+sessão. Agora `check_exercise_completion` trata a Generalização à parte: só
+conclui o plano depois de **3 sessões com 8+ acertos em 3 datas distintas**.
+
+Detalhes que sustentam a implementação:
+
+- O dia sai de `(started_at AT TIME ZONE 'America/Sao_Paulo')::date`. Em UTC,
+  uma sessão às 22h de sábado viraria domingo e a criança ganharia um dia que
+  não existiu. `scripts/test_logica_cliente.sql` tem um caso montado para
+  quebrar se alguém trocar por UTC.
+- Enquanto faltam dias, a **sessão** é marcada como concluída, o **plano**
+  continua `ativo` e a função devolve `false`. Sessão fechada é o que faz
+  `start-exercise-session` abrir uma sessão nova no dia seguinte (ele procura
+  sessão com `is_completed = false`); plano ativo é o que mantém a atividade na
+  tela do responsável.
+- **Nenhum campo, tela ou pergunta de "contexto" foi criado.** Na tela do
+  exercício de Generalização há um texto fixo explicando os 3 dias
+  (`ActivityScreen.tsx`), e ao fechar o dia o app avisa que é preciso voltar em
+  outro dia — sem isso o responsável tentaria registrar a 9ª repetição numa
+  sessão já encerrada e receberia "sessão inválida".
+- Aquisição e Manutenção seguem concluindo com uma sessão.
 
 ### 1.7 Códigos de Triagem (AT) — 24 códigos, 72 registros — ✅ conteúdo importado
 
@@ -148,26 +240,56 @@ Não entraram em `exercises` porque há impedimento técnico verificado:
 itens → iniciar com programas básicos") e a habilidade de cada código. Quando
 existirem, o vínculo entra em uma migration nova; nada precisa ser reimportado.
 
-### 1.8 Quais atividades são premium
+### 1.8 Quais atividades são premium — ✅ resolvido (controle no backoffice)
 
-As 378 atividades oficiais entraram todas como `plano = 'free'` — igual ao seed
-anterior, para não mudar o que o assinante recebe. Hoje **nenhuma atividade é
-premium**, então o gating de `exercises` (migration-05) não tem o que bloquear.
+**Resposta da cliente:** a marcação tem de ser feita por uma tag no backoffice.
 
-**Pendente:** decisão comercial de qual conteúdo é pago. É um `UPDATE` em
-`exercises.plano`, sem migration de schema.
+**A tag já existe** e funciona ponta a ponta — não foi preciso escrever código:
 
-### 1.9 Bloqueio de trial após exclusão de conta
+- campo **Plano** (Gratuito / Premium) no formulário de atividade —
+  `apps/backoffice/src/screens/ActivitiesScreen.tsx:367`
+- coluna com selo na listagem — `ActivitiesScreen.tsx:167`
+- filtro "Todos os Planos" — `ActivitiesScreen.tsx:252`
+- persistido em `exercises.plano` — `services/atividades.ts:92`
+- bloqueio real por RLS desde a migration-05: a atividade premium some para
+  quem não assina, e a assinatura libera na hora, sem regerar o plano.
 
-Excluir a conta apaga `subscriptions`, que é onde mora o marcador anti-reabuso
-do teste grátis (`stripe_subscription_id`,
-`create-checkout-session/index.ts:55-59`). Ou seja: excluir a conta e cadastrar
-de novo devolve 15 dias grátis.
+As 378 atividades continuam `free`. O que muda a partir de agora é operacional:
+a equipe de conteúdo marca no backoffice, atividade por atividade.
 
-A `delete-account` **registra** `stripe_customer_id` e `teve_assinatura_paga`
-em `account_deletions`, então a informação para bloquear existe — mas o
-bloqueio **não foi implementado**, porque negar o teste a quem exercitou o
-direito de exclusão é decisão de produto e tem leitura jurídica.
+> **Uma regra a respeitar ao marcar.** A criança sempre começa em Aquisição
+> (D1). Se **todas** as Aquisições de uma mesma habilidade + faixa forem
+> marcadas como Premium, a conta gratuita ficaria com a trilha daquela
+> habilidade começando em Generalização — o que contraria a decisão. Ou seja:
+> **em cada habilidade e faixa, ao menos a primeira Aquisição precisa continuar
+> gratuita.**
+>
+> `scripts/test_logica_cliente.sql` seção 3 pega isso, mas só roda contra o
+> banco descartável do harness — ela protege o conteúdo que vem por migration,
+> **não** o que for marcado pelo backoffice no banco real. Fechar essa brecha
+> significa validar a regra no momento de salvar a atividade (backoffice) ou ao
+> gerar o plano; não foi feito porque não foi pedido. Dá meia hora.
+
+### 1.9 Bloqueio de trial após exclusão de conta — ✅ resolvido (fica como está)
+
+**Resposta da cliente:** indiferente; escolher o caminho mais fácil.
+
+O mais fácil é **não bloquear** — que é o comportamento atual e custa zero
+linha de código. Quem exclui a conta e cadastra de novo recebe outros 15 dias
+de teste.
+
+Por que essa é de fato a opção mais barata, e não só a mais preguiçosa:
+bloquear exigiria reconhecer a pessoa **depois** de ela ter apagado os próprios
+dados. `account_deletions` guarda `stripe_customer_id` e
+`teve_assinatura_paga`, mas quem nunca chegou ao Stripe não tem
+`customer_id` — para esses, o único identificador seria o e-mail, que a
+exclusão justamente remove. Guardar e-mail (ou hash) de conta excluída para
+negar benefício futuro é retenção de dado pessoal com finalidade nova, o que
+pede base legal e ajuste nos Termos.
+
+**Consequência aceita:** o teste grátis é repetível por quem excluir e recriar
+a conta. Se o abuso aparecer em volume, o caminho menos invasivo é limitar por
+método de pagamento no próprio Stripe, não por identidade guardada aqui.
 
 ---
 
@@ -210,7 +332,13 @@ A(código 1) → G(código 1) → M(código 1) → A(código 2) → G(código 2)
 ```
 
 que é o comportamento que a função já implementava — só havia um código por
-habilidade, então isso nunca ficou visível. Ver 1.2 se a intenção for outra.
+habilidade, então isso nunca ficou visível.
+
+A resposta da cliente confirmou a ordem A → G → M (ver 1.2), mas **não disse se
+é por código ou por faixa**. Mantido o comportamento acima. A alternativa
+— todos os códigos em Aquisição, depois todos em Generalização — é mudança de
+algoritmo em `check_exercise_completion` e em `generate-activity-plan`. Está na
+[seção 6](#6-perguntas-em-aberto-para-a-cliente).
 
 ### 3.2 Crianças com plano já gerado
 
@@ -302,12 +430,17 @@ subir o SDK; as duas mexem no comportamento de cobrança. `delete-account` e
 
 ## 5. Aberto desde a integração
 
-### 5.1 ⬜ CPF da criança — aguardando a cliente
+### 5.1 ⬜ CPF da criança — NÃO respondido, continua aberto
+
+**A resposta de 28/08/2026 não tratou deste item.** Nada foi alterado: o campo
+não foi removido nem os Termos foram ajustados. A divergência abaixo segue
+valendo.
 
 O app coleta CPF da criança (`ChildRegisterScreen.tsx:97`,
 `EditChildProfileScreen.tsx:117`), o schema tem `children.cpf`
 (`baseline.sql:218`) e `RegisterChildSchema` aceita o campo como opcional
-(`_shared/schemas.ts:25`).
+(`_shared/schemas.ts:25`). Já `apps/mobile/src/constants/termos.ts` declara
+apenas o CPF do **responsável**.
 
 O documento oficial de Termos e Privacidade (17/08/2026), seção 2, lista os
 dados da criança como *"Nome ou apelido, data de nascimento, foto de perfil e
@@ -415,3 +548,52 @@ Riscos residuais aceitos conscientemente:
   fluxo. Se a chamada de cadastro nunca liquidar, o gate fica desligado até o
   timeout de rede da plataforma — janela curta, que se resolve sozinha, marcada
   com `ponytail:` no código.
+
+---
+
+## 6. Perguntas em aberto para a cliente
+
+Rodada de 28/08/2026 respondida. Sobraram três — as demais viraram as seções
+1.8, 1.9 e o modelo de importação.
+
+**1. O CPF da criança deve continuar sendo pedido no cadastro?** *(aguardando)*
+O aplicativo pede o CPF da criança, mas o documento de Termos e Privacidade não
+menciona esse dado — lista só nome, data de nascimento, foto e informações de
+desenvolvimento. Ou o campo sai do aplicativo, ou os Termos passam a declarar o
+CPF (e aí todos os usuários precisam aceitar a nova versão do documento).
+*Enquanto isso:* nada mudou — o campo continua sendo pedido e os Termos
+continuam sem citá-lo.
+
+**2. A criança termina uma atividade por vez, ou uma etapa por vez?**
+*(pergunta reformulada — ver explicação abaixo)*
+Cada atividade tem três etapas, na ordem: **Aquisição** (aprender a fazer),
+**Generalização** (fazer em situações e dias diferentes) e **Manutenção**
+(continuar fazendo depois de aprendido). São essas as três etapas confirmadas na
+resposta anterior.
+A dúvida que sobrou é a ordem entre atividades diferentes da mesma habilidade:
+
+- **Como está hoje:** a criança faz a atividade 1 nas três etapas, do começo ao
+  fim, e só então começa a atividade 2.
+- **A alternativa:** a criança faz a Aquisição de *todas* as atividades da
+  habilidade, depois a Generalização de todas, depois a Manutenção de todas.
+
+*Enquanto isso:* mantido como está hoje — uma atividade por vez, do começo ao
+fim.
+
+**3. Quando os "Programas Básicos de Engajamento" devem entrar?**
+*(pergunta reformulada — ver explicação abaixo)*
+Além das 126 atividades do checklist, a planilha oficial trouxe 24 programas com
+código terminado em **AT** (F01AT001 a F06AT004), descritos como "Programas
+Básicos de Engajamento da Triagem Inicial". São coisas de base — contato visual,
+atender pelo nome, permanecer sentado — que vêm *antes* de qualquer programa de
+habilidade.
+Eles estão guardados no sistema, completos, mas **não aparecem para ninguém**,
+porque faltam duas informações que só a cliente tem:
+
+- **Quando a criança deve recebê-los?** O material sugere algo como "marcar NÃO
+  para 2 ou mais itens da triagem", mas isso não está fechado.
+- **A qual das cinco habilidades cada um pertence?** (Comunicação, Social,
+  Cognitiva, Coordenação Motora, Funcional.) Sem isso não há onde encaixá-los no
+  plano, porque toda atividade do plano pertence a uma habilidade.
+
+*Enquanto isso:* o conteúdo está guardado e não entra no plano de ninguém.

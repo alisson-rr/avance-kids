@@ -14,15 +14,18 @@ export async function fetchAgeBrackets(): Promise<AgeBracketRow[]> {
 }
 
 /**
- * Espelha resolve_age_bracket do banco: clamp 12..144 e, em gaps entre
- * faixas (ex.: 61-71 meses), usa a faixa anterior.
+ * Espelha resolve_age_bracket do banco: clamp 12..143 (teto de F06A depois da
+ * migration-11) e, se alguém reabrir uma lacuna entre faixas, usa a anterior.
+ *
+ * Só entra em cena quando a criança ainda não tem `faixa_id` gravada: a faixa
+ * de pré-requisitos, uma vez avaliada, mora em children.faixa_id.
  */
 export function resolveBracketForMonths(
   months: number,
   brackets: AgeBracketRow[],
 ): AgeBracketRow | null {
   if (brackets.length === 0) return null;
-  const clamped = Math.max(12, Math.min(144, months));
+  const clamped = Math.max(12, Math.min(143, months));
 
   const exact = brackets.find((b) => clamped >= b.meses_min && clamped <= b.meses_max);
   if (exact) return exact;

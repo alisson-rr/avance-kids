@@ -19,6 +19,8 @@ export interface Child {
   triagemCompleta: boolean;
   idadeBiologicaMeses: number | null;
   idadeGeralMeses: number | null;
+  /** Faixa dos pré-requisitos gravada pelo servidor; null antes da 1ª avaliação. */
+  faixaId: string | null;
 }
 
 const ACTIVE_CHILD_KEY = '@avancekids/activeChildId';
@@ -36,6 +38,7 @@ function mapChild(row: ChildRow, activeId: string | null, index: number): Child 
     triagemCompleta: row.triagem_completa,
     idadeBiologicaMeses: row.idade_biologica_meses,
     idadeGeralMeses: row.idade_geral_meses,
+    faixaId: row.faixa_id ?? null,
   };
 }
 
