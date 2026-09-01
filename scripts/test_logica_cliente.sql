@@ -1,15 +1,18 @@
--- Testes das decisões da cliente implementadas na migration-11.
+-- Testes das decisões da cliente (migration-11) e da progressão por atividade
+-- (migration-12).
 --
 -- Cobre, na ordem: faixas etárias sem lacuna, NV fora das médias de idade,
--- plano começando em Aquisição, Generalização exigindo 3 dias distintos e
--- rebaixamento automático de faixa com piso em F01A.
+-- plano começando em Aquisição, Generalização exigindo 3 dias distintos,
+-- rebaixamento automático de faixa com piso em F01A e a travessia A→G→M
+-- casando pela mesma atividade, com o filtro de plano só na virada.
 --
 -- Roda dentro de scripts/validate_migrations.sh, depois das migrations.
 -- Tudo dentro de uma transação com ROLLBACK: nenhum dado sobrevive ao teste.
 --
 -- Identificadores (hex legível, sem significado além do teste):
 --   f1.. usuário    91.. criança do teste de NV    92.. criança do rebaixamento
---   93.. criança da Generalização    aa.. planos    bb.. sessões
+--   93.. criança da Generalização    94.. criança da progressão
+--   aa.. planos    bb.. sessões
 
 \set ON_ERROR_STOP on
 
@@ -424,6 +427,166 @@ BEGIN
   END IF;
 
   RAISE NOTICE 'rebaixamento: NV não conta, desce em cadeia, piso em F01A, faixa persistida';
+END $$;
+
+-- ============================================================
+-- 6. PROGRESSÃO CASA PELA MESMA ATIVIDADE (migration-12)
+-- ============================================================
+-- Fixture com TRÊS atividades da mesma (habilidade, faixa) — a seção 4 usa uma
+-- só, e com uma atividade o bug "desbloqueia por posição" é indistinguível do
+-- comportamento correto.
+--
+-- Layout dos planos, igual ao que generate-activity-plan grava:
+--   activity_plans.ordem 0,1,2 = Aquisição das atividades 1,2,3
+--                        3,4,5 = Generalização das atividades 1,2,3
+--                        6,7,8 = Manutenção das atividades 1,2,3
+-- Então "primeira bloqueada do nível alvo por posição" e "próximo nível desta
+-- atividade" só coincidem enquanto nada fura a fila.
+
+INSERT INTO children (id, user_id, nome, data_nascimento, idade_biologica_meses)
+VALUES ('94444444-4444-4444-4444-444444444444',
+        'f1111111-1111-1111-1111-111111111111', 'Criança P', '2025-01-10', 18);
+
+INSERT INTO activity_plans (child_id, skill_id, exercise_id, status, ordem)
+SELECT '94444444-4444-4444-4444-444444444444',
+       e.skill_id,
+       e.id,
+       (CASE WHEN e.nivel = 'aquisicao' AND e.ordem = 1 THEN 'ativo' ELSE 'bloqueado' END)::plan_status,
+       (row_number() OVER (ORDER BY e.nivel, e.ordem))::int - 1
+  FROM exercises e
+  JOIN skills s       ON s.id = e.skill_id       AND s.key    = 'comunicacao'
+  JOIN age_brackets b ON b.id = e.age_bracket_id AND b.codigo = 'F01A'
+ WHERE e.status = 'ativo' AND e.ordem <= 3;
+
+DO $$
+DECLARE
+  v_child  CONSTANT UUID := '94444444-4444-4444-4444-444444444444';
+  v_plan   UUID;
+  v_sess   UUID;
+  v_status plan_status;
+  v_int    INTEGER;
+  v_dia    DATE := DATE '2026-08-20';
+
+BEGIN
+  SELECT count(*) INTO v_int FROM activity_plans WHERE child_id = v_child;
+  IF v_int <> 9 THEN
+    RAISE EXCEPTION 'FALHA: fixture deveria ter 9 planos (3 atividades x 3 níveis), tem %', v_int;
+  END IF;
+
+  -- ── A. Generalização premium não pode trocar de atividade ──
+  -- Regra do produto: o filtro free/premium vale ao selecionar atividade nova.
+  -- Quem já está na atividade 1 continua nela mesmo que a Generalização dela
+  -- vire premium. Com a migration-11 isto abria a Generalização da atividade 2.
+  UPDATE exercises e SET plano = 'premium'
+    FROM activity_plans ap
+   WHERE ap.exercise_id = e.id AND ap.child_id = v_child
+     AND e.nivel = 'generalizacao' AND e.ordem = 1;
+
+  IF child_has_premium_access(v_child) THEN
+    RAISE EXCEPTION 'FALHA: a criança do teste não pode ter acesso premium';
+  END IF;
+
+  SELECT ap.id INTO v_plan
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND e.ordem = 1;
+
+  INSERT INTO exercise_sessions (plan_id, child_id, total_repetitions, successful_count, started_at)
+  VALUES (v_plan, v_child, 10, 8, v_dia + TIME '10:00')
+  RETURNING id INTO v_sess;
+
+  IF check_exercise_completion(v_sess) IS NOT TRUE THEN
+    RAISE EXCEPTION 'FALHA: aquisição da atividade 1 deveria concluir';
+  END IF;
+
+  SELECT ap.status INTO v_status
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND e.ordem = 1;
+  IF v_status IS DISTINCT FROM 'ativo' THEN
+    RAISE EXCEPTION 'FALHA: generalização da MESMA atividade deveria abrir (está %)', v_status;
+  END IF;
+
+  SELECT ap.status INTO v_status
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND e.ordem = 2;
+  IF v_status IS DISTINCT FROM 'bloqueado' THEN
+    RAISE EXCEPTION 'FALHA: abriu a generalização da atividade 2 (pulou de atividade); está %', v_status;
+  END IF;
+
+  SELECT ap.status INTO v_status
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND e.ordem = 2;
+  IF v_status IS DISTINCT FROM 'bloqueado' THEN
+    RAISE EXCEPTION 'FALHA: aquisição da atividade 2 abriu antes da hora (está %)', v_status;
+  END IF;
+
+  -- ── B. Manutenção casa pela mesma atividade ──
+  SELECT ap.id INTO v_plan
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND e.ordem = 1;
+
+  FOR v_int IN 1..3 LOOP
+    INSERT INTO exercise_sessions (plan_id, child_id, total_repetitions, successful_count, started_at)
+    VALUES (v_plan, v_child, 10, 9, (v_dia + v_int) + TIME '09:00')
+    RETURNING id INTO v_sess;
+    PERFORM check_exercise_completion(v_sess);
+  END LOOP;
+
+  SELECT ap.status INTO v_status
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND e.ordem = 1;
+  IF v_status IS DISTINCT FROM 'ativo' THEN
+    RAISE EXCEPTION 'FALHA: manutenção da atividade 1 deveria abrir após 3 dias (está %)', v_status;
+  END IF;
+
+  SELECT ap.status INTO v_status
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND e.ordem = 2;
+  IF v_status IS DISTINCT FROM 'bloqueado' THEN
+    RAISE EXCEPTION 'FALHA: abriu a manutenção da atividade 2 (pulou de atividade); está %', v_status;
+  END IF;
+
+  -- ── C. Virada de atividade: aí sim o filtro de plano vale ──
+  -- Atividade 2 premium + conta free => a próxima aberta é a 3, não a 2.
+  UPDATE exercises e SET plano = 'premium'
+    FROM activity_plans ap
+   WHERE ap.exercise_id = e.id AND ap.child_id = v_child
+     AND e.nivel = 'aquisicao' AND e.ordem = 2;
+
+  SELECT ap.id INTO v_plan
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND e.ordem = 1;
+
+  INSERT INTO exercise_sessions (plan_id, child_id, total_repetitions, successful_count, started_at)
+  VALUES (v_plan, v_child, 10, 10, (v_dia + 5) + TIME '10:00')
+  RETURNING id INTO v_sess;
+
+  IF check_exercise_completion(v_sess) IS NOT TRUE THEN
+    RAISE EXCEPTION 'FALHA: manutenção da atividade 1 deveria concluir';
+  END IF;
+
+  SELECT ap.status INTO v_status
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND e.ordem = 2;
+  IF v_status IS DISTINCT FROM 'bloqueado' THEN
+    RAISE EXCEPTION 'FALHA: conta free abriu uma aquisição premium (está %)', v_status;
+  END IF;
+
+  SELECT ap.status INTO v_status
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND e.ordem = 3;
+  IF v_status IS DISTINCT FROM 'ativo' THEN
+    RAISE EXCEPTION 'FALHA: depois da manutenção deveria abrir a aquisição da atividade 3 (está %)', v_status;
+  END IF;
+
+  -- Nenhuma etapa da atividade 1 ficou para trás.
+  SELECT count(*) INTO v_int
+    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = v_child AND e.ordem = 1 AND ap.status <> 'concluido';
+  IF v_int <> 0 THEN
+    RAISE EXCEPTION 'FALHA: % etapas da atividade 1 não ficaram concluídas', v_int;
+  END IF;
+
+  RAISE NOTICE 'progressão: A→G→M casa pela mesma atividade; filtro de plano só na virada';
 END $$;
 
 ROLLBACK;
