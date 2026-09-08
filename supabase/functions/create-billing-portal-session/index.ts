@@ -1,12 +1,7 @@
-import Stripe from "npm:stripe@13.11.0";
 import { handleBillingError, PORTAL_RETURN_URL } from "../_shared/billing.ts";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
-
-const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
-  apiVersion: "2023-10-16",
-  httpClient: Stripe.createFetchHttpClient(),
-});
+import { stripe } from "../_shared/stripe.ts";
 
 /**
  * Portal do Stripe: o assinante troca o cartão, vê as faturas e cancela sem

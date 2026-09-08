@@ -2,11 +2,16 @@
 
 App Expo SDK 57 / React Native 0.86 em `apps/mobile`.
 
-## Pré-requisitos (já presentes nesta máquina)
+## Pré-requisitos
 
 - JDK 17 (Temurin) — `JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17.0.17.10-hotspot`
+- Node.js 22.13 ou superior (mínimo documentado pelo Expo SDK 57)
 - Android SDK com `platforms/android-36`, `build-tools/36.0.0`, `ndk/27.x`
 - `ANDROID_HOME` **não** está definido; o caminho do SDK vem de `android/local.properties`
+
+Nesta máquina o JDK está instalado, mas o Node ainda está em `20.19.6` e o
+Android SDK não existe no caminho configurado em `local.properties`. Atualize o
+Node e instale o SDK antes do próximo build local, ou use o EAS Build.
 
 ## Identidade do app
 
@@ -75,7 +80,7 @@ real do projeto. A compilação **falha** com
 Contorno: mapear um drive virtual encurtando o caminho, e buildar de lá.
 
 ```powershell
-subst K: C:\Users\Alisson\CascadeProjects\avance-kids-code\apps
+subst K: C:\Users\Alisson\CascadeProjects\AVANCE-Kids\apps
 ```
 
 Detalhes:
@@ -88,7 +93,7 @@ Detalhes:
 ## Gerar o APK
 
 ```powershell
-subst K: C:\Users\Alisson\CascadeProjects\avance-kids-code\apps   # se ainda não mapeado
+subst K: C:\Users\Alisson\CascadeProjects\AVANCE-Kids\apps   # se ainda não mapeado
 Set-Location K:\mobile\android
 .\gradlew assembleRelease
 ```
@@ -101,7 +106,7 @@ Cópia versionada por conveniência: `apps/mobile/dist/AvanceKids-<versão>.apk`
 ## Instalar no dispositivo
 
 ```powershell
-& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r apps\mobile\dist\AvanceKids-1.0.0.apk
+& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r apps\mobile\dist\AvanceKids-1.0.1.apk
 ```
 
 Ou copiar o `.apk` para o aparelho e instalar manualmente (exige permitir
@@ -109,9 +114,12 @@ Ou copiar o `.apk` para o aparelho e instalar manualmente (exige permitir
 
 ## Variáveis de ambiente embutidas
 
-As `EXPO_PUBLIC_*` de `apps/mobile/.env` são **compiladas dentro do bundle** no
+As `EXPO_PUBLIC_*` usadas pelo app são **compiladas dentro do bundle** no
 momento do build — inclusive a `EXPO_PUBLIC_SUPABASE_ANON_KEY`. Trocar o `.env`
-exige rebuildar. Nunca colocar chave de service role ou secret do Stripe ali.
+exige rebuildar. Nunca colocar chave de service role, Client Secret do Google
+ou secret do Stripe ali. O Stripe é configurado somente nas secrets das Edge
+Functions; as antigas variáveis `EXPO_PUBLIC_STRIPE_*` locais não são consumidas
+pelo aplicativo.
 
 ## Regenerar a pasta nativa
 

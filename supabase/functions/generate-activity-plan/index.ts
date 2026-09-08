@@ -1,8 +1,21 @@
 import { z } from "npm:zod@3.22.4";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
-import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
+import { jsonResponse, errorResponse, errorMessage, corsHeaders } from "../_shared/response.ts";
 
 const InputSchema = z.object({ child_id: z.string().uuid() });
+
+const LEVELS = ["aquisicao", "generalizacao", "manutencao"] as const;
+
+function shuffle<T>(items: T[]): T[] {
+  const shuffled = [...items];
+
+  for (let index = shuffled.length - 1; index > 0; index--) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+  }
+
+  return shuffled;
+}
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -54,18 +67,35 @@ Deno.serve(async (req: Request) => {
         .select("id, nivel, ordem, plano")
         .eq("skill_id", sa.skill_id)
         .eq("age_bracket_id", sa.faixa_id)
-        .eq("status", "ativo")
-        .order("nivel", { ascending: true })   // aquisicao → generalizacao → manutencao
-        .order("ordem", { ascending: true });
+        .eq("status", "ativo");
 
       if (!exercises || exercises.length === 0) continue;
 
+      // `exercises.ordem` identifica a mesma atividade nos três níveis. A
+      // permutação é feita uma única vez por habilidade e reaproveitada em
+      // A/G/M; a posição resultante fica persistida em activity_plans.ordem.
+      const activityOrder = shuffle([...new Set(exercises.map((ex) => ex.ordem))]);
+      const activityPosition = new Map(activityOrder.map((ordem, index) => [ordem, index]));
+      const levelPosition = new Map(LEVELS.map((nivel, index) => [nivel, index]));
+
+      const orderedExercises = [...exercises].sort((left, right) => {
+        const byLevel = (levelPosition.get(left.nivel) ?? LEVELS.length) -
+          (levelPosition.get(right.nivel) ?? LEVELS.length);
+        if (byLevel !== 0) return byLevel;
+
+        return (activityPosition.get(left.ordem) ?? activityOrder.length) -
+          (activityPosition.get(right.ordem) ?? activityOrder.length);
+      });
+
       // A primeira atividade que a conta consegue abrir é a que começa ativa;
       // senão um plano que abre com atividade premium deixaria o usuário free
-      // sem nada para fazer.
-      const firstAvailable = exercises.findIndex((ex) => isPremium || ex.plano === "free");
+      // sem nada para fazer. O nível é explícito: G/M nunca podem ser o ponto
+      // de entrada, mesmo se o catálogo tiver planos diferentes entre níveis.
+      const firstAvailable = orderedExercises.findIndex((ex) =>
+        ex.nivel === "aquisicao" && (isPremium || ex.plano === "free")
+      );
 
-      exercises.forEach((ex, idx) => {
+      orderedExercises.forEach((ex, idx) => {
         const isFirst = idx === firstAvailable;
         plansToInsert.push({
           child_id,
@@ -106,6 +136,6 @@ Deno.serve(async (req: Request) => {
     if (err instanceof Error && err.message === "Unauthorized") {
       return errorResponse("Não autorizado", 401);
     }
-    return errorResponse(err.message, 400);
+    return errorResponse(errorMessage(err), 400);
   }
 });

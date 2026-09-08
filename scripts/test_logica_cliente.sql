@@ -1,5 +1,5 @@
--- Testes das decisões da cliente (migration-11) e da progressão por atividade
--- (migration-12).
+-- Testes das decisões da cliente (migration-11), da progressão por atividade
+-- (migration-12) e da ordem sorteada persistida (migration-15).
 --
 -- Cobre, na ordem: faixas etárias sem lacuna, NV fora das médias de idade,
 -- plano começando em Aquisição, Generalização exigindo 3 dias distintos,
@@ -151,41 +151,145 @@ BEGIN
 END $$;
 
 -- ============================================================
--- 3. O PLANO COMEÇA EM AQUISIÇÃO (D1)
+-- 3. INVARIANTES DO PLANO SORTEADO (D1 + migration-15)
 -- ============================================================
--- generate-activity-plan monta o plano ordenando por (nivel, ordem) e ativa a
--- primeira atividade que a conta consegue abrir. A condição que faz isso
--- resultar em Aquisição é de DADO, não de código: em toda combinação
--- (habilidade, faixa) a primeira atividade acessível tem de ser de aquisição.
--- Se alguém marcar uma aquisição como premium (item 1.8), este teste falha
--- antes de um usuário free receber um plano que começa em Generalização.
+-- Não existe mais "primeiro código" do catálogo. A fixture usa uma ordem
+-- deliberadamente diferente da `exercises.ordem` e verifica somente o que não
+-- pode variar: uma Aquisição acessível por habilidade, na faixa daquela
+-- habilidade, e a ordem persistida idêntica em duas leituras.
+
+INSERT INTO children (id, user_id, nome, data_nascimento, idade_biologica_meses)
+VALUES ('95555555-5555-5555-5555-555555555555',
+        'f1111111-1111-1111-1111-111111111111', 'Criança Ordem', '2025-01-10', 18);
+
+INSERT INTO child_skill_ages (child_id, skill_id, idade_meses, faixa_id)
+SELECT '95555555-5555-5555-5555-555555555555', s.id, 18, b.id
+  FROM skills s
+ CROSS JOIN age_brackets b
+ WHERE b.codigo = 'F01A';
+
+-- Espelho SQL do formato persistido por generate-activity-plan. O DESC serve
+-- apenas para a fixture não coincidir com a ordem fixa do catálogo; nenhuma
+-- asserção abaixo depende de qual atividade ganhou qual posição.
+WITH atividades AS (
+  SELECT e.skill_id,
+         e.age_bracket_id,
+         e.ordem AS atividade_ordem,
+         (row_number() OVER (
+           PARTITION BY e.skill_id, e.age_bracket_id ORDER BY e.ordem DESC
+         ) - 1)::int AS posicao_sorteada,
+         count(*) OVER (PARTITION BY e.skill_id, e.age_bracket_id)::int AS quantidade,
+         e.plano
+    FROM exercises e
+    JOIN child_skill_ages csa
+      ON csa.child_id = '95555555-5555-5555-5555-555555555555'
+     AND csa.skill_id = e.skill_id
+     AND csa.faixa_id = e.age_bracket_id
+   WHERE e.status = 'ativo' AND e.nivel = 'aquisicao'
+),
+atividades_com_primeira AS (
+  SELECT a.*,
+         min(a.posicao_sorteada) FILTER (WHERE a.plano = 'free') OVER (
+           PARTITION BY a.skill_id, a.age_bracket_id
+         ) AS primeira_acessivel
+    FROM atividades a
+)
+INSERT INTO activity_plans (child_id, skill_id, exercise_id, status, ordem)
+SELECT '95555555-5555-5555-5555-555555555555',
+       e.skill_id,
+       e.id,
+       (CASE
+          WHEN e.nivel = 'aquisicao'
+           AND a.posicao_sorteada = a.primeira_acessivel THEN 'ativo'
+          ELSE 'bloqueado'
+        END)::plan_status,
+       (CASE e.nivel
+          WHEN 'aquisicao' THEN 0
+          WHEN 'generalizacao' THEN 1
+          ELSE 2
+        END) * a.quantidade + a.posicao_sorteada
+  FROM atividades_com_primeira a
+  JOIN exercises e
+    ON e.skill_id = a.skill_id
+   AND e.age_bracket_id = a.age_bracket_id
+   AND e.ordem = a.atividade_ordem
+   AND e.status = 'ativo';
 
 DO $$
-DECLARE v_int INTEGER;
+DECLARE
+  v_int INTEGER;
+  v_antes TEXT[];
+  v_depois TEXT[];
 BEGIN
+  -- Uma conta free precisa ter ao menos uma Aquisição possível em toda
+  -- combinação de habilidade/faixa que possua conteúdo.
   SELECT count(*) INTO v_int FROM (
-    SELECT DISTINCT ON (e.skill_id, e.age_bracket_id) e.nivel
-      FROM exercises e
-     WHERE e.status = 'ativo' AND e.plano = 'free'
-     ORDER BY e.skill_id, e.age_bracket_id, e.nivel, e.ordem
-  ) primeiro
-  WHERE primeiro.nivel <> 'aquisicao';
-
-  IF v_int <> 0 THEN
-    RAISE EXCEPTION 'FALHA: % combinações (habilidade, faixa) cuja 1ª atividade acessível não é de aquisição', v_int;
-  END IF;
-
-  -- Toda faixa/habilidade com conteúdo tem aquisição disponível.
-  SELECT count(*) INTO v_int FROM (
-    SELECT skill_id, age_bracket_id FROM exercises WHERE status = 'ativo'
-    GROUP BY skill_id, age_bracket_id
-    HAVING count(*) FILTER (WHERE nivel = 'aquisicao') = 0
+    SELECT skill_id, age_bracket_id
+      FROM exercises
+     WHERE status = 'ativo'
+     GROUP BY skill_id, age_bracket_id
+    HAVING count(*) FILTER (WHERE nivel = 'aquisicao' AND plano = 'free') = 0
   ) q;
   IF v_int <> 0 THEN
-    RAISE EXCEPTION 'FALHA: % combinações sem nenhuma atividade de aquisição', v_int;
+    RAISE EXCEPTION 'FALHA: % combinações sem Aquisição acessível para conta free', v_int;
   END IF;
 
-  RAISE NOTICE 'plano: primeira atividade acessível é sempre de aquisição';
+  -- As cinco áreas ficam abertas em paralelo, uma Aquisição em cada.
+  SELECT count(DISTINCT ap.skill_id) INTO v_int
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = '95555555-5555-5555-5555-555555555555'
+     AND ap.status = 'ativo'
+     AND e.nivel = 'aquisicao'
+     AND e.plano = 'free';
+  IF v_int <> 5 THEN
+    RAISE EXCEPTION 'FALHA: plano abriu % áreas em Aquisição (esperava 5)', v_int;
+  END IF;
+
+  SELECT count(*) INTO v_int
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+   WHERE ap.child_id = '95555555-5555-5555-5555-555555555555'
+     AND ap.status = 'ativo'
+     AND e.nivel <> 'aquisicao';
+  IF v_int <> 0 THEN
+    RAISE EXCEPTION 'FALHA: % planos começaram fora de Aquisição', v_int;
+  END IF;
+
+  -- Cada linha do plano pertence à habilidade e à faixa persistidas para ela.
+  SELECT count(*) INTO v_int
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    LEFT JOIN child_skill_ages csa
+      ON csa.child_id = ap.child_id
+     AND csa.skill_id = ap.skill_id
+     AND csa.skill_id = e.skill_id
+     AND csa.faixa_id = e.age_bracket_id
+   WHERE ap.child_id = '95555555-5555-5555-5555-555555555555'
+     AND csa.id IS NULL;
+  IF v_int <> 0 THEN
+    RAISE EXCEPTION 'FALHA: % planos fora da faixa/habilidade da criança', v_int;
+  END IF;
+
+  -- "Recarregar" é reler activity_plans: não há novo sorteio. A sequência
+  -- completa, inclusive A/G/M, precisa voltar byte a byte igual.
+  SELECT array_agg((ap.exercise_id::text || ':' || ap.ordem::text)
+                   ORDER BY ap.skill_id, ap.ordem, ap.exercise_id)
+    INTO v_antes
+    FROM activity_plans ap
+   WHERE ap.child_id = '95555555-5555-5555-5555-555555555555';
+
+  SELECT array_agg((ap.exercise_id::text || ':' || ap.ordem::text)
+                   ORDER BY ap.skill_id, ap.ordem, ap.exercise_id)
+    INTO v_depois
+    FROM activity_plans ap
+   WHERE ap.child_id = '95555555-5555-5555-5555-555555555555';
+
+  IF v_antes IS DISTINCT FROM v_depois THEN
+    RAISE EXCEPTION 'FALHA: a ordem mudou ao recarregar o plano da mesma criança';
+  END IF;
+
+  RAISE NOTICE 'plano sorteado: 5 Aquisições, faixa/habilidade corretas e ordem persistida no reload';
 END $$;
 
 -- ============================================================
@@ -430,33 +534,66 @@ BEGIN
 END $$;
 
 -- ============================================================
--- 6. PROGRESSÃO CASA PELA MESMA ATIVIDADE (migration-12)
+-- 6. PROGRESSÃO NA ORDEM SORTEADA (migrations 12 e 15)
 -- ============================================================
--- Fixture com TRÊS atividades da mesma (habilidade, faixa) — a seção 4 usa uma
--- só, e com uma atividade o bug "desbloqueia por posição" é indistinguível do
--- comportamento correto.
+-- Fixture com QUATRO atividades da mesma (habilidade, faixa). A posição no
+-- plano é propositalmente diferente da posição do catálogo:
 --
--- Layout dos planos, igual ao que generate-activity-plan grava:
---   activity_plans.ordem 0,1,2 = Aquisição das atividades 1,2,3
---                        3,4,5 = Generalização das atividades 1,2,3
---                        6,7,8 = Manutenção das atividades 1,2,3
--- Então "primeira bloqueada do nível alvo por posição" e "próximo nível desta
--- atividade" só coincidem enquanto nada fura a fila.
+--   catálogo:  1, 2, 3, 4
+--   plano:     4, 2, 3, 1
+--
+-- A atividade na posição 2 do plano vira premium. Depois da cadeia A→G→M da
+-- primeira, a função deve pular essa atividade e abrir a posição 3 do plano.
+-- Ordenar por exercises.ordem abriria a posição 4 e faz este teste falhar.
 
 INSERT INTO children (id, user_id, nome, data_nascimento, idade_biologica_meses)
 VALUES ('94444444-4444-4444-4444-444444444444',
         'f1111111-1111-1111-1111-111111111111', 'Criança P', '2025-01-10', 18);
 
+CREATE TEMP TABLE fixture_trilha_sorteada (
+  atividade_ordem INTEGER PRIMARY KEY,
+  trilha_ordem INTEGER NOT NULL UNIQUE
+) ON COMMIT DROP;
+
+WITH candidatas AS (
+  SELECT q.ordem AS atividade_ordem,
+         row_number() OVER (ORDER BY q.ordem)::int AS posicao_catalogo
+    FROM (
+      SELECT e.ordem
+        FROM exercises e
+        JOIN skills s       ON s.id = e.skill_id       AND s.key    = 'comunicacao'
+        JOIN age_brackets b ON b.id = e.age_bracket_id AND b.codigo = 'F01A'
+       WHERE e.status = 'ativo' AND e.nivel = 'aquisicao'
+       ORDER BY e.ordem
+       LIMIT 4
+    ) q
+)
+INSERT INTO fixture_trilha_sorteada (atividade_ordem, trilha_ordem)
+SELECT atividade_ordem,
+       CASE posicao_catalogo
+         WHEN 1 THEN 3
+         WHEN 2 THEN 1
+         WHEN 3 THEN 2
+         WHEN 4 THEN 0
+       END
+  FROM candidatas;
+
 INSERT INTO activity_plans (child_id, skill_id, exercise_id, status, ordem)
 SELECT '94444444-4444-4444-4444-444444444444',
        e.skill_id,
        e.id,
-       (CASE WHEN e.nivel = 'aquisicao' AND e.ordem = 1 THEN 'ativo' ELSE 'bloqueado' END)::plan_status,
-       (row_number() OVER (ORDER BY e.nivel, e.ordem))::int - 1
+       (CASE WHEN e.nivel = 'aquisicao' AND f.trilha_ordem = 0
+             THEN 'ativo' ELSE 'bloqueado' END)::plan_status,
+       (CASE e.nivel
+          WHEN 'aquisicao' THEN 0
+          WHEN 'generalizacao' THEN 1
+          ELSE 2
+        END) * 4 + f.trilha_ordem
   FROM exercises e
+  JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
   JOIN skills s       ON s.id = e.skill_id       AND s.key    = 'comunicacao'
   JOIN age_brackets b ON b.id = e.age_bracket_id AND b.codigo = 'F01A'
- WHERE e.status = 'ativo' AND e.ordem <= 3;
+ WHERE e.status = 'ativo';
 
 DO $$
 DECLARE
@@ -469,8 +606,8 @@ DECLARE
 
 BEGIN
   SELECT count(*) INTO v_int FROM activity_plans WHERE child_id = v_child;
-  IF v_int <> 9 THEN
-    RAISE EXCEPTION 'FALHA: fixture deveria ter 9 planos (3 atividades x 3 níveis), tem %', v_int;
+  IF v_int <> 12 THEN
+    RAISE EXCEPTION 'FALHA: fixture deveria ter 12 planos (4 atividades x 3 níveis), tem %', v_int;
   END IF;
 
   -- ── A. Generalização premium não pode trocar de atividade ──
@@ -479,16 +616,21 @@ BEGIN
   -- vire premium. Com a migration-11 isto abria a Generalização da atividade 2.
   UPDATE exercises e SET plano = 'premium'
     FROM activity_plans ap
+    JOIN fixture_trilha_sorteada f ON true
    WHERE ap.exercise_id = e.id AND ap.child_id = v_child
-     AND e.nivel = 'generalizacao' AND e.ordem = 1;
+     AND f.atividade_ordem = e.ordem
+     AND f.trilha_ordem = 0
+     AND e.nivel = 'generalizacao';
 
   IF child_has_premium_access(v_child) THEN
     RAISE EXCEPTION 'FALHA: a criança do teste não pode ter acesso premium';
   END IF;
 
   SELECT ap.id INTO v_plan
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND e.ordem = 1;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND f.trilha_ordem = 0;
 
   INSERT INTO exercise_sessions (plan_id, child_id, total_repetitions, successful_count, started_at)
   VALUES (v_plan, v_child, 10, 8, v_dia + TIME '10:00')
@@ -499,30 +641,38 @@ BEGIN
   END IF;
 
   SELECT ap.status INTO v_status
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND e.ordem = 1;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND f.trilha_ordem = 0;
   IF v_status IS DISTINCT FROM 'ativo' THEN
     RAISE EXCEPTION 'FALHA: generalização da MESMA atividade deveria abrir (está %)', v_status;
   END IF;
 
   SELECT ap.status INTO v_status
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND e.ordem = 2;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND f.trilha_ordem = 1;
   IF v_status IS DISTINCT FROM 'bloqueado' THEN
     RAISE EXCEPTION 'FALHA: abriu a generalização da atividade 2 (pulou de atividade); está %', v_status;
   END IF;
 
   SELECT ap.status INTO v_status
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND e.ordem = 2;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND f.trilha_ordem = 1;
   IF v_status IS DISTINCT FROM 'bloqueado' THEN
     RAISE EXCEPTION 'FALHA: aquisição da atividade 2 abriu antes da hora (está %)', v_status;
   END IF;
 
   -- ── B. Manutenção casa pela mesma atividade ──
   SELECT ap.id INTO v_plan
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND e.ordem = 1;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'generalizacao' AND f.trilha_ordem = 0;
 
   FOR v_int IN 1..3 LOOP
     INSERT INTO exercise_sessions (plan_id, child_id, total_repetitions, successful_count, started_at)
@@ -532,15 +682,19 @@ BEGIN
   END LOOP;
 
   SELECT ap.status INTO v_status
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND e.ordem = 1;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND f.trilha_ordem = 0;
   IF v_status IS DISTINCT FROM 'ativo' THEN
     RAISE EXCEPTION 'FALHA: manutenção da atividade 1 deveria abrir após 3 dias (está %)', v_status;
   END IF;
 
   SELECT ap.status INTO v_status
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND e.ordem = 2;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND f.trilha_ordem = 1;
   IF v_status IS DISTINCT FROM 'bloqueado' THEN
     RAISE EXCEPTION 'FALHA: abriu a manutenção da atividade 2 (pulou de atividade); está %', v_status;
   END IF;
@@ -549,12 +703,17 @@ BEGIN
   -- Atividade 2 premium + conta free => a próxima aberta é a 3, não a 2.
   UPDATE exercises e SET plano = 'premium'
     FROM activity_plans ap
+    JOIN fixture_trilha_sorteada f ON true
    WHERE ap.exercise_id = e.id AND ap.child_id = v_child
-     AND e.nivel = 'aquisicao' AND e.ordem = 2;
+     AND f.atividade_ordem = e.ordem
+     AND f.trilha_ordem = 1
+     AND e.nivel = 'aquisicao';
 
   SELECT ap.id INTO v_plan
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND e.ordem = 1;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'manutencao' AND f.trilha_ordem = 0;
 
   INSERT INTO exercise_sessions (plan_id, child_id, total_repetitions, successful_count, started_at)
   VALUES (v_plan, v_child, 10, 10, (v_dia + 5) + TIME '10:00')
@@ -565,28 +724,43 @@ BEGIN
   END IF;
 
   SELECT ap.status INTO v_status
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND e.ordem = 2;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND f.trilha_ordem = 1;
   IF v_status IS DISTINCT FROM 'bloqueado' THEN
     RAISE EXCEPTION 'FALHA: conta free abriu uma aquisição premium (está %)', v_status;
   END IF;
 
   SELECT ap.status INTO v_status
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND e.ordem = 3;
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND f.trilha_ordem = 2;
   IF v_status IS DISTINCT FROM 'ativo' THEN
-    RAISE EXCEPTION 'FALHA: depois da manutenção deveria abrir a aquisição da atividade 3 (está %)', v_status;
+    RAISE EXCEPTION 'FALHA: virada ignorou activity_plans.ordem sorteada; próxima Aquisição está %', v_status;
   END IF;
 
-  -- Nenhuma etapa da atividade 1 ficou para trás.
+  SELECT ap.status INTO v_status
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND e.nivel = 'aquisicao' AND f.trilha_ordem = 3;
+  IF v_status IS DISTINCT FROM 'bloqueado' THEN
+    RAISE EXCEPTION 'FALHA: abriu atividade pela ordem do catálogo, não pela ordem sorteada (está %)', v_status;
+  END IF;
+
+  -- Nenhuma etapa da primeira atividade sorteada ficou para trás.
   SELECT count(*) INTO v_int
-    FROM activity_plans ap JOIN exercises e ON e.id = ap.exercise_id
-   WHERE ap.child_id = v_child AND e.ordem = 1 AND ap.status <> 'concluido';
+    FROM activity_plans ap
+    JOIN exercises e ON e.id = ap.exercise_id
+    JOIN fixture_trilha_sorteada f ON f.atividade_ordem = e.ordem
+   WHERE ap.child_id = v_child AND f.trilha_ordem = 0 AND ap.status <> 'concluido';
   IF v_int <> 0 THEN
-    RAISE EXCEPTION 'FALHA: % etapas da atividade 1 não ficaram concluídas', v_int;
+    RAISE EXCEPTION 'FALHA: % etapas da primeira atividade não ficaram concluídas', v_int;
   END IF;
 
-  RAISE NOTICE 'progressão: A→G→M casa pela mesma atividade; filtro de plano só na virada';
+  RAISE NOTICE 'progressão: A→G→M na mesma atividade; virada por ordem sorteada com filtro de plano';
 END $$;
 
 ROLLBACK;

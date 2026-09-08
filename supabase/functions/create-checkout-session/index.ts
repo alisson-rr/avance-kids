@@ -1,13 +1,16 @@
-import Stripe from "npm:stripe@13.11.0";
 import { CreateCheckoutSchema } from "../_shared/schemas.ts";
 import { monthlyPriceId, trialPeriodDays, handleBillingError, SUCCESS_URL, CANCEL_URL } from "../_shared/billing.ts";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
 import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
+import { stripe } from "../_shared/stripe.ts";
 
-const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
-  apiVersion: "2023-10-16",
-  httpClient: Stripe.createFetchHttpClient(),
-});
+async function sha256(value: string): Promise<string> {
+  const bytes = new TextEncoder().encode(value);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -52,11 +55,24 @@ Deno.serve(async (req: Request) => {
         .eq("user_id", user.id);
     }
 
+    let jaExcluiuConta = false;
+    if (user.email) {
+      const emailHash = await sha256(user.email.toLowerCase());
+      const { data: exclusaoAnterior, error: exclusaoError } = await serviceClient
+        .from("account_deletions")
+        .select("id")
+        .eq("email_hash", emailHash)
+        .limit(1)
+        .maybeSingle();
+      if (exclusaoError) throw exclusaoError;
+      jaExcluiuConta = Boolean(exclusaoAnterior);
+    }
+
     // O Stripe não deduplica trial: sem esta checagem daria para assinar,
     // cancelar dentro do período de teste e reabrir o teste indefinidamente. O
-    // stripe_subscription_id fica gravado mesmo após o cancelamento e é o
-    // registro de que esta conta já usou o período de teste.
-    const jaUsouTeste = Boolean(sub?.stripe_subscription_id);
+    // stripe_subscription_id fica gravado mesmo após o cancelamento; o hash do
+    // e-mail preserva esse histórico mesmo após excluir e recriar a conta.
+    const jaUsouTeste = Boolean(sub?.stripe_subscription_id) || jaExcluiuConta;
     const trialDays = trialPeriodDays();
 
     const session = await stripe.checkout.sessions.create({

@@ -98,8 +98,8 @@ export function ParentRegisterScreen({ navigation }: any) {
 
       if (photoUri) {
         try {
-          const avatarUrl = await uploadAvatar(photoUri, 'parent');
-          await updateProfile({ avatar_url: avatarUrl });
+          const avatarPath = await uploadAvatar(photoUri, 'parent');
+          await updateProfile({ avatar_url: avatarPath });
         } catch (uploadErr) {
           console.warn('[avatar] upload falhou:', uploadErr);
         }

@@ -5,13 +5,15 @@ import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { showDialog, showError } from '../ui/dialog';
 import { theme } from '../theme';
+import { PrivateAvatar } from './PrivateAvatar';
 
 interface PhotoPickerProps {
   imageUri?: string;
+  avatarPath?: string;
   onImageSelected: (uri: string) => void;
 }
 
-export function PhotoPicker({ imageUri, onImageSelected }: PhotoPickerProps) {
+export function PhotoPicker({ imageUri, avatarPath, onImageSelected }: PhotoPickerProps) {
   const [loading, setLoading] = useState(false);
 
   const pickImage = async () => {
@@ -55,6 +57,12 @@ export function PhotoPicker({ imageUri, onImageSelected }: PhotoPickerProps) {
       >
         {imageUri ? (
           <Image source={{ uri: imageUri }} style={styles.image} contentFit="cover" />
+        ) : avatarPath ? (
+          <PrivateAvatar
+            avatarPath={avatarPath}
+            style={styles.image}
+            fallback={<Feather name="camera" size={32} color={theme.colors.textLight} />}
+          />
         ) : (
           loading ? (
             <ActivityIndicator color={theme.colors.textLight} />

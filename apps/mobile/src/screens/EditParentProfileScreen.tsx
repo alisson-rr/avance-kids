@@ -14,9 +14,9 @@ import { errorMessage } from '../services/api';
 import { showDialog, showError, showSuccess } from '../ui/dialog';
 
 export function EditParentProfileScreen({ navigation }: any) {
-  const { parentName, parentBirthDate, parentGender, parentCpf, parentPhone, parentAvatarUrl, setParentData } = useProfileStore();
+  const { parentName, parentBirthDate, parentGender, parentCpf, parentPhone, parentAvatarPath, setParentData } = useProfileStore();
 
-  const [photoUri, setPhotoUri] = useState<string | undefined>(parentAvatarUrl || undefined);
+  const [photoUri, setPhotoUri] = useState<string>();
   const [nome, setNome] = useState(parentName);
   const [nascimento, setNascimento] = useState(parentBirthDate);
   const [genero, setGenero] = useState(parentGender);
@@ -36,9 +36,9 @@ export function EditParentProfileScreen({ navigation }: any) {
 
     setLoading(true);
     try {
-      let avatarUrl = parentAvatarUrl;
-      if (photoUri && photoUri !== parentAvatarUrl) {
-        avatarUrl = await uploadAvatar(photoUri, 'parent');
+      let avatarPath = parentAvatarPath;
+      if (photoUri) {
+        avatarPath = await uploadAvatar(photoUri, 'parent');
       }
 
       const cpfDigits = digitsOnly(cpf);
@@ -48,7 +48,7 @@ export function EditParentProfileScreen({ navigation }: any) {
         genero: genero || null,
         cpf: cpfDigits || null,
         telefone: digitsOnly(telefone) || null,
-        avatar_url: avatarUrl || null,
+        avatar_url: avatarPath || null,
       });
       setParentData({
         parentName: nome.trim(),
@@ -56,7 +56,7 @@ export function EditParentProfileScreen({ navigation }: any) {
         parentGender: genero,
         parentCpf: cpfDigits,
         parentPhone: digitsOnly(telefone),
-        parentAvatarUrl: avatarUrl,
+        parentAvatarPath: avatarPath,
       });
       showSuccess('Tudo certo!', 'Perfil atualizado com sucesso.', [
         { label: 'OK', onPress: () => navigation.goBack() },
@@ -70,7 +70,11 @@ export function EditParentProfileScreen({ navigation }: any) {
 
   return (
     <FormScreen title="Editar Perfil" onBack={() => navigation.goBack()}>
-      <PhotoPicker imageUri={photoUri} onImageSelected={setPhotoUri} />
+      <PhotoPicker
+        imageUri={photoUri}
+        avatarPath={parentAvatarPath}
+        onImageSelected={setPhotoUri}
+      />
 
       <View style={styles.formArea}>
         <SolidInput

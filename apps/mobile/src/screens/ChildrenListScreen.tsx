@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { CurvedHeader, HEADER_MAX_HEIGHT } from '../components/CurvedHeader';
 import { useProfileStore, Child } from '../store/useProfileStore';
 import { fromIsoDate } from '../utils/formatters';
+import { PrivateAvatar } from '../components/PrivateAvatar';
 
 export function ChildrenListScreen({ navigation }: any) {
   const { children, setActiveChild } = useProfileStore();
@@ -21,8 +22,12 @@ export function ChildrenListScreen({ navigation }: any) {
     >
       <View style={styles.cardContent}>
         <View style={styles.avatarPlaceholder}>
-          {item.avatarUrl ? (
-            <Image source={{ uri: item.avatarUrl }} style={styles.avatarImage} />
+          {item.avatarPath ? (
+            <PrivateAvatar
+              avatarPath={item.avatarPath}
+              style={styles.avatarImage}
+              fallback={<Text style={styles.avatarText}>{item.name.charAt(0).toUpperCase()}</Text>}
+            />
           ) : (
             <Text style={styles.avatarText}>{item.name.charAt(0).toUpperCase()}</Text>
           )}

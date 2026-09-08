@@ -4,8 +4,9 @@ Registro do que **não** foi implementado e por quê. Cada item traz a evidênci
 no código, para que a decisão possa ser tomada sem reabrir a investigação.
 
 > **Atualizado na branch `integration/pre-client-response`.** O documento nasceu
-> em `feat/nonblocking-core-prep`; a integração resolveu parte dos itens e a
-> resposta da cliente (28/08/2026) resolveu o bloco 1.2–1.6. O status de cada
+> em `feat/nonblocking-core-prep`; a integração resolveu parte dos itens e as
+> respostas da cliente (28/08/2026 e 07/09/2026) resolveram o bloco 1.2–1.7. O
+> status de cada
 > um está marcado abaixo.
 
 ## Resolvido com as respostas da cliente (migration-11)
@@ -26,7 +27,7 @@ com cenários executáveis em `scripts/test_logica_cliente.sql`.
 
 | Item | O que mudou |
 | --- | --- |
-| 1.7 Códigos AT | Importados para `screening_programs` (migration-10). Conteúdo existe; regra de uso continua pendente. |
+| 1.7 Códigos AT | Os 24 programas aparecem como “Brincadeiras educativas”, gratuitos para todo usuário autenticado. Não entram no plano da criança. Implementado na migration-17. |
 | 2.1 Plano anual | Removido da `PlansScreen`. Backend já recusava; a tela era o único lugar que ainda oferecia. |
 | 2.2 Preço e trial do servidor | Nova function `billing-config`; a tela não tem mais valor escrito no código. |
 | 2.3 `accept-terms` no cadastro | Chamado após o signup; se falhar, o gate da 5.3 assume e bloqueia até haver prova. |
@@ -37,7 +38,7 @@ com cenários executáveis em `scripts/test_logica_cliente.sql`.
 | 4.2 Tenant crossing | Fechado por FKs compostas (migration-09) + `scripts/test_multi_tenant.sql`. |
 | 5.3 Aceite de contas antigas | Gate na entrada do app (`TermsGate`); a prova é a linha em `terms_acceptances`, não um booleano. |
 
-Continuam abertos: **1.1 (só a importação das perguntas), 1.8, 1.9, 2.6,
+Continuam abertos: **1.8, 1.9, 2.6,
 4.3–4.6, 5.1 (CPF da criança) e 5.2**. A lista das perguntas que faltam para a
 cliente está na [seção 6](#6-perguntas-em-aberto-para-a-cliente).
 
@@ -45,7 +46,7 @@ cliente está na [seção 6](#6-perguntas-em-aberto-para-a-cliente).
 
 ## 1. Bloqueado por decisão da cliente
 
-### 1.1 Escala A/B/C/NV do checklist — 🟡 mapeamento definido, importação pendente
+### 1.1 Escala A/B/C/NV do checklist — ✅ perguntas oficiais importadas
 
 O checklist oficial usa quatro respostas — **A** (nunca/raramente, 1 em 5),
 **B** (pouca frequência, 2–3 em 5), **C** (muito frequentemente, 4–5 em 5) e
@@ -71,15 +72,11 @@ O contrato do banco não mudou: `AnswerItemSchema` continua aceitando 0–2 mais
 booleano. O que mudou é o **peso** do NV — ver 1.5. Os rótulos exibidos ao
 responsável estão em `apps/mobile/src/services/questions.ts` (`QUESTION_OPTIONS`).
 
-**Continua pendente:** as perguntas do checklist oficial **não foram
-importadas**. As 150 perguntas em `questions` continuam sendo o texto genérico
-do `migration-03`. As atividades (exercises) já são o conteúdo oficial.
-
-Não é mais decisão, é conteúdo a receber. O formato do arquivo está definido e
-documentado em [MODELOS-IMPORTACAO.md](MODELOS-IMPORTACAO.md), com a
-planilha-modelo em [`modelos-importacao.xlsx`](modelos-importacao.xlsx). O
-importador de atividades já existe; o de perguntas ainda não — é um script no
-mesmo molde, a ser escrito quando o arquivo chegar.
+**Fonte oficial recebida em 07/09/2026:**
+`AvanceKids-DOCUMENTACAO/LOGICA-ATUALIZADA/2026.08.18_Logica App para exercícios.docx`.
+O importador validou 150 perguntas: 24 iniciais e 126 de triagem, com 25 por
+faixa. A migration-16 arquiva o conteúdo genérico anterior e insere as perguntas
+oficiais sem apagar respostas históricas.
 
 ### 1.2 Como A/B/C determina Aquisição / Generalização / Manutenção — ✅ resolvido
 
@@ -215,7 +212,7 @@ Detalhes que sustentam a implementação:
   sessão já encerrada e receberia "sessão inválida".
 - Aquisição e Manutenção seguem concluindo com uma sessão.
 
-### 1.7 Códigos de Triagem (AT) — 24 códigos, 72 registros — ✅ conteúdo importado
+### 1.7 Códigos de Triagem (AT) — 24 códigos, 72 registros — ✅ expostos como brincadeiras
 
 Os códigos `F01AT001`..`F06AT004` são os "Programas Básicos de Engajamento" da
 Triagem Inicial. Eles têm as **mesmas 17 colunas preenchidas** dos demais 126
@@ -236,9 +233,15 @@ Não entraram em `exercises` porque há impedimento técnico verificado:
 `screening_programs` não tem `skill_id`, não tem `plano` e não se liga a
 `activity_plans` — checado no harness.
 
-**Continua pendente da cliente:** a regra de disparo ("marcar NÃO para 2 ou mais
-itens → iniciar com programas básicos") e a habilidade de cada código. Quando
-existirem, o vínculo entra em uma migration nova; nada precisa ser reimportado.
+**Resposta da cliente em 07/09/2026:** os programas AT devem aparecer na seção
+**“Brincadeiras educativas”** da tela inicial e serão gratuitos para todos, para
+fomentar o tráfego no app.
+
+Com isso, eles **não entram em `activity_plans`** e não precisam de habilidade ou
+gatilho de triagem. A migration-17 cria um card gratuito por código no feed de
+brincadeiras usando o conteúdo de Aquisição como apresentação pública, evitando
+72 cards duplicados por etapa. As quatro brincadeiras genéricas do seed foram
+arquivadas; conteúdos reais cadastrados no backoffice são preservados.
 
 ### 1.8 Quais atividades são premium — ✅ resolvido (controle no backoffice)
 
@@ -580,20 +583,7 @@ A dúvida que sobrou é a ordem entre atividades diferentes da mesma habilidade:
 *Enquanto isso:* mantido como está hoje — uma atividade por vez, do começo ao
 fim.
 
-**3. Quando os "Programas Básicos de Engajamento" devem entrar?**
-*(pergunta reformulada — ver explicação abaixo)*
-Além das 126 atividades do checklist, a planilha oficial trouxe 24 programas com
-código terminado em **AT** (F01AT001 a F06AT004), descritos como "Programas
-Básicos de Engajamento da Triagem Inicial". São coisas de base — contato visual,
-atender pelo nome, permanecer sentado — que vêm *antes* de qualquer programa de
-habilidade.
-Eles estão guardados no sistema, completos, mas **não aparecem para ninguém**,
-porque faltam duas informações que só a cliente tem:
+**3. ✅ Programas Básicos de Engajamento — implementado em 07/09/2026**
 
-- **Quando a criança deve recebê-los?** O material sugere algo como "marcar NÃO
-  para 2 ou mais itens da triagem", mas isso não está fechado.
-- **A qual das cinco habilidades cada um pertence?** (Comunicação, Social,
-  Cognitiva, Coordenação Motora, Funcional.) Sem isso não há onde encaixá-los no
-  plano, porque toda atividade do plano pertence a uma habilidade.
-
-*Enquanto isso:* o conteúdo está guardado e não entra no plano de ninguém.
+Aparecem em **“Brincadeiras educativas”** e são gratuitos para todo usuário
+autenticado. O conteúdo continua fora do plano da criança.

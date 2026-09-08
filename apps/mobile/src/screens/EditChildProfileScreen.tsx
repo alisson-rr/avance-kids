@@ -34,7 +34,6 @@ export function EditChildProfileScreen({ navigation, route }: any) {
       setGenero(child.gender || '');
       setCpf(child.cpf ? maskCpf(child.cpf) : '');
       setTranstornos(child.disorders || []);
-      setPhotoUri(child.avatarUrl || undefined);
     } else {
       showError('Erro', 'Criança não encontrada.', [
         { label: 'Voltar', onPress: () => navigation.goBack() },
@@ -56,9 +55,9 @@ export function EditChildProfileScreen({ navigation, route }: any) {
 
     setLoading(true);
     try {
-      let avatarUrl = child?.avatarUrl ?? '';
-      if (photoUri && photoUri !== child?.avatarUrl) {
-        avatarUrl = await uploadAvatar(photoUri, `child-${childId}`);
+      let avatarPath = child?.avatarPath ?? '';
+      if (photoUri) {
+        avatarPath = await uploadAvatar(photoUri, `child-${childId}`);
       }
 
       const cpfDigits = digitsOnly(cpf);
@@ -68,7 +67,7 @@ export function EditChildProfileScreen({ navigation, route }: any) {
         genero: genero || null,
         cpf: cpfDigits || null,
         condicoes: transtornos.filter((t) => t !== 'Nenhum'),
-        avatar_url: avatarUrl || null,
+        avatar_url: avatarPath || null,
       });
       updateChild(childId, {
         name: nome.trim(),
@@ -76,7 +75,7 @@ export function EditChildProfileScreen({ navigation, route }: any) {
         gender: genero,
         cpf: cpfDigits,
         disorders: transtornos,
-        avatarUrl,
+        avatarPath,
       });
       showSuccess('Tudo certo!', 'Perfil da criança atualizado.', [
         { label: 'OK', onPress: () => navigation.goBack() },
@@ -92,7 +91,11 @@ export function EditChildProfileScreen({ navigation, route }: any) {
 
   return (
     <FormScreen title="Editar Criança" onBack={() => navigation.goBack()}>
-      <PhotoPicker imageUri={photoUri} onImageSelected={setPhotoUri} />
+      <PhotoPicker
+        imageUri={photoUri}
+        avatarPath={child.avatarPath}
+        onImageSelected={setPhotoUri}
+      />
 
       <View style={styles.formArea}>
         <SolidInput

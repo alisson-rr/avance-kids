@@ -15,3 +15,7 @@ export function errorResponse(message: string, status = 400) {
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 }
+
+export function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : "Erro inesperado";
+}

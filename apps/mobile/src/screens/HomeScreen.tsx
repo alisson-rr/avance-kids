@@ -11,6 +11,7 @@ import { fetchPlays, fetchArticles } from '../services/content';
 import { fetchActivityPlans } from '../services/activities';
 import { formatAgeFromIso } from '../utils/formatters';
 import type { ArticleRow, PlayRow } from '../types/db';
+import { PrivateAvatar } from '../components/PrivateAvatar';
 
 interface ActivityCardProps {
   title: string;
@@ -62,10 +63,6 @@ const SectionHeader = ({ title, subtitle }: { title: string; subtitle?: string }
       <Text style={styles.sectionTitle}>{title}</Text>
       {subtitle && <Text style={styles.sectionSubtitle}>{subtitle}</Text>}
     </View>
-    <TouchableOpacity style={styles.sectionSeeAllBtn}>
-      <Text style={styles.sectionSeeAll}>ver todos</Text>
-      <Ionicons name="chevron-forward" size={14} color={theme.colors.primary} />
-    </TouchableOpacity>
   </View>
 );
 
@@ -82,7 +79,7 @@ export function HomeScreen({ navigation }: any) {
 
   useFocusEffect(
     useCallback(() => {
-      fetchPlays(6).then(setPlays).catch(() => {});
+      fetchPlays(50).then(setPlays).catch(() => {});
       fetchArticles(6).then(setArticles).catch(() => {});
       if (activeChild) {
         fetchActivityPlans(activeChild.id)
@@ -100,6 +97,7 @@ export function HomeScreen({ navigation }: any) {
   const openPlay = (play: PlayRow) => {
     if (play.bloqueado) return navigation.navigate('Plans');
     navigation.navigate('ContentDetail', {
+      playId: play.id,
       title: play.titulo,
       subtitle: 'Brincadeira educativa',
       body: [play.descricao, play.instrucoes].filter(Boolean).join('\n\n') || 'Sem instruções.',
@@ -164,8 +162,12 @@ export function HomeScreen({ navigation }: any) {
           
           <Animated.View style={[styles.compactProfile, { opacity: compactHeaderOpacity }]}>
             <View style={styles.compactAvatarPlaceholder}>
-              {activeChild?.avatarUrl ? (
-                <Image source={{ uri: activeChild.avatarUrl }} style={styles.compactAvatarImage} />
+              {activeChild?.avatarPath ? (
+                <PrivateAvatar
+                  avatarPath={activeChild.avatarPath}
+                  style={styles.compactAvatarImage}
+                  fallback={<Text style={styles.compactAvatarText}>{activeChild.name.charAt(0).toUpperCase()}</Text>}
+                />
               ) : (
                 <Text style={styles.compactAvatarText}>{activeChild?.name.charAt(0).toUpperCase()}</Text>
               )}
@@ -216,8 +218,12 @@ export function HomeScreen({ navigation }: any) {
               
               <View style={styles.profileSection}>
                 <View style={styles.avatarPlaceholder}>
-                  {activeChild?.avatarUrl ? (
-                    <Image source={{ uri: activeChild.avatarUrl }} style={styles.avatarImage} />
+                  {activeChild?.avatarPath ? (
+                    <PrivateAvatar
+                      avatarPath={activeChild.avatarPath}
+                      style={styles.avatarImage}
+                      fallback={<Text style={styles.avatarText}>{activeChild.name.charAt(0).toUpperCase()}</Text>}
+                    />
                   ) : (
                     <Text style={styles.avatarText}>{activeChild?.name.charAt(0).toUpperCase() ?? '?'}</Text>
                   )}
@@ -279,21 +285,6 @@ export function HomeScreen({ navigation }: any) {
             </View>
           )}
 
-          <View style={styles.section}>
-            <SectionHeader title="Conheça nossa loja" subtitle="Conheça os produtos terapêuticos infantis" />
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
-              <ActivityCard 
-                title="Brincar de imitar sons" 
-                description="Que tal tentar o jogo “Quem Imita Primeiro”?" 
-              />
-              <ActivityCard 
-                title="Brincar de imitar sons" 
-                description="Que tal tentar o jogo “Quem Imita Primeiro”?" 
-              />
-            </ScrollView>
-            
-            <View style={{ height: 24 }} />
-          </View>
         </View>
       </Animated.ScrollView>
 
@@ -518,8 +509,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   section: {
-    // Era width:393 (largura do frame do Figma). Em 360dp a secao estourava
-    // 33dp e cortava o "ver todos".
     width: '100%',
     marginBottom: 32,
   },
@@ -545,17 +534,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#5E5E5E',
     lineHeight: 18,
-  },
-  sectionSeeAllBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: 2, 
-  },
-  sectionSeeAll: {
-    fontFamily: theme.fonts.mulishSemiBold,
-    fontSize: 12,
-    color: '#3678FD',
-    marginRight: 4,
   },
   horizontalScroll: {
     paddingLeft: 24,

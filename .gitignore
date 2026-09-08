@@ -29,3 +29,7 @@ service-account*.json
 # Python (scripts de importação)
 __pycache__/
 *.pyc
+
+# Estado local/backup do Graphify (os artefatos finais continuam versionados)
+graphify-out/.graphify_python
+graphify-out/20??-??-??/

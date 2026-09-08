@@ -75,6 +75,8 @@ export interface Atividade {
   ordem: number;
   plano: AccessPlan;
   status: AtividadeStatus;
+  programaAba: string;
+  funcao: string;
   objetivo: string;
   procedimento: string;
   materiais: string;

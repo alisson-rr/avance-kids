@@ -74,7 +74,8 @@ no banco.
 
 ## 2. Perguntas → `questions`
 
-**Formato:** aba `Perguntas` da planilha-modelo.
+**Formatos aceitos:** aba `Perguntas` da planilha-modelo ou as tabelas
+`Código / Subárea / Habilidade / Exemplo para o Pai` do documento oficial `.docx`.
 
 | Coluna | Coluna de `questions` | Regra |
 | --- | --- | --- |
@@ -96,9 +97,9 @@ consequências práticas:
 - toda faixa precisa ter perguntas `Inicial`, inclusive F01A — que é o piso e
   nunca rebaixa, mas ainda assim é avaliada.
 
-**Estado:** **não existe importador.** Quando o arquivo chegar, é um script no
-mesmo molde do `import_programas.py` (ler, validar, gerar migration) — o
-trabalho está na validação, não no INSERT.
+**Estado:** importador pronto em `scripts/import_perguntas.py`. A fonte oficial
+recebida gerou a migration-16 com 24 perguntas iniciais e 126 de triagem. O
+script também continua aceitando a planilha-modelo para revisões futuras.
 
 O que a importação vai precisar decidir na hora, e não antes:
 
@@ -114,9 +115,9 @@ O que a importação vai precisar decidir na hora, e não antes:
 
 ## 3. Como enviar
 
-1. Preencher a planilha-modelo (ou atualizar o arquivo oficial de 17 colunas,
-   no caso das atividades).
+1. Preencher a planilha-modelo, atualizar o DOCX do checklist ou atualizar o
+   arquivo oficial de 17 colunas, no caso das atividades.
 2. Apagar as linhas de exemplo — elas são recusadas pela validação de propósito,
    então uma linha esquecida derruba a importação em vez de virar conteúdo.
-3. Enviar o `.xlsx`. O importador roda contra uma cópia descartável primeiro
+3. Enviar o `.xlsx` ou `.docx`. O importador roda contra uma cópia descartável primeiro
    (`scripts/validate_migrations.sh`) e só depois vira migration.

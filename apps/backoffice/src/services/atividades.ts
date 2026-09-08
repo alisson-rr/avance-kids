@@ -17,6 +17,8 @@ interface ExerciseRow {
   ordem: number;
   plano: AccessPlan;
   status: RecordStatus;
+  programa_aba: string | null;
+  funcao: string | null;
   objetivo: string | null;
   procedimento: string | null;
   materiais: string | null;
@@ -35,7 +37,38 @@ interface ExerciseRow {
 // retorno lendo a string em tempo de compilação, e um `a + b` vira `string`,
 // o que quebra essa inferência.
 const COLUMNS =
-  'id, skill_id, age_bracket_id, codigo, titulo, media_type, media_url, nivel, ordem, plano, status, objetivo, procedimento, materiais, recursos_extras, frequencia, brincadeiras, hierarquia_dicas, resposta_esperada, procedimento_correcao, criterio_avanco, registro_dados, reforcos';
+  'id, skill_id, age_bracket_id, codigo, titulo, media_type, media_url, nivel, ordem, plano, status, programa_aba, funcao, objetivo, procedimento, materiais, recursos_extras, frequencia, brincadeiras, hierarquia_dicas, resposta_esperada, procedimento_correcao, criterio_avanco, registro_dados, reforcos';
+
+type AcquisitionGuardRow = Pick<
+  ExerciseRow,
+  'id' | 'skill_id' | 'age_bracket_id' | 'nivel' | 'plano' | 'status'
+>;
+
+function isActiveFreeAcquisition(row: AcquisitionGuardRow): boolean {
+  return row.nivel === 'aquisicao' && row.plano === 'free' && row.status === 'ativo';
+}
+
+async function assertAnotherFreeAcquisition(
+  skillId: string,
+  ageBracketId: string,
+  excludedId: string,
+): Promise<void> {
+  const { data, error } = await supabase
+    .from('exercises')
+    .select('id')
+    .eq('skill_id', skillId)
+    .eq('age_bracket_id', ageBracketId)
+    .eq('nivel', 'aquisicao')
+    .eq('plano', 'free')
+    .eq('status', 'ativo')
+    .neq('id', excludedId)
+    .limit(1);
+
+  if (error) throw new Error(error.message);
+  if (!data?.length) {
+    throw new Error('Cada habilidade e faixa precisa manter ao menos uma atividade de Aquisição gratuita.');
+  }
+}
 
 export async function fetchAtividades(): Promise<Atividade[]> {
   const [{ data, error }, ref] = await Promise.all([
@@ -56,6 +89,8 @@ export async function fetchAtividades(): Promise<Atividade[]> {
     ordem: row.ordem,
     plano: row.plano,
     status: row.status,
+    programaAba: row.programa_aba ?? '',
+    funcao: row.funcao ?? '',
     objetivo: row.objetivo ?? '',
     procedimento: row.procedimento ?? '',
     materiais: row.materiais ?? '',
@@ -75,14 +110,57 @@ export async function saveAtividade(item: Atividade, isEditing: boolean): Promis
   if (!item.titulo.trim()) throw new Error('Informe o título da atividade.');
 
   const ref = await getRefData();
+  const skillId = ref.skillIdByKey(item.skillKey);
+  const ageBracketId = ref.bracketIdByCode(item.ageBracketCode);
+
+  if (isEditing) {
+    const { data: original, error } = await supabase
+      .from('exercises')
+      .select('id, skill_id, age_bracket_id, nivel, plano, status')
+      .eq('id', item.id)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!original) throw new Error('Atividade não encontrada.');
+
+    const remainsInOriginalGroup =
+      item.nivel === 'aquisicao' &&
+      item.plano === 'free' &&
+      item.status === 'ativo' &&
+      skillId === original.skill_id &&
+      ageBracketId === original.age_bracket_id;
+
+    if (isActiveFreeAcquisition(original as AcquisitionGuardRow) && !remainsInOriginalGroup) {
+      await assertAnotherFreeAcquisition(original.skill_id, original.age_bracket_id, item.id);
+    }
+  }
+
+  if (item.nivel === 'aquisicao' && item.plano === 'premium' && item.status === 'ativo') {
+    let freeAcquisitionQuery = supabase
+      .from('exercises')
+      .select('id')
+      .eq('skill_id', skillId)
+      .eq('age_bracket_id', ageBracketId)
+      .eq('nivel', 'aquisicao')
+      .eq('plano', 'free')
+      .eq('status', 'ativo')
+      .limit(1);
+    if (isEditing) freeAcquisitionQuery = freeAcquisitionQuery.neq('id', item.id);
+
+    const { data, error } = await freeAcquisitionQuery;
+    if (error) throw new Error(error.message);
+    if (!data?.length) {
+      throw new Error('Cada habilidade e faixa precisa manter ao menos uma atividade de Aquisição gratuita.');
+    }
+  }
+
   const mediaUrl =
     item.mediaType === 'imagem'
       ? await resolveMediaUrl('exercises', item.mediaUrl)
       : item.mediaUrl.trim() || null;
 
   const payload = {
-    skill_id: ref.skillIdByKey(item.skillKey),
-    age_bracket_id: ref.bracketIdByCode(item.ageBracketCode),
+    skill_id: skillId,
+    age_bracket_id: ageBracketId,
     codigo: item.codigo.trim() || null,
     titulo: item.titulo.trim(),
     media_type: item.mediaType,
@@ -91,6 +169,8 @@ export async function saveAtividade(item: Atividade, isEditing: boolean): Promis
     ordem: item.ordem,
     plano: item.plano,
     status: item.status,
+    programa_aba: item.programaAba.trim() || null,
+    funcao: item.funcao.trim() || null,
     objetivo: item.objetivo.trim() || null,
     procedimento: item.procedimento.trim() || null,
     materiais: item.materiais.trim() || null,
@@ -114,6 +194,19 @@ export async function saveAtividade(item: Atividade, isEditing: boolean): Promis
   }
 }
 
-export function toggleArchiveAtividade(row: WithId): Promise<void> {
-  return toggleArchiveStatus('exercises', row);
+export async function toggleArchiveAtividade(row: WithId): Promise<void> {
+  if (row.status === 'ativo') {
+    const { data: original, error } = await supabase
+      .from('exercises')
+      .select('id, skill_id, age_bracket_id, nivel, plano, status')
+      .eq('id', row.id)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!original) throw new Error('Atividade não encontrada.');
+    if (isActiveFreeAcquisition(original as AcquisitionGuardRow)) {
+      await assertAnotherFreeAcquisition(original.skill_id, original.age_bracket_id, row.id);
+    }
+  }
+
+  await toggleArchiveStatus('exercises', row);
 }

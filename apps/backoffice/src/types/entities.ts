@@ -17,8 +17,19 @@ export interface AdminUser {
 }
 
 // === Brincadeiras (plays) ===
+export interface ProdutoBrincadeira {
+  id: string;
+  titulo: string;
+  descricao: string;
+  imagemUrl: string;
+  linkUrl: string;
+  ordem: number;
+  status: RecordStatus;
+}
+
 export interface Brincadeira {
   id: string;
+  codigo: string;
   titulo: string;
   descricao: string;
   instrucoes: string;
@@ -26,6 +37,7 @@ export interface Brincadeira {
   mediaUrl: string;
   plano: AccessPlan;
   status: RecordStatus;
+  produtos: ProdutoBrincadeira[];
 }
 
 // === Artigos (articles) ===

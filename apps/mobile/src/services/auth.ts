@@ -1,7 +1,11 @@
 import { supabase } from '../lib/supabase';
 import { invokeFunction } from './api';
+import { makeRedirectUri } from 'expo-auth-session';
+import * as WebBrowser from 'expo-web-browser';
 import type { ProfileRow } from '../types/db';
 import { digitsOnly, toIsoDate } from '../utils/formatters';
+
+WebBrowser.maybeCompleteAuthSession();
 
 export interface ParentSignUpInput {
   nome: string;
@@ -21,6 +25,52 @@ export async function signIn(email: string, password: string) {
   });
   if (error) throw new Error(traduzErroAuth(error.message));
   return data.session;
+}
+
+/**
+ * Login Google hospedado pelo Supabase.
+ *
+ * O Client ID e o Client Secret ficam exclusivamente no painel do Supabase;
+ * o aplicativo recebe apenas a sessão devolvida pelo callback profundo.
+ */
+export async function signInWithGoogle() {
+  const redirectTo = makeRedirectUri({ scheme: 'avancekids', path: 'auth/callback' });
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo, skipBrowserRedirect: true },
+  });
+
+  if (error) throw new Error(traduzErroAuth(error.message));
+  if (!data.url) throw new Error('Não foi possível iniciar o login com Google.');
+
+  const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo);
+  if (result.type === 'cancel' || result.type === 'dismiss') return null;
+  if (result.type !== 'success') throw new Error('Não foi possível concluir o login com Google.');
+
+  const callbackUrl = new URL(result.url);
+  const query = callbackUrl.searchParams;
+  const fragment = new URLSearchParams(callbackUrl.hash.replace(/^#/, ''));
+  const getParam = (name: string) => query.get(name) ?? fragment.get(name);
+  const oauthError = getParam('error_description') ?? getParam('error');
+  if (oauthError) throw new Error(oauthError);
+
+  const code = getParam('code');
+  if (code) {
+    const { data: sessionData, error: sessionError } = await supabase.auth.exchangeCodeForSession(code);
+    if (sessionError) throw new Error(traduzErroAuth(sessionError.message));
+    return sessionData.session;
+  }
+
+  const accessToken = getParam('access_token');
+  const refreshToken = getParam('refresh_token');
+  if (!accessToken || !refreshToken) throw new Error('O Google não devolveu uma sessão válida.');
+
+  const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
+    access_token: accessToken,
+    refresh_token: refreshToken,
+  });
+  if (sessionError) throw new Error(traduzErroAuth(sessionError.message));
+  return sessionData.session;
 }
 
 /**

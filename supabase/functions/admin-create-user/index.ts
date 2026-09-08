@@ -1,6 +1,6 @@
 import { CreateAdminUserSchema } from "../_shared/schemas.ts";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
-import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
+import { jsonResponse, errorResponse, errorMessage, corsHeaders } from "../_shared/response.ts";
 
 // Cria um usuário admin do backoffice: só super_admins podem chamar.
 // Precisa da Auth Admin API (service_role), por isso é uma Edge Function
@@ -57,6 +57,6 @@ Deno.serve(async (req: Request) => {
     if (err instanceof Error && err.message === "Unauthorized") {
       return errorResponse("Não autorizado", 401);
     }
-    return errorResponse(err.message, 400);
+    return errorResponse(errorMessage(err), 400);
   }
 });

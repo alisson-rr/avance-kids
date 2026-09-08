@@ -86,6 +86,8 @@ $$;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public
   GRANT ALL ON TABLES TO anon, authenticated, service_role;
 GRANT USAGE ON SCHEMA public, auth, storage TO anon, authenticated, service_role;
+GRANT SELECT ON storage.buckets TO anon, authenticated, service_role;
+GRANT ALL ON storage.objects TO anon, authenticated, service_role;
 SQL
 
 echo "==> aplicando migrations (modo: $MODO)"
@@ -181,6 +183,33 @@ BEGIN
   SELECT count(DISTINCT codigo) INTO v_int FROM screening_programs;
   IF v_int <> 24 THEN RAISE EXCEPTION 'screening_programs: esperava 24 códigos, achei %', v_int; END IF;
 
+  -- migration-16: perguntas oficiais extraídas do documento da cliente.
+  SELECT count(*) INTO v_int FROM questions WHERE status = 'ativo';
+  IF v_int <> 150 THEN RAISE EXCEPTION 'perguntas oficiais ativas: esperava 150, achei %', v_int; END IF;
+
+  SELECT count(*) INTO v_int FROM questions WHERE status = 'ativo' AND kind = 'inicial';
+  IF v_int <> 24 THEN RAISE EXCEPTION 'perguntas iniciais: esperava 24, achei %', v_int; END IF;
+
+  SELECT count(*) INTO v_int FROM questions WHERE status = 'ativo' AND kind = 'triagem';
+  IF v_int <> 126 THEN RAISE EXCEPTION 'perguntas de triagem: esperava 126, achei %', v_int; END IF;
+
+  SELECT count(*) INTO v_int FROM (
+    SELECT age_bracket_id FROM questions WHERE status = 'ativo'
+    GROUP BY age_bracket_id HAVING count(*) <> 25
+  ) q;
+  IF v_int <> 0 THEN RAISE EXCEPTION '% faixas sem exatamente 25 perguntas oficiais', v_int; END IF;
+
+  -- migration-17: um card gratuito por código AT, fora do plano da criança.
+  SELECT count(*) INTO v_int FROM plays
+   WHERE codigo ~ '^F(0[1-6])AT00[1-4]$' AND plano = 'free' AND status = 'ativo';
+  IF v_int <> 24 THEN RAISE EXCEPTION 'brincadeiras AT gratuitas: esperava 24, achei %', v_int; END IF;
+
+  -- migration-18: produtos são conteúdo opcional e só admins escrevem.
+  SELECT count(*) INTO v_int FROM pg_policies
+   WHERE schemaname = 'public' AND tablename = 'play_products'
+     AND policyname = 'Admins manage play products' AND cmd = 'ALL';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'policy de administração de play_products ausente'; END IF;
+
   SELECT count(*) INTO v_int FROM (
     SELECT codigo FROM screening_programs GROUP BY codigo HAVING count(DISTINCT nivel) <> 3
   ) q;
@@ -239,8 +268,263 @@ BEGIN
    );
   IF v_int <> 6 THEN RAISE EXCEPTION 'age_brackets foram alteradas (esperava as 6 da migration-11, achei %)', v_int; END IF;
 
+  -- migration-13: catálogo público, fotos pessoais privadas.
+  SELECT count(*) INTO v_int FROM storage.buckets
+   WHERE (id = 'media' AND public) OR (id = 'avatars' AND NOT public);
+  IF v_int <> 2 THEN
+    RAISE EXCEPTION 'flags dos buckets incorretas: media deve ser público e avatars privado';
+  END IF;
+
+  SELECT count(*) INTO v_int FROM pg_policies
+   WHERE schemaname = 'storage' AND tablename = 'objects'
+     AND policyname = 'Public read app buckets';
+  IF v_int <> 0 THEN RAISE EXCEPTION 'policy pública antiga ainda inclui avatars'; END IF;
+
+  SELECT count(*) INTO v_int FROM pg_policies
+   WHERE schemaname = 'storage' AND tablename = 'objects'
+     AND policyname = 'Public read media bucket' AND cmd = 'SELECT'
+     AND qual LIKE '%bucket_id%media%' AND qual NOT LIKE '%avatars%';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'policy pública exclusiva de media ausente'; END IF;
+
+  SELECT count(*) INTO v_int FROM pg_policies
+   WHERE schemaname = 'storage' AND tablename = 'objects'
+     AND policyname = 'Users manage own avatar folder' AND cmd = 'ALL'
+     AND roles @> ARRAY['authenticated']::name[]
+     AND qual LIKE '%bucket_id%avatars%foldername%auth.uid%'
+     AND with_check LIKE '%bucket_id%avatars%foldername%auth.uid%';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'policy de ownership de avatars ausente ou incompleta'; END IF;
+
+  -- migration-14: event.id é a chave de idempotência e a tabela não fica
+  -- exposta aos papéis usados pelo app.
+  SELECT count(*) INTO v_int
+    FROM pg_class c
+    JOIN pg_namespace n ON n.oid = c.relnamespace
+   WHERE n.nspname = 'public' AND c.relname = 'stripe_webhook_events'
+     AND c.relrowsecurity;
+  IF v_int <> 1 THEN RAISE EXCEPTION 'stripe_webhook_events sem RLS'; END IF;
+
+  SELECT count(*) INTO v_int FROM pg_constraint
+   WHERE conrelid = 'public.stripe_webhook_events'::regclass
+     AND contype = 'p' AND pg_get_constraintdef(oid) LIKE '%event_id%';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'event_id não é chave única dos eventos Stripe'; END IF;
+
+  SELECT count(*) INTO v_int FROM pg_policies
+   WHERE schemaname = 'public' AND tablename = 'stripe_webhook_events';
+  IF v_int <> 0 THEN RAISE EXCEPTION 'stripe_webhook_events não deve ter policies para o app'; END IF;
+
+  IF has_table_privilege('anon', 'public.stripe_webhook_events', 'SELECT,INSERT')
+     OR has_table_privilege('authenticated', 'public.stripe_webhook_events', 'SELECT,INSERT') THEN
+    RAISE EXCEPTION 'anon/authenticated receberam acesso aos eventos Stripe';
+  END IF;
+
+  IF has_function_privilege(
+       'anon', 'public.process_stripe_webhook_event(text,text,jsonb)', 'EXECUTE'
+     ) OR has_function_privilege(
+       'authenticated', 'public.process_stripe_webhook_event(text,text,jsonb)', 'EXECUTE'
+     ) OR NOT has_function_privilege(
+       'service_role', 'public.process_stripe_webhook_event(text,text,jsonb)', 'EXECUTE'
+     ) THEN
+    RAISE EXCEPTION 'privilégios da RPC do webhook incorretos';
+  END IF;
+
   RAISE NOTICE 'todas as conferências passaram';
 END $$;
+SQL
+
+echo "==> testes de acesso ao bucket avatars"
+psql_exec <<'SQL'
+INSERT INTO storage.objects (bucket_id, name) VALUES
+  ('media', 'catalogo/publico.jpg'),
+  ('avatars', '11111111-1111-1111-1111-111111111111/child-a.jpg'),
+  ('avatars', '22222222-2222-2222-2222-222222222222/child-b.jpg');
+
+SET ROLE anon;
+DO $$
+DECLARE v_int INTEGER;
+BEGIN
+  SELECT count(*) INTO v_int FROM storage.objects WHERE bucket_id = 'media';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'anon deveria ler media público'; END IF;
+
+  SELECT count(*) INTO v_int FROM storage.objects WHERE bucket_id = 'avatars';
+  IF v_int <> 0 THEN RAISE EXCEPTION 'anon conseguiu ler avatars privados'; END IF;
+END $$;
+RESET ROLE;
+
+SELECT set_config('request.jwt.claim.sub', '11111111-1111-1111-1111-111111111111', false);
+SET ROLE authenticated;
+DO $$
+DECLARE v_int INTEGER;
+BEGIN
+  SELECT count(*) INTO v_int FROM storage.objects WHERE bucket_id = 'avatars';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'usuário não ficou restrito à própria pasta de avatars'; END IF;
+
+  INSERT INTO storage.objects (bucket_id, name)
+  VALUES ('avatars', '11111111-1111-1111-1111-111111111111/child-c.jpg');
+
+  BEGIN
+    INSERT INTO storage.objects (bucket_id, name)
+    VALUES ('avatars', '22222222-2222-2222-2222-222222222222/invasao.jpg');
+    RAISE EXCEPTION 'usuário gravou na pasta de avatars de outra conta';
+  EXCEPTION WHEN insufficient_privilege THEN NULL;
+  END;
+END $$;
+RESET ROLE;
+SQL
+
+echo "==> testes de idempotência do webhook Stripe"
+psql_exec <<'SQL'
+BEGIN;
+
+INSERT INTO auth.users (id, email, raw_user_meta_data)
+VALUES (
+  '14141414-1414-1414-1414-141414141414',
+  'webhook-harness@exemplo.test',
+  '{"nome":"Webhook Harness"}'::jsonb
+);
+
+-- Conta quantas vezes o efeito (UPDATE da assinatura) realmente aconteceu.
+CREATE TEMP TABLE webhook_effect_counter (calls INTEGER NOT NULL);
+INSERT INTO webhook_effect_counter VALUES (0);
+
+CREATE FUNCTION pg_temp.count_webhook_effect()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  UPDATE pg_temp.webhook_effect_counter SET calls = calls + 1;
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER harness_count_webhook_effect
+  AFTER UPDATE ON public.subscriptions
+  FOR EACH ROW
+  WHEN (NEW.user_id = '14141414-1414-1414-1414-141414141414'::UUID)
+  EXECUTE FUNCTION pg_temp.count_webhook_effect();
+
+-- O mesmo event.id é entregue duas vezes. A segunda chamada precisa gerar a
+-- unique_violation que a Edge Function transforma em HTTP 200 de duplicata.
+SET ROLE service_role;
+DO $$
+BEGIN
+  PERFORM public.process_stripe_webhook_event(
+    'evt_harness_duplicado',
+    'checkout.session.completed',
+    '{
+      "user_id":"14141414-1414-1414-1414-141414141414",
+      "customer_id":"cus_harness",
+      "subscription_id":"sub_harness",
+      "plano":"premium",
+      "status":"trialing",
+      "trial_start":"2026-09-01T00:00:00Z",
+      "trial_end":"2026-09-16T00:00:00Z",
+      "current_period_start":"2026-09-01T00:00:00Z",
+      "current_period_end":"2026-10-01T00:00:00Z"
+    }'::jsonb
+  );
+
+  BEGIN
+    PERFORM public.process_stripe_webhook_event(
+      'evt_harness_duplicado',
+      'checkout.session.completed',
+      '{
+        "user_id":"14141414-1414-1414-1414-141414141414",
+        "customer_id":"cus_harness",
+        "subscription_id":"sub_harness",
+        "plano":"premium",
+        "status":"trialing"
+      }'::jsonb
+    );
+    RAISE EXCEPTION 'a segunda entrega não gerou unique_violation';
+  EXCEPTION WHEN unique_violation THEN
+    NULL;
+  END;
+END;
+$$;
+RESET ROLE;
+
+DO $$
+DECLARE
+  v_int INTEGER;
+BEGIN
+  SELECT calls INTO v_int FROM webhook_effect_counter;
+  IF v_int <> 1 THEN
+    RAISE EXCEPTION 'evento duplicado aplicou o efeito % vezes (esperava 1)', v_int;
+  END IF;
+
+  SELECT count(*) INTO v_int FROM stripe_webhook_events
+   WHERE event_id = 'evt_harness_duplicado' AND received_at IS NOT NULL;
+  IF v_int <> 1 THEN
+    RAISE EXCEPTION 'event.id duplicado não ficou registrado exatamente uma vez';
+  END IF;
+END;
+$$;
+
+-- Prova a atomicidade: o cast inválido falha depois do INSERT do event.id.
+-- O marcador deve sofrer rollback para que a entrega válida seguinte processe.
+SET ROLE service_role;
+DO $$
+BEGIN
+  PERFORM public.process_stripe_webhook_event(
+    'evt_harness_rollback',
+    'customer.subscription.updated',
+    '{
+      "customer_id":"cus_harness",
+      "subscription_id":"sub_harness",
+      "plano":"premium",
+      "status":"status_invalido"
+    }'::jsonb
+  );
+  RAISE EXCEPTION 'payload inválido deveria ter falhado depois do registro';
+EXCEPTION WHEN invalid_text_representation THEN
+  NULL;
+END;
+$$;
+RESET ROLE;
+
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM stripe_webhook_events WHERE event_id = 'evt_harness_rollback'
+  ) THEN
+    RAISE EXCEPTION 'falha no efeito deixou event.id registrado';
+  END IF;
+END;
+$$;
+
+SET ROLE service_role;
+DO $$
+BEGIN
+  PERFORM public.process_stripe_webhook_event(
+    'evt_harness_rollback',
+    'customer.subscription.updated',
+    '{
+      "customer_id":"cus_harness",
+      "subscription_id":"sub_harness",
+      "plano":"free",
+      "status":"past_due"
+    }'::jsonb
+  );
+END;
+$$;
+RESET ROLE;
+
+DO $$
+DECLARE
+  v_int INTEGER;
+BEGIN
+  SELECT count(*) INTO v_int FROM stripe_webhook_events
+   WHERE event_id = 'evt_harness_rollback';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'retry após rollback não foi processado'; END IF;
+
+  SELECT count(*) INTO v_int FROM subscriptions
+   WHERE user_id = '14141414-1414-1414-1414-141414141414'
+     AND plano = 'free' AND status = 'past_due';
+  IF v_int <> 1 THEN RAISE EXCEPTION 'efeito do retry após rollback não foi aplicado'; END IF;
+END;
+$$;
+
+ROLLBACK;
 SQL
 
 echo "==> testes de aceite e exclusão"

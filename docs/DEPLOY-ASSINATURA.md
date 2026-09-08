@@ -66,7 +66,7 @@ supabase secrets set CHECKOUT_SUCCESS_URL=https://avancekids.com.br/assinatura/s
 ## 3. Edge Functions
 
 ```bash
-supabase functions deploy checkout-return create-billing-portal-session create-checkout-session handle-stripe-webhook start-exercise-session generate-activity-plan accept-terms delete-account
+supabase functions deploy billing-config checkout-return create-billing-portal-session create-checkout-session handle-stripe-webhook start-exercise-session generate-activity-plan accept-terms delete-account
 ```
 
 `accept-terms` e `delete-account` sao novas e estao com `verify_jwt = true` no

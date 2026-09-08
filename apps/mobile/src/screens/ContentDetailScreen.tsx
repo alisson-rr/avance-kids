@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -14,8 +14,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { theme } from '../theme';
 import { showError } from '../ui/dialog';
+import { fetchPlayProducts } from '../services/content';
+import type { PlayProductRow } from '../types/db';
 
 export interface ContentDetailParams {
+  playId?: string;
   title: string;
   subtitle?: string;
   body: string;
@@ -31,8 +34,25 @@ export function ContentDetailScreen({ navigation, route }: any) {
   const insets = useSafeAreaInsets();
   const safeTop = Math.max(insets.top, 50);
 
-  const { title, subtitle, body, mediaUrl, mediaType }: ContentDetailParams =
+  const { playId, title, subtitle, body, mediaUrl, mediaType }: ContentDetailParams =
     route?.params ?? { title: 'Conteúdo', body: '' };
+  const [products, setProducts] = useState<PlayProductRow[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+    setProducts([]);
+    if (!playId) return () => { mounted = false; };
+
+    fetchPlayProducts(playId)
+      .then((items) => {
+        if (mounted) setProducts(items);
+      })
+      .catch(() => {
+        if (mounted) setProducts([]);
+      });
+
+    return () => { mounted = false; };
+  }, [playId]);
 
   const isVideo = mediaType === 'video' && !!mediaUrl;
 
@@ -42,6 +62,12 @@ export function ContentDetailScreen({ navigation, route }: any) {
         showError('Erro', 'Não foi possível abrir o vídeo.'),
       );
     }
+  };
+
+  const handleOpenProduct = (product: PlayProductRow) => {
+    Linking.openURL(product.link_url).catch(() =>
+      showError('Erro', 'Não foi possível abrir o produto na Shopee.'),
+    );
   };
 
   return (
@@ -59,7 +85,7 @@ export function ContentDetailScreen({ navigation, route }: any) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 24 }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 110 }}>
         <Text style={styles.title}>{title}</Text>
         {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
 
@@ -85,6 +111,47 @@ export function ContentDetailScreen({ navigation, route }: any) {
 
         {/* ── BODY ── */}
         <Text style={styles.bodyText}>{body}</Text>
+
+        {products.length > 0 ? (
+          <View style={styles.productsSection}>
+            <Text style={styles.productsTitle}>Produtos recomendados</Text>
+            <Text style={styles.productsSubtitle}>
+              Sugestões para complementar esta brincadeira. Os links abrem na Shopee.
+            </Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.productsList}
+            >
+              {products.map((product) => (
+                <TouchableOpacity
+                  key={product.id}
+                  style={styles.productCard}
+                  activeOpacity={0.8}
+                  onPress={() => handleOpenProduct(product)}
+                  accessibilityRole="link"
+                  accessibilityLabel={`Ver ${product.titulo} na Shopee`}
+                >
+                  <Image
+                    source={{ uri: product.imagem_url }}
+                    style={styles.productImage}
+                    resizeMode="cover"
+                  />
+                  <View style={styles.productContent}>
+                    <Text style={styles.productTitle} numberOfLines={2}>{product.titulo}</Text>
+                    <Text style={styles.productDescription} numberOfLines={3}>
+                      {product.descricao}
+                    </Text>
+                    <View style={styles.productLinkRow}>
+                      <Text style={styles.productLink}>Ver produto</Text>
+                      <Ionicons name="open-outline" size={16} color={theme.colors.primary} />
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+        ) : null}
       </ScrollView>
 
       <BottomTabBar activeScreen="Home" />
@@ -163,5 +230,70 @@ const styles = StyleSheet.create({
     color: '#3B3B3B',
     paddingHorizontal: 24,
     marginTop: 24,
+  },
+  productsSection: {
+    marginTop: 32,
+  },
+  productsTitle: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: 20,
+    lineHeight: 26,
+    color: '#000000',
+    paddingHorizontal: 24,
+  },
+  productsSubtitle: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#5E5E5E',
+    paddingHorizontal: 24,
+    marginTop: 4,
+  },
+  productsList: {
+    paddingHorizontal: 24,
+    paddingVertical: 20,
+    gap: 16,
+  },
+  productCard: {
+    width: 238,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E4E4E4',
+  },
+  productImage: {
+    width: '100%',
+    height: 150,
+    backgroundColor: '#EAEAEA',
+  },
+  productContent: {
+    minHeight: 178,
+    padding: 16,
+  },
+  productTitle: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: 15,
+    lineHeight: 20,
+    color: '#292929',
+  },
+  productDescription: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 13,
+    lineHeight: 18,
+    color: '#5E5E5E',
+    marginTop: 8,
+    flex: 1,
+  },
+  productLinkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 14,
+  },
+  productLink: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: 14,
+    color: theme.colors.primary,
   },
 });

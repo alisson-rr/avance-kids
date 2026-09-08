@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { BottomTabBar } from '../components/BottomTabBar';
@@ -9,11 +9,12 @@ import { useProfileStore } from '../store/useProfileStore';
 import { deleteAccount, signOut } from '../services/auth';
 import { errorMessage } from '../services/api';
 import { showConfirm, showDialog, showError } from '../ui/dialog';
+import { PrivateAvatar } from '../components/PrivateAvatar';
 
 export function SettingsScreen({ navigation }: any) {
   const [modalVisible, setModalVisible] = useState(false);
   const [excluindo, setExcluindo] = useState(false);
-  const { parentName, parentAvatarUrl } = useProfileStore();
+  const { parentName, parentAvatarPath } = useProfileStore();
 
   const initials = parentName
     .split(' ')
@@ -126,8 +127,12 @@ export function SettingsScreen({ navigation }: any) {
             <View style={styles.mainCard}>
               <View style={styles.avatarContainer}>
                 <View style={styles.avatarPlaceholder}>
-                  {parentAvatarUrl ? (
-                    <Image source={{ uri: parentAvatarUrl }} style={styles.avatarImage} />
+                  {parentAvatarPath ? (
+                    <PrivateAvatar
+                      avatarPath={parentAvatarPath}
+                      style={styles.avatarImage}
+                      fallback={<Text style={styles.avatarText}>{initials}</Text>}
+                    />
                   ) : (
                     <Text style={styles.avatarText}>{initials}</Text>
                   )}

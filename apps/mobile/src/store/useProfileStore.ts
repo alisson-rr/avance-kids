@@ -5,6 +5,7 @@ import { listChildren } from '../services/children';
 import { supabase } from '../lib/supabase';
 import type { ChildRow } from '../types/db';
 import { fromIsoDate } from '../utils/formatters';
+import { avatarPathFromReference } from '../services/storage';
 
 export interface Child {
   id: string;
@@ -14,7 +15,7 @@ export interface Child {
   gender: string;
   cpf: string;
   disorders: string[];
-  avatarUrl: string;
+  avatarPath: string;
   isActive: boolean;
   triagemCompleta: boolean;
   idadeBiologicaMeses: number | null;
@@ -33,7 +34,7 @@ function mapChild(row: ChildRow, activeId: string | null, index: number): Child 
     gender: row.genero ?? '',
     cpf: row.cpf ?? '',
     disorders: Array.isArray(row.condicoes) ? row.condicoes : [],
-    avatarUrl: row.avatar_url ?? '',
+    avatarPath: avatarPathFromReference(row.avatar_url),
     isActive: activeId ? row.id === activeId : index === 0,
     triagemCompleta: row.triagem_completa,
     idadeBiologicaMeses: row.idade_biologica_meses,
@@ -51,7 +52,7 @@ export interface ProfileStore {
   parentGender: string;
   parentCpf: string;
   parentPhone: string;
-  parentAvatarUrl: string;
+  parentAvatarPath: string;
   children: Child[];
   /** Carrega perfil + filhos do Supabase (chamar com sessão ativa). */
   loadAll: () => Promise<void>;
@@ -70,7 +71,7 @@ const EMPTY_STATE = {
   parentGender: '',
   parentCpf: '',
   parentPhone: '',
-  parentAvatarUrl: '',
+  parentAvatarPath: '',
   children: [] as Child[],
 };
 
@@ -95,7 +96,7 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
       parentGender: profile?.genero ?? '',
       parentCpf: profile?.cpf ?? '',
       parentPhone: profile?.telefone ?? '',
-      parentAvatarUrl: profile?.avatar_url ?? '',
+      parentAvatarPath: avatarPathFromReference(profile?.avatar_url),
       children: childRows.map((row, i) => mapChild(row, validActiveId, i)),
     });
   },

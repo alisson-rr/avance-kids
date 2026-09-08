@@ -1,9 +1,11 @@
 import { ACCESS_PLANS } from '../constants/aba';
+import { Plus, Trash2 } from 'lucide-react';
 import { Badge, EntityCrudScreen, FormField, ImageUploadField, Select } from '../components/ui';
 import type { DataTableColumn, EntityFilterConfig } from '../components/ui';
 import { useEntityList } from '../hooks/useEntityList';
 import { fetchBrincadeiras, saveBrincadeira, toggleArchiveBrincadeira } from '../services/brincadeiras';
-import type { Brincadeira, MediaType } from '../types/entities';
+import type { Brincadeira, MediaType, ProdutoBrincadeira } from '../types/entities';
+import styles from './GamesScreen.module.css';
 
 const MEDIA_TYPE_OPTIONS: { value: MediaType; label: string }[] = [
   { value: 'imagem', label: 'Imagem' },
@@ -13,6 +15,7 @@ const MEDIA_TYPE_OPTIONS: { value: MediaType; label: string }[] = [
 function emptyBrincadeira(): Brincadeira {
   return {
     id: '',
+    codigo: '',
     titulo: '',
     descricao: '',
     instrucoes: '',
@@ -20,14 +23,33 @@ function emptyBrincadeira(): Brincadeira {
     mediaUrl: '',
     plano: 'free',
     status: 'ativo',
+    produtos: [],
+  };
+}
+
+function emptyProduto(): ProdutoBrincadeira {
+  return {
+    id: crypto.randomUUID(),
+    titulo: '',
+    descricao: '',
+    imagemUrl: '',
+    linkUrl: '',
+    ordem: 1,
+    status: 'ativo',
   };
 }
 
 function matchesSearch(row: Brincadeira, term: string): boolean {
-  return row.titulo.toLowerCase().includes(term) || row.descricao.toLowerCase().includes(term);
+  return (
+    row.codigo.toLowerCase().includes(term) ||
+    row.titulo.toLowerCase().includes(term) ||
+    row.descricao.toLowerCase().includes(term) ||
+    row.produtos.some((produto) => produto.titulo.toLowerCase().includes(term))
+  );
 }
 
 const columns: DataTableColumn<Brincadeira>[] = [
+  { key: 'codigo', header: 'Código', render: (row) => row.codigo || '—', sortValue: (row) => row.codigo },
   { key: 'titulo', header: 'Título', render: (row) => row.titulo, sortValue: (row) => row.titulo },
   {
     key: 'mediaType',
@@ -92,6 +114,12 @@ export function GamesScreen() {
       }}
       renderForm={(item, update) => (
         <>
+          {item.codigo ? (
+            <FormField label="Código oficial">
+              <input type="text" value={item.codigo} disabled />
+            </FormField>
+          ) : null}
+
           <FormField label="Título" required fullWidth>
             <input type="text" value={item.titulo} onChange={(e) => update('titulo', e.target.value)} />
           </FormField>
@@ -138,6 +166,103 @@ export function GamesScreen() {
 
           <FormField label="Instruções" fullWidth>
             <textarea rows={4} value={item.instrucoes} onChange={(e) => update('instrucoes', e.target.value)} />
+          </FormField>
+
+          <FormField
+            label="Produtos recomendados"
+            hint="O carrossel só aparece no aplicativo quando houver pelo menos um produto ativo."
+            fullWidth
+          >
+            <div className={styles.productsSection}>
+              {item.produtos.map((produto, index) => {
+                const updateProduto = <K extends keyof ProdutoBrincadeira>(
+                  key: K,
+                  value: ProdutoBrincadeira[K]
+                ) => {
+                  update(
+                    'produtos',
+                    item.produtos.map((atual, atualIndex) =>
+                      atualIndex === index ? { ...atual, [key]: value } : atual
+                    )
+                  );
+                };
+
+                return (
+                  <div className={styles.productCard} key={produto.id}>
+                    <div className={styles.productHeader}>
+                      <strong>Produto {index + 1}</strong>
+                      <button
+                        type="button"
+                        className={styles.removeButton}
+                        onClick={() =>
+                          update(
+                            'produtos',
+                            item.produtos.filter((_, atualIndex) => atualIndex !== index)
+                          )
+                        }
+                      >
+                        <Trash2 size={16} />
+                        Remover
+                      </button>
+                    </div>
+
+                    <div className={styles.productGrid}>
+                      <FormField label="Título" required>
+                        <input
+                          type="text"
+                          value={produto.titulo}
+                          onChange={(e) => updateProduto('titulo', e.target.value)}
+                        />
+                      </FormField>
+
+                      <FormField label="Status">
+                        <Select
+                          value={produto.status}
+                          onChange={(value) => updateProduto('status', value as ProdutoBrincadeira['status'])}
+                          options={[
+                            { value: 'ativo', label: 'Ativo' },
+                            { value: 'arquivado', label: 'Arquivado' },
+                          ]}
+                        />
+                      </FormField>
+
+                      <FormField label="Link da Shopee" required fullWidth>
+                        <input
+                          type="url"
+                          placeholder="https://shopee.com.br/..."
+                          value={produto.linkUrl}
+                          onChange={(e) => updateProduto('linkUrl', e.target.value)}
+                        />
+                      </FormField>
+
+                      <FormField label="Descrição" required fullWidth>
+                        <textarea
+                          rows={3}
+                          value={produto.descricao}
+                          onChange={(e) => updateProduto('descricao', e.target.value)}
+                        />
+                      </FormField>
+
+                      <FormField label="Imagem" required fullWidth>
+                        <ImageUploadField
+                          value={produto.imagemUrl}
+                          onChange={(value) => updateProduto('imagemUrl', value)}
+                        />
+                      </FormField>
+                    </div>
+                  </div>
+                );
+              })}
+
+              <button
+                type="button"
+                className={styles.addProductButton}
+                onClick={() => update('produtos', [...item.produtos, emptyProduto()])}
+              >
+                <Plus size={18} />
+                Adicionar produto
+              </button>
+            </div>
           </FormField>
         </>
       )}

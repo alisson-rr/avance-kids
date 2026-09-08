@@ -126,6 +126,7 @@ export interface PlanWithDetails extends ActivityPlanRow {
  */
 export interface PlayRow {
   id: string;
+  codigo: string | null;
   titulo: string;
   descricao: string | null;
   instrucoes: string | null;
@@ -133,6 +134,16 @@ export interface PlayRow {
   media_url: string | null;
   plano: SubscriptionPlan;
   bloqueado: boolean;
+}
+
+export interface PlayProductRow {
+  id: string;
+  play_id: string;
+  titulo: string;
+  descricao: string;
+  imagem_url: string;
+  link_url: string;
+  ordem: number;
 }
 
 export interface ArticleRow {

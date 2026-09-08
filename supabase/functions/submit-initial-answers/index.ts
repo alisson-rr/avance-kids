@@ -1,6 +1,6 @@
 import { SubmitInitialAnswersSchema } from "../_shared/schemas.ts";
 import { getUser, getServiceClient } from "../_shared/auth.ts";
-import { jsonResponse, errorResponse, corsHeaders } from "../_shared/response.ts";
+import { jsonResponse, errorResponse, errorMessage, corsHeaders } from "../_shared/response.ts";
 
 interface BracketRef {
   id: string;
@@ -123,6 +123,6 @@ Deno.serve(async (req: Request) => {
     if (err instanceof Error && err.message === "Unauthorized") {
       return errorResponse("Não autorizado", 401);
     }
-    return errorResponse(err.message, 400);
+    return errorResponse(errorMessage(err), 400);
   }
 });

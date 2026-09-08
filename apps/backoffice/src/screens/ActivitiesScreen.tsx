@@ -13,7 +13,6 @@ import {
   ACCESS_PLANS,
   getSkill,
   getAgeBracket,
-  buildProgramaLabel,
   type Atividade,
   type HabilidadeKey,
   type AgeBracketCode,
@@ -41,6 +40,8 @@ function emptyAtividade(): Atividade {
     ordem: 1,
     plano: 'free',
     status: 'ativo',
+    programaAba: '',
+    funcao: '',
     objetivo: '',
     procedimento: '',
     materiais: '',
@@ -350,8 +351,20 @@ export function ActivitiesScreen() {
                     />
                   </FormField>
 
-                  <FormField label="Programa ABA" hint="Gerado automaticamente a partir da Habilidade e Faixa Etária.">
-                    <input type="text" value={buildProgramaLabel(formState.skillKey, formState.ageBracketCode)} readOnly />
+                  <FormField label="Programa ABA">
+                    <input
+                      type="text"
+                      value={formState.programaAba}
+                      onChange={(e) => updateField('programaAba', e.target.value)}
+                    />
+                  </FormField>
+
+                  <FormField label="Função">
+                    <input
+                      type="text"
+                      value={formState.funcao}
+                      onChange={(e) => updateField('funcao', e.target.value)}
+                    />
                   </FormField>
 
                   <FormField label="Nível" required>
