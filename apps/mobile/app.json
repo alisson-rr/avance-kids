@@ -21,7 +21,20 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single",
+      "name": "Avance Kids",
+      "shortName": "Avance Kids",
+      "lang": "pt-BR",
+      "scope": "/",
+      "themeColor": "#0E5DFD",
+      "backgroundColor": "#FFFFFF",
+      "description": "Acompanhamento do desenvolvimento infantil com atividades personalizadas para cada criança.",
+      "display": "standalone",
+      "startUrl": "/",
+      "orientation": "portrait-primary",
+      "preferRelatedApplications": false
     },
     "plugins": [
       [

@@ -14,6 +14,7 @@ import { useTermsGate } from './src/store/useTermsGate';
 import { navigationRef, irParaLogin } from './src/lib/navigation';
 import { AnimatedSplash } from './src/components/AnimatedSplash';
 import { TermsGate } from './src/components/TermsGate';
+import { PwaInstallPrompt } from './src/components/PwaInstallPrompt';
 
 import { LoginScreen } from './src/screens/LoginScreen';
 import { ParentRegisterScreen } from './src/screens/ParentRegisterScreen';
@@ -145,6 +146,7 @@ export default function App() {
       </NavigationContainer>
       <DialogHost />
       <TermsGate />
+      <PwaInstallPrompt />
     </SafeAreaProvider>
   );
 }
