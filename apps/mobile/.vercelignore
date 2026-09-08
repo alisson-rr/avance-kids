@@ -1,0 +1,13 @@
+.env
+.env.*
+.expo/
+.test-build/
+android/
+credentials/
+dist/
+ios/
+node_modules/
+web-build/
+*.apk
+*.jks
+*.keystore
