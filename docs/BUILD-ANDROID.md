@@ -106,7 +106,7 @@ Cópia versionada por conveniência: `apps/mobile/dist/AvanceKids-<versão>.apk`
 ## Instalar no dispositivo
 
 ```powershell
-& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r apps\mobile\dist\AvanceKids-1.0.1.apk
+& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r apps\mobile\dist\AvanceKids-1.0.2.apk
 ```
 
 Ou copiar o `.apk` para o aparelho e instalar manualmente (exige permitir

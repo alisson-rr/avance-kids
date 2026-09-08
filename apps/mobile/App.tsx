@@ -35,6 +35,7 @@ import { ChangePasswordScreen } from './src/screens/ChangePasswordScreen';
 import { ActivityHistoryScreen } from './src/screens/ActivityHistoryScreen';
 import { PlansScreen } from './src/screens/PlansScreen';
 import { ContentDetailScreen } from './src/screens/ContentDetailScreen';
+import { ContentListScreen } from './src/screens/ContentListScreen';
 import { DialogHost } from './src/ui/dialog';
 
 const Stack = createNativeStackNavigator();
@@ -139,6 +140,7 @@ export default function App() {
           <Stack.Screen name="ActivityHistory" component={ActivityHistoryScreen} />
           <Stack.Screen name="Plans" component={PlansScreen} />
           <Stack.Screen name="ContentDetail" component={ContentDetailScreen} />
+          <Stack.Screen name="ContentList" component={ContentListScreen} />
         </Stack.Navigator>
       </NavigationContainer>
       <DialogHost />

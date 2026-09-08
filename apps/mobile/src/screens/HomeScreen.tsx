@@ -57,12 +57,31 @@ const ActivityCard = ({ title, description, imageSource, locked, onPress }: Acti
   </TouchableOpacity>
 );
 
-const SectionHeader = ({ title, subtitle }: { title: string; subtitle?: string }) => (
+const SectionHeader = ({
+  title,
+  subtitle,
+  onSeeMore,
+}: {
+  title: string;
+  subtitle?: string;
+  onSeeMore?: () => void;
+}) => (
   <View style={styles.sectionHeaderContainer}>
     <View style={styles.sectionHeaderTitleGroup}>
       <Text style={styles.sectionTitle}>{title}</Text>
       {subtitle && <Text style={styles.sectionSubtitle}>{subtitle}</Text>}
     </View>
+    {onSeeMore && (
+      <TouchableOpacity
+        style={styles.seeMoreButton}
+        onPress={onSeeMore}
+        accessibilityRole="button"
+        accessibilityLabel={`Ver mais em ${title}`}
+      >
+        <Text style={styles.seeMoreText}>Ver mais</Text>
+        <Ionicons name="chevron-forward" size={16} color={theme.colors.primary} />
+      </TouchableOpacity>
+    )}
   </View>
 );
 
@@ -79,8 +98,9 @@ export function HomeScreen({ navigation }: any) {
 
   useFocusEffect(
     useCallback(() => {
-      fetchPlays(50).then(setPlays).catch(() => {});
-      fetchArticles(6).then(setArticles).catch(() => {});
+      // O quinto item só serve para decidir se o botão "Ver mais" deve existir.
+      fetchPlays(5).then(setPlays).catch(() => {});
+      fetchArticles(5).then(setArticles).catch(() => {});
       if (activeChild) {
         fetchActivityPlans(activeChild.id)
           .then((plans) => {
@@ -247,9 +267,13 @@ export function HomeScreen({ navigation }: any) {
 
           {plays.length > 0 && (
             <View style={styles.section}>
-              <SectionHeader title="Brincadeiras educativas" subtitle="Ideias para estimular brincando" />
+              <SectionHeader
+                title="Brincadeiras educativas"
+                subtitle="Ideias para estimular brincando"
+                onSeeMore={plays.length > 4 ? () => navigation.navigate('ContentList', { kind: 'plays' }) : undefined}
+              />
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
-                {plays.map((play) => (
+                {plays.slice(0, 4).map((play) => (
                   <ActivityCard
                     key={play.id}
                     title={play.titulo}
@@ -269,9 +293,13 @@ export function HomeScreen({ navigation }: any) {
 
           {articles.length > 0 && (
             <View style={styles.section}>
-              <SectionHeader title="Conteúdo para pais" subtitle="Artigos e dicas para o dia a dia" />
+              <SectionHeader
+                title="Conteúdo para pais"
+                subtitle="Artigos e dicas para o dia a dia"
+                onSeeMore={articles.length > 4 ? () => navigation.navigate('ContentList', { kind: 'articles' }) : undefined}
+              />
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
-                {articles.map((article) => (
+                {articles.slice(0, 4).map((article) => (
                   <ActivityCard
                     key={article.id}
                     title={article.titulo}
@@ -522,6 +550,18 @@ const styles = StyleSheet.create({
   },
   sectionHeaderTitleGroup: {
     flex: 1,
+  },
+  seeMoreButton: {
+    minHeight: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 12,
+  },
+  seeMoreText: {
+    fontFamily: theme.fonts.mulishSemiBold,
+    fontSize: 14,
+    color: theme.colors.primary,
   },
   sectionTitle: {
     fontFamily: theme.fonts.mulishBold,

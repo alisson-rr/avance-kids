@@ -118,6 +118,7 @@ export function ActivityHistoryScreen({ navigation }: any) {
                 <SkillActivityCard
                   key={plan.id}
                   skill={plan.skills.nome}
+                  skillKey={plan.skills.key}
                   title={plan.exercises!.titulo}
                   description={plan.exercises!.objetivo ?? ''}
                   progress={successRate(plan)}

@@ -59,7 +59,7 @@ export function ParentRegisterScreen({ navigation }: any) {
     // dar no checkbox.
     useTermsGate.getState().suspender();
     try {
-      const { needsEmailConfirmation } = await signUpParent({
+      const { session, needsEmailConfirmation } = await signUpParent({
         nome,
         email,
         senha,
@@ -92,6 +92,7 @@ export function ParentRegisterScreen({ navigation }: any) {
       try {
         await registrarAceiteTermos();
         aceiteRegistrado = true;
+        useTermsGate.getState().confirmarAceite(session!.user.id);
       } catch (aceiteErr) {
         console.warn('[termos] registro do aceite falhou no cadastro:', aceiteErr);
       }
@@ -115,7 +116,7 @@ export function ParentRegisterScreen({ navigation }: any) {
       // a tela seguinte com a splash de verificação por duas idas ao servidor,
       // parecendo travamento no meio do onboarding; sem ele, o gate assume e
       // bloqueia o app até existir prova no banco.
-      useTermsGate.getState().retomar(!aceiteRegistrado);
+      if (!aceiteRegistrado) useTermsGate.getState().retomar();
     }
   };
 

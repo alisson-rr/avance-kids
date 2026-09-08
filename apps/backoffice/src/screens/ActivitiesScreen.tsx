@@ -149,7 +149,10 @@ export function ActivitiesScreen() {
     {
       key: 'skill',
       header: 'Habilidade',
-      render: (row) => <Badge color={getSkill(row.skillKey).corHex}>{getSkill(row.skillKey).label}</Badge>,
+      render: (row) => {
+        const skill = getSkill(row.skillKey);
+        return <Badge color={skill.tagText} backgroundColor={skill.tagBackground}>{skill.label}</Badge>;
+      },
       sortValue: (row) => getSkill(row.skillKey).label,
     },
     {

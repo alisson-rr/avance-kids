@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, TextInput, StyleSheet, TextInputProps } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, StyleSheet, TextInputProps, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 
@@ -7,15 +7,30 @@ interface InputProps extends TextInputProps {
   icon: keyof typeof Feather.glyphMap;
 }
 
-export function Input({ icon, ...props }: InputProps) {
+export function Input({ icon, secureTextEntry, ...props }: InputProps) {
+  const [senhaVisivel, setSenhaVisivel] = useState(false);
+  const permiteAlternarSenha = Boolean(secureTextEntry);
+
   return (
     <View style={styles.container}>
       <Feather name={icon} size={20} color={theme.colors.textLight} style={styles.icon} />
       <TextInput
         style={styles.input}
         placeholderTextColor={theme.colors.textLight}
+        secureTextEntry={permiteAlternarSenha && !senhaVisivel}
         {...props}
       />
+      {permiteAlternarSenha && (
+        <TouchableOpacity
+          style={styles.passwordButton}
+          onPress={() => setSenhaVisivel((visivel) => !visivel)}
+          accessibilityRole="button"
+          accessibilityLabel={senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <Feather name={senhaVisivel ? 'eye-off' : 'eye'} size={20} color={theme.colors.textLight} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -45,5 +60,10 @@ const styles = StyleSheet.create({
     // com altura fixa do container recorta o texto digitado (fica invisível).
     paddingVertical: 0,
     textAlignVertical: 'center',
-  }
+  },
+  passwordButton: {
+    marginLeft: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

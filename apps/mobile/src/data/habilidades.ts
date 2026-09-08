@@ -66,15 +66,36 @@ export const HABILIDADES: Habilidade[] = [
 
 // Cores das tags de habilidade usadas nos cards de atividade (plano e histórico)
 // Mesmas cores de fundo do Figma; texto escurecido para ficar legivel (>= 4.5:1).
-export const SKILL_COLORS: Record<string, { text: string; bg: string }> = {
-  'Comunicação':         { text: '#8A5A00', bg: '#FFF5E2' },
-  'Social':              { text: '#4F7000', bg: 'rgba(167, 213, 77, 0.1)' },
-  'Cognitiva':           { text: '#6B33CC', bg: 'rgba(159, 103, 255, 0.2)' },
-  'Coordenação motora':  { text: '#A34E00', bg: 'rgba(253, 137, 54, 0.2)' },
+export const SKILL_COLORS: Record<HabilidadeKey, { text: string; bg: string }> = {
+  comunicacao: { text: HABILIDADE_STYLES.comunicacao.textColor, bg: HABILIDADE_STYLES.comunicacao.tagBackground },
+  social: { text: HABILIDADE_STYLES.social.textColor, bg: HABILIDADE_STYLES.social.tagBackground },
+  cognitiva: { text: HABILIDADE_STYLES.cognitiva.textColor, bg: HABILIDADE_STYLES.cognitiva.tagBackground },
+  motora: { text: HABILIDADE_STYLES.motora.textColor, bg: HABILIDADE_STYLES.motora.tagBackground },
+  funcional: { text: HABILIDADE_STYLES.funcional.textColor, bg: HABILIDADE_STYLES.funcional.tagBackground },
 };
 
-export const getSkillColor = (skill: string) =>
-  SKILL_COLORS[skill] || { text: '#0E5DFD', bg: '#EEF4FF' };
+const SKILL_KEY_BY_NAME: Record<string, HabilidadeKey> = {
+  comunicacao: 'comunicacao',
+  social: 'social',
+  cognitiva: 'cognitiva',
+  coordenacao_motora: 'motora',
+  motora: 'motora',
+  funcional: 'funcional',
+};
+
+function normalizeSkillName(skill: string): string {
+  return skill
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '_');
+}
+
+export const getSkillColor = (skill: string) => {
+  const key = SKILL_KEY_BY_NAME[normalizeSkillName(skill)];
+  return key ? SKILL_COLORS[key] : { text: '#0E5DFD', bg: '#EEF4FF' };
+};
 
 export const MOCK_PERGUNTAS = [
   {

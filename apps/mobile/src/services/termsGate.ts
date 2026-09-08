@@ -84,6 +84,8 @@ interface TermsGateStore {
   aceitar: () => Promise<void>;
   /** Silencia o gate enquanto o cadastro registra o próprio aceite. */
   suspender: () => void;
+  /** Finaliza a suspensão já liberado quando o cadastro gravou o aceite. */
+  confirmarAceite: (usuarioId: string) => void;
   retomar: (reavaliar?: boolean) => void;
   limpar: () => void;
 }
@@ -150,6 +152,13 @@ export function criarTermsGate(deps: GateDeps) {
       suspenso = true;
       sequencia++;
       set({ estado: { tipo: 'ocioso' } });
+    },
+
+    confirmarAceite: (id) => {
+      suspenso = false;
+      usuarioId = id;
+      sequencia++;
+      set({ estado: { tipo: 'liberado' }, enviando: false });
     },
 
     // O cadastro só precisa reavaliar quando o próprio registro do aceite

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Avance Kids",
     "slug": "avance-kids",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "scheme": "avancekids",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,7 +12,8 @@
     },
     "android": {
       "package": "br.com.avancekids.app",
-      "versionCode": 2,
+      "versionCode": 3,
+      "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF",
         "foregroundImage": "./assets/android-icon-foreground.png"

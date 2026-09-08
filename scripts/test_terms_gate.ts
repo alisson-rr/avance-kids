@@ -244,16 +244,16 @@ const casos: [string, () => Promise<void>][] = [
     assert.equal(store.getState().estado.tipo, 'liberado', 'avaliação antiga sobrescreveu a atual');
   }],
 
-  ['P. cadastro: suspender silencia o gate e retomar(false) não repinta a tela', async () => {
+  ['P. cadastro: aceite gravado libera o gate sem pedir o mesmo texto de novo', async () => {
     const store = criarTermsGate(deps(V1, []));
 
     store.getState().suspender();
     await store.getState().avaliar(USUARIO); // durante o signUp
     assert.equal(store.getState().estado.tipo, 'ocioso', 'gate apareceu no meio do cadastro');
 
-    store.getState().retomar(false); // aceite gravado com sucesso
+    store.getState().confirmarAceite(USUARIO);
     await proximoTick();
-    assert.equal(store.getState().estado.tipo, 'ocioso', 'reavaliou sem motivo');
+    assert.equal(store.getState().estado.tipo, 'liberado', 'pediu novamente um aceite já gravado');
   }],
 
   ['Q. cadastro: se o aceite falhar, retomar() bloqueia o app', async () => {

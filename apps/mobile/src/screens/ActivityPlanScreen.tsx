@@ -124,6 +124,7 @@ export function ActivityPlanScreen({ navigation }: any) {
                   <SkillActivityCard
                     key={plan.id}
                     skill={plan.skills.nome}
+                    skillKey={plan.skills.key}
                     title={plan.exercises!.titulo}
                     description={planDescription(plan)}
                     progress={progressFor(plan)}
@@ -148,6 +149,7 @@ export function ActivityPlanScreen({ navigation }: any) {
                     <SkillActivityCard
                       key={plan.id}
                       skill={plan.skills.nome}
+                      skillKey={plan.skills.key}
                       title={plan.exercises!.titulo}
                       description={planDescription(plan)}
                       locked
@@ -171,6 +173,7 @@ export function ActivityPlanScreen({ navigation }: any) {
                     <SkillActivityCard
                       key={plan.id}
                       skill={plan.skills.nome}
+                      skillKey={plan.skills.key}
                       title="Atividade premium"
                       description="Disponível para assinantes. Toque para ver os planos."
                       locked

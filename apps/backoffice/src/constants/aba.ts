@@ -1,6 +1,5 @@
 // Domínio ABA (Análise do Comportamento Aplicada) usado no cadastro de atividades.
-// Espelha os 5 domínios já usados no app mobile (apps/mobile/src/data/habilidades.ts)
-// e a paleta cadastrada em skills no schema de referência.
+// Espelha os 5 domínios e as cores de tags usados no app mobile.
 
 import type { RecordStatus, MediaType } from '../types/common';
 
@@ -9,15 +8,17 @@ export type HabilidadeKey = 'comunicacao' | 'social' | 'cognitiva' | 'motora' | 
 export interface Habilidade {
   key: HabilidadeKey;
   label: string;
-  corHex: string;
+  tagBackground: string;
+  tagText: string;
 }
 
+// Mesma paleta usada na triagem e nos cards do app mobile.
 export const SKILLS: Habilidade[] = [
-  { key: 'comunicacao', label: 'Comunicação', corHex: '#3B82F6' },
-  { key: 'social', label: 'Social', corHex: '#22C55E' },
-  { key: 'cognitiva', label: 'Cognitiva', corHex: '#F59E0B' },
-  { key: 'motora', label: 'Coordenação Motora', corHex: '#8B5CF6' },
-  { key: 'funcional', label: 'Funcional', corHex: '#EC4899' },
+  { key: 'comunicacao', label: 'Comunicação', tagBackground: '#FFF5E2', tagText: '#8A5A00' },
+  { key: 'social', label: 'Social', tagBackground: '#F6FAED', tagText: '#4F7000' },
+  { key: 'cognitiva', label: 'Cognitiva', tagBackground: '#ECE1FF', tagText: '#6B33CC' },
+  { key: 'motora', label: 'Coordenação Motora', tagBackground: '#FFE7D7', tagText: '#A34E00' },
+  { key: 'funcional', label: 'Funcional', tagBackground: '#FFE2EA', tagText: '#B8244B' },
 ];
 
 export function getSkill(key: HabilidadeKey): Habilidade {

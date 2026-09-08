@@ -8,6 +8,8 @@ const LOCKED_TEXT = '#6B6B6B';
 
 interface SkillActivityCardProps {
   skill: string;
+  /** Chave estável vinda do banco; evita depender da grafia exibida. */
+  skillKey?: string;
   title: string;
   description: string;
   onPress?: () => void;
@@ -23,6 +25,7 @@ interface SkillActivityCardProps {
 
 export function SkillActivityCard({
   skill,
+  skillKey,
   title,
   description,
   onPress,
@@ -58,7 +61,7 @@ export function SkillActivityCard({
     );
   }
 
-  const color = getSkillColor(skill);
+  const color = getSkillColor(skillKey ?? skill);
 
   return (
     <TouchableOpacity style={styles.card} activeOpacity={0.7} onPress={onPress}>

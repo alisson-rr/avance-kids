@@ -33,9 +33,7 @@ export function FormScreen({ title, onBack, children, contentStyle }: FormScreen
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <KeyboardAvoidingView
         style={styles.container}
-        // No Android o windowSoftInputMode já é adjustResize; usar 'height'
-        // aqui encolhe a tela duas vezes e espreme o formulário.
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         {title && onBack && <ScreenHeader title={title} onBack={onBack} />}
 
@@ -46,6 +44,7 @@ export function FormScreen({ title, onBack, children, contentStyle }: FormScreen
           // e o botão de salvar exige dois toques.
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
+          automaticallyAdjustKeyboardInsets={Platform.OS === 'ios'}
         >
           <View style={[styles.body, { paddingTop: title ? 20 : 60 }, contentStyle]}>
             {children}
