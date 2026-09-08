@@ -96,15 +96,15 @@
     "semantic_hash": "dc580fca35a0e98ed20777ede5e545a1"
   },
   "apps/mobile/App.tsx": {
-    "mtime": 1788885536.6559887,
-    "seen": 1788886953.6314874,
-    "ast_hash": "0ac9eefa9cc88d27046faccba173d891",
+    "mtime": 1788892528.9385965,
+    "seen": 1788894435.4436798,
+    "ast_hash": "6d1ae89d3bb28f3e65bccf6a966ae894",
     "semantic_hash": ""
   },
   "apps/mobile/app.json": {
-    "mtime": 1788886768.7318914,
-    "seen": 1788886953.6314874,
-    "ast_hash": "1ef7999f0335efcdf377adf9d8d1717b",
+    "mtime": 1788892528.9391296,
+    "seen": 1788894435.4436798,
+    "ast_hash": "f37c72ff1f7ae89e61cf16d8a01b96e5",
     "semantic_hash": ""
   },
   "apps/mobile/index.ts": {
@@ -120,9 +120,9 @@
     "semantic_hash": "3ba87ec316a5ba48025c05168d3adf9f"
   },
   "apps/mobile/package.json": {
-    "mtime": 1788838733.41082,
-    "seen": 1788886953.6314874,
-    "ast_hash": "3808b57632989dca4973b9cff0ff5bf4",
+    "mtime": 1788894367.0226169,
+    "seen": 1788894435.4436798,
+    "ast_hash": "7b0308ac75115b4fa5f5a572dc20c612",
     "semantic_hash": ""
   },
   "apps/mobile/src/components/BottomSheetSelect.tsx": {
@@ -1497,6 +1497,42 @@
     "mtime": 1788886102.0733852,
     "seen": 1788886953.6314874,
     "ast_hash": "41afb5366b14f8a2b23833930f35848f",
+    "semantic_hash": ""
+  },
+  "apps/mobile/public/manifest.json": {
+    "mtime": 1788892528.9402776,
+    "seen": 1788894435.4436798,
+    "ast_hash": "d0b401b8f91c11a9b3daeaa0cd5aa7f3",
+    "semantic_hash": ""
+  },
+  "apps/mobile/src/components/PwaInstallPrompt.tsx": {
+    "mtime": 1788892528.9396777,
+    "seen": 1788894435.4436798,
+    "ast_hash": "a9f446ed0de307c46fc913df7a4d3f6e",
+    "semantic_hash": ""
+  },
+  "apps/mobile/vercel.json": {
+    "mtime": 1788894367.0237453,
+    "seen": 1788894435.4436798,
+    "ast_hash": "a299875c4a42e4fe81f5548298e26d09",
+    "semantic_hash": ""
+  },
+  "apps/mobile/public/index.html": {
+    "mtime": 1788892528.9402776,
+    "seen": 1788894435.4436798,
+    "ast_hash": "0cb7ff41e97d60fb32c858ab5c1adadf",
+    "semantic_hash": ""
+  },
+  "apps/mobile/public/pwa-icon-192.png": {
+    "mtime": 1788892562.51936,
+    "seen": 1788894435.4436798,
+    "ast_hash": "7628398226a0ccacb34aaf129668794c",
+    "semantic_hash": ""
+  },
+  "apps/mobile/public/pwa-icon-512.png": {
+    "mtime": 1788892562.5409486,
+    "seen": 1788894435.4436798,
+    "ast_hash": "1dc53a3d94939f59812008203d9bfdfa",
     "semantic_hash": ""
   }
 }
