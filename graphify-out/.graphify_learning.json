@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T18:22:37.844660+00:00",
+  "generated_at": "2026-09-16T19:54:04.629169+00:00",
   "nodes": {
     "apps_backoffice_src_screens_questioncrudscreen": {
       "code_fingerprint": "43f914c68afa541a197aba89aed88ae7e93539e77a004e48519835a44ab6e852",
@@ -12,7 +12,7 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.974418294,
+      "score": 0.972989613,
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "status": "tentative",
       "uses": 1
@@ -28,7 +28,7 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.974418294,
+      "score": 0.972989613,
       "source_file": "apps/mobile/src/constants/options.ts",
       "status": "tentative",
       "uses": 1
@@ -44,7 +44,7 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.974418294,
+      "score": 0.972989613,
       "source_file": "apps/mobile/src/screens/ActivityScreen.tsx",
       "status": "tentative",
       "uses": 1
@@ -60,7 +60,7 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.974418294,
+      "score": 0.972989613,
       "source_file": "apps/mobile/src/screens/HomeScreen.tsx",
       "status": "tentative",
       "uses": 1
@@ -76,7 +76,7 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.974418294,
+      "score": 0.972989613,
       "source_file": "apps/mobile/src/screens/TriagemScreen.tsx",
       "status": "tentative",
       "uses": 1

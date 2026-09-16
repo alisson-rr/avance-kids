@@ -204,9 +204,9 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/ActivityScreen.tsx": {
-    "mtime": 1788838733.4198194,
-    "seen": 1788886953.6314874,
-    "ast_hash": "f450c5ee47db1b4d266065ab6241d8f6",
+    "mtime": 1789485781.039173,
+    "seen": 1789588444.5102344,
+    "ast_hash": "c3340d5f2603266cf81aa6d7ea40c393",
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/ChangePasswordScreen.tsx": {
@@ -216,9 +216,9 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/ChildRegisterScreen.tsx": {
-    "mtime": 1788838733.4208195,
-    "seen": 1788886953.6314874,
-    "ast_hash": "9dc0de86b6bae98821abbdefa42e7e02",
+    "mtime": 1789486066.5239537,
+    "seen": 1789588444.5102344,
+    "ast_hash": "95b19bb75afad1da6d3a666f96234130",
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/ChildrenListScreen.tsx": {
@@ -228,9 +228,9 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/EditChildProfileScreen.tsx": {
-    "mtime": 1788838733.4228196,
-    "seen": 1788886953.6314874,
-    "ast_hash": "d68ed6bffaf7991c3d3e75236afb3efe",
+    "mtime": 1789486066.7725408,
+    "seen": 1789588444.5102344,
+    "ast_hash": "46f57a96199c3b7629030f001b2d08a0",
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/EditParentProfileScreen.tsx": {
@@ -246,9 +246,9 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/HomeScreen.tsx": {
-    "mtime": 1788885536.6559887,
-    "seen": 1788886953.6314874,
-    "ast_hash": "17632e7fc8ab01d191f1652245013118",
+    "mtime": 1789485807.8491664,
+    "seen": 1789588444.5102344,
+    "ast_hash": "04d4916860c612b87f844ac81577ed72",
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/LoginScreen.tsx": {
@@ -300,9 +300,9 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/screens/TriagemScreen.tsx": {
-    "mtime": 1788838733.4278188,
-    "seen": 1788886953.6314874,
-    "ast_hash": "a18d4ecd8c35dc1d0db9c9df8234cbd6",
+    "mtime": 1789485753.3458965,
+    "seen": 1789588444.5102344,
+    "ast_hash": "e3a1b5ba08dd21fe23f1f3bbc161f698",
     "semantic_hash": ""
   },
   "apps/mobile/src/store/useProfileStore.ts": {
@@ -792,9 +792,9 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/constants/options.ts": {
-    "mtime": 1784388445.008833,
-    "seen": 1788537265.4667401,
-    "ast_hash": "18cdc172998a838b0da425fc3955a69b",
+    "mtime": 1789486066.2806487,
+    "seen": 1789588444.5102344,
+    "ast_hash": "5b601f9b0490e8de8277244dfba79ea6",
     "semantic_hash": ""
   },
   "apps/backoffice/src/components/ui/ImageUploadField/ImageUploadField.tsx": {
@@ -942,9 +942,9 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/services/activities.ts": {
-    "mtime": 1784475365.2917132,
-    "seen": 1788537265.4667401,
-    "ast_hash": "559118dc0c078750ae73fe6790d18893",
+    "mtime": 1789485780.795748,
+    "seen": 1789588444.5102344,
+    "ast_hash": "f38073967567f2fd5e4907e44af5b2ad",
     "semantic_hash": ""
   },
   "apps/mobile/src/services/api.ts": {
@@ -978,9 +978,9 @@
     "semantic_hash": ""
   },
   "apps/mobile/src/services/questions.ts": {
-    "mtime": 1788838733.42982,
-    "seen": 1788886953.6314874,
-    "ast_hash": "20e3980bafec4957ad4c2233f1766572",
+    "mtime": 1789485723.4751458,
+    "seen": 1789588444.5102344,
+    "ast_hash": "0a19d5719d018f56d73eb820a24c7a49",
     "semantic_hash": ""
   },
   "apps/mobile/src/services/subscription.ts": {
@@ -1533,6 +1533,114 @@
     "mtime": 1788892562.5409486,
     "seen": 1788894435.4436798,
     "ast_hash": "1dc53a3d94939f59812008203d9bfdfa",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/D\u00favidas e ajustes - Avance Kids/DvidaseajustesAvanceKids.html": {
+    "mtime": 1789481109.9788175,
+    "seen": 1789588444.5102344,
+    "ast_hash": "780e414cca2f36b5b48980a0b62897c3",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260915_152731_v\u00ea_pra_mim_o_que_tu_acha__se_eu_esqueci_alguma_coi.md": {
+    "mtime": 1789486051.0617576,
+    "seen": 1789588444.5102344,
+    "ast_hash": "690a2b2d86cae9a1dba34bdcdf2e6d29",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260916_182428_o_que_ainda_falta_no_avance_kids_ap\u00f3s_as_respostas.md": {
+    "mtime": 1789583068.9166262,
+    "seen": 1789588444.5102344,
+    "ast_hash": "88d8ed2c3e4980d7a156479dcc633fa9",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/Avatares/Cognitiva.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "6da32e10a4afcc241054c908c374b8a9",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/Avatares/Comunica\u00e7\u00e3o.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "2ec10d816cf12ca61f33a5ae954d425c",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/Avatares/Coordena\u00e7\u00e3o motora.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "341a261e44b6724f79097f1ecfa97bef",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/Avatares/Funcional.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "b5696f9c7f58b4b008a4009311ad93c8",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/Avatares/Social.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "ba2f3d42cad465cac3d16ad222a4926b",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/D\u00favidas e ajustes - Avance Kids/images/image1.png": {
+    "mtime": 1789481110.008103,
+    "seen": 1789588444.5102344,
+    "ast_hash": "e3fd07793419b87efe062cc20efce601",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/D\u00favidas e ajustes - Avance Kids/images/image2.png": {
+    "mtime": 1789481110.029243,
+    "seen": 1789588444.5102344,
+    "ast_hash": "9aeb935ab735e96cd95393205cc6b1ae",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/D\u00favidas e ajustes - Avance Kids/images/image3.png": {
+    "mtime": 1789481110.0497708,
+    "seen": 1789588444.5102344,
+    "ast_hash": "aa1396247c3c00eef57d1268b5ea341f",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/D\u00favidas e ajustes - Avance Kids/images/image4.png": {
+    "mtime": 1789481110.0720236,
+    "seen": 1789588444.5102344,
+    "ast_hash": "e9b65fa227f828a0f666be5eb96342a0",
+    "semantic_hash": ""
+  },
+  "AvanceKids-DOCUMENTACAO/D\u00favidas e ajustes - Avance Kids/images/image5.png": {
+    "mtime": 1789481110.0927162,
+    "seen": 1789588444.5102344,
+    "ast_hash": "964d40b2c5c094b34c93baad547ed121",
+    "semantic_hash": ""
+  },
+  "apps/mobile/assets/avatar-cognitiva.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "6da32e10a4afcc241054c908c374b8a9",
+    "semantic_hash": ""
+  },
+  "apps/mobile/assets/avatar-comunicacao.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "2ec10d816cf12ca61f33a5ae954d425c",
+    "semantic_hash": ""
+  },
+  "apps/mobile/assets/avatar-funcional.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "b5696f9c7f58b4b008a4009311ad93c8",
+    "semantic_hash": ""
+  },
+  "apps/mobile/assets/avatar-motora.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "341a261e44b6724f79097f1ecfa97bef",
+    "semantic_hash": ""
+  },
+  "apps/mobile/assets/avatar-social.png": {
+    "mtime": 1789434232.0,
+    "seen": 1789588444.5102344,
+    "ast_hash": "ba2f3d42cad465cac3d16ad222a4926b",
     "semantic_hash": ""
   }
 }
