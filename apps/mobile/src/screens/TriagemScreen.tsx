@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Image,
   TouchableOpacity,
   ScrollView,
   StatusBar,
@@ -10,9 +11,10 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
-import { HABILIDADE_STYLES, type HabilidadeKey } from '../data/habilidades';
+import { type HabilidadeKey } from '../data/habilidades';
 import { fetchAgeBrackets, fetchSkills, resolveBracketForMonths } from '../services/catalog';
 import { fetchQuestions, fetchScreeningAnsweredCounts } from '../services/questions';
 import { generateActivityPlan } from '../services/activities';
@@ -21,7 +23,16 @@ import { showDialog, showError } from '../ui/dialog';
 import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
 import type { SkillRow } from '../types/db';
 
-const FALLBACK_STYLE = HABILIDADE_STYLES.comunicacao;
+const HABILIDADE_AVATARS: Record<HabilidadeKey, any> = {
+  comunicacao: require('../../assets/avatar-comunicacao.png'),
+  social: require('../../assets/avatar-social.png'),
+  cognitiva: require('../../assets/avatar-cognitiva.png'),
+  motora: require('../../assets/avatar-motora.png'),
+  funcional: require('../../assets/avatar-funcional.png'),
+};
+
+const avatarFor = (skill: SkillRow) =>
+  HABILIDADE_AVATARS[skill.key as HabilidadeKey] ?? HABILIDADE_AVATARS.comunicacao;
 
 // ─── COMPONENT ────────────────────────────────────────────────────────
 export function TriagemScreen({ navigation }: any) {
@@ -116,9 +127,6 @@ export function TriagemScreen({ navigation }: any) {
     }
   };
 
-  const styleFor = (skill: SkillRow) =>
-    HABILIDADE_STYLES[skill.key as HabilidadeKey] ?? FALLBACK_STYLE;
-
   return (
     <View style={[styles.safeArea, { paddingTop: safeTop, paddingBottom: insets.bottom }]}>
       <StatusBar barStyle="dark-content" backgroundColor="#FAFAFA" />
@@ -161,44 +169,56 @@ export function TriagemScreen({ navigation }: any) {
           </View>
         ) : (
           <View style={styles.cardsList}>
-            {skills.map((skill) => (
-              <TouchableOpacity
-                key={skill.id}
-                style={styles.card}
-                activeOpacity={0.7}
-                onPress={() =>
-                  navigation.navigate('Habilidade', {
-                    skillId: skill.id,
-                    skillKey: skill.key,
-                    skillNome: skill.nome,
-                    bracketId,
-                  })
-                }
-              >
-                {/* Colored circle */}
-                <View style={[styles.circle, { backgroundColor: styleFor(skill).background }]} />
+            {skills.map((skill) => {
+              const total = totals[skill.id] ?? 0;
+              const answerCount = Math.min(answered[skill.id] ?? 0, total);
+              const isComplete = total > 0 && answerCount >= total;
 
-                {/* Right content */}
-                <View style={styles.cardRight}>
-                  <View style={styles.cardMeta}>
-                    <View style={styles.cardTitleGroup}>
-                      <Text style={styles.cardTitle} numberOfLines={2}>{skill.nome}</Text>
+              return (
+                <TouchableOpacity
+                  key={skill.id}
+                  style={styles.card}
+                  activeOpacity={0.7}
+                  onPress={() =>
+                    navigation.navigate('Habilidade', {
+                      skillId: skill.id,
+                      skillKey: skill.key,
+                      skillNome: skill.nome,
+                      bracketId,
+                    })
+                  }
+                  accessibilityRole="button"
+                  accessibilityLabel={`${skill.nome}. ${answerCount} de ${total} perguntas respondidas${isComplete ? '. Concluída' : ''}.`}
+                >
+                  <Image source={avatarFor(skill)} style={styles.avatar} resizeMode="contain" />
+
+                  <View style={styles.cardRight}>
+                    <View style={styles.cardMeta}>
+                      <View style={styles.cardTitleGroup}>
+                        <Text style={styles.cardTitle} numberOfLines={2}>{skill.nome}</Text>
+                      </View>
+                      <View style={styles.cardCountGroup}>
+                        {isComplete && (
+                          <Ionicons
+                            name="checkmark-circle"
+                            size={20}
+                            color={theme.colors.logoGreen}
+                            accessibilityElementsHidden
+                            importantForAccessibility="no-hide-descendants"
+                          />
+                        )}
+                        <Text style={styles.cardCount}>{answerCount}/{total}</Text>
+                      </View>
                     </View>
-                    <View style={styles.cardCountGroup}>
-                      <Text style={styles.cardCount}>
-                        {Math.min(answered[skill.id] ?? 0, totals[skill.id] ?? 0)}/
-                        {totals[skill.id] ?? 0}
-                      </Text>
+
+                    <View style={styles.responderRow}>
+                      <Text style={styles.responderText}>{isComplete ? 'Revisar respostas' : 'Responder'}</Text>
+                      <Text style={styles.responderArrow}>›</Text>
                     </View>
                   </View>
-
-                  <View style={styles.responderRow}>
-                    <Text style={styles.responderText}>Responder</Text>
-                    <Text style={styles.responderArrow}>›</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
+                </TouchableOpacity>
+              );
+            })}
           </View>
         )}
 
@@ -300,10 +320,9 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 4,
   },
-  circle: {
+  avatar: {
     width: 76,
     height: 76,
-    borderRadius: 100,
   },
   cardRight: {
     flex: 1,
@@ -323,7 +342,9 @@ const styles = StyleSheet.create({
     color: '#424242',
   },
   cardCountGroup: {
-    gap: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
   cardCount: {
     fontFamily: theme.fonts.regular,

@@ -10,9 +10,9 @@ import type { QuestionKind, QuestionRow } from '../types/db';
  * de idade ignoram as linhas de NV, em vez de tratá-las como "quase nunca".
  */
 export const QUESTION_OPTIONS = [
-  { label: 'Quase nunca — cerca de 1 vez a cada 5', valorNumerico: 0, naoObservado: false },
-  { label: 'Às vezes — cerca de 2 a 3 vezes a cada 5', valorNumerico: 1, naoObservado: false },
-  { label: 'Quase sempre — cerca de 4 a 5 vezes a cada 5', valorNumerico: 2, naoObservado: false },
+  { label: 'Quase nunca', valorNumerico: 0, naoObservado: false },
+  { label: 'Às vezes', valorNumerico: 1, naoObservado: false },
+  { label: 'Quase sempre', valorNumerico: 2, naoObservado: false },
   { label: 'Ainda não verifiquei essa situação', valorNumerico: 0, naoObservado: true },
 ] as const;
 

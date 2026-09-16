@@ -19,6 +19,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
 import {
   fetchPlan,
+  findOpenSession,
+  restartExerciseSession,
   startExerciseSession,
   registerAttempt,
 } from '../services/activities';
@@ -52,6 +54,7 @@ export function ActivityScreen({ navigation, route }: any) {
   const [blockedByPlan, setBlockedByPlan] = useState(false);
   const [session, setSession] = useState<ExerciseSessionRow | null>(null);
   const [starting, setStarting] = useState(false);
+  const [restarting, setRestarting] = useState(false);
   const [registering, setRegistering] = useState(false);
 
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
@@ -164,6 +167,35 @@ export function ActivityScreen({ navigation, route }: any) {
     }
   };
 
+  const performRestart = async () => {
+    if (!plan || restarting) return;
+    setRestarting(true);
+    try {
+      const { session: freshSession } = await restartExerciseSession(plan.id);
+      setSession(freshSession);
+      setCurrentRepetition(1);
+      setSelectedOption(null);
+      setIsCompleted(false);
+      setIsBottomSheetVisible(true);
+    } catch (err) {
+      showError('Não foi possível recomeçar', errorMessage(err));
+    } finally {
+      setRestarting(false);
+    }
+  };
+
+  const handleRestart = () => {
+    showDialog({
+      title: 'Recomeçar atividade?',
+      message: 'As respostas registradas nesta tentativa serão apagadas e a atividade voltará para a primeira repetição.',
+      variant: 'info',
+      buttons: [
+        { label: 'Cancelar', kind: 'ghost' },
+        { label: 'Recomeçar', kind: 'primary', onPress: () => void performRestart() },
+      ],
+    });
+  };
+
   const handleSkipOrNext = () => {
     setIsBottomSheetVisible(false);
     navigation.navigate('ActivityPlan');
@@ -237,6 +269,8 @@ export function ActivityScreen({ navigation, route }: any) {
   const exercise = plan.exercises;
   const isVideo = exercise.media_type === 'video' && !!exercise.media_url;
   const description = [exercise.objetivo, exercise.procedimento].filter(Boolean).join('\n\n');
+  const currentSession = session ?? findOpenSession(plan);
+  const hasAttemptInProgress = (currentSession?.total_repetitions ?? 0) > 0;
 
   return (
     <View style={[styles.screen, { paddingTop: safeTop }]}>
@@ -316,9 +350,23 @@ export function ActivityScreen({ navigation, route }: any) {
           {starting ? (
             <ActivityIndicator color="#FFFFFF" />
           ) : (
-            <Text style={styles.primaryButtonText}>Começar</Text>
+            <Text style={styles.primaryButtonText}>{hasAttemptInProgress ? 'Continuar' : 'Começar'}</Text>
           )}
         </TouchableOpacity>
+        {hasAttemptInProgress && (
+          <TouchableOpacity
+            style={[styles.secondaryButton, restarting && { opacity: 0.6 }]}
+            activeOpacity={0.8}
+            onPress={handleRestart}
+            disabled={restarting}
+          >
+            {restarting ? (
+              <ActivityIndicator color="#0E5DFD" />
+            ) : (
+              <Text style={styles.secondaryButtonText}>Recomeçar atividade</Text>
+            )}
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* ── BOTTOM TAB BAR ── */}
@@ -568,6 +616,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 24,
     paddingBottom: 16,
+    gap: 12,
   },
   primaryButton: {
     width: '100%',

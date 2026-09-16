@@ -37,6 +37,21 @@ export function startExerciseSession(planId: string) {
   );
 }
 
+/** Descarta apenas a sessão aberta do plano e inicia uma nova do zero. */
+export async function restartExerciseSession(planId: string) {
+  const now = new Date().toISOString();
+  const { error } = await supabase
+    .from('exercise_sessions')
+    .delete()
+    .eq('plan_id', planId)
+    .eq('is_completed', false)
+    .lt('total_repetitions', 10)
+    .gt('expires_at', now);
+
+  if (error) throw new Error(error.message);
+  return startExerciseSession(planId);
+}
+
 export interface RegisterAttemptResult {
   repetition: number;
   total_repetitions: number;

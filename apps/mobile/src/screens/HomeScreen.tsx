@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, ScrollView, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Animated, ScrollView, StatusBar, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { BottomTabBar } from '../components/BottomTabBar';
@@ -87,6 +87,8 @@ const SectionHeader = ({
 
 export function HomeScreen({ navigation }: any) {
   const insets = useSafeAreaInsets();
+  const { width: windowWidth } = useWindowDimensions();
+  const carouselPageWidth = windowWidth <= 600 ? windowWidth : 393;
   const { parentName } = useProfileStore();
   const activeChild = useProfileStore(selectActiveChild);
   const firstName = parentName.split(' ')[0] || 'Usuário';
@@ -272,20 +274,29 @@ export function HomeScreen({ navigation }: any) {
                 subtitle="Ideias para estimular brincando"
                 onSeeMore={plays.length > 4 ? () => navigation.navigate('ContentList', { kind: 'plays' }) : undefined}
               />
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.horizontalScroll}
+                snapToInterval={carouselPageWidth}
+                snapToAlignment="start"
+                decelerationRate="fast"
+                disableIntervalMomentum
+              >
                 {plays.slice(0, 4).map((play) => (
-                  <ActivityCard
-                    key={play.id}
-                    title={play.titulo}
-                    description={play.descricao ?? (play.bloqueado ? 'Disponível no plano premium' : undefined)}
-                    imageSource={
-                      play.media_type === 'imagem' && play.media_url
-                        ? { uri: play.media_url }
-                        : undefined
-                    }
-                    locked={play.bloqueado}
-                    onPress={() => openPlay(play)}
-                  />
+                  <View key={play.id} style={[styles.activityCardPage, { width: carouselPageWidth }]}>
+                    <ActivityCard
+                      title={play.titulo}
+                      description={play.descricao ?? (play.bloqueado ? 'Disponível no plano premium' : undefined)}
+                      imageSource={
+                        play.media_type === 'imagem' && play.media_url
+                          ? { uri: play.media_url }
+                          : undefined
+                      }
+                      locked={play.bloqueado}
+                      onPress={() => openPlay(play)}
+                    />
+                  </View>
                 ))}
               </ScrollView>
             </View>
@@ -298,16 +309,25 @@ export function HomeScreen({ navigation }: any) {
                 subtitle="Artigos e dicas para o dia a dia"
                 onSeeMore={articles.length > 4 ? () => navigation.navigate('ContentList', { kind: 'articles' }) : undefined}
               />
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.horizontalScroll}
+                snapToInterval={carouselPageWidth}
+                snapToAlignment="start"
+                decelerationRate="fast"
+                disableIntervalMomentum
+              >
                 {articles.slice(0, 4).map((article) => (
-                  <ActivityCard
-                    key={article.id}
-                    title={article.titulo}
-                    description={article.corpo?.slice(0, 90) ?? 'Disponível no plano premium'}
-                    imageSource={article.imagem_url ? { uri: article.imagem_url } : undefined}
-                    locked={article.bloqueado}
-                    onPress={() => openArticle(article)}
-                  />
+                  <View key={article.id} style={[styles.activityCardPage, { width: carouselPageWidth }]}>
+                    <ActivityCard
+                      title={article.titulo}
+                      description={article.corpo?.slice(0, 90) ?? 'Disponível no plano premium'}
+                      imageSource={article.imagem_url ? { uri: article.imagem_url } : undefined}
+                      locked={article.bloqueado}
+                      onPress={() => openArticle(article)}
+                    />
+                  </View>
                 ))}
               </ScrollView>
             </View>
@@ -576,12 +596,13 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   horizontalScroll: {
-    paddingLeft: 24,
-    paddingRight: 8,
-    gap: 24,
+    paddingRight: 0,
+  },
+  activityCardPage: {
+    paddingHorizontal: 24,
   },
   activityCard: {
-    width: 262,
+    width: '100%',
     height: 347,
     backgroundColor: '#FFFFFF', 
     borderRadius: 12,
@@ -592,7 +613,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   activityCardImageContainer: {
-    width: 262,
+    width: '100%',
     height: 173,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
@@ -616,7 +637,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   activityCardContent: {
-    width: 262,
+    width: '100%',
     height: 174,
     backgroundColor: '#FFFFFF',
     borderBottomLeftRadius: 12,

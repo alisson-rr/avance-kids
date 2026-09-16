@@ -7,7 +7,7 @@ import { Button } from '../components/Button';
 import { PhotoPicker } from '../components/PhotoPicker';
 import { useProfileStore } from '../store/useProfileStore';
 import { maskDate, maskCpf, toIsoDate, fromIsoDate, digitsOnly } from '../utils/formatters';
-import { GENDER_OPTIONS, DISORDER_OPTIONS } from '../constants/options';
+import { CHILD_GENDER_OPTIONS, DISORDER_OPTIONS } from '../constants/options';
 import { updateChild as updateChildRemote } from '../services/children';
 import { uploadAvatar } from '../services/storage';
 import { errorMessage } from '../services/api';
@@ -114,10 +114,10 @@ export function EditChildProfileScreen({ navigation, route }: any) {
           placeholder="Gênero"
           value={genero}
           onChange={setGenero}
-          options={GENDER_OPTIONS}
+          options={CHILD_GENDER_OPTIONS}
         />
         <SolidInput
-          placeholder="CPF"
+          placeholder="CPF (opcional)"
           value={cpf}
           onChangeText={(t) => setCpf(maskCpf(t))}
           keyboardType="numeric"
