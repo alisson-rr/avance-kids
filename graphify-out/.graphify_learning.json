@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-16T19:54:04.629169+00:00",
+  "generated_at": "2026-09-17T01:07:18.225279+00:00",
   "nodes": {
     "apps_backoffice_src_screens_questioncrudscreen": {
-      "code_fingerprint": "43f914c68afa541a197aba89aed88ae7e93539e77a004e48519835a44ab6e852",
+      "code_fingerprint": "439b3293998ae71cd8a363f1997386a771e147e47855908eec2ae1d2fd0d9645",
       "label": "QuestionCrudScreen.tsx",
       "last": "2026-09-15T15:27:31.061757+00:00",
       "provenance": [
@@ -12,7 +12,7 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.972989613,
+      "score": 0.968111884,
       "source_file": "apps/backoffice/src/screens/QuestionCrudScreen.tsx",
       "status": "tentative",
       "uses": 1
@@ -28,13 +28,13 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.972989613,
+      "score": 0.968111884,
       "source_file": "apps/mobile/src/constants/options.ts",
       "status": "tentative",
       "uses": 1
     },
     "apps_mobile_src_screens_activityscreen": {
-      "code_fingerprint": "e85680866627e783244918706a5e97ddccfd300ca3571820e6cad04dfc6743d1",
+      "code_fingerprint": "0e5b884786ac2f071f696697002f7421b962d04ca4b0edac7340264454516e22",
       "label": "ActivityScreen.tsx",
       "last": "2026-09-15T15:27:31.061757+00:00",
       "provenance": [
@@ -44,13 +44,13 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.972989613,
+      "score": 0.968111884,
       "source_file": "apps/mobile/src/screens/ActivityScreen.tsx",
       "status": "tentative",
       "uses": 1
     },
     "apps_mobile_src_screens_homescreen": {
-      "code_fingerprint": "1dcb5a1f655e1d48d30671e169d1bbfb1db8be1189cde34e16b2a60836e3bb51",
+      "code_fingerprint": "71c637b68e7e440780da7f9856f6ada599c67f18d464b7a524ffe974b16f3943",
       "label": "HomeScreen.tsx",
       "last": "2026-09-15T15:27:31.061757+00:00",
       "provenance": [
@@ -60,7 +60,7 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.972989613,
+      "score": 0.968111884,
       "source_file": "apps/mobile/src/screens/HomeScreen.tsx",
       "status": "tentative",
       "uses": 1
@@ -76,7 +76,7 @@
           "q": "Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
         }
       ],
-      "score": 0.972989613,
+      "score": 0.968111884,
       "source_file": "apps/mobile/src/screens/TriagemScreen.tsx",
       "status": "tentative",
       "uses": 1
