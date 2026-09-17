@@ -4,16 +4,36 @@ import { theme } from '../theme';
 import { FormScreen } from '../components/FormScreen';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { GoogleButton } from '../components/GoogleButton';
 import { Logo } from '../components/Logo';
-import { signIn, resetPassword } from '../services/auth';
+import { signIn, signInWithGoogle, resetPassword } from '../services/auth';
 import { errorMessage } from '../services/api';
 import { showDialog, showError, showSuccess } from '../ui/dialog';
 import { useProfileStore } from '../store/useProfileStore';
+import { destinoAoEntrar } from '../lib/destinoAoEntrar';
 
 export function LoginScreen({ navigation }: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogleLogin = async () => {
+    if (googleLoading) return;
+    setGoogleLoading(true);
+    try {
+      const session = await signInWithGoogle();
+      // null = a pessoa fechou o seletor do Google: continua no login.
+      if (!session) return;
+      await useProfileStore.getState().loadAll();
+      // Conta nova do Google segue o mesmo onboarding do cadastro por e-mail.
+      navigation.reset({ index: 0, routes: [await destinoAoEntrar()] });
+    } catch (err) {
+      showError('Erro ao entrar com Google', errorMessage(err));
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
 
   const handleLogin = async () => {
     if (!email.trim() || !password) {
@@ -24,7 +44,7 @@ export function LoginScreen({ navigation }: any) {
     try {
       await signIn(email, password);
       await useProfileStore.getState().loadAll();
-      navigation.reset({ index: 0, routes: [{ name: 'Home' }] });
+      navigation.reset({ index: 0, routes: [await destinoAoEntrar()] });
     } catch (err) {
       showError('Erro ao entrar', errorMessage(err));
     } finally {
@@ -81,6 +101,19 @@ export function LoginScreen({ navigation }: any) {
         <View style={styles.actionGroup}>
           <Button title="Acessar" loading={loading} onPress={handleLogin} />
 
+          <View style={styles.dividerContainer}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>OU</Text>
+            <View style={styles.dividerLine} />
+          </View>
+
+          <GoogleButton
+            title={googleLoading ? 'Entrando...' : 'Fazer login com o Google'}
+            onPress={handleGoogleLogin}
+            disabled={googleLoading}
+            accessibilityRole="button"
+          />
+
           <View style={styles.registerContainer}>
             <Text style={styles.registerText}>
               Não possui uma conta? <Text style={styles.registerLink} onPress={() => navigation.navigate('ParentRegister')}>Cadastre-se</Text>
@@ -100,6 +133,9 @@ const styles = StyleSheet.create({
   forgotPasswordContainer: { width: '100%', alignItems: 'flex-end' },
   forgotPasswordText: { fontFamily: theme.fonts.semiBold, fontSize: 14, color: theme.colors.primary },
   actionGroup: { width: '100%', alignItems: 'center', gap: 16 },
+  dividerContainer: { flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'center', gap: 9, paddingVertical: 8 },
+  dividerLine: { height: 1, width: 143, backgroundColor: theme.colors.divider },
+  dividerText: { fontFamily: theme.fonts.medium, fontSize: 14, color: '#727272' },
   registerContainer: { marginTop: 8 },
   registerText: { fontFamily: theme.fonts.regular, fontSize: 14, color: '#727272' },
   registerLink: { fontFamily: theme.fonts.semiBold, color: theme.colors.primary }

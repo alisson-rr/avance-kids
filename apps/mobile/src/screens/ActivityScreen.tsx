@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,10 +10,11 @@ import {
   Modal,
   TouchableWithoutFeedback,
   ActivityIndicator,
-  Linking,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { BottomTabBar } from '../components/BottomTabBar';
+import { HowToAnswerSheet } from '../components/HowToAnswerSheet';
+import { VideoPlayer } from '../components/VideoPlayer';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
@@ -25,9 +26,11 @@ import {
   registerAttempt,
 } from '../services/activities';
 import { errorMessage } from '../services/api';
+import { fetchHowToAnswer } from '../services/help';
 import { showDialog, showError } from '../ui/dialog';
 import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
-import type { AttemptResult, ExerciseSessionRow, PlanWithDetails } from '../types/db';
+import { youtubeId } from '../utils/youtube';
+import type { AttemptResult, ExerciseSessionRow, HowToAnswerRow, PlanWithDetails } from '../types/db';
 
 const RESULT_OPTIONS: { id: number; label: string; resultado: AttemptResult }[] = [
   { id: 1, label: 'Fez sem ajuda', resultado: 'sem_ajuda' },
@@ -61,6 +64,25 @@ export function ActivityScreen({ navigation, route }: any) {
   const [currentRepetition, setCurrentRepetition] = useState(1);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
+
+  const [help, setHelp] = useState<HowToAnswerRow | null>(null);
+  const [isHelpVisible, setIsHelpVisible] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    fetchHowToAnswer()
+      .then((row) => {
+        if (mounted) setHelp(row);
+      })
+      .catch(() => {
+        // Ajuda é opcional: sem ela o sheet só não mostra "Como responder".
+      });
+    return () => { mounted = false; };
+  }, []);
+
+  const helpVideoId = youtubeId(help?.video_url);
+  const helpText = help?.texto?.trim() || null;
+  const hasHelp = !!(helpVideoId || helpText);
 
   const load = useCallback(async () => {
     if (!planId) {
@@ -159,6 +181,10 @@ export function ActivityScreen({ navigation, route }: any) {
         });
       } else {
         setCurrentRepetition(result.total_repetitions + 1);
+        // Mantém a tentativa local em dia: é ela que mostra "Continuar" e "Recomeçar".
+        setSession((s) =>
+          s ? { ...s, total_repetitions: result.total_repetitions, successful_count: result.successful_count } : s,
+        );
       }
     } catch (err) {
       showError('Erro ao registrar', errorMessage(err));
@@ -171,12 +197,12 @@ export function ActivityScreen({ navigation, route }: any) {
     if (!plan || restarting) return;
     setRestarting(true);
     try {
-      const { session: freshSession } = await restartExerciseSession(plan.id);
-      setSession(freshSession);
+      await restartExerciseSession(plan.id);
+      setSession(null);
       setCurrentRepetition(1);
       setSelectedOption(null);
       setIsCompleted(false);
-      setIsBottomSheetVisible(true);
+      await load();
     } catch (err) {
       showError('Não foi possível recomeçar', errorMessage(err));
     } finally {
@@ -187,7 +213,7 @@ export function ActivityScreen({ navigation, route }: any) {
   const handleRestart = () => {
     showDialog({
       title: 'Recomeçar atividade?',
-      message: 'As respostas registradas nesta tentativa serão apagadas e a atividade voltará para a primeira repetição.',
+      message: 'As repetições registradas nesta tentativa serão apagadas e a atividade voltará para a repetição 1 de 10.',
       variant: 'info',
       buttons: [
         { label: 'Cancelar', kind: 'ghost' },
@@ -221,13 +247,6 @@ export function ActivityScreen({ navigation, route }: any) {
       variant: 'info',
       buttons: [{ label: 'Entendi', kind: 'primary' }],
     });
-  };
-
-  const handlePlayVideo = () => {
-    const url = plan?.exercises?.media_url;
-    if (url) {
-      Linking.openURL(url).catch(() => showError('Erro', 'Não foi possível abrir o vídeo.'));
-    }
   };
 
   if (loadError) {
@@ -267,7 +286,7 @@ export function ActivityScreen({ navigation, route }: any) {
   }
 
   const exercise = plan.exercises;
-  const isVideo = exercise.media_type === 'video' && !!exercise.media_url;
+  const videoId = exercise.media_type === 'video' ? youtubeId(exercise.media_url) : null;
   const description = [exercise.objetivo, exercise.procedimento].filter(Boolean).join('\n\n');
   const currentSession = session ?? findOpenSession(plan);
   const hasAttemptInProgress = (currentSession?.total_repetitions ?? 0) > 0;
@@ -289,6 +308,24 @@ export function ActivityScreen({ navigation, route }: any) {
         {/* Spacer */}
         <View style={{ flex: 1 }} />
 
+        {hasAttemptInProgress && (
+          <TouchableOpacity
+            style={styles.restartAction}
+            onPress={handleRestart}
+            disabled={restarting}
+            hitSlop={12}
+            accessibilityRole="button"
+            accessibilityLabel="Recomeçar atividade"
+          >
+            {restarting ? (
+              <ActivityIndicator size="small" color="#0E5DFD" />
+            ) : (
+              <Ionicons name="refresh" size={18} color="#0E5DFD" />
+            )}
+            <Text style={styles.linkActionText}>Recomeçar</Text>
+          </TouchableOpacity>
+        )}
+
         <TouchableOpacity style={styles.headerIconBtn} onPress={handleInfo}>
           <View style={styles.infoCircle}>
             <Text style={styles.infoText}>i</Text>
@@ -304,28 +341,27 @@ export function ActivityScreen({ navigation, route }: any) {
         <Text style={styles.activityName}>{exercise.titulo}</Text>
 
         {/* ── IMAGE / VIDEO AREA ── */}
-        <View style={styles.mediaContainer}>
-          {exercise.media_url && !isVideo ? (
-            <Image
-              source={{ uri: exercise.media_url }}
-              style={styles.mediaImage}
-              resizeMode="cover"
-            />
-          ) : (
-            <Image
-              source={require('../../assets/onboarding3.png')}
-              style={styles.mediaImage}
-              resizeMode="cover"
-            />
-          )}
-          {isVideo && (
-            <TouchableOpacity style={styles.playOverlay} onPress={handlePlayVideo} activeOpacity={0.8}>
-              <View style={styles.playButton}>
-                <Ionicons name="play" size={32} color="#FFFFFF" style={{ marginLeft: 3 }} />
-              </View>
-            </TouchableOpacity>
-          )}
-        </View>
+        {videoId ? (
+          <View style={styles.videoContainer}>
+            <VideoPlayer key={videoId} videoId={videoId} />
+          </View>
+        ) : (
+          <View style={styles.mediaContainer}>
+            {exercise.media_url && exercise.media_type !== 'video' ? (
+              <Image
+                source={{ uri: exercise.media_url }}
+                style={styles.mediaImage}
+                resizeMode="cover"
+              />
+            ) : (
+              <Image
+                source={require('../../assets/onboarding3.png')}
+                style={styles.mediaImage}
+                resizeMode="cover"
+              />
+            )}
+          </View>
+        )}
 
         {/* ── DESCRIPTION TEXT ── */}
         <Text style={styles.descriptionText}>
@@ -353,28 +389,16 @@ export function ActivityScreen({ navigation, route }: any) {
             <Text style={styles.primaryButtonText}>{hasAttemptInProgress ? 'Continuar' : 'Começar'}</Text>
           )}
         </TouchableOpacity>
-        {hasAttemptInProgress && (
-          <TouchableOpacity
-            style={[styles.secondaryButton, restarting && { opacity: 0.6 }]}
-            activeOpacity={0.8}
-            onPress={handleRestart}
-            disabled={restarting}
-          >
-            {restarting ? (
-              <ActivityIndicator color="#0E5DFD" />
-            ) : (
-              <Text style={styles.secondaryButtonText}>Recomeçar atividade</Text>
-            )}
-          </TouchableOpacity>
-        )}
       </View>
 
       {/* ── BOTTOM TAB BAR ── */}
       <BottomTabBar activeScreen="ActivityPlan" />
 
       {/* ── BOTTOM SHEET MODAL ── */}
+      {/* Some enquanto a ajuda está aberta: no Android o vídeo em tela cheia
+          ficaria por baixo deste Modal. */}
       <Modal
-        visible={isBottomSheetVisible}
+        visible={isBottomSheetVisible && !isHelpVisible}
         transparent
         animationType="slide"
         onRequestClose={() => setIsBottomSheetVisible(false)}
@@ -432,6 +456,17 @@ export function ActivityScreen({ navigation, route }: any) {
 
                 <Text style={styles.questionText}>Como a criança se saiu nessa repetição?</Text>
 
+                {hasHelp && (
+                  <TouchableOpacity
+                    style={styles.helpAction}
+                    onPress={() => setIsHelpVisible(true)}
+                    accessibilityRole="button"
+                  >
+                    <Ionicons name="information-circle-outline" size={18} color="#0E5DFD" />
+                    <Text style={styles.linkActionText}>Como responder</Text>
+                  </TouchableOpacity>
+                )}
+
                 {/* Radio Options */}
                 {RESULT_OPTIONS.map((option) => (
                   <TouchableOpacity
@@ -471,6 +506,13 @@ export function ActivityScreen({ navigation, route }: any) {
           </TouchableWithoutFeedback>
         </TouchableOpacity>
       </Modal>
+
+      <HowToAnswerSheet
+        visible={isHelpVisible}
+        onClose={() => setIsHelpVisible(false)}
+        texto={helpText}
+        videoId={helpVideoId}
+      />
     </View>
   );
 }
@@ -528,6 +570,17 @@ const styles = StyleSheet.create({
     color: '#0E5DFD',
     lineHeight: 14,
   },
+  restartAction: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginRight: 16,
+  },
+  linkActionText: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: 14,
+    color: '#0E5DFD',
+  },
 
   // ── Skill name (large bold) ──────────────────────────────────────
   skillName: {
@@ -562,22 +615,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  playOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  playButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    justifyContent: 'center',
-    alignItems: 'center',
+  videoContainer: {
+    marginHorizontal: 24,
   },
 
   // ── Description Text ──────────────────────────────────────────
@@ -695,6 +734,13 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.semiBold,
     fontSize: 16,
     color: '#3B3B3B',
+    marginBottom: 8,
+  },
+  helpAction: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    alignSelf: 'flex-start',
     marginBottom: 8,
   },
   radioRow: {

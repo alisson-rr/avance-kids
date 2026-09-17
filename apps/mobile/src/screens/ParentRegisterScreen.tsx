@@ -11,22 +11,30 @@ import { PhotoPicker } from '../components/PhotoPicker';
 import { TermsModal } from '../components/TermsModal';
 import { maskDate, maskCpf, maskPhone, toIsoDate, digitsOnly } from '../utils/formatters';
 import { GENDER_OPTIONS } from '../constants/options';
-import { signUpParent, updateProfile } from '../services/auth';
+import { signOut, signUpParent, updateProfile } from '../services/auth';
 import { registrarAceiteTermos } from '../services/terms';
 import { uploadAvatar } from '../services/storage';
 import { errorMessage } from '../services/api';
 import { showDialog, showError, showSuccess } from '../ui/dialog';
 import { useProfileStore } from '../store/useProfileStore';
 import { useTermsGate } from '../store/useTermsGate';
+import { irParaLogin } from '../lib/navigation';
+import { destinoAoEntrar } from '../lib/destinoAoEntrar';
 
-export function ParentRegisterScreen({ navigation }: any) {
+export function ParentRegisterScreen({ navigation, route }: any) {
+  // Conta criada pelo Google: já tem sessão, e-mail e nome; faltam os dados
+  // que o cadastro por e-mail exige. Os termos ficam com o TermsGate.
+  const completarCadastro = route?.params?.completarCadastro === true;
+  const perfil = useProfileStore();
+  // No modo completar, o que já estava salvo aparece preenchido e não se perde.
+  const inicial = (valor: string) => (completarCadastro ? valor : '');
   const [photoUri, setPhotoUri] = useState<string>();
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [nascimento, setNascimento] = useState('');
-  const [genero, setGenero] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [telefone, setTelefone] = useState('');
+  const [nome, setNome] = useState(inicial(perfil.parentName));
+  const [email, setEmail] = useState(inicial(perfil.parentEmail));
+  const [nascimento, setNascimento] = useState(inicial(perfil.parentBirthDate));
+  const [genero, setGenero] = useState(inicial(perfil.parentGender));
+  const [cpf, setCpf] = useState(inicial(perfil.parentCpf && maskCpf(perfil.parentCpf)));
+  const [telefone, setTelefone] = useState(inicial(perfil.parentPhone && maskPhone(perfil.parentPhone)));
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [aceitouTermos, setAceitouTermos] = useState(false);
@@ -35,19 +43,75 @@ export function ParentRegisterScreen({ navigation }: any) {
 
   const validate = (): string | null => {
     if (nome.trim().length < 2) return 'Informe seu nome completo.';
-    if (!/^\S+@\S+\.\S+$/.test(email.trim())) return 'Informe um e-mail válido.';
     if (!toIsoDate(nascimento)) return 'Data de nascimento inválida. Use dd/mm/aaaa.';
     if (digitsOnly(cpf).length !== 11) return 'CPF inválido.';
+    // O e-mail da conta Google não é editável nem enviado.
+    if (completarCadastro) return null;
+    if (!/^\S+@\S+\.\S+$/.test(email.trim())) return 'Informe um e-mail válido.';
     if (senha.length < 6) return 'A senha deve ter pelo menos 6 caracteres.';
     if (senha !== confirmarSenha) return 'A senha e a confirmação não conferem.';
     if (!aceitouTermos) return 'Você precisa aceitar os Termos de Uso e a Política de Privacidade.';
     return null;
   };
 
+  const handleCompletarCadastro = async () => {
+    setLoading(true);
+    try {
+      await updateProfile({
+        nome: nome.trim(),
+        data_nascimento: toIsoDate(nascimento),
+        genero: genero || null,
+        cpf: digitsOnly(cpf),
+        telefone: digitsOnly(telefone) || null,
+      });
+
+      if (photoUri) {
+        try {
+          const avatarPath = await uploadAvatar(photoUri, 'parent');
+          await updateProfile({ avatar_url: avatarPath });
+        } catch (uploadErr) {
+          console.warn('[avatar] upload falhou:', uploadErr);
+        }
+      }
+
+      await useProfileStore.getState().loadAll();
+      // Quem já tem criança só estava sem os dados do responsável.
+      if (useProfileStore.getState().children.length > 0) {
+        navigation.reset({ index: 0, routes: [await destinoAoEntrar()] });
+      } else {
+        navigation.navigate('ChildRegister');
+      }
+    } catch (err) {
+      const message = errorMessage(err);
+      showError(
+        'Erro no cadastro',
+        message.includes('idx_profiles_cpf') ? 'Este CPF já está cadastrado em outra conta.' : message,
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Mesmo padrão do TermsGate: sem rede o signOut pode falhar, e a pessoa não
+  // pode ficar presa num formulário que também não salva.
+  const handleSair = () => {
+    signOut()
+      .catch((err) => console.warn('[auth] signOut falhou:', err))
+      .finally(() => {
+        useTermsGate.getState().limpar();
+        irParaLogin();
+      });
+  };
+
   const handleSave = async () => {
     const validationError = validate();
     if (validationError) {
       showDialog({ title: 'Atenção', message: validationError, variant: 'info' });
+      return;
+    }
+
+    if (completarCadastro) {
+      await handleCompletarCadastro();
       return;
     }
 
@@ -122,11 +186,19 @@ export function ParentRegisterScreen({ navigation }: any) {
 
   return (
     <FormScreen>
-      <PhotoPicker imageUri={photoUri} onImageSelected={setPhotoUri} />
+      <PhotoPicker
+        imageUri={photoUri}
+        avatarPath={completarCadastro ? perfil.parentAvatarPath : undefined}
+        onImageSelected={setPhotoUri}
+      />
 
       <View style={styles.headerArea}>
-        <Text style={styles.title}>Seu cadastro</Text>
-        <Text style={styles.subtitle}>Cadastre-se gratuitamente e comece a trilha personalizada ainda hoje!</Text>
+        <Text style={styles.title}>{completarCadastro ? 'Complete seu cadastro' : 'Seu cadastro'}</Text>
+        <Text style={styles.subtitle}>
+          {completarCadastro
+            ? 'Faltam poucos dados para começar a trilha personalizada.'
+            : 'Cadastre-se gratuitamente e comece a trilha personalizada ainda hoje!'}
+        </Text>
       </View>
 
       <View style={styles.formArea}>
@@ -141,6 +213,8 @@ export function ParentRegisterScreen({ navigation }: any) {
           onChangeText={setEmail}
           keyboardType="email-address"
           autoCapitalize="none"
+          // O e-mail da conta Google não muda por aqui.
+          editable={!completarCadastro}
         />
         <SolidInput
           placeholder="Data de nascimento"
@@ -169,38 +243,46 @@ export function ParentRegisterScreen({ navigation }: any) {
           keyboardType="phone-pad"
           maxLength={15}
         />
-        <SolidInput
-          placeholder="Senha"
-          value={senha}
-          onChangeText={setSenha}
-          secureTextEntry
-        />
-        <SolidInput
-          placeholder="Confirmar senha"
-          value={confirmarSenha}
-          onChangeText={setConfirmarSenha}
-          secureTextEntry
-        />
+        {!completarCadastro && (
+          <>
+            <SolidInput
+              placeholder="Senha"
+              value={senha}
+              onChangeText={setSenha}
+              secureTextEntry
+            />
+            <SolidInput
+              placeholder="Confirmar senha"
+              value={confirmarSenha}
+              onChangeText={setConfirmarSenha}
+              secureTextEntry
+            />
 
-        <View style={styles.termsContainer}>
-          <Checkbox
-            value={aceitouTermos}
-            onValueChange={setAceitouTermos}
-            label={
-              <Text style={styles.termsLabelText}>
-                Li e concordo com os{' '}
-                <Text style={styles.termsLink} onPress={() => setTermsVisible(true)}>
-                  Termos de Uso e Política de Privacidade.
-                </Text>
-              </Text>
-            }
-          />
-        </View>
+            <View style={styles.termsContainer}>
+              <Checkbox
+                value={aceitouTermos}
+                onValueChange={setAceitouTermos}
+                label={
+                  <Text style={styles.termsLabelText}>
+                    Li e concordo com os{' '}
+                    <Text style={styles.termsLink} onPress={() => setTermsVisible(true)}>
+                      Termos de Uso e Política de Privacidade.
+                    </Text>
+                  </Text>
+                }
+              />
+            </View>
+          </>
+        )}
       </View>
 
       <View style={styles.actionGroup}>
         <Button title="Salvar" loading={loading} onPress={handleSave} />
-        <GhostButton title="Cancelar" onPress={() => navigation.goBack()} />
+        {completarCadastro ? (
+          <GhostButton title="Sair" onPress={handleSair} />
+        ) : (
+          <GhostButton title="Cancelar" onPress={() => navigation.goBack()} />
+        )}
       </View>
 
       <TermsModal visible={termsVisible} onClose={() => setTermsVisible(false)} />

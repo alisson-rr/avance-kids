@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -13,7 +13,10 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../theme';
+import { HowToAnswerSheet } from './HowToAnswerSheet';
+import { youtubeId } from '../utils/youtube';
 
 interface QuestionScreenLayoutProps {
   headerColor: string;
@@ -28,6 +31,9 @@ interface QuestionScreenLayoutProps {
   progressActiveStyle: ViewStyle;
   progressInactiveStyle: ViewStyle;
   pergunta: string;
+  /** Orientação "Como responder" da pergunta atual; sem texto nem vídeo, o link some. */
+  comoResponderTexto?: string | null;
+  comoResponderVideoUrl?: string | null;
   opcoes: string[];
   selectedOption: number | null;
   onSelectOption: (index: number) => void;
@@ -50,6 +56,8 @@ export function QuestionScreenLayout({
   progressActiveStyle,
   progressInactiveStyle,
   pergunta,
+  comoResponderTexto,
+  comoResponderVideoUrl,
   opcoes,
   selectedOption,
   onSelectOption,
@@ -59,6 +67,9 @@ export function QuestionScreenLayout({
 }: QuestionScreenLayoutProps) {
   const insets = useSafeAreaInsets();
   const safeTop = Math.max(insets.top, 50);
+  const [ajudaVisivel, setAjudaVisivel] = useState(false);
+  const ajudaVideoId = youtubeId(comoResponderVideoUrl);
+  const ajudaTexto = comoResponderTexto?.trim() || null;
 
   const renderProgressBar = () => {
     const segments = [];
@@ -135,7 +146,19 @@ export function QuestionScreenLayout({
 
             {/* Question & options */}
             <View style={styles.questionBlock}>
-              <Text style={styles.questionText}>{pergunta}</Text>
+              <View style={styles.questionHeader}>
+                <Text style={styles.questionText}>{pergunta}</Text>
+                {(ajudaVideoId || ajudaTexto) && (
+                  <TouchableOpacity
+                    style={styles.helpAction}
+                    onPress={() => setAjudaVisivel(true)}
+                    accessibilityRole="button"
+                  >
+                    <Ionicons name="information-circle-outline" size={18} color="#0E5DFD" />
+                    <Text style={styles.helpActionText}>Como responder</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
 
               <View style={styles.optionsList}>
                 {opcoes.map((opt, i) => {
@@ -196,6 +219,13 @@ export function QuestionScreenLayout({
           </View>
         </View>
       </ScrollView>
+
+      <HowToAnswerSheet
+        visible={ajudaVisivel}
+        onClose={() => setAjudaVisivel(false)}
+        texto={ajudaTexto}
+        videoId={ajudaVideoId}
+      />
     </View>
   );
 }
@@ -317,6 +347,21 @@ const styles = StyleSheet.create({
   },
   questionBlock: {
     gap: 24,
+  },
+  questionHeader: {
+    gap: 8,
+  },
+  helpAction: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    alignSelf: 'flex-start',
+    paddingVertical: 4,
+  },
+  helpActionText: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: 14,
+    color: '#0E5DFD',
   },
   questionText: {
     fontFamily: theme.fonts.semiBold,

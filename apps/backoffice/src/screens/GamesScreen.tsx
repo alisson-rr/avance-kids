@@ -1,10 +1,13 @@
 import { ACCESS_PLANS } from '../constants/aba';
 import { Plus, Trash2 } from 'lucide-react';
-import { Badge, EntityCrudScreen, FormField, ImageUploadField, Select } from '../components/ui';
+import { Badge, EntityCrudScreen, FormField, ImageUploadField, MediaThumb, Select } from '../components/ui';
 import type { DataTableColumn, EntityFilterConfig } from '../components/ui';
 import { useEntityList } from '../hooks/useEntityList';
 import { fetchBrincadeiras, saveBrincadeira, toggleArchiveBrincadeira } from '../services/brincadeiras';
 import type { Brincadeira, MediaType, ProdutoBrincadeira } from '../types/entities';
+import type { CsvColumn } from '../utils/csv';
+import { youtubeId } from '../utils/youtube';
+import layout from '../styles/crudLayout.module.css';
 import styles from './GamesScreen.module.css';
 
 const MEDIA_TYPE_OPTIONS: { value: MediaType; label: string }[] = [
@@ -54,7 +57,7 @@ const columns: DataTableColumn<Brincadeira>[] = [
   {
     key: 'mediaType',
     header: 'Mídia',
-    render: (row) => <Badge variant="neutral">{row.mediaType === 'video' ? 'Vídeo' : 'Imagem'}</Badge>,
+    render: (row) => <MediaThumb mediaType={row.mediaType} url={row.mediaUrl} />,
     sortValue: (row) => row.mediaType,
   },
   {
@@ -76,6 +79,22 @@ const columns: DataTableColumn<Brincadeira>[] = [
       </Badge>
     ),
     sortValue: (row) => row.status,
+  },
+];
+
+const exportColumns: CsvColumn<Brincadeira>[] = [
+  { header: 'ID', value: (row) => row.id },
+  { header: 'Código', value: (row) => row.codigo },
+  { header: 'Título', value: (row) => row.titulo },
+  { header: 'Descrição', value: (row) => row.descricao },
+  { header: 'Instruções', value: (row) => row.instrucoes },
+  { header: 'Tipo de mídia', value: (row) => (row.mediaType === 'video' ? 'Vídeo' : 'Imagem') },
+  { header: 'URL da mídia', value: (row) => row.mediaUrl },
+  { header: 'Plano', value: (row) => (row.plano === 'premium' ? 'Premium' : 'Gratuito') },
+  { header: 'Status', value: (row) => (row.status === 'ativo' ? 'Ativo' : 'Arquivado') },
+  {
+    header: 'Produtos recomendados',
+    value: (row) => row.produtos.map((p) => `${p.titulo} (${p.linkUrl})`).join(' | '),
   },
 ];
 
@@ -104,6 +123,7 @@ export function GamesScreen() {
       emptyItem={emptyBrincadeira}
       searchPlaceholder="Buscar por título ou descrição..."
       filters={filters}
+      exportConfig={{ fileBase: 'brincadeiras', load: fetchBrincadeiras, columns: exportColumns }}
       onSave={async (item, isEditing) => {
         await saveBrincadeira(item, isEditing);
         await refresh();
@@ -142,6 +162,12 @@ export function GamesScreen() {
           ) : (
             <FormField label="URL do Vídeo" hint="Link do YouTube/Vimeo.">
               <input type="text" value={item.mediaUrl} onChange={(e) => update('mediaUrl', e.target.value)} />
+              {youtubeId(item.mediaUrl) && (
+                <>
+                  <MediaThumb size="large" mediaType="video" url={item.mediaUrl} />
+                  <span className={layout.previewNote}>Pré-visualização apenas demonstrativa</span>
+                </>
+              )}
             </FormField>
           )}
 

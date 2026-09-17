@@ -39,18 +39,23 @@ supabase secrets set STRIPE_SECRET_KEY=sk_live_... STRIPE_WEBHOOK_SECRET=whsec_.
 | `STRIPE_SECRET_KEY` | sim | — | chave da conta Stripe |
 | `STRIPE_WEBHOOK_SECRET` | sim | — | validacao da assinatura do webhook |
 | `STRIPE_PRICE_MONTHLY` | sim | — | preco da assinatura mensal |
-| `STRIPE_TRIAL_DAYS` | nao | `15` | dias de teste gratis; `0` desliga |
+| `STRIPE_TRIAL_DAYS` | nao | `0` | teste no Stripe; deve ficar `0` (ver abaixo) |
 | `CHECKOUT_SUCCESS_URL` / `CHECKOUT_CANCEL_URL` | nao | pagina da propria function | retorno do checkout |
 
 O price ID sai de **Stripe → Products** depois de criar o plano mensal com o
 valor definitivo. Enquanto nao existir, o app mostra "Plano indisponivel no
 momento".
 
-Para mudar o periodo de teste **nao e preciso deploy**, so trocar o secret:
+O teste gratis de 15 dias comeca no cadastro, sem Stripe (migration-22,
+coluna `subscriptions.teste_gratis_ate`). Assinar durante ou depois do teste
+cobra na hora, entao o teste do Stripe precisa ficar desligado:
 
 ```bash
-supabase secrets set STRIPE_TRIAL_DAYS=15
+supabase secrets set STRIPE_TRIAL_DAYS=0
 ```
+
+A duracao do teste fica em `fim_do_teste_gratis()` no banco: mudar exige uma
+migration, nao um release do app.
 
 `STRIPE_PRICE_ANNUAL` **nao existe mais**: nao ha plano anual. Se o secret
 estiver setado na conta, pode ser removido (`supabase secrets unset

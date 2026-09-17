@@ -1,16 +1,16 @@
 # Graph Report - AVANCE-Kids  (2026-09-16)
 
 ## Corpus Check
-- 211 files · ~339,406 words
+- 240 files · ~614,706 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1247 nodes · 2549 edges · 144 communities (68 shown, 59 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 22 edges (avg confidence: 0.8)
+- 1398 nodes · 2924 edges · 154 communities (72 shown, 60 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 24 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5669c64f`
+- Built from commit: `66cbce67`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -24,10 +24,10 @@
 - compilerOptions
 - compilerOptions
 - TermsContent.tsx
-- HabilidadeScreen.tsx
-- dashboard.ts
+- errorMessage
+- AdminUsersScreen.tsx
 - mobile/package.json
-- QuestionCrudScreen.tsx
+- exemplo-Planilha de registro_Meus Progressos_92ab09ff.md
 - react
 - plugins
 - Android Adaptive Icon - Background Layer (construction guide)
@@ -50,7 +50,7 @@
 - Onboarding Illustration 3 - Kids Playing Outdoors
 - metro.config.js
 - Funcional Domain Avatar (girl, pink dress, holding card)
-- AdminUsersScreen.tsx
+- GamesScreen.tsx
 - Backoffice README (Vite+React+TS Template Docs)
 - React Logo Asset
 - Avance Kids Root README (placeholder, garbled encoding)
@@ -70,10 +70,10 @@
 - Vite Logo Asset (purple recolor, light/dark parenthesis)
 - @expo-google-fonts/mulish
 - devDependencies
-- TriagemScreen.tsx
+- mobile/App.tsx
 - ui/index.ts
-- habilidades.ts
-- ChildRegisterScreen.tsx
+- brincadeiras.ts
+- ParentRegisterScreen.tsx
 - scripts
 - @tiptap/extension-image
 - @tiptap/pm
@@ -81,13 +81,13 @@
 - Deploy da assinatura (Stripe + bloqueio premium)
 - expo-image
 - Arquitetura padrão para Claude Code
-- expo-linear-gradient
+- QuestionScreenLayout.tsx
 - expo-splash-screen
 - handoff/SKILL.md
-- check_exercise_completion
+- QuestionCrudScreen.tsx
 - react
-- react-dom
-- react-native
+- Registro dos Programas AvanceKids_6ab4f5ba.md
+- Programa ABA – F01AC002 – Olha durante brincadeira
 - @expo/metro-runtime
 - react-native-screens
 - react-native-web
@@ -106,86 +106,91 @@
 - ActivityScreen.tsx
 - test_terms_gate.sh script
 - @react-native-async-storage/async-storage
-- useProfileStore.ts
-- 20260907120200_migration-18_produtos_por_brincadeira.sql
+- services/auth.ts
+- Q: Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback.
 - mobile/vercel.json
-- brincadeiras.ts
+- modelos-importacao_dee98aeb.md
 - validate_migrations.sh
-- plays_feed
+- Q: O que ainda falta no Avance Kids após as respostas da cliente?
 - terms_acceptances
 - 20260819120100_migration-07_exclusao_de_conta.sql
-- Exception
-- Path
+- Programas_ABA_Completo_F01A_a_F06A_17_colunas_9cb681cd.md
+- expo-auth-session
 - expo-crypto
 - react-native-svg
 - @react-navigation/native
-- showError
-- mobile/App.tsx
+- ContentDetailScreen.tsx
+- useProfileStore.ts
 - db.ts
 - dialog.tsx
 - PlansScreen.tsx
 - 2. Remediação aplicada
 - Dependências e pendências
 - HomeScreen.tsx
-- ActivityPlanScreen.tsx
+- 20260916130000_migration-20_refaz_planos_com_atividades_arquivadas.sql
 - react-dom
 - QA em Android real
-- refData.ts
+- expo-image-picker
 - 4. Riscos levantados (com status)
 - test_logica_cliente.sql
 - Issue tracker: Linear
-- PerguntasScreen.tsx
+- @supabase/supabase-js
 - Contexto — Avance Kids
 - PwaInstallPrompt.tsx
 - Docs de domínio
 - DEPENDENCIAS-E-PENDENCIAS.md
 - 3. Propagação para o remoto — executada
 - 5. Aberto desde a integração
+- 1.1_F01AC002_Programa_ABA_aabe9a99.md
 - 20260902120000_migration-14_webhook_idempotente.sql
+- 1.F01AT001-004_Programas_Padrao17Colunas_b0cd6686.md
+- exemplo-Planilha de registro_Meus Progressos2_41b32829.md
+- habilidades.ts
+- dashboard.ts
 
 ## God Nodes (most connected - your core abstractions)
-1. `react` - 62 edges
-2. `theme` - 36 edges
-3. `errorMessage()` - 34 edges
-4. `useProfileStore` - 34 edges
-5. `showError()` - 32 edges
+1. `react` - 69 edges
+2. `theme` - 38 edges
+3. `useProfileStore` - 36 edges
+4. `errorMessage()` - 34 edges
+5. `showError()` - 34 edges
 6. `showDialog()` - 26 edges
-7. `compilerOptions` - 18 edges
-8. `RecordStatus` - 15 edges
-9. `ParentRegisterScreen()` - 15 edges
-10. `errorResponse()` - 15 edges
+7. `RecordStatus` - 23 edges
+8. `ParentRegisterScreen()` - 19 edges
+9. `compilerOptions` - 18 edges
+10. `ActivitiesScreen()` - 15 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Graphify Knowledge Graph Rules (root CLAUDE.md)` --conceptually_related_to--> `Mobile CLAUDE.md (includes AGENTS.md)`  [INFERRED]
   CLAUDE.md → apps/mobile/CLAUDE.md
-- `ActivityScreen()` --indirect_call--> `selectActiveChild()`  [INFERRED]
-  apps/mobile/src/screens/ActivityScreen.tsx → apps/mobile/src/store/useProfileStore.ts
-- `HomeScreen()` --indirect_call--> `selectActiveChild()`  [INFERRED]
-  apps/mobile/src/screens/HomeScreen.tsx → apps/mobile/src/store/useProfileStore.ts
-- `TriagemScreen()` --indirect_call--> `selectActiveChild()`  [INFERRED]
-  apps/mobile/src/screens/TriagemScreen.tsx → apps/mobile/src/store/useProfileStore.ts
+- `MediaThumbProps` --references--> `MediaType`  [EXTRACTED]
+  apps/backoffice/src/components/ui/MediaThumb/MediaThumb.tsx → apps/backoffice/src/types/common.ts
+- `matchesSearch()` --calls--> `getSkill()`  [EXTRACTED]
+  apps/backoffice/src/screens/QuestionCrudScreen.tsx → apps/backoffice/src/constants/aba.ts
 - `ActivitiesScreen()` --indirect_call--> `fetchAtividades()`  [INFERRED]
   apps/backoffice/src/screens/ActivitiesScreen.tsx → apps/backoffice/src/services/atividades.ts
+- `handleSave()` --calls--> `saveHowToAnswer()`  [EXTRACTED]
+  apps/backoffice/src/screens/HowToAnswerScreen.tsx → apps/backoffice/src/services/howToAnswer.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (144 total, 59 thin omitted)
+## Communities (154 total, 60 thin omitted)
 
 ### Community 0 - "react"
-Cohesion: 0.08
-Nodes (32): BottomSheetSelect(), BottomSheetSelectProps, styles, Button(), ButtonProps, styles, Checkbox(), CheckboxProps (+24 more)
+Cohesion: 0.10
+Nodes (28): Button(), ButtonProps, styles, Checkbox(), CheckboxProps, styles, FormScreenProps, styles (+20 more)
 
 ### Community 1 - "dependencies"
-Cohesion: 0.13
-Nodes (15): dependencies, expo, expo-auth-session, @expo-google-fonts/inter, expo-image-picker, expo-status-bar, react-native-safe-area-context, @supabase/supabase-js (+7 more)
+Cohesion: 0.12
+Nodes (17): dependencies, expo, @expo-google-fonts/inter, expo-linear-gradient, expo-status-bar, react-dom, react-native, react-native-safe-area-context (+9 more)
 
 ### Community 2 - "devDependencies"
 Cohesion: 0.13
 Nodes (15): devDependencies, oxlint, @types/node, @types/react, @types/react-dom, typescript, vite, @vitejs/plugin-react (+7 more)
 
 ### Community 3 - "schemas.ts"
-Cohesion: 0.08
+Cohesion: 0.09
 Nodes (39): InputSchema, InputSchema, stripeKey, InputSchema, LEVELS, ACCESS_STATUSES, STATUS_MAP, SubscriptionStatus (+31 more)
 
 ### Community 5 - "web"
@@ -201,24 +206,24 @@ Cohesion: 0.10
 Nodes (19): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, noEmit, noFallthroughCasesInSwitch (+11 more)
 
 ### Community 8 - "TermsContent.tsx"
-Cohesion: 0.08
+Cohesion: 0.09
 Nodes (26): Props, styles, TermsHeader(), ConteudoProps, styles, TermsModal(), TermsModalProps, SecaoTermos (+18 more)
 
-### Community 9 - "HabilidadeScreen.tsx"
-Cohesion: 0.19
-Nodes (12): supabase, HabilidadeScreen(), OPTION_LABELS, stateStyles, AnswerInput, BracketRef, QUESTION_OPTIONS, SubmitInitialResult (+4 more)
+### Community 9 - "errorMessage"
+Cohesion: 0.15
+Nodes (27): supabase, HabilidadeScreen(), OPTION_LABELS, stateStyles, OPTION_LABELS, PerguntasScreen(), styles, avatarFor() (+19 more)
 
-### Community 10 - "dashboard.ts"
-Cohesion: 0.27
-Nodes (10): DashboardScreen(), formatCount(), fetchAtividades(), countRows(), DashboardStats, fetchDashboardStats(), fetchSignupsByMonth(), MONTH_LABELS (+2 more)
+### Community 10 - "AdminUsersScreen.tsx"
+Cohesion: 0.20
+Nodes (11): CurrentAdmin, AdminUsersScreen(), columns, exportColumns, ROLE_OPTIONS, AdminRow, fetchAdmins(), saveAdmin() (+3 more)
 
 ### Community 11 - "mobile/package.json"
 Cohesion: 0.29
 Nodes (6): engines, node, main, name, private, version
 
-### Community 12 - "QuestionCrudScreen.tsx"
-Cohesion: 0.18
-Nodes (10): InitialQuestionsScreen(), columns, FETCHERS, filters, QuestionCrudScreen(), QuestionCrudScreenProps, TriageQuestionsScreen(), QuestionKind (+2 more)
+### Community 12 - "exemplo-Planilha de registro_Meus Progressos_92ab09ff.md"
+Cohesion: 0.06
+Nodes (31): Sheet: CONSOLIDADO DE SESSÕES, Sheet: DIA 1, Sheet: DIA 10, Sheet: DIA 11, Sheet: DIA 12, Sheet: DIA 13, Sheet: DIA 14, Sheet: DIA 15 (+23 more)
 
 ### Community 14 - "plugins"
 Cohesion: 0.22
@@ -233,8 +238,8 @@ Cohesion: 0.67
 Nodes (3): Backoffice Full Logo (Avance Kids wordmark, blue/green mark), Backoffice Hero Image (3D purple beveled tile), Mobile Logo + Wordmark (identical to backoffice logo)
 
 ### Community 19 - "ActivitiesScreen.tsx"
-Cohesion: 0.10
-Nodes (28): AGE_BRACKETS, AgeBracket, Atividade, AtividadeStatus, buildProgramaLabel(), EXERCISE_LEVELS, ExerciseLevel, getAgeBracket() (+20 more)
+Cohesion: 0.15
+Nodes (19): ACCESS_PLANS, AGE_BRACKETS, AgeBracket, Atividade, AtividadeStatus, buildProgramaLabel(), EXERCISE_LEVELS, ExerciseLevel (+11 more)
 
 ### Community 20 - "1. Bloqueado por decisão da cliente"
 Cohesion: 0.20
@@ -246,19 +251,19 @@ Nodes (17): background_color, categories, description, dir, display, icons, id, 
 
 ### Community 23 - "import_perguntas.py"
 Cohesion: 0.21
-Nodes (23): Exception, Path, converter_ordem(), criar_xlsx_sintetico(), eh_linha_de_exemplo(), ErroDeValidacao, gerar_sql(), ler_docx() (+15 more)
+Nodes (23): converter_ordem(), criar_xlsx_sintetico(), eh_linha_de_exemplo(), ErroDeValidacao, gerar_sql(), ler_docx(), ler_fonte(), ler_planilha() (+15 more)
 
 ### Community 26 - "src/App.tsx"
-Cohesion: 0.21
-Nodes (13): App(), RequireAdmin(), AuthContext, AuthContextValue, AuthProvider(), CurrentAdmin, loadAdmin(), useAuth() (+5 more)
+Cohesion: 0.24
+Nodes (11): App(), RequireAdmin(), AuthContext, AuthContextValue, AuthProvider(), loadAdmin(), useAuth(), AdminLayout() (+3 more)
 
 ### Community 29 - "Mobile CLAUDE.md (includes AGENTS.md)"
 Cohesion: 0.67
 Nodes (3): Mobile AGENTS.md: Expo v57 Version Warning, Mobile CLAUDE.md (includes AGENTS.md), Graphify Knowledge Graph Rules (root CLAUDE.md)
 
-### Community 35 - "AdminUsersScreen.tsx"
-Cohesion: 0.12
-Nodes (16): ACCESS_PLANS, useEntityList(), AdminUsersScreen(), columns, ROLE_OPTIONS, columns, emptyProduto(), filters (+8 more)
+### Community 35 - "GamesScreen.tsx"
+Cohesion: 0.10
+Nodes (21): EntityFilterConfig, ImageUploadField(), ImageUploadFieldProps, useEntityList(), ArticlesScreen(), columns, exportColumns, filters (+13 more)
 
 ### Community 43 - "P1 — Corrigidos"
 Cohesion: 0.07
@@ -277,16 +282,16 @@ Cohesion: 0.13
 Nodes (15): dependencies, lucide-react, react-router-dom, @supabase/supabase-js, @tiptap/extension-link, @tiptap/react, @tiptap/starter-kit, zustand (+7 more)
 
 ### Community 47 - "atividades.ts"
-Cohesion: 0.24
-Nodes (16): supabase, supabaseAnonKey, supabaseUrl, ArticlesScreen(), AdminRow, ArticleRow, fetchArtigos(), saveArtigo() (+8 more)
+Cohesion: 0.13
+Nodes (28): AgeBracketCode, HabilidadeKey, supabase, supabaseAnonKey, supabaseUrl, handleConfirmArchive(), handleSave(), AcquisitionGuardRow (+20 more)
 
 ### Community 48 - "Plano de Implementação do Backend — Avance Kids"
 Cohesion: 0.13
 Nodes (14): 1. Estado atual, 2. Divergências: schema legado × frontend novo, 3. Decisões de design (assumidas — revisar se discordar), 4. Plano de execução, 5. Pontos em aberto (confirmar com o time), 6. Pré-requisitos operacionais, Fase 1 — Novo schema (migração baseline), Fase 2 — Edge Functions refeitas (+6 more)
 
 ### Community 49 - "20260718000000_baseline.sql"
-Cohesion: 0.07
-Nodes (49): handle_new_user, activity_plans, admin_users, age_brackets, articles, calculate_general_age(), calculate_skill_age(), check_exercise_completion() (+41 more)
+Cohesion: 0.05
+Nodes (59): handle_new_user, public.account_deletions, activity_plans, admin_users, age_brackets, articles, calculate_general_age(), calculate_skill_age() (+51 more)
 
 ### Community 51 - "import_programas.py"
 Cohesion: 0.16
@@ -298,23 +303,23 @@ Nodes (9): name, private, scripts, build, dev, lint, preview, type (+1 more)
 
 ### Community 55 - "devDependencies"
 Cohesion: 0.29
-Nodes (7): devDependencies, react-native-svg-transformer, @types/react, typescript, react-native-svg-transformer, @types/react, typescript
+Nodes (7): devDependencies, react-native-svg-transformer, @types/react, typescript, @types/react, typescript, react-native-svg-transformer
 
-### Community 56 - "TriagemScreen.tsx"
-Cohesion: 0.29
-Nodes (11): avatarFor(), HABILIDADE_AVATARS, styles, TriagemScreen(), generateActivityPlan(), fetchAgeBrackets(), fetchSkills(), resolveBracketForMonths() (+3 more)
+### Community 56 - "mobile/App.tsx"
+Cohesion: 0.11
+Nodes (22): App(), Stack, AnimatedSplash(), styles, OnboardingLayout(), OnboardingLayoutProps, styles, TermsBody() (+14 more)
 
 ### Community 57 - "ui/index.ts"
 Cohesion: 0.06
-Nodes (31): Badge(), BadgeProps, BadgeVariant, ConfirmDialog(), ConfirmDialogProps, buildPageList(), DataTable(), DataTableColumn (+23 more)
+Nodes (34): Badge(), BadgeProps, BadgeVariant, ConfirmDialog(), ConfirmDialogProps, buildPageList(), DataTable(), DataTableColumn (+26 more)
 
-### Community 58 - "habilidades.ts"
-Cohesion: 0.16
-Nodes (13): SkillActivityCard(), SkillActivityCardProps, styles, getSkillColor(), Habilidade, HABILIDADE_STYLES, HabilidadeKey, HABILIDADES (+5 more)
+### Community 58 - "brincadeiras.ts"
+Cohesion: 0.22
+Nodes (19): AccessPlan, ArticleRow, ExerciseRow, PlayRow, ProductRow, salvarProdutos(), saveBrincadeira(), validarProduto() (+11 more)
 
-### Community 59 - "ChildRegisterScreen.tsx"
-Cohesion: 0.23
-Nodes (21): CHILD_GENDER_OPTIONS, DISORDER_OPTIONS, GENDER_OPTIONS, ChildRegisterScreen(), styles, EditChildProfileScreen(), styles, EditParentProfileScreen() (+13 more)
+### Community 59 - "ParentRegisterScreen.tsx"
+Cohesion: 0.15
+Nodes (36): BottomSheetSelect(), BottomSheetSelectProps, styles, FormScreen(), PhotoPicker(), PhotoPickerProps, styles, SolidInput() (+28 more)
 
 ### Community 60 - "scripts"
 Cohesion: 0.33
@@ -332,57 +337,73 @@ Nodes (8): 1. Banco, 2. Secrets das Edge Functions, 3. Edge Functions, 4. Painel
 Cohesion: 0.29
 Nodes (6): Adotar em um projeto, Arquitetura padrão para Claude Code, Estrutura, Graphify, Manutenção, Ponytail
 
+### Community 67 - "QuestionScreenLayout.tsx"
+Cohesion: 0.18
+Nodes (13): HowToAnswerSheet(), HowToAnswerSheetProps, styles, QuestionScreenLayout(), QuestionScreenLayoutProps, styles, styles, VideoPlayer() (+5 more)
+
 ### Community 69 - "handoff/SKILL.md"
 Cohesion: 0.29
 Nodes (6): Arquivos e comandos relevantes, Concluído, Decisões e motivos, Objetivo, Pendente ou bloqueado, Próximo passo exato
 
-### Community 70 - "check_exercise_completion"
+### Community 70 - "QuestionCrudScreen.tsx"
+Cohesion: 0.11
+Nodes (21): MediaThumb(), MediaThumbProps, HowToAnswerScreen(), handleSave(), InitialQuestionsScreen(), columns, EXPORT_FILE_BASES, exportColumns (+13 more)
+
+### Community 72 - "Registro dos Programas AvanceKids_6ab4f5ba.md"
+Cohesion: 0.18
+Nodes (10): Sheet: Anamnese, Sheet: CONSOLIDADO, Sheet: CP, Sheet: Folha de Rosto, Sheet: INSTRUÇÕES, Sheet: Modelo Relatório, Sheet: mês 1, Sheet: mês 2 (+2 more)
+
+### Community 73 - "Programa ABA – F01AC002 – Olha durante brincadeira"
 Cohesion: 0.40
-Nodes (4): activity_plans, exercise_sessions, exercises, check_exercise_completion()
+Nodes (4): Aquisição (A), Generalização (B), Manutenção (C), Programa ABA – F01AC002 – Olha durante brincadeira
 
 ### Community 97 - "ActivityScreen.tsx"
-Cohesion: 0.25
-Nodes (14): ActivityScreen(), RESULT_OPTIONS, styles, fetchPlan(), registerAttempt(), RegisterAttemptResult, restartExerciseSession(), startExerciseSession() (+6 more)
+Cohesion: 0.17
+Nodes (18): linkDeSenha, ActivityScreen(), RESULT_OPTIONS, styles, fetchPlan(), findOpenSession(), generateActivityPlan(), registerAttempt() (+10 more)
 
-### Community 100 - "useProfileStore.ts"
-Cohesion: 0.15
-Nodes (20): PrivateAvatar(), PrivateAvatarProps, ChildrenListScreen(), styles, Onboarding1Screen(), fetchProfile(), listChildren(), AVATAR_URL_REFRESH_MS (+12 more)
+### Community 100 - "services/auth.ts"
+Cohesion: 0.16
+Nodes (17): GhostButton(), GhostButtonProps, styles, Logo(), styles, ChangePasswordScreen(), styles, LoginScreen() (+9 more)
 
-### Community 102 - "20260907120200_migration-18_produtos_por_brincadeira.sql"
+### Community 102 - "Q: Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback."
 Cohesion: 0.40
-Nodes (4): set_updated_at, play_products, plays, trg_play_products_updated_at
+Nodes (4): Answer, Outcome, Q: Vê pra mim o que tu acha, se eu esqueci alguma coisa ou se eu falei alguma coisa de errado. Aí só me dá esse feedback., Source Nodes
 
 ### Community 103 - "mobile/vercel.json"
-Cohesion: 0.50
-Nodes (3): buildCommand, outputDirectory, $schema
+Cohesion: 0.40
+Nodes (4): buildCommand, outputDirectory, rewrites, $schema
 
-### Community 105 - "brincadeiras.ts"
-Cohesion: 0.22
-Nodes (14): AccessPlan, PlayRow, ProductRow, salvarProdutos(), saveBrincadeira(), validarProduto(), extensionFromMime(), resolveMediaUrl() (+6 more)
+### Community 105 - "modelos-importacao_dee98aeb.md"
+Cohesion: 0.50
+Nodes (3): Sheet: Atividades, Sheet: Instruções, Sheet: Perguntas
+
+### Community 109 - "Q: O que ainda falta no Avance Kids após as respostas da cliente?"
+Cohesion: 0.50
+Nodes (3): Answer, Outcome, Q: O que ainda falta no Avance Kids após as respostas da cliente?
 
 ### Community 110 - "terms_acceptances"
 Cohesion: 0.50
 Nodes (4): auth, auth.users, terms_acceptances, terms_documents
 
-### Community 117 - "showError"
-Cohesion: 0.16
-Nodes (23): PhotoPicker(), PhotoPickerProps, styles, TermsBody(), ChangePasswordScreen(), styles, LoginScreen(), SettingsScreen() (+15 more)
+### Community 117 - "ContentDetailScreen.tsx"
+Cohesion: 0.18
+Nodes (8): BottomTabBar(), BottomTabBarProps, styles, ContentDetailParams, ContentDetailScreen(), styles, fetchPlayProducts(), PlayProductRow
 
-### Community 118 - "mobile/App.tsx"
-Cohesion: 0.14
-Nodes (16): App(), Stack, AnimatedSplash(), styles, OnboardingLayout(), OnboardingLayoutProps, styles, textoEhDoVigente() (+8 more)
+### Community 118 - "useProfileStore.ts"
+Cohesion: 0.11
+Nodes (28): CurvedHeader(), HEADER_MAX_HEIGHT, PrivateAvatar(), PrivateAvatarProps, ChildrenListScreen(), styles, Onboarding1Screen(), SettingsScreen() (+20 more)
 
 ### Community 119 - "db.ts"
-Cohesion: 0.13
-Nodes (20): ContentItem, ContentKind, ContentListScreen(), normalizeSearch(), styles, HomeScreen(), fetchArticles(), fetchPlays() (+12 more)
+Cohesion: 0.18
+Nodes (10): AgeBracketRow, ExerciseLevel, ExerciseRow, MediaType, PlanStatus, ProfileRow, QuestionKind, RecordStatus (+2 more)
 
 ### Community 122 - "dialog.tsx"
-Cohesion: 0.16
-Nodes (12): ContentDetailParams, ContentDetailScreen(), styles, fetchPlayProducts(), DialogButton, DialogHost(), DialogOptions, DialogState (+4 more)
+Cohesion: 0.25
+Nodes (8): DialogButton, DialogHost(), DialogOptions, DialogState, DialogVariant, styles, useDialogStore, VARIANT_STYLE
 
 ### Community 123 - "PlansScreen.tsx"
-Cohesion: 0.36
-Nodes (10): formatarPreco(), PlansScreen(), styles, BillingConfig, createBillingPortalSession(), createCheckoutSession(), fetchBillingConfig(), fetchSubscription() (+2 more)
+Cohesion: 0.29
+Nodes (15): formatarPreco(), PlansScreen(), styles, BillingConfig, createBillingPortalSession(), createCheckoutSession(), diaEmBrasilia(), diasRestantesDeTeste() (+7 more)
 
 ### Community 124 - "2. Remediação aplicada"
 Cohesion: 0.20
@@ -393,20 +414,16 @@ Cohesion: 0.22
 Nodes (9): 2.6 Campos novos no backoffice — ⬜ aberto, 2. Patches de UI — ✅ aplicados na integração, 3.1 O plano da criança fica ~4x maior, 3.2 Crianças com plano já gerado, 3. Consequências conhecidas das mudanças desta branch, 6. Perguntas em aberto para a cliente, Dependências e pendências, Resolvido com as respostas da cliente (migration-11) (+1 more)
 
 ### Community 126 - "HomeScreen.tsx"
-Cohesion: 0.13
-Nodes (12): BottomTabBar(), BottomTabBarProps, styles, CURVE_MAX_HEIGHT, CURVE_TOP, CurvedHeader(), CurvedHeaderProps, HEADER_MAX_HEIGHT (+4 more)
+Cohesion: 0.14
+Nodes (18): CURVE_MAX_HEIGHT, CURVE_TOP, CurvedHeaderProps, HEADER_MIN_HEIGHT, styles, ContentItem, ContentKind, ContentListScreen() (+10 more)
 
-### Community 127 - "ActivityPlanScreen.tsx"
-Cohesion: 0.24
-Nodes (11): ScreenHeader(), ScreenHeaderProps, styles, ActivityHistoryScreen(), ActivityPlanScreen(), isPremiumLocked(), planDescription(), styles (+3 more)
+### Community 127 - "20260916130000_migration-20_refaz_planos_com_atividades_arquivadas.sql"
+Cohesion: 0.50
+Nodes (3): backup.m20_activity_plans, backup.m20_exercise_attempts, backup.m20_exercise_sessions
 
 ### Community 130 - "QA em Android real"
 Cohesion: 0.22
 Nodes (8): Assinatura, Conta, Fluxo principal, Layout e entrada, Preparação, QA em Android real, Quando algo falhar, Termos
-
-### Community 131 - "refData.ts"
-Cohesion: 0.36
-Nodes (7): AgeBracketCode, HabilidadeKey, BracketRef, load(), RefData, SkillRef, Pergunta
 
 ### Community 132 - "4. Riscos levantados (com status)"
 Cohesion: 0.29
@@ -415,10 +432,6 @@ Nodes (7): 4.1 ✅ Keystore de release e senha versionados no git — resolvido,
 ### Community 134 - "Issue tracker: Linear"
 Cohesion: 0.14
 Nodes (12): Antes de qualquer operação, Convenções, Estados do time Devnoflow, Issue tracker: Linear, `labels` substitui o conjunto inteiro, Onde as issues nascem, Quando uma skill disser "buscar o ticket relevante", Quando uma skill disser "publicar no issue tracker" (+4 more)
-
-### Community 135 - "PerguntasScreen.tsx"
-Cohesion: 0.28
-Nodes (7): QuestionScreenLayout(), QuestionScreenLayoutProps, styles, OPTION_LABELS, PerguntasScreen(), styles, submitInitialAnswers()
 
 ### Community 136 - "Contexto — Avance Kids"
 Cohesion: 0.22
@@ -444,25 +457,33 @@ Nodes (5): 3. Propagação para o remoto — executada, Levantamento antes do pu
 Cohesion: 0.50
 Nodes (4): 5.1 ⬜ CPF da criança — NÃO respondido, continua aberto, 5.2 ⬜ Exportação de relatório — direito previsto nos Termos, sem tela, 5.3 ✅ Aceite dos termos para contas antigas — resolvido, 5. Aberto desde a integração
 
+### Community 151 - "habilidades.ts"
+Cohesion: 0.16
+Nodes (13): SkillActivityCard(), SkillActivityCardProps, styles, getSkillColor(), Habilidade, HABILIDADE_STYLES, HabilidadeKey, HABILIDADES (+5 more)
+
+### Community 152 - "dashboard.ts"
+Cohesion: 0.39
+Nodes (7): DashboardScreen(), formatCount(), countRows(), DashboardStats, fetchDashboardStats(), fetchSignupsByMonth(), MONTH_LABELS
+
 ## Knowledge Gaps
-- **488 isolated node(s):** `RESULT_OPTIONS`, `styles`, `styles`, `styles`, `ActivityCardProps` (+483 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 603 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **59 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **559 isolated node(s):** `$schema`, `typescript`, `oxc`, `react/rules-of-hooks`, `warn` (+554 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 681 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **60 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `react` to `PerguntasScreen.tsx`, `TermsContent.tsx`, `PwaInstallPrompt.tsx`, `dashboard.ts`, `HabilidadeScreen.tsx`, `plugins`, `ActivitiesScreen.tsx`, `src/App.tsx`, `AdminUsersScreen.tsx`, `TriagemScreen.tsx`, `ui/index.ts`, `habilidades.ts`, `ChildRegisterScreen.tsx`, `ActivityScreen.tsx`, `useProfileStore.ts`, `showError`, `mobile/App.tsx`, `db.ts`, `dialog.tsx`, `PlansScreen.tsx`, `HomeScreen.tsx`, `ActivityPlanScreen.tsx`?**
-  _High betweenness centrality (0.143) - this node is a cross-community bridge._
-- **What connects `RESULT_OPTIONS`, `styles`, `styles` to the rest of the system?**
-  _488 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `react` connect `react` to `TermsContent.tsx`, `PwaInstallPrompt.tsx`, `errorMessage`, `plugins`, `ActivitiesScreen.tsx`, `habilidades.ts`, `dashboard.ts`, `src/App.tsx`, `GamesScreen.tsx`, `mobile/App.tsx`, `ui/index.ts`, `ParentRegisterScreen.tsx`, `QuestionScreenLayout.tsx`, `QuestionCrudScreen.tsx`, `ActivityScreen.tsx`, `services/auth.ts`, `ContentDetailScreen.tsx`, `useProfileStore.ts`, `dialog.tsx`, `PlansScreen.tsx`, `HomeScreen.tsx`?**
+  _High betweenness centrality (0.114) - this node is a cross-community bridge._
+- **Why does `ActivitiesScreen()` connect `ActivitiesScreen.tsx` to `GamesScreen.tsx`, `QuestionCrudScreen.tsx`, `atividades.ts`, `ui/index.ts`, `src/App.tsx`?**
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
+- **What connects `$schema`, `typescript`, `oxc` to the rest of the system?**
+  _559 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `react` be split into smaller, more focused modules?**
-  _Cohesion score 0.0841813135985199 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09672830725462304 - nodes in this community are weakly interconnected._
 - **Should `dependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
 - **Should `schemas.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.08065268065268065 - nodes in this community are weakly interconnected._
-- **Should `web` be split into smaller, more focused modules?**
-  _Cohesion score 0.05405405405405406 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08531468531468532 - nodes in this community are weakly interconnected._

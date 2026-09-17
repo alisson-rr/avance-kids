@@ -4,9 +4,17 @@ import type { DataTableColumn, EntityFilterConfig } from '../components/ui';
 import { useEntityList } from '../hooks/useEntityList';
 import { fetchArtigos, saveArtigo, toggleArchiveArtigo } from '../services/artigos';
 import type { Artigo } from '../types/entities';
+import type { CsvColumn } from '../utils/csv';
 
 function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, ' ');
+}
+
+// Para a planilha: preserva a quebra de parágrafos, títulos e itens de lista.
+function htmlToText(html: string): string {
+  const withBreaks = html.replace(/<br\s*\/?>|<\/(?:p|div|h[1-6]|li|blockquote)>/gi, '\n');
+  const text = new DOMParser().parseFromString(withBreaks, 'text/html').body.textContent ?? '';
+  return text.trim().replace(/\n{3,}/g, '\n\n');
 }
 
 function emptyArtigo(): Artigo {
@@ -41,6 +49,15 @@ const columns: DataTableColumn<Artigo>[] = [
   },
 ];
 
+const exportColumns: CsvColumn<Artigo>[] = [
+  { header: 'ID', value: (row) => row.id },
+  { header: 'Título', value: (row) => row.titulo },
+  { header: 'Corpo do Artigo', value: (row) => htmlToText(row.corpo) },
+  { header: 'URL da imagem de capa', value: (row) => row.imagemUrl },
+  { header: 'Plano', value: (row) => (row.plano === 'premium' ? 'Premium' : 'Gratuito') },
+  { header: 'Status', value: (row) => (row.status === 'ativo' ? 'Ativo' : 'Arquivado') },
+];
+
 const filters: EntityFilterConfig<Artigo>[] = [
   {
     key: 'plano',
@@ -66,6 +83,7 @@ export function ArticlesScreen() {
       emptyItem={emptyArtigo}
       searchPlaceholder="Buscar por título ou conteúdo..."
       filters={filters}
+      exportConfig={{ fileBase: 'artigos', load: fetchArtigos, columns: exportColumns }}
       onSave={async (item, isEditing) => {
         await saveArtigo(item, isEditing);
         await refresh();

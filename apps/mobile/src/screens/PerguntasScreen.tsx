@@ -166,6 +166,8 @@ export function PerguntasScreen({ navigation }: any) {
       progressActiveStyle={{ backgroundColor: 'rgba(54, 120, 253, 0.6)' }}
       progressInactiveStyle={{ backgroundColor: 'rgba(54, 120, 253, 0.2)' }}
       pergunta={q.texto}
+      comoResponderTexto={q.como_responder_texto}
+      comoResponderVideoUrl={q.como_responder_video_url}
       opcoes={OPTION_LABELS}
       selectedOption={selectedOption}
       onSelectOption={setSelectedOption}

@@ -63,6 +63,9 @@ export interface Pergunta {
   ageBracketCode: AgeBracketCode;
   ordem: number;
   status: RecordStatus;
+  /** Orientação "Como responder" desta pergunta; vazio = não aparece no app. */
+  comoResponderTexto: string;
+  comoResponderVideoUrl: string;
 }
 
 export type PerguntaInicial = Pergunta;

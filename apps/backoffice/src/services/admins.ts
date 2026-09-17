@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { assertUpdated, toggleArchiveStatus } from './common';
+import { assertUpdated, fetchAllRows, toggleArchiveStatus } from './common';
 import type { AdminUser, AdminRole } from '../types/entities';
 import type { RecordStatus, WithId } from '../types/common';
 
@@ -11,13 +11,15 @@ interface AdminRow {
   status: RecordStatus;
 }
 
-export async function fetchAdmins(): Promise<AdminUser[]> {
-  const { data, error } = await supabase
-    .from('admin_users')
-    .select('id, nome, email, role, status')
-    .order('created_at', { ascending: false });
-  if (error) throw new Error(error.message);
-  return (data ?? []) as AdminRow[];
+export function fetchAdmins(): Promise<AdminUser[]> {
+  return fetchAllRows<AdminRow>((from, to) =>
+    supabase
+      .from('admin_users')
+      .select('id, nome, email, role, status')
+      .order('created_at', { ascending: false })
+      .order('id')
+      .range(from, to)
+  );
 }
 
 /**

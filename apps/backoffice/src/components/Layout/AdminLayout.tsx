@@ -6,6 +6,7 @@ import {
   FileText,
   MessageSquare,
   CheckSquare,
+  HelpCircle,
   LogOut,
   Users
 } from 'lucide-react';
@@ -26,6 +27,7 @@ const navItems = [
   { path: '/articles', label: 'Artigos', icon: <FileText size={20} /> },
   { path: '/initial-questions', label: 'Perguntas Iniciais', icon: <MessageSquare size={20} /> },
   { path: '/triage-questions', label: 'Perguntas Triagem', icon: <CheckSquare size={20} /> },
+  { path: '/how-to-answer', label: 'Como responder', icon: <HelpCircle size={20} /> },
 ];
 
 export function AdminLayout() {

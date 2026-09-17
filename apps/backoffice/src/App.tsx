@@ -11,6 +11,7 @@ import { ArticlesScreen } from './screens/ArticlesScreen';
 import { InitialQuestionsScreen } from './screens/InitialQuestionsScreen';
 import { TriageQuestionsScreen } from './screens/TriageQuestionsScreen';
 import { AdminProfileScreen } from './screens/AdminProfileScreen';
+import { HowToAnswerScreen } from './screens/HowToAnswerScreen';
 
 function RequireAdmin({ children }: { children: ReactNode }) {
   const { loading, admin } = useAuth();
@@ -45,6 +46,7 @@ function App() {
             <Route path="articles" element={<ArticlesScreen />} />
             <Route path="initial-questions" element={<InitialQuestionsScreen />} />
             <Route path="triage-questions" element={<TriageQuestionsScreen />} />
+            <Route path="how-to-answer" element={<HowToAnswerScreen />} />
             <Route path="profile" element={<AdminProfileScreen />} />
           </Route>
 

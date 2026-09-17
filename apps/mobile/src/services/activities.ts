@@ -37,19 +37,21 @@ export function startExerciseSession(planId: string) {
   );
 }
 
-/** Descarta apenas a sessão aberta do plano e inicia uma nova do zero. */
-export async function restartExerciseSession(planId: string) {
+/**
+ * Apaga as tentativas em aberto do plano (inclusive a que chegou a 10
+ * repetições sem atingir o critério). Tentativas concluídas (dias da
+ * Generalização) ficam; as repetições caem junto por cascata.
+ */
+export async function restartExerciseSession(planId: string): Promise<void> {
   const now = new Date().toISOString();
   const { error } = await supabase
     .from('exercise_sessions')
     .delete()
     .eq('plan_id', planId)
     .eq('is_completed', false)
-    .lt('total_repetitions', 10)
     .gt('expires_at', now);
 
   if (error) throw new Error(error.message);
-  return startExerciseSession(planId);
 }
 
 export interface RegisterAttemptResult {

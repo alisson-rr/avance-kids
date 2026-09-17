@@ -21,6 +21,26 @@ BEGIN;
 INSERT INTO auth.users (id, email, raw_user_meta_data) VALUES
   ('f1111111-1111-1111-1111-111111111111', 'logica@exemplo.test', '{"nome":"Conta Lógica"}'::jsonb);
 
+-- Teste grátis do cadastro (migration-22): esta conta ganha premium por 15
+-- dias; os cenários abaixo são de conta free, então o prazo sai de cena.
+DO $$
+DECLARE
+  v_fim TIMESTAMPTZ;
+BEGIN
+  SELECT teste_gratis_ate INTO v_fim FROM subscriptions
+   WHERE user_id = 'f1111111-1111-1111-1111-111111111111';
+  IF v_fim IS NULL OR v_fim <= now() THEN
+    RAISE EXCEPTION 'FALHA: conta nova deveria nascer com teste grátis (veio %)', v_fim;
+  END IF;
+  IF fim_do_teste_gratis('2026-09-16 02:59:59+00') <> '2026-09-30 03:00+00'
+     OR fim_do_teste_gratis('2026-09-16 03:00:00+00') <> '2026-10-01 03:00+00' THEN
+    RAISE EXCEPTION 'FALHA: fim_do_teste_gratis fora da meia-noite de Brasília do 15º dia';
+  END IF;
+END $$;
+
+UPDATE subscriptions SET teste_gratis_ate = NULL
+ WHERE user_id = 'f1111111-1111-1111-1111-111111111111';
+
 -- ============================================================
 -- 1. FAIXAS ETÁRIAS (D4) — contíguas de 12 a 143 meses
 -- ============================================================

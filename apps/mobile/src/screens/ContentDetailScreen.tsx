@@ -12,9 +12,11 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { BottomTabBar } from '../components/BottomTabBar';
+import { VideoPlayer } from '../components/VideoPlayer';
 import { theme } from '../theme';
 import { showError } from '../ui/dialog';
 import { fetchPlayProducts } from '../services/content';
+import { youtubeId } from '../utils/youtube';
 import type { PlayProductRow } from '../types/db';
 
 export interface ContentDetailParams {
@@ -54,15 +56,7 @@ export function ContentDetailScreen({ navigation, route }: any) {
     return () => { mounted = false; };
   }, [playId]);
 
-  const isVideo = mediaType === 'video' && !!mediaUrl;
-
-  const handlePlayVideo = () => {
-    if (mediaUrl) {
-      Linking.openURL(mediaUrl).catch(() =>
-        showError('Erro', 'Não foi possível abrir o vídeo.'),
-      );
-    }
-  };
+  const videoId = mediaType === 'video' ? youtubeId(mediaUrl) : null;
 
   const handleOpenProduct = (product: PlayProductRow) => {
     Linking.openURL(product.link_url).catch(() =>
@@ -90,24 +84,23 @@ export function ContentDetailScreen({ navigation, route }: any) {
         {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
 
         {/* ── MEDIA ── */}
-        <View style={styles.mediaContainer}>
-          {mediaUrl && !isVideo ? (
-            <Image source={{ uri: mediaUrl }} style={styles.mediaImage} resizeMode="cover" />
-          ) : (
-            <Image
-              source={require('../../assets/onboarding3.png')}
-              style={styles.mediaImage}
-              resizeMode="cover"
-            />
-          )}
-          {isVideo && (
-            <TouchableOpacity style={styles.playOverlay} onPress={handlePlayVideo} activeOpacity={0.8}>
-              <View style={styles.playButton}>
-                <Ionicons name="play" size={32} color="#FFFFFF" style={{ marginLeft: 3 }} />
-              </View>
-            </TouchableOpacity>
-          )}
-        </View>
+        {videoId ? (
+          <View style={styles.videoContainer}>
+            <VideoPlayer key={videoId} videoId={videoId} />
+          </View>
+        ) : (
+          <View style={styles.mediaContainer}>
+            {mediaUrl && mediaType !== 'video' ? (
+              <Image source={{ uri: mediaUrl }} style={styles.mediaImage} resizeMode="cover" />
+            ) : (
+              <Image
+                source={require('../../assets/onboarding3.png')}
+                style={styles.mediaImage}
+                resizeMode="cover"
+              />
+            )}
+          </View>
+        )}
 
         {/* ── BODY ── */}
         <Text style={styles.bodyText}>{body}</Text>
@@ -206,22 +199,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  playOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  playButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    justifyContent: 'center',
-    alignItems: 'center',
+  videoContainer: {
+    marginHorizontal: 24,
+    marginTop: 8,
   },
   bodyText: {
     fontFamily: theme.fonts.regular,

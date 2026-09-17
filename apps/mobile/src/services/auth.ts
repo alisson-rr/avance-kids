@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { invokeFunction } from './api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { makeRedirectUri } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import type { ProfileRow } from '../types/db';
@@ -153,6 +154,36 @@ export async function changePassword(currentPassword: string, newPassword: strin
   if (error) throw new Error(traduzErroAuth(error.message));
 }
 
+/**
+ * Conta que abriu o link "Esqueci a senha" e ainda não salvou a nova senha.
+ * Guardada para reabrir a tela se a página recarregar antes de salvar.
+ */
+const CHAVE_NOVA_SENHA = 'avk-nova-senha-pendente';
+export const novaSenhaPendente = {
+  ler: () => AsyncStorage.getItem(CHAVE_NOVA_SENHA),
+  marcar: (userId: string) => AsyncStorage.setItem(CHAVE_NOVA_SENHA, userId),
+  limpar: () => AsyncStorage.removeItem(CHAVE_NOVA_SENHA),
+};
+
+/**
+ * Nova senha sem a senha atual: só para a conta que abriu o link. Depois
+ * encerra as sessões, para que o link que fica no histórico do navegador não
+ * sirva mais.
+ */
+export async function saveRecoveredPassword(newPassword: string) {
+  const { data } = await supabase.auth.getSession();
+  const pendente = await novaSenhaPendente.ler();
+  if (!data.session || data.session.user.id !== pendente) {
+    throw new Error('Abra de novo o link enviado para o seu e-mail.');
+  }
+
+  const { error } = await supabase.auth.updateUser({ password: newPassword });
+  if (error) throw new Error(traduzErroAuth(error.message));
+
+  await novaSenhaPendente.limpar();
+  await signOut();
+}
+
 export async function fetchProfile(): Promise<ProfileRow | null> {
   const { data: userData } = await supabase.auth.getUser();
   if (!userData.user) return null;
@@ -180,6 +211,7 @@ function traduzErroAuth(message: string): string {
   if (m.includes('email not confirmed')) return 'Confirme seu e-mail antes de entrar.';
   if (m.includes('user already registered')) return 'Este e-mail já está cadastrado.';
   if (m.includes('password should be at least')) return 'A senha deve ter pelo menos 6 caracteres.';
+  if (m.includes('should be different from the old password')) return 'A nova senha precisa ser diferente da atual.';
   if (m.includes('network')) return 'Falha de conexão. Verifique sua internet.';
   return message;
 }

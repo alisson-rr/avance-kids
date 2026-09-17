@@ -1,11 +1,23 @@
 import { useState } from 'react';
 import { Plus, Edit2, Archive, ArchiveRestore, ArrowLeft, Save } from 'lucide-react';
-import { Badge, DataTable, FormField, ImageUploadField, Select, Tabs, ConfirmDialog } from '../components/ui';
+import {
+  Badge,
+  DataTable,
+  ExportButton,
+  FormField,
+  ImageUploadField,
+  MediaThumb,
+  Select,
+  Tabs,
+  ConfirmDialog,
+} from '../components/ui';
 import type { DataTableColumn } from '../components/ui';
 import { useArchivableList, STATUS_FILTER_OPTIONS } from '../hooks/useArchivableList';
 import { useEntityList } from '../hooks/useEntityList';
 import { fetchAtividades, saveAtividade, toggleArchiveAtividade } from '../services/atividades';
 import type { MediaType } from '../types/common';
+import type { CsvColumn } from '../utils/csv';
+import { youtubeId } from '../utils/youtube';
 import {
   SKILLS,
   AGE_BRACKETS,
@@ -61,6 +73,34 @@ const FORM_TABS = [
   { id: 'basic', label: '1. Informações Básicas' },
   { id: 'execution', label: '2. Execução & Materiais' },
   { id: 'evaluation', label: '3. Critérios & Avaliação' },
+];
+
+const EXPORT_COLUMNS: CsvColumn<Atividade>[] = [
+  { header: 'ID', value: (row) => row.id },
+  { header: 'Código', value: (row) => row.codigo },
+  { header: 'Título', value: (row) => row.titulo },
+  { header: 'Habilidade', value: (row) => getSkill(row.skillKey).label },
+  { header: 'Faixa etária', value: (row) => `${row.ageBracketCode} · ${getAgeBracket(row.ageBracketCode).label}` },
+  { header: 'Nível', value: (row) => EXERCISE_LEVELS.find((l) => l.value === row.nivel)?.label ?? row.nivel },
+  { header: 'Plano', value: (row) => (row.plano === 'premium' ? 'Premium' : 'Gratuito') },
+  { header: 'Ordem', value: (row) => row.ordem },
+  { header: 'Status', value: (row) => (row.status === 'ativo' ? 'Ativo' : 'Arquivado') },
+  { header: 'Tipo de mídia', value: (row) => (row.mediaType === 'video' ? 'Vídeo' : 'Imagem') },
+  { header: 'URL da mídia', value: (row) => row.mediaUrl },
+  { header: 'Programa ABA', value: (row) => row.programaAba },
+  { header: 'Função', value: (row) => row.funcao },
+  { header: 'Objetivo', value: (row) => row.objetivo },
+  { header: 'Procedimento (Passo a Passo)', value: (row) => row.procedimento },
+  { header: 'Materiais Necessários', value: (row) => row.materiais },
+  { header: 'Recursos Extras', value: (row) => row.recursosExtras },
+  { header: 'Frequência Recomendada', value: (row) => row.frequencia },
+  { header: 'Exemplos de Brincadeiras', value: (row) => row.brincadeiras },
+  { header: 'Hierarquia de Dicas', value: (row) => row.hierarquiaDicas },
+  { header: 'Resposta Esperada', value: (row) => row.respostaEsperada },
+  { header: 'Procedimento de Correção', value: (row) => row.procedimentoCorrecao },
+  { header: 'Critério de Avanço', value: (row) => row.criterioAvanco },
+  { header: 'Registro de Dados (Detalhado)', value: (row) => row.registroDados },
+  { header: 'Exemplos de Reforços', value: (row) => row.reforcos },
 ];
 
 function matchesSearch(row: Atividade, term: string): boolean {
@@ -144,6 +184,12 @@ export function ActivitiesScreen() {
   }
 
   const columns: DataTableColumn<Atividade>[] = [
+    {
+      key: 'media',
+      header: 'Mídia',
+      width: '120px',
+      render: (row) => <MediaThumb mediaType={row.mediaType} url={row.mediaUrl} />,
+    },
     { key: 'titulo', header: 'Título', render: (row) => row.titulo, sortValue: (row) => row.titulo },
     { key: 'codigo', header: 'Código', render: (row) => row.codigo || '—', sortValue: (row) => row.codigo },
     {
@@ -193,7 +239,8 @@ export function ActivitiesScreen() {
       header: 'Ações',
       width: '100px',
       render: (row) => (
-        <div className={styles.actions}>
+        // A linha inteira abre a edição; os botões não podem disparar esse clique por baixo.
+        <div className={styles.actions} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
           <button className={styles.iconBtn} onClick={() => openEdit(row)} title="Editar" type="button">
             <Edit2 size={18} />
           </button>
@@ -216,10 +263,13 @@ export function ActivitiesScreen() {
         <>
           <div className={styles.header}>
             <h1 className={styles.title}>Cadastro de Atividades</h1>
-            <button className={styles.primaryButton} onClick={openNew} type="button">
-              <Plus size={20} />
-              <span>Nova Atividade</span>
-            </button>
+            <div className={styles.headerActions}>
+              <ExportButton fileBase="atividades" load={fetchAtividades} columns={EXPORT_COLUMNS} />
+              <button className={styles.primaryButton} onClick={openNew} type="button">
+                <Plus size={20} />
+                <span>Nova Atividade</span>
+              </button>
+            </div>
           </div>
 
           {(error || listError) && <p className={styles.errorBanner}>{error || listError}</p>}
@@ -228,6 +278,7 @@ export function ActivitiesScreen() {
             columns={columns}
             rows={filteredRows}
             getRowId={(row) => row.id}
+            onRowClick={openEdit}
             searchValue={list.searchTerm}
             onSearchChange={list.setSearchTerm}
             searchPlaceholder="Buscar por código, habilidade ou objetivo..."
@@ -326,6 +377,12 @@ export function ActivitiesScreen() {
                         value={formState.mediaUrl}
                         onChange={(e) => updateField('mediaUrl', e.target.value)}
                       />
+                      {youtubeId(formState.mediaUrl) && (
+                        <>
+                          <MediaThumb size="large" mediaType="video" url={formState.mediaUrl} />
+                          <span className={styles.previewNote}>Pré-visualização apenas demonstrativa</span>
+                        </>
+                      )}
                     </FormField>
                   )}
 

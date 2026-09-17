@@ -34,8 +34,9 @@
 }
 
 .previewImage {
-  width: 96px;
-  height: 96px;
+  width: 192px;
+  height: auto;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-divider);

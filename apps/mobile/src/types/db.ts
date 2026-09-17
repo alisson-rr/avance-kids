@@ -63,6 +63,9 @@ export interface QuestionRow {
   texto: string;
   ordem: number;
   status: RecordStatus;
+  /** Orientação "Como responder" da pergunta (migration-23). */
+  como_responder_texto: string | null;
+  como_responder_video_url: string | null;
 }
 
 export interface ExerciseRow {
@@ -160,6 +163,8 @@ export interface SubscriptionRow {
   status: 'active' | 'canceled' | 'past_due' | 'trialing';
   trial_end: string | null;
   current_period_end: string | null;
+  /** Fim do teste grátis do cadastro (migration-22). */
+  teste_gratis_ate: string | null;
 }
 
 /** Documento legal vigente publicado pelo servidor (migration-06). */
@@ -176,4 +181,10 @@ export interface TermsAcceptanceRow {
   tipo: string;
   versao: string;
   aceito_em: string;
+}
+
+/** Ajuda global "Como responder" do sheet de repetição (migration-19). */
+export interface HowToAnswerRow {
+  texto: string | null;
+  video_url: string | null;
 }

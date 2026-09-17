@@ -8,15 +8,25 @@ interface SolidInputProps extends TextInputProps {}
 export function SolidInput({ secureTextEntry, ...props }: SolidInputProps) {
   const [senhaVisivel, setSenhaVisivel] = useState(false);
   const permiteAlternarSenha = Boolean(secureTextEntry);
+  const bloqueado = props.editable === false;
 
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.input}
+        style={[styles.input, bloqueado && styles.inputBloqueado]}
         placeholderTextColor={theme.colors.textLight}
         secureTextEntry={permiteAlternarSenha && !senhaVisivel}
         {...props}
       />
+      {bloqueado && (
+        <Feather
+          name="lock"
+          size={18}
+          color={theme.colors.textLight}
+          style={styles.passwordButton}
+          accessibilityLabel="Campo bloqueado"
+        />
+      )}
       {permiteAlternarSenha && (
         <TouchableOpacity
           style={styles.passwordButton}
@@ -52,6 +62,9 @@ const styles = StyleSheet.create({
     // com altura fixa do container recorta o texto digitado (fica invisível).
     paddingVertical: 0,
     textAlignVertical: 'center',
+  },
+  inputBloqueado: {
+    color: theme.colors.textLight,
   },
   passwordButton: {
     marginLeft: 8,

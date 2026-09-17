@@ -3,6 +3,7 @@ import type { DataTableColumn } from '../components/ui';
 import { useEntityList } from '../hooks/useEntityList';
 import { fetchAdmins, saveAdmin, toggleArchiveAdmin } from '../services/admins';
 import type { AdminUser, AdminRole } from '../types/entities';
+import type { CsvColumn } from '../utils/csv';
 
 const ROLE_OPTIONS: { value: AdminRole; label: string }[] = [
   { value: 'admin', label: 'Administrador' },
@@ -42,6 +43,15 @@ const columns: DataTableColumn<AdminUser>[] = [
   },
 ];
 
+// Sem coluna de senha: ela só existe no formulário de criação.
+const exportColumns: CsvColumn<AdminUser>[] = [
+  { header: 'ID', value: (row) => row.id },
+  { header: 'Nome', value: (row) => row.nome },
+  { header: 'Email', value: (row) => row.email },
+  { header: 'Papel', value: (row) => roleLabel(row.role) },
+  { header: 'Status', value: (row) => (row.status === 'ativo' ? 'Ativo' : 'Arquivado') },
+];
+
 export function AdminUsersScreen() {
   const { rows, loading, error, refresh } = useEntityList(fetchAdmins);
 
@@ -57,6 +67,7 @@ export function AdminUsersScreen() {
       matchesSearch={matchesSearch}
       emptyItem={emptyAdminUser}
       searchPlaceholder="Buscar por nome ou email..."
+      exportConfig={{ fileBase: 'usuarios-admin', load: fetchAdmins, columns: exportColumns }}
       onSave={async (item, isEditing) => {
         await saveAdmin(item, isEditing);
         await refresh();

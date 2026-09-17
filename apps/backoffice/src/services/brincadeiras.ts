@@ -1,6 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { resolveMediaUrl } from './storage';
-import { assertUpdated, toggleArchiveStatus } from './common';
+import { assertUpdated, fetchAllRows, toggleArchiveStatus } from './common';
 import type { Brincadeira, ProdutoBrincadeira } from '../types/entities';
 import type { AccessPlan } from '../constants/aba';
 import type { MediaType, RecordStatus, WithId } from '../types/common';
@@ -29,15 +29,18 @@ interface ProductRow {
 }
 
 export async function fetchBrincadeiras(): Promise<Brincadeira[]> {
-  const { data, error } = await supabase
-    .from('plays')
-    .select(
-      'id, codigo, titulo, descricao, instrucoes, media_type, media_url, plano, status, play_products(id, titulo, descricao, imagem_url, link_url, ordem, status)'
-    )
-    .order('created_at', { ascending: false });
-  if (error) throw new Error(error.message);
+  const rows = await fetchAllRows<PlayRow>((from, to) =>
+    supabase
+      .from('plays')
+      .select(
+        'id, codigo, titulo, descricao, instrucoes, media_type, media_url, plano, status, play_products(id, titulo, descricao, imagem_url, link_url, ordem, status)'
+      )
+      .order('created_at', { ascending: false })
+      .order('id')
+      .range(from, to)
+  );
 
-  return ((data ?? []) as PlayRow[]).map((row) => ({
+  return rows.map((row) => ({
     id: row.id,
     codigo: row.codigo ?? '',
     titulo: row.titulo,

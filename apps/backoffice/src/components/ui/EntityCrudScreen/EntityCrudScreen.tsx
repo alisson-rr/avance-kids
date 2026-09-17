@@ -3,6 +3,8 @@ import { Plus, Edit2, Archive, ArchiveRestore, ArrowLeft, Save } from 'lucide-re
 import { DataTable } from '../DataTable/DataTable';
 import type { DataTableColumn } from '../DataTable/DataTable';
 import { ConfirmDialog } from '../ConfirmDialog/ConfirmDialog';
+import { ExportButton } from '../ExportButton/ExportButton';
+import type { ExportButtonProps } from '../ExportButton/ExportButton';
 import { Select } from '../Select/Select';
 import { useArchivableList, STATUS_FILTER_OPTIONS } from '../../../hooks/useArchivableList';
 import type { WithId } from '../../../types/common';
@@ -31,6 +33,7 @@ interface EntityCrudScreenProps<T extends WithId> {
   onSave: (item: T, isEditing: boolean) => Promise<void>;
   onToggleArchive: (item: T) => Promise<void>;
   renderForm: (item: T, update: <K extends keyof T>(key: K, value: T[K]) => void) => ReactNode;
+  exportConfig: ExportButtonProps<T>;
 }
 
 export function EntityCrudScreen<T extends WithId>({
@@ -48,6 +51,7 @@ export function EntityCrudScreen<T extends WithId>({
   onSave,
   onToggleArchive,
   renderForm,
+  exportConfig,
 }: EntityCrudScreenProps<T>) {
   const list = useArchivableList<T>(rows, matchesSearch);
   const [view, setView] = useState<'list' | 'form'>('list');
@@ -121,7 +125,8 @@ export function EntityCrudScreen<T extends WithId>({
       header: 'Ações',
       width: '100px',
       render: (row) => (
-        <div className={styles.actions}>
+        // A linha inteira abre a edição; os botões não podem disparar esse clique por baixo.
+        <div className={styles.actions} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
           <button className={styles.iconBtn} onClick={() => openEdit(row)} title="Editar" type="button">
             <Edit2 size={18} />
           </button>
@@ -144,10 +149,13 @@ export function EntityCrudScreen<T extends WithId>({
         <>
           <div className={styles.header}>
             <h1 className={styles.title}>{title}</h1>
-            <button className={styles.primaryButton} onClick={openNew} type="button">
-              <Plus size={20} />
-              <span>{newLabel}</span>
-            </button>
+            <div className={styles.headerActions}>
+              <ExportButton<T> {...exportConfig} />
+              <button className={styles.primaryButton} onClick={openNew} type="button">
+                <Plus size={20} />
+                <span>{newLabel}</span>
+              </button>
+            </div>
           </div>
 
           {(errorMessage || listError) && <p className={styles.errorBanner}>{errorMessage || listError}</p>}
@@ -156,6 +164,7 @@ export function EntityCrudScreen<T extends WithId>({
             columns={tableColumns}
             rows={filteredRows}
             getRowId={(row) => row.id}
+            onRowClick={openEdit}
             searchValue={list.searchTerm}
             onSearchChange={list.setSearchTerm}
             searchPlaceholder={searchPlaceholder}

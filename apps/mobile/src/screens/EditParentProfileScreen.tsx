@@ -29,8 +29,14 @@ export function EditParentProfileScreen({ navigation }: any) {
       showDialog({ title: 'Atenção', message: 'O nome é obrigatório.', variant: 'info' });
       return;
     }
-    if (nascimento && !toIsoDate(nascimento)) {
+    // Mesmas regras do cadastro: sem data ou CPF o app trata a conta como
+    // cadastro incompleto (selectPerfilIncompleto).
+    if (!toIsoDate(nascimento)) {
       showDialog({ title: 'Atenção', message: 'Data de nascimento inválida. Use dd/mm/aaaa.', variant: 'info' });
+      return;
+    }
+    if (digitsOnly(cpf).length !== 11) {
+      showDialog({ title: 'Atenção', message: 'CPF inválido.', variant: 'info' });
       return;
     }
 

@@ -14,13 +14,16 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Feather } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { Button } from '../components/Button';
+import { GhostButton } from '../components/GhostButton';
 import { ScreenHeader } from '../components/ScreenHeader';
 import {
   createBillingPortalSession,
   createCheckoutSession,
+  emTesteGratis,
   fetchBillingConfig,
   fetchSubscription,
   isPremiumActive,
+  ultimoDiaDeTeste,
 } from '../services/subscription';
 import type { BillingConfig } from '../services/subscription';
 import { errorMessage } from '../services/api';
@@ -41,7 +44,9 @@ function formatarPreco(centavos: number, moeda: string): string {
 const POLL_TRIES = 4;
 const POLL_INTERVAL_MS = 2000;
 
-export function PlansScreen({ navigation }: any) {
+export function PlansScreen({ navigation, route }: any) {
+  // Aberta no lugar da Home porque o teste grátis acabou (destinoAoEntrar).
+  const fimDoTeste = route?.params?.fimDoTeste === true;
   const insets = useSafeAreaInsets();
   const [loading, setLoading] = useState(false);
   // Preço e teste vêm do servidor (billing-config). Enquanto não chegam a tela
@@ -56,10 +61,12 @@ export function PlansScreen({ navigation }: any) {
   const pollRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isPremium = isPremiumActive(subscription);
+  const emTeste = emTesteGratis(subscription);
+  const irParaHome = () => navigation.reset({ index: 0, routes: [{ name: 'Home' }] });
   // Cobrança recusada: mandar para um checkout novo criaria uma segunda
   // assinatura no Stripe. O caminho certo é o portal, para trocar o cartão.
-  const needsPaymentFix =
-    subscription?.plano === 'premium' && subscription.status === 'past_due';
+  // O webhook grava past_due com plano 'free', então só o status conta.
+  const needsPaymentFix = subscription?.status === 'past_due';
 
   const refresh = useCallback(async (retries = 0) => {
     // Cada volta ao primeiro plano recomeça o poll; sem isso a cadeia anterior
@@ -135,7 +142,7 @@ export function PlansScreen({ navigation }: any) {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <View style={styles.container}>
-        <ScreenHeader title="Meu Plano" onBack={() => navigation.goBack()} />
+        <ScreenHeader title="Meu Plano" onBack={fimDoTeste ? irParaHome : () => navigation.goBack()} />
 
         <ScrollView
           contentContainerStyle={[styles.scrollContent, { paddingBottom: 40 + insets.bottom }]}
@@ -146,6 +153,30 @@ export function PlansScreen({ navigation }: any) {
             <Text style={styles.title}>Desbloqueie todo o potencial do seu filho</Text>
             <Text style={styles.subtitle}>Assinatura mensal, sem fidelidade, para acompanhar e estimular o desenvolvimento contínuo.</Text>
           </View>
+
+          {fimDoTeste && !isPremium && (
+            <View style={[styles.activeBanner, styles.warningBanner]} accessible accessibilityRole="alert">
+              <Feather name="clock" size={20} color="#B26A00" />
+              <View style={styles.activeBannerText}>
+                <Text style={[styles.activeBannerTitle, styles.warningTitle]}>Seu teste grátis terminou</Text>
+                <Text style={[styles.activeBannerSubtitle, styles.warningSubtitle]}>
+                  Assine para continuar usando o premium.
+                </Text>
+              </View>
+            </View>
+          )}
+
+          {emTeste && (
+            <View style={styles.activeBanner} accessible accessibilityRole="summary">
+              <Feather name="gift" size={20} color="#0B7D57" />
+              <View style={styles.activeBannerText}>
+                <Text style={styles.activeBannerTitle}>Teste grátis ativo</Text>
+                <Text style={styles.activeBannerSubtitle}>
+                  Teste grátis até {ultimoDiaDeTeste(subscription)}
+                </Text>
+              </View>
+            </View>
+          )}
 
           {needsPaymentFix && (
             <View style={[styles.activeBanner, styles.warningBanner]} accessible accessibilityRole="alert">
@@ -188,12 +219,13 @@ export function PlansScreen({ navigation }: any) {
                     {formatarPreco(billing.valor_centavos, billing.moeda)}
                     <Text style={styles.planPeriod}>/mês</Text>
                   </Text>
-                  {billing.trial_dias > 0 && (
+                  {/* O teste agora começa no cadastro; assinar cobra na hora. */}
+                  {billing.trial_dias > 0 && !subscription?.teste_gratis_ate && (
                     <Text style={styles.trialText}>
                       {billing.trial_dias} dias grátis para experimentar
                     </Text>
                   )}
-                  {billing.ja_usou_teste && !isPremium && (
+                  {billing.ja_usou_teste && !isPremium && !emTeste && (
                     <Text style={styles.planNote}>
                       O período de teste já foi utilizado nesta conta.
                     </Text>
@@ -239,6 +271,7 @@ export function PlansScreen({ navigation }: any) {
                 ? 'No portal do Stripe você troca o cartão, vê suas faturas e cancela quando quiser.'
                 : 'Cancelamento grátis a qualquer momento. Ao assinar, você concorda com nossos Termos de Uso e Política de Privacidade.'}
             </Text>
+            {fimDoTeste && !isPremium && <GhostButton title="Agora não" onPress={irParaHome} />}
           </View>
           
         </ScrollView>

@@ -12,6 +12,12 @@
   align-items: center;
 }
 
+.headerActions {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
 .backWrapper {
   display: flex;
   align-items: center;
@@ -108,4 +114,24 @@
   border-radius: var(--radius-md);
   padding: 10px 14px;
   font-size: 14px;
+}
+
+.successBanner {
+  background-color: color-mix(in srgb, var(--color-success) 8%, white);
+  border: 1px solid var(--color-success);
+  color: var(--color-success);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+.previewNote {
+  font-size: 12px;
+  color: var(--color-text-light);
 }

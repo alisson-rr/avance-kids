@@ -1,7 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { getRefData } from './refData';
 import { resolveMediaUrl } from './storage';
-import { assertUpdated, toggleArchiveStatus } from './common';
+import { assertUpdated, fetchAllRows, toggleArchiveStatus } from './common';
 import type { Atividade, ExerciseLevel, AccessPlan } from '../constants/aba';
 import type { MediaType, RecordStatus, WithId } from '../types/common';
 
@@ -71,13 +71,19 @@ async function assertAnotherFreeAcquisition(
 }
 
 export async function fetchAtividades(): Promise<Atividade[]> {
-  const [{ data, error }, ref] = await Promise.all([
-    supabase.from('exercises').select(COLUMNS).order('created_at', { ascending: false }),
+  const [rows, ref] = await Promise.all([
+    fetchAllRows<ExerciseRow>((from, to) =>
+      supabase
+        .from('exercises')
+        .select(COLUMNS)
+        .order('created_at', { ascending: false })
+        .order('id')
+        .range(from, to)
+    ),
     getRefData(),
   ]);
-  if (error) throw new Error(error.message);
 
-  return ((data ?? []) as ExerciseRow[]).map((row) => ({
+  return rows.map((row) => ({
     id: row.id,
     codigo: row.codigo ?? '',
     titulo: row.titulo,

@@ -66,7 +66,7 @@ marque por dedução.
 |---|---|---|
 | 22 | Abrir a tela de Planos | Aparece **um** card mensal. Nenhuma menção a plano anual, em nenhum lugar |
 | 23 | Comparar o preço na tela com o Price configurado no Stripe | Valor idêntico, incluindo centavos e moeda |
-| 24 | Conferir o período de teste exibido | Bate com `STRIPE_TRIAL_DAYS`; para conta que já assinou uma vez, o teste não é anunciado |
+| 24 | Conferir o período de teste exibido | Conta nova mostra "Você ainda tem 15 dias de teste" na Home e "Teste grátis até DD/MM/AAAA" em Meu plano; assinar cobra na hora, sem teste no Stripe |
 | 25 | Tocar em assinar e completar o checkout com o cartão de teste | Abre o Stripe, cobra o mesmo valor da tela e aplica o mesmo período de teste |
 | 26 | Voltar do checkout para o app | Retorna sozinho para o app; o status premium aparece sem precisar reiniciar |
 | 27 | Cancelar o checkout no meio e voltar | Volta ao app sem travar e sem marcar assinatura |

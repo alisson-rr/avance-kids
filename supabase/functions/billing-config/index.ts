@@ -48,11 +48,12 @@ Deno.serve(async (req: Request) => {
     const serviceClient = getServiceClient();
     const { data: sub } = await serviceClient
       .from("subscriptions")
-      .select("stripe_subscription_id")
+      .select("stripe_subscription_id, teste_gratis_ate")
       .eq("user_id", user.id)
       .maybeSingle();
 
-    const jaUsouTeste = Boolean(sub?.stripe_subscription_id);
+    // Mesma regra de create-checkout-session: o teste do cadastro conta como usado.
+    const jaUsouTeste = Boolean(sub?.stripe_subscription_id) || Boolean(sub?.teste_gratis_ate);
 
     return jsonResponse({
       intervalo: "mensal",

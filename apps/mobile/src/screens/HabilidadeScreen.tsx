@@ -138,6 +138,8 @@ export function HabilidadeScreen({ route, navigation }: any) {
       progressActiveStyle={{ backgroundColor: stylesConfig.textColor }}
       progressInactiveStyle={{ backgroundColor: '#DCDCDC' }}
       pergunta={q.texto}
+      comoResponderTexto={q.como_responder_texto}
+      comoResponderVideoUrl={q.como_responder_video_url}
       opcoes={OPTION_LABELS}
       selectedOption={selectedOption}
       onSelectOption={setSelectedOption}

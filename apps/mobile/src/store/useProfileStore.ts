@@ -86,6 +86,9 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
       AsyncStorage.getItem(ACTIVE_CHILD_KEY),
     ]);
 
+    // Sem usuário o perfil viria vazio e pareceria "cadastro incompleto".
+    if (!userData.user) throw new Error('Sessão expirada. Faça login novamente.');
+
     const validActiveId = childRows.some((c) => c.id === activeId) ? activeId : null;
 
     set({
@@ -134,3 +137,10 @@ export const useProfileStore = create<ProfileStore>((set, get) => ({
 
 export const selectActiveChild = (state: ProfileStore): Child | undefined =>
   state.children.find((c) => c.isActive) ?? state.children[0];
+
+/**
+ * Conta que ainda não passou pelo "Seu cadastro". Quem entra pelo Google chega
+ * sem CPF e sem data de nascimento, que o cadastro por e-mail exige.
+ */
+export const selectPerfilIncompleto = (state: ProfileStore): boolean =>
+  state.loaded && (!state.parentCpf || !state.parentBirthDate);

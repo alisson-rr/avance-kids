@@ -9,9 +9,13 @@ import { theme } from '../theme';
 import { useProfileStore, selectActiveChild } from '../store/useProfileStore';
 import { fetchPlays, fetchArticles } from '../services/content';
 import { fetchActivityPlans } from '../services/activities';
+import { diasRestantesDeTeste, fetchSubscription } from '../services/subscription';
 import { formatAgeFromIso } from '../utils/formatters';
-import type { ArticleRow, PlayRow } from '../types/db';
+import type { ArticleRow, PlayRow, SubscriptionRow } from '../types/db';
 import { PrivateAvatar } from '../components/PrivateAvatar';
+
+/** Espaço extra no cabeçalho azul para a linha "Você ainda tem X dias de teste". */
+const AVISO_TESTE_ALTURA = 36;
 
 interface ActivityCardProps {
   title: string;
@@ -97,9 +101,14 @@ export function HomeScreen({ navigation }: any) {
   const [plays, setPlays] = useState<PlayRow[]>([]);
   const [articles, setArticles] = useState<ArticleRow[]>([]);
   const [planProgress, setPlanProgress] = useState(0);
+  const [assinatura, setAssinatura] = useState<SubscriptionRow | null>(null);
+  const diasDeTeste = diasRestantesDeTeste(assinatura);
+  // O cabeçalho azul cresce só quando o aviso do teste aparece.
+  const alturaAvisoTeste = diasDeTeste ? AVISO_TESTE_ALTURA : 0;
 
   useFocusEffect(
     useCallback(() => {
+      fetchSubscription().then(setAssinatura).catch(() => {});
       // O quinto item só serve para decidir se o botão "Ver mais" deve existir.
       fetchPlays(5).then(setPlays).catch(() => {});
       fetchArticles(5).then(setArticles).catch(() => {});
@@ -157,8 +166,8 @@ export function HomeScreen({ navigation }: any) {
 
   // Shrinks the curve height mathematically perfectly as you scroll
   const curveHeight = scrollY.interpolate({
-    inputRange: [0, CURVE_MAX_HEIGHT],
-    outputRange: [CURVE_MAX_HEIGHT, 0], 
+    inputRange: [0, CURVE_MAX_HEIGHT + alturaAvisoTeste],
+    outputRange: [CURVE_MAX_HEIGHT + alturaAvisoTeste, 0],
     extrapolate: 'clamp',
   });
 
@@ -216,13 +225,29 @@ export function HomeScreen({ navigation }: any) {
         )}
         scrollEventThrottle={16}
       >
-        <View style={styles.scrollSpacer}>
+        <View style={[styles.scrollSpacer, { height: HEADER_MAX_HEIGHT + alturaAvisoTeste }]}>
            <Animated.Text
              style={[styles.greeting, { opacity: largeTitleOpacity }]}
              numberOfLines={1}
            >
              Olá, {firstName}
            </Animated.Text>
+           {diasDeTeste ? (
+             <Animated.View style={[styles.trialRow, { opacity: largeTitleOpacity }]}>
+               <Text style={styles.trialText} numberOfLines={1}>
+                 Você ainda tem {diasDeTeste} {diasDeTeste === 1 ? 'dia' : 'dias'} de teste
+               </Text>
+               <TouchableOpacity
+                 style={styles.trialButton}
+                 onPress={() => navigation.navigate('Plans')}
+                 hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
+                 accessibilityRole="button"
+                 accessibilityLabel="Assinar"
+               >
+                 <Text style={styles.trialButtonText}>Assinar</Text>
+               </TouchableOpacity>
+             </Animated.View>
+           ) : null}
         </View>
 
         <View style={styles.scrollWhiteBody}>
@@ -445,13 +470,40 @@ const styles = StyleSheet.create({
     lineHeight: 32,
     color: '#FFFFFF',
   },
+  trialRow: {
+    position: 'absolute',
+    top: HEADER_MIN_HEIGHT + 10 + 38,
+    left: 24,
+    right: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  trialText: {
+    flexShrink: 1,
+    fontFamily: theme.fonts.regular,
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.9)',
+  },
+  trialButton: {
+    height: 28,
+    paddingHorizontal: 14,
+    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+  },
+  trialButtonText: {
+    fontFamily: theme.fonts.mulishSemiBold,
+    fontSize: 13,
+    color: theme.colors.primary,
+  },
   scrollWhiteBody: {
     backgroundColor: '#FFFFFF', 
     flex: 1,
   },
   mainCardWrapper: {
-    // 'stretch' (e nao 'center'): com maxWidth 345 e centralizacao, em telas de
-    // 412dp o card comecava em 33dp enquanto os titulos de secao ficam em 24dp.
+    // O card ocupa a largura toda ate 445 (alinhado aos titulos de secao) e,
+    // acima disso, fica centralizado com margens iguais dos dois lados.
     alignItems: 'stretch',
     marginBottom: 32,
     marginTop: -40,
@@ -459,7 +511,8 @@ const styles = StyleSheet.create({
   },
   mainCard: {
     width: '100%',
-    maxWidth: 345,
+    maxWidth: 445,
+    alignSelf: 'center',
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     paddingVertical: 40,
@@ -558,7 +611,8 @@ const styles = StyleSheet.create({
   },
   section: {
     width: '100%',
-    marginBottom: 32,
+    // 16 + os 16 de folga do carrossel = os 32 de antes entre as seções.
+    marginBottom: 16,
   },
   sectionHeaderContainer: {
     alignSelf: 'stretch',
@@ -566,7 +620,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginBottom: 24,
+    marginBottom: 12,
   },
   sectionHeaderTitleGroup: {
     flex: 1,
@@ -596,7 +650,10 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   horizontalScroll: {
-    paddingRight: 0,
+    // O ScrollView horizontal recorta tudo fora dele (Android e web): sem
+    // essa folga a sombra do card era cortada rente à base.
+    paddingTop: 12,
+    paddingBottom: 16,
   },
   activityCardPage: {
     paddingHorizontal: 24,

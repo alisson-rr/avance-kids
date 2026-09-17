@@ -1,10 +1,12 @@
 import { SKILLS, AGE_BRACKETS, getSkill, getAgeBracket, type HabilidadeKey, type AgeBracketCode } from '../constants/aba';
 import { ANSWER_SCALE } from '../types/common';
-import { Badge, EntityCrudScreen, FormField, Select } from '../components/ui';
+import { Badge, EntityCrudScreen, FormField, MediaThumb, Select } from '../components/ui';
 import type { DataTableColumn, EntityFilterConfig } from '../components/ui';
 import { useEntityList } from '../hooks/useEntityList';
 import { fetchPerguntas, savePergunta, toggleArchivePergunta, type QuestionKind } from '../services/perguntas';
 import type { Pergunta } from '../types/entities';
+import type { CsvColumn } from '../utils/csv';
+import { youtubeId } from '../utils/youtube';
 import layout from '../styles/crudLayout.module.css';
 import styles from './QuestionCrudScreen.module.css';
 
@@ -22,6 +24,22 @@ const FETCHERS: Record<QuestionKind, () => Promise<Pergunta[]>> = {
   triagem: () => fetchPerguntas('triagem'),
 };
 
+const EXPORT_FILE_BASES: Record<QuestionKind, string> = {
+  inicial: 'perguntas-iniciais',
+  triagem: 'perguntas-triagem',
+};
+
+const exportColumns: CsvColumn<Pergunta>[] = [
+  { header: 'ID', value: (row) => row.id },
+  { header: 'Pergunta', value: (row) => row.texto },
+  { header: 'Habilidade', value: (row) => getSkill(row.skillKey).label },
+  { header: 'Faixa etária', value: (row) => `${row.ageBracketCode} · ${getAgeBracket(row.ageBracketCode).label}` },
+  { header: 'Ordem', value: (row) => row.ordem },
+  { header: 'Status', value: (row) => (row.status === 'ativo' ? 'Ativo' : 'Arquivado') },
+  { header: 'Como responder (texto)', value: (row) => row.comoResponderTexto },
+  { header: 'Como responder (vídeo)', value: (row) => row.comoResponderVideoUrl },
+];
+
 function emptyPergunta(): Pergunta {
   return {
     id: '',
@@ -30,6 +48,8 @@ function emptyPergunta(): Pergunta {
     ageBracketCode: AGE_BRACKETS[0].code,
     ordem: 1,
     status: 'ativo',
+    comoResponderTexto: '',
+    comoResponderVideoUrl: '',
   };
 }
 
@@ -99,6 +119,7 @@ export function QuestionCrudScreen({ title, newLabel, formTitle, kind, searchPla
       emptyItem={emptyPergunta}
       searchPlaceholder={searchPlaceholder}
       filters={filters}
+      exportConfig={{ fileBase: EXPORT_FILE_BASES[kind], load: FETCHERS[kind], columns: exportColumns }}
       onSave={async (item, isEditing) => {
         await savePergunta(kind, item, isEditing);
         await refresh();
@@ -141,6 +162,33 @@ export function QuestionCrudScreen({ title, newLabel, formTitle, kind, searchPla
                 { value: 'ativo', label: 'Ativo' },
                 { value: 'arquivado', label: 'Arquivado' },
               ]}
+            />
+          </FormField>
+
+          <FormField label="Como responder: link do vídeo (YouTube)">
+            <input
+              type="url"
+              value={item.comoResponderVideoUrl}
+              onChange={(e) => update('comoResponderVideoUrl', e.target.value)}
+            />
+            {youtubeId(item.comoResponderVideoUrl) && (
+              <>
+                <MediaThumb size="large" mediaType="video" url={item.comoResponderVideoUrl} />
+                <span className={layout.previewNote}>Pré-visualização apenas demonstrativa</span>
+              </>
+            )}
+          </FormField>
+
+          <FormField
+            label="Como responder: texto"
+            fullWidth
+            hint="Com vídeo e texto vazios, a opção não aparece no app para esta pergunta."
+          >
+            <textarea
+              rows={4}
+              maxLength={5000}
+              value={item.comoResponderTexto}
+              onChange={(e) => update('comoResponderTexto', e.target.value)}
             />
           </FormField>
 

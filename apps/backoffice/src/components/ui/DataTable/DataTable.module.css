@@ -97,6 +97,10 @@
   background-color: var(--color-background);
 }
 
+.clickableRow {
+  cursor: pointer;
+}
+
 .emptyCell {
   text-align: center;
   color: var(--color-text-light);

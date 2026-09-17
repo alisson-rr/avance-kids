@@ -50,13 +50,11 @@ Deno.serve(async (req: Request) => {
     // (migration-05) esconde o conteúdo pago de quem não assina e libera na
     // hora em que a assinatura entra, sem precisar regerar o plano — regerar
     // apagaria o histórico da criança.
-    const { data: sub } = await serviceClient
-      .from("subscriptions")
-      .select("plano, status")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
-    const isPremium = sub?.plano === "premium" && ["active", "trialing"].includes(sub?.status ?? "");
+    // Mesma fonte do banco: assinatura paga OU teste grátis do cadastro.
+    const { data: isPremium, error: premiumErr } = await serviceClient.rpc("child_has_premium_access", {
+      p_child_id: child_id,
+    });
+    if (premiumErr) return errorResponse(premiumErr.message, 500);
 
     const plansToInsert: Record<string, unknown>[] = [];
 

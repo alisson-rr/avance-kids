@@ -44,6 +44,7 @@ interface DataTableProps<T> {
   onToggleAll?: (checked: boolean) => void;
   /** Registros por página. */
   pageSize?: number;
+  onRowClick?: (row: T) => void;
 }
 
 type SortDirection = 'asc' | 'desc';
@@ -62,6 +63,7 @@ export function DataTable<T>({
   onToggleRow,
   onToggleAll,
   pageSize = DEFAULT_PAGE_SIZE,
+  onRowClick,
 }: DataTableProps<T>) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
@@ -180,9 +182,25 @@ export function DataTable<T>({
               pagedRows.map((row) => {
                 const id = getRowId(row);
                 return (
-                  <tr key={id}>
+                  <tr
+                    key={id}
+                    className={onRowClick ? styles.clickableRow : undefined}
+                    tabIndex={onRowClick ? 0 : undefined}
+                    onClick={onRowClick ? () => onRowClick(row) : undefined}
+                    onKeyDown={
+                      onRowClick
+                        ? (e) => {
+                            // Só a própria linha: teclas em botões/inputs internos seguem o comportamento deles.
+                            if (e.target !== e.currentTarget) return;
+                            if (e.key !== 'Enter' && e.key !== ' ') return;
+                            if (e.key === ' ') e.preventDefault();
+                            onRowClick(row);
+                          }
+                        : undefined
+                    }
+                  >
                     {selectable && (
-                      <td>
+                      <td onClick={(e) => e.stopPropagation()}>
                         <input
                           type="checkbox"
                           checked={selectedIds?.has(id) ?? false}

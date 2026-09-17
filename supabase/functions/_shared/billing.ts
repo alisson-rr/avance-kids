@@ -8,7 +8,8 @@
  * Secrets obrigatórios (supabase secrets set ...):
  *   STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_PRICE_MONTHLY
  * Opcionais:
- *   STRIPE_TRIAL_DAYS      (default 15; 0 desliga o teste)
+ *   STRIPE_TRIAL_DAYS      (default 0: o teste de 15 dias começa no cadastro,
+ *                           migration-22, e assinar cobra na hora)
  *   CHECKOUT_SUCCESS_URL, CHECKOUT_CANCEL_URL  (quando houver domínio próprio)
  */
 
@@ -30,7 +31,7 @@ export class BillingError extends Error {
   }
 }
 
-const DEFAULT_TRIAL_DAYS = 15;
+const DEFAULT_TRIAL_DAYS = 0;
 
 /**
  * Dias de teste do checkout. Um valor inválido no secret cairia silenciosamente

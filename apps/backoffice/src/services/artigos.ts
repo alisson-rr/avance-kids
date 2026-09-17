@@ -1,6 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { resolveMediaUrl } from './storage';
-import { assertUpdated, toggleArchiveStatus } from './common';
+import { assertUpdated, fetchAllRows, toggleArchiveStatus } from './common';
 import type { Artigo } from '../types/entities';
 import type { AccessPlan } from '../constants/aba';
 import type { RecordStatus, WithId } from '../types/common';
@@ -15,13 +15,16 @@ interface ArticleRow {
 }
 
 export async function fetchArtigos(): Promise<Artigo[]> {
-  const { data, error } = await supabase
-    .from('articles')
-    .select('id, titulo, corpo, imagem_url, plano, status')
-    .order('created_at', { ascending: false });
-  if (error) throw new Error(error.message);
+  const rows = await fetchAllRows<ArticleRow>((from, to) =>
+    supabase
+      .from('articles')
+      .select('id, titulo, corpo, imagem_url, plano, status')
+      .order('created_at', { ascending: false })
+      .order('id')
+      .range(from, to)
+  );
 
-  return ((data ?? []) as ArticleRow[]).map((row) => ({
+  return rows.map((row) => ({
     id: row.id,
     titulo: row.titulo,
     corpo: row.corpo,

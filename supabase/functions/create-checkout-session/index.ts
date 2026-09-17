@@ -23,15 +23,16 @@ Deno.serve(async (req: Request) => {
     const serviceClient = getServiceClient();
     const { data: sub } = await serviceClient
       .from("subscriptions")
-      .select("stripe_customer_id, stripe_subscription_id, plano, status")
+      .select("stripe_customer_id, stripe_subscription_id, plano, status, teste_gratis_ate")
       .eq("user_id", user.id)
       .maybeSingle();
 
     // Só 'canceled' significa que não existe assinatura viva no Stripe.
     // past_due é dunning em andamento: abrir um checkout novo criaria uma
     // segunda assinatura no mesmo customer e cobraria duas vezes. Esse caso
-    // vai para o portal de cobrança trocar o cartão.
-    if (sub?.plano === "premium" && sub.status !== "canceled") {
+    // vai para o portal de cobrança trocar o cartão. O webhook grava past_due
+    // com plano 'free', então o status sozinho já barra.
+    if (sub?.status === "past_due" || (sub?.plano === "premium" && sub.status !== "canceled")) {
       return errorResponse(
         sub.status === "past_due"
           ? "Sua assinatura está com pagamento pendente. Atualize a forma de pagamento em Gerenciar assinatura."
@@ -72,7 +73,10 @@ Deno.serve(async (req: Request) => {
     // cancelar dentro do período de teste e reabrir o teste indefinidamente. O
     // stripe_subscription_id fica gravado mesmo após o cancelamento; o hash do
     // e-mail preserva esse histórico mesmo após excluir e recriar a conta.
-    const jaUsouTeste = Boolean(sub?.stripe_subscription_id) || jaExcluiuConta;
+    // O teste de 15 dias agora começa no cadastro (migration-22): quem tem
+    // teste_gratis_ate paga na hora, mesmo que STRIPE_TRIAL_DAYS esteja > 0.
+    const jaUsouTeste =
+      Boolean(sub?.stripe_subscription_id) || Boolean(sub?.teste_gratis_ate) || jaExcluiuConta;
     const trialDays = trialPeriodDays();
 
     const session = await stripe.checkout.sessions.create({
