@@ -14,7 +14,7 @@ import { formatAgeFromIso } from '../utils/formatters';
 import type { ArticleRow, PlayRow, SubscriptionRow } from '../types/db';
 import { PrivateAvatar } from '../components/PrivateAvatar';
 
-/** Espaço extra no cabeçalho azul para a linha "Você ainda tem X dias de teste". */
+/** Espaço extra no cabeçalho azul para a linha "Você ainda tem X dias de teste do Plano Premium". */
 const AVISO_TESTE_ALTURA = 36;
 
 interface ActivityCardProps {
@@ -108,17 +108,17 @@ export function HomeScreen({ navigation }: any) {
 
   useFocusEffect(
     useCallback(() => {
-      fetchSubscription().then(setAssinatura).catch(() => {});
+      fetchSubscription().then(setAssinatura).catch(() => { });
       // O quinto item só serve para decidir se o botão "Ver mais" deve existir.
-      fetchPlays(5).then(setPlays).catch(() => {});
-      fetchArticles(5).then(setArticles).catch(() => {});
+      fetchPlays(5).then(setPlays).catch(() => { });
+      fetchArticles(5).then(setArticles).catch(() => { });
       if (activeChild) {
         fetchActivityPlans(activeChild.id)
           .then((plans) => {
             const done = plans.filter((p) => p.status === 'concluido').length;
             setPlanProgress(plans.length > 0 ? Math.round((done / plans.length) * 100) : 0);
           })
-          .catch(() => {});
+          .catch(() => { });
       } else {
         setPlanProgress(0);
       }
@@ -153,14 +153,14 @@ export function HomeScreen({ navigation }: any) {
   // Fade out large title
   const largeTitleOpacity = scrollY.interpolate({
     inputRange: [0, 80],
-    outputRange: [1, 0], 
+    outputRange: [1, 0],
     extrapolate: 'clamp',
   });
 
   // Fade in compact profile
   const compactHeaderOpacity = scrollY.interpolate({
     inputRange: [60, CURVE_MAX_HEIGHT],
-    outputRange: [0, 1], 
+    outputRange: [0, 1],
     extrapolate: 'clamp',
   });
 
@@ -190,7 +190,7 @@ export function HomeScreen({ navigation }: any) {
           ) : (
             <View style={styles.iconButton} />
           )}
-          
+
           <Animated.View style={[styles.compactProfile, { opacity: compactHeaderOpacity }]}>
             <View style={styles.compactAvatarPlaceholder}>
               {activeChild?.avatarPath ? (
@@ -208,7 +208,7 @@ export function HomeScreen({ navigation }: any) {
               <Text style={styles.compactProfileAge} numberOfLines={1}>{childAge}</Text>
             </View>
           </Animated.View>
-          
+
           <TouchableOpacity style={styles.iconButton} onPress={() => navigation.navigate('ChildrenList')}>
             <Feather name="users" size={24} color={theme.colors.white} />
           </TouchableOpacity>
@@ -216,7 +216,7 @@ export function HomeScreen({ navigation }: any) {
       </View>
 
       {/* 3. Main Scroll View (zIndex 5 - Overlaps curve, slides under top header) */}
-      <Animated.ScrollView 
+      <Animated.ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
         onScroll={Animated.event(
@@ -226,32 +226,32 @@ export function HomeScreen({ navigation }: any) {
         scrollEventThrottle={16}
       >
         <View style={[styles.scrollSpacer, { height: HEADER_MAX_HEIGHT + alturaAvisoTeste }]}>
-           <Animated.Text
-             style={[styles.greeting, { opacity: largeTitleOpacity }]}
-             numberOfLines={1}
-           >
-             Olá, {firstName}
-           </Animated.Text>
-           {diasDeTeste ? (
-             <Animated.View style={[styles.trialRow, { opacity: largeTitleOpacity }]}>
-               <Text style={styles.trialText} numberOfLines={1}>
-                 Você ainda tem {diasDeTeste} {diasDeTeste === 1 ? 'dia' : 'dias'} de teste
-               </Text>
-               <TouchableOpacity
-                 style={styles.trialButton}
-                 onPress={() => navigation.navigate('Plans')}
-                 hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
-                 accessibilityRole="button"
-                 accessibilityLabel="Assinar"
-               >
-                 <Text style={styles.trialButtonText}>Assinar</Text>
-               </TouchableOpacity>
-             </Animated.View>
-           ) : null}
+          <Animated.Text
+            style={[styles.greeting, { opacity: largeTitleOpacity }]}
+            numberOfLines={1}
+          >
+            Olá, {firstName}
+          </Animated.Text>
+          {diasDeTeste ? (
+            <Animated.View style={[styles.trialRow, { opacity: largeTitleOpacity }]}>
+              <Text style={styles.trialText} numberOfLines={1}>
+                Você ainda tem {diasDeTeste} {diasDeTeste === 1 ? 'dia' : 'dias'} de teste do Plano Premium
+              </Text>
+              <TouchableOpacity
+                style={styles.trialButton}
+                onPress={() => navigation.navigate('Plans')}
+                hitSlop={{ top: 10, bottom: 10, left: 8, right: 8 }}
+                accessibilityRole="button"
+                accessibilityLabel="Assinar"
+              >
+                <Text style={styles.trialButtonText}>Assinar</Text>
+              </TouchableOpacity>
+            </Animated.View>
+          ) : null}
         </View>
 
         <View style={styles.scrollWhiteBody}>
-          
+
           <View style={styles.mainCardWrapper}>
             <View style={styles.mainCard}>
               <View style={styles.mainCardHeader}>
@@ -262,7 +262,7 @@ export function HomeScreen({ navigation }: any) {
                     : 'Cada conquista é um passo incrível no desenvolvimento!'}
                 </Text>
               </View>
-              
+
               <View style={styles.profileSection}>
                 <View style={styles.avatarPlaceholder}>
                   {activeChild?.avatarPath ? (
@@ -285,7 +285,7 @@ export function HomeScreen({ navigation }: any) {
                   <Text style={styles.progressText}>{planProgress}%</Text>
                 </View>
               </View>
-              
+
               <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8} onPress={() => navigation.navigate('ActivityPlan')}>
                 <Text style={styles.primaryButtonText}>Acessar</Text>
               </TouchableOpacity>
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 50, 
+    paddingHorizontal: 50,
   },
   compactProfileTexts: {
     flexShrink: 1,
@@ -498,7 +498,7 @@ const styles = StyleSheet.create({
     color: theme.colors.primary,
   },
   scrollWhiteBody: {
-    backgroundColor: '#FFFFFF', 
+    backgroundColor: '#FFFFFF',
     flex: 1,
   },
   mainCardWrapper: {
@@ -591,7 +591,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   progressText: {
-    fontFamily: theme.fonts.mulishBold, 
+    fontFamily: theme.fonts.mulishBold,
     fontSize: 12,
     color: '#3678FD',
   },
@@ -661,7 +661,7 @@ const styles = StyleSheet.create({
   activityCard: {
     width: '100%',
     height: 347,
-    backgroundColor: '#FFFFFF', 
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     shadowColor: '#AAAAAA',
     shadowOffset: { width: 0, height: 2 },
